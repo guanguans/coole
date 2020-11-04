@@ -12,8 +12,5 @@ namespace Guanguans\Coole;
 
 class Coole
 {
-    public static function test()
-    {
-        return true;
-    }
+    public static $app;
 }

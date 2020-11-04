@@ -46,6 +46,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function __construct()
     {
+        Coole::$app = $this;
+
         static::setInstance($this);
 
         $this->instance('app', $this);

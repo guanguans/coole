@@ -10,12 +10,10 @@
 
 namespace Guanguans\Coole\Tests;
 
-use Guanguans\Coole\Coole;
-
 class CooleTest extends TestCase
 {
     public function testTest()
     {
-        $this->assertTrue(Coole::test());
+        $this->assertTrue(true);
     }
 }

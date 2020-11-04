@@ -13,3 +13,5 @@ tests.php
 .DS_Store
 .history/
 index.php
+IndexController.php
+view/
