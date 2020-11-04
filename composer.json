@@ -42,7 +42,10 @@
     "autoload": {
         "psr-4": {
             "Guanguans\\Coole\\": "src/Coole"
-        }
+        },
+        "files": [
+            "src/Coole/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

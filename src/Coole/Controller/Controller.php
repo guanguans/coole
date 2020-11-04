@@ -10,12 +10,10 @@
 
 namespace Guanguans\Coole\Controller;
 
-use Guanguans\Coole\Coole;
-
 class Controller implements ControllerInterface
 {
     public function render($view, $params = [])
     {
-        return Coole::$app['view']->render($view, $params);
+        return app('view')->render($view, $params);
     }
 }
