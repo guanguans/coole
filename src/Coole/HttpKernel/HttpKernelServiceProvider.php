@@ -1,0 +1,52 @@
+<?php
+
+/*
+ * This file is part of the guanguans/coole.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
+namespace Guanguans\Coole\HttpKernel;
+
+use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
+use Guanguans\Coole\App;
+use Guanguans\Di\Container;
+use Guanguans\Di\ServiceProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\HttpKernel\EventListener\ResponseListener;
+
+class HttpKernelServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface
+{
+    /**
+     * @inheritdoc
+     */
+    public function register(Container $app)
+    {
+        $app->singleton(ControllerResolver::class, function ($app) {
+            return new ControllerResolver();
+        });
+        $app->alias(ControllerResolver::class, 'controller_resolver');
+
+        $app->singleton(ArgumentResolver::class, function ($app) {
+            return new ArgumentResolver();
+        });
+        $app->alias(ArgumentResolver::class, 'argument_resolver');
+
+        $app->singleton(HttpKernel::class, function ($app) {
+            return new HttpKernel($app['event_dispatcher'], $app['controller_resolver'], $app['request_stack'], $app['argument_resolver']);
+        });
+        $app->alias(HttpKernel::class, 'http_kernel');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function subscribe(App $app, EventDispatcherInterface $dispatcher)
+    {
+        $dispatcher->addSubscriber(new ResponseListener('utf-8'));
+    }
+}
