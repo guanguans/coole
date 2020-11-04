@@ -10,8 +10,10 @@
 
 namespace Guanguans\Coole;
 
+use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
+use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Coole\Providers\EventDispatcherServiceProvider;
 use Guanguans\Coole\Providers\HttpFoundationServiceProvider;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
@@ -32,6 +34,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      * @var string[]
      */
     protected $providers = [
+        AppServiceProvider::class,
         EventDispatcherServiceProvider::class,
         HttpFoundationServiceProvider::class,
         RoutingServiceProvider::class,
@@ -59,6 +62,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     public function register(ServiceProviderInterface $provider)
     {
+        if ($provider instanceof BootAbleProviderInterface) {
+            $provider->boot($this);
+        }
+
         $provider->register($this);
 
         if ($provider instanceof EventListenerAbleProviderInterface) {
