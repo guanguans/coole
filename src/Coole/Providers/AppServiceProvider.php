@@ -19,8 +19,9 @@ class AppServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
 {
     public function boot(App $app)
     {
-        $app['charset'] = 'UTF-8';
         $app['debug'] = false;
+        $app['charset'] = 'UTF-8';
+        $app['logger'] = null;
     }
 
     public function register(Container $app)
