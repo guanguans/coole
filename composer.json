@@ -33,11 +33,12 @@
         "twig/twig": "^3.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "vimeo/psalm": "^3.11",
-        "mockery/mockery": "^1.2",
         "brainmaestro/composer-git-hooks": "^2.7",
-        "phpunit/phpunit": "^7.0 || ^8.0"
+        "filp/whoops": "^2.9",
+        "friendsofphp/php-cs-fixer": "^2.16",
+        "mockery/mockery": "^1.2",
+        "phpunit/phpunit": "^8.0",
+        "vimeo/psalm": "^3.11"
     },
     "autoload": {
         "psr-4": {

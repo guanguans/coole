@@ -12,6 +12,7 @@ namespace Guanguans\Coole;
 
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
+use Guanguans\Coole\Handlers\WhoopsServiceProvider;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
 use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Coole\Providers\EventDispatcherServiceProvider;
@@ -39,6 +40,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         HttpFoundationServiceProvider::class,
         RoutingServiceProvider::class,
         HttpKernelServiceProvider::class,
+        WhoopsServiceProvider::class,
     ];
 
     /**
