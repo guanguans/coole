@@ -19,7 +19,7 @@ use Guanguans\Di\ServiceProviderInterface;
 /**
  * $app = new App();
  * $app->offsetSet('dbs.options', [
- *     'db' => [
+ *     'db_mysql' => [
  *         'driver'   => 'pdo_mysql',
  *         'host'     => '192.168.10.10',
  *         'dbname'   => 'homestead',
@@ -27,12 +27,15 @@ use Guanguans\Di\ServiceProviderInterface;
  *         'password' => 'secret',
  *         'charset'  => 'utf8mb4',
  *     ],
+ *     'db_sqlite' => [
+ *         'driver'   => 'pdo_sqlite',
+ *         'path'   => __DIR__.'/app.db',
+ *     ],
  * ]);
  * $app->register(new DoctrineServiceProvider());
- * $sql  = "SELECT * FROM users WHERE id = ?";
- * $db   = app('dbs')->db;
- * $user = $db->fetchAssoc($sql, [1]);
- * dd($user);
+ * $dbMysql  = app('dbs')->db_mysql;
+ * $user     = $dbMysql->fetchAssoc('SELECT * FROM users WHERE id = ?', [1]);
+ * $dbSqlite = app('dbs')->db_sqlite;
  */
 class DoctrineServiceProvider implements ServiceProviderInterface
 {
@@ -129,13 +132,14 @@ class DoctrineServiceProvider implements ServiceProviderInterface
         }
 
         $tmp = $app['dbs.options'];
-        foreach ($tmp as $name => &$options) {
+        array_walk($tmp, function (&$options, $name) use ($app) {
             $options = array_replace($app['db.default_options'], $options);
 
             if (! isset($app['dbs.default'])) {
                 $app['dbs.default'] = $name;
             }
-        }
+        });
+
         $app['dbs.options'] = $tmp;
     }
 }
