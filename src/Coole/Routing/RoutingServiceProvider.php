@@ -41,6 +41,12 @@ class RoutingServiceProvider implements ServiceProviderInterface, EventListenerA
             return new UrlMatcher($app['route_collection'], $app['request_context']);
         });
         $app->alias(UrlMatcher::class, 'url_matcher');
+
+        $app->singleton(RouteCollector::class, function ($app) {
+            return new RouteCollector(new Route, $app['route_collection']);
+        });
+        $app->alias(RouteCollector::class, 'route');
+        $app->alias(RouteCollector::class, 'route_collector');
     }
 
     /**
