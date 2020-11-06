@@ -38,40 +38,10 @@ class DoctrineServiceProvider implements ServiceProviderInterface
 {
     public function register(Container $app)
     {
-        $app['db.default_options'] = [
-            'driver' => 'pdo_mysql',
-            'dbname' => null,
-            'host' => 'localhost',
-            'user' => 'root',
-            'password' => null,
-        ];
+        $this->defaultOptions($app);
 
-        $app['dbs.options.initializer'] = $initializer = function ($app) {
-            static $initialized = false;
-
-            if ($initialized) {
-                return;
-            }
-
-            $initialized = true;
-
-            if (! isset($app['dbs.options'])) {
-                $app['dbs.options'] = ['default' => isset($app['db.options']) ? $app['db.options'] : []];
-            }
-
-            $tmp = $app['dbs.options'];
-            foreach ($tmp as $name => &$options) {
-                $options = array_replace($app['db.default_options'], $options);
-
-                if (! isset($app['dbs.default'])) {
-                    $app['dbs.default'] = $name;
-                }
-            }
-            $app['dbs.options'] = $tmp;
-        };
-
-        $app->singleton('dbs', function ($app) use ($initializer) {
-            $initializer($app);
+        $app->singleton('dbs', function ($app) {
+            $this->optionsInitializer($app);
 
             $dbs = new Container();
             foreach ($app['dbs.options'] as $name => $options) {
@@ -92,8 +62,8 @@ class DoctrineServiceProvider implements ServiceProviderInterface
             return $dbs;
         });
 
-        $app->singleton('dbs.config', function ($app) use ($initializer) {
-            $initializer($app);
+        $app->singleton('dbs.config', function ($app) {
+            $this->optionsInitializer($app);
 
             $configs = new Container();
             foreach ($app['dbs.options'] as $name => $options) {
@@ -103,8 +73,8 @@ class DoctrineServiceProvider implements ServiceProviderInterface
             return $configs;
         });
 
-        $app->singleton('dbs.event_manager', function ($app) use ($initializer) {
-            $initializer($app);
+        $app->singleton('dbs.event_manager', function ($app) {
+            $this->optionsInitializer($app);
 
             $managers = new Container();
             foreach ($app['dbs.options'] as $name => $options) {
@@ -131,5 +101,41 @@ class DoctrineServiceProvider implements ServiceProviderInterface
 
             return $dbs[$app['dbs.default']];
         });
+    }
+
+    protected function defaultOptions(Container $app)
+    {
+        $app['db.default_options'] = [
+            'driver' => 'pdo_mysql',
+            'dbname' => null,
+            'host' => 'localhost',
+            'user' => 'root',
+            'password' => null,
+        ];
+    }
+
+    protected function optionsInitializer(Container $app)
+    {
+        static $initialized = false;
+
+        if ($initialized) {
+            return;
+        }
+
+        $initialized = true;
+
+        if (! isset($app['dbs.options'])) {
+            $app['dbs.options'] = ['default' => isset($app['db.options']) ? $app['db.options'] : []];
+        }
+
+        $tmp = $app['dbs.options'];
+        foreach ($tmp as $name => &$options) {
+            $options = array_replace($app['db.default_options'], $options);
+
+            if (! isset($app['dbs.default'])) {
+                $app['dbs.default'] = $name;
+            }
+        }
+        $app['dbs.options'] = $tmp;
     }
 }
