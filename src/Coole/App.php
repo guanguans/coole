@@ -12,11 +12,11 @@ namespace Guanguans\Coole;
 
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
-use Guanguans\Coole\Handlers\WhoopsServiceProvider;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
 use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Coole\Providers\EventDispatcherServiceProvider;
 use Guanguans\Coole\Providers\HttpFoundationServiceProvider;
+use Guanguans\Coole\Providers\WhoopsServiceProvider;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
@@ -28,7 +28,7 @@ use Symfony\Component\HttpKernel\TerminableInterface;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
-    const VERSION = '1.0.0-dev';
+    public const VERSION = '1.0.0-dev';
 
     /**
      * 核心服务

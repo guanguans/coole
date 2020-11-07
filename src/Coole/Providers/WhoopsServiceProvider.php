@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\Handlers;
+namespace Guanguans\Coole\Providers;
 
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
