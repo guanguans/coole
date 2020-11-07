@@ -12,6 +12,8 @@ namespace Guanguans\Coole;
 
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
+use Guanguans\Coole\Config\Config;
+use Guanguans\Coole\Config\ConfigServiceProvider;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
 use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Coole\Providers\EventDispatcherServiceProvider;
@@ -36,6 +38,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      * @var string[]
      */
     protected $providers = [
+        ConfigServiceProvider::class,
         AppServiceProvider::class,
         EventDispatcherServiceProvider::class,
         HttpFoundationServiceProvider::class,
@@ -47,7 +50,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * App constructor.
      */
-    public function __construct(array $values = [])
+    public function __construct(array $config = [])
     {
         Coole::$app = $this;
 
@@ -59,7 +62,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         $this->registerProviders($this->providers);
 
-        $this->mergeValues($values);
+        $this->config($config);
     }
 
     public function version()
@@ -67,24 +70,21 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return static::VERSION;
     }
 
-    public function mergeValues(array $values)
+    public function config($key = null, $default = null)
     {
-        foreach ($values as $key => $value) {
-            $this[$key] = $value;
+        if (is_null($key)) {
+            return $this['config'];
         }
+
+        if (is_array($key)) {
+            return $this['config']->set($key);
+        }
+
+        return $this['config']->get($key, $default);
     }
 
-    public function addValues(array $values)
+    public function register(ServiceProviderInterface $provider)
     {
-        foreach ($values as $key => $value) {
-            $this->offsetExists($key) || $this[$key] = $value;
-        }
-    }
-
-    public function register(ServiceProviderInterface $provider, array $values = [])
-    {
-        $this->mergeValues($values);
-
         if ($provider instanceof BootAbleProviderInterface) {
             $provider->boot($this);
         }

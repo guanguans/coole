@@ -27,3 +27,24 @@ if (! function_exists('app')) {
         return Container::getInstance()->makeWith($abstract, $parameters);
     }
 }
+
+if (! function_exists('config')) {
+    /**
+     * @param null $key
+     * @param null $default
+     *
+     * @return \Guanguans\Coole\Config\Config|mixed
+     */
+    function config($key = null, $default = null)
+    {
+        if (is_null($key)) {
+            return app('config');
+        }
+
+        if (is_array($key)) {
+            return app('config')->set($key);
+        }
+
+        return app('config')->get($key, $default);
+    }
+}
