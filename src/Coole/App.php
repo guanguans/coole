@@ -47,7 +47,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * App constructor.
      */
-    public function __construct()
+    public function __construct(array $values = [])
     {
         Coole::$app = $this;
 
@@ -58,6 +58,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->instance(Container::class, $this);
 
         $this->registerProviders($this->providers);
+
+        $this->mergeValues($values);
     }
 
     public function version()
@@ -65,8 +67,24 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return static::VERSION;
     }
 
-    public function register(ServiceProviderInterface $provider)
+    public function mergeValues(array $values)
     {
+        foreach ($values as $key => $value) {
+            $this[$key] = $value;
+        }
+    }
+
+    public function addValues(array $values)
+    {
+        foreach ($values as $key => $value) {
+            $this->offsetExists($key) || $this[$key] = $value;
+        }
+    }
+
+    public function register(ServiceProviderInterface $provider, array $values = [])
+    {
+        $this->mergeValues($values);
+
         if ($provider instanceof BootAbleProviderInterface) {
             $provider->boot($this);
         }
