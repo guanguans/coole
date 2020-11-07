@@ -25,7 +25,7 @@ class ViewServiceProvider implements ServiceProviderInterface, BootAbleProviderI
     {
         $loader = new FilesystemLoader();
 
-        $paths = is_array($app['view.options']['path']) ? $app['view.options']['path'] : [$app['view.options']['path']];
+        $paths = is_array($app['config']['view']['path']) ? $app['config']['view']['path'] : [$app['config']['view']['path']];
 
         foreach ($paths as $namespace => $path) {
             if (is_string($namespace)) {
@@ -46,7 +46,7 @@ class ViewServiceProvider implements ServiceProviderInterface, BootAbleProviderI
         $app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
 
         $app->singleton(Environment::class, function ($app) {
-            return new Environment($app['twig_filesystem_loader'], isset($app['view.options']['options']) ? $app['view.options']['options'] : []);
+            return new Environment($app['twig_filesystem_loader'], isset($app['config']['view']['options']) ? $app['config']['view']['options'] : []);
         });
         $app->alias(Environment::class, 'view');
     }
