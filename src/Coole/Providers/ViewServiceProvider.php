@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\View;
+namespace Guanguans\Coole\Providers;
 
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\App;
