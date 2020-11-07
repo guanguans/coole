@@ -32,6 +32,7 @@
         "symfony/http-foundation": "^5.0",
         "symfony/http-kernel": "^5.0",
         "symfony/routing": "^5.0",
+        "tightenco/collect": "^8.0",
         "twig/twig": "^3.0"
     },
     "require-dev": {
