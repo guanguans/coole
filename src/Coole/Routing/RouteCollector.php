@@ -72,18 +72,18 @@ class RouteCollector
         return $this->match($pattern, $to)->setMethods('PATCH');
     }
 
-    public function prefix($prefix, callable $callback)
-    {
-        $callback();
-
-        $this->routeCollection->addPrefix($prefix);
-
-        $this->routeCollection->addNamePrefix($prefix);
-
-        $rootCollection = new RouteCollection();
-
-        $rootCollection->addCollection($this->routeCollection);
-
-        return $this->routeCollection;
-    }
+    // public function prefix($prefix, callable $callback)
+    // {
+    //     $callback();
+    //
+    //     $this->routeCollection->addPrefix($prefix);
+    //
+    //     $this->routeCollection->addNamePrefix($prefix);
+    //
+    //     $rootCollection = new RouteCollection();
+    //
+    //     $rootCollection->addCollection($this->routeCollection);
+    //
+    //     return $this->routeCollection;
+    // }
 }
