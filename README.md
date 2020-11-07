@@ -21,7 +21,17 @@ $ composer require guanguans/coole -vvv
 
 ## Usage
 
-> to do
+``` php
+<?php
+// 1.
+$app = new \Guanguans\Coole\App();
+// 2.
+$app['route']->get('/', function (){
+    return 'This is the Coole framework.';
+});
+// 3.
+$app->run();
+```
 
 ## Testing
 
