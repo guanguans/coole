@@ -23,7 +23,7 @@ use Symfony\Component\Routing\RouteCollection;
 class RoutingServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function register(Container $app)
     {
@@ -43,14 +43,14 @@ class RoutingServiceProvider implements ServiceProviderInterface, EventListenerA
         $app->alias(UrlMatcher::class, 'url_matcher');
 
         $app->singleton(RouteCollector::class, function ($app) {
-            return new RouteCollector(new Route, $app['route_collection']);
+            return new RouteCollector(new Route(), $app['route_collection']);
         });
         $app->alias(RouteCollector::class, 'route');
         $app->alias(RouteCollector::class, 'route_collector');
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function subscribe(App $app, EventDispatcherInterface $dispatcher)
     {

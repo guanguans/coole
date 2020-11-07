@@ -32,6 +32,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 核心服务
+     *
      * @var string[]
      */
     protected $providers = [

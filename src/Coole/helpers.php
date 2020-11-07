@@ -13,8 +13,9 @@ use Guanguans\Di\Container;
 if (! function_exists('app')) {
     /**
      * Get the available container instance.
-     * @param  string|null  $abstract
-     * @param  array  $parameters
+     *
+     * @param string|null $abstract
+     *
      * @return mixed|\Guanguans\Coole\App
      */
     function app($abstract = null, array $parameters = [])

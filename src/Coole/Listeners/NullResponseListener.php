@@ -20,8 +20,8 @@ class NullResponseListener implements EventSubscriberInterface
     public function onKernelView(ViewEvent $event)
     {
         $response = $event->getControllerResult();
-        
-        if ($response === null) {
+
+        if (null === $response) {
             $event->setResponse(new Response());
         }
     }

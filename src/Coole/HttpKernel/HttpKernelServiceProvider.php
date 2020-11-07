@@ -24,7 +24,7 @@ use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 class HttpKernelServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function register(Container $app)
     {
@@ -45,7 +45,7 @@ class HttpKernelServiceProvider implements ServiceProviderInterface, EventListen
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function subscribe(App $app, EventDispatcherInterface $dispatcher)
     {

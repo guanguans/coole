@@ -35,7 +35,7 @@ use Guanguans\Di\ServiceProviderInterface;
  * $app->register(new DoctrineServiceProvider());
  * $dbMysql  = app('dbs')->db_mysql;
  * $user     = $dbMysql->fetchAssoc('SELECT * FROM users WHERE id = ?', [1]);
- * $dbSqlite = app('dbs')->db_sqlite;
+ * $dbSqlite = app('dbs')->db_sqlite;.
  */
 class DoctrineServiceProvider implements ServiceProviderInterface
 {

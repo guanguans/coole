@@ -25,8 +25,9 @@ class ViewServiceProvider implements ServiceProviderInterface, BootAbleProviderI
 
     /**
      * ViewServiceProvider constructor.
+     *
      * @param $path
-     * @param  array  $options
+     *
      * @throws \Twig\Error\LoaderError
      */
     public function __construct($path, array $options = [])

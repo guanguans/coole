@@ -14,6 +14,6 @@ class Route extends \Symfony\Component\Routing\Route
 {
     public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = '')
     {
-        parent::__construct($path,  $defaults,  $requirements,  $options,  $host, $schemes, $methods,  $condition);
+        parent::__construct($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
     }
 }
