@@ -10,6 +10,8 @@
 
 namespace Guanguans\Coole\Config;
 
+use Guanguans\Coole\Support\Repository;
+
 class Config extends Repository
 {
 }

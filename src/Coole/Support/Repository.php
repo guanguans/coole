@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\Config;
+namespace Guanguans\Coole\Support;
 
 use ArrayAccess;
 use Tightenco\Collect\Support\Arr;
