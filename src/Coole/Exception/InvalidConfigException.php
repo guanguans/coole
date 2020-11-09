@@ -8,10 +8,8 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\Config;
+namespace Guanguans\Coole\Exception;
 
-use Guanguans\Coole\Support\Repository;
-
-class Config extends Repository
+class InvalidConfigException extends \Exception
 {
 }

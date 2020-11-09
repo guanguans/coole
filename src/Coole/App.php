@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
+use Tightenco\Collect\Support\Collection;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
@@ -39,17 +40,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function __construct(array $config = [])
     {
-        Coole::$app = $this;
-
         static::setInstance($this);
 
         $this->instance('app', $this);
 
-        $this->instance(Container::class, $this);
-
         $this->register(new AppServiceProvider());
 
-        $this->config($config);
+        $this->addConfig($config);
     }
 
     public function version()
@@ -76,17 +73,18 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
     }
 
-    public function config($key = null, $default = null)
+    public function mergeConfig(array $configs)
     {
-        if (is_null($key)) {
-            return $this['config'];
+        foreach ($configs as $key => $config) {
+            $this['config'][$key] = new Collection($config);
         }
+    }
 
-        if (is_array($key)) {
-            return $this['config']->set($key);
+    public function addConfig(array $values)
+    {
+        foreach ($values as $key => $config) {
+            $this['config']->offsetExists($key) || $this['config'][$key] = new Collection($config);
         }
-
-        return $this['config']->get($key, $default);
     }
 
     public function register(ServiceProviderInterface $provider)

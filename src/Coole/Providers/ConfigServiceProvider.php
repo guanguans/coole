@@ -8,23 +8,16 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\Config;
+namespace Guanguans\Coole\Providers;
 
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
+use Tightenco\Collect\Support\Collection as Config;
 
 class ConfigServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function boot(App $app)
-    {
-        // TODO: Implement boot() method.
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -34,5 +27,13 @@ class ConfigServiceProvider implements ServiceProviderInterface, BootAbleProvide
             return new Config();
         });
         $app->alias(Config::class, 'config');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function boot(App $app)
+    {
+        // TODO: Implement boot() method.
     }
 }

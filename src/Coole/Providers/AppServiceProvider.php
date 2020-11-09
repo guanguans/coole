@@ -10,15 +10,12 @@
 
 namespace Guanguans\Coole\Providers;
 
-use Guanguans\Coole\Able\BootAbleProviderInterface;
-use Guanguans\Coole\App;
-use Guanguans\Coole\Config\ConfigServiceProvider;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 
-class AppServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface
+class AppServiceProvider implements ServiceProviderInterface
 {
     /**
      * 核心服务服务类.
@@ -51,12 +48,5 @@ class AppServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
         foreach ($this->options as $key => $option) {
             $app[$key] = $option;
         }
-    }
-
-    public function boot(App $app)
-    {
-        // foreach ($this->options as $key => $option) {
-        //     $app[$key] = $option;
-        // }
     }
 }
