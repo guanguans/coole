@@ -12,14 +12,7 @@ namespace Guanguans\Coole;
 
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
-use Guanguans\Coole\Config\Config;
-use Guanguans\Coole\Config\ConfigServiceProvider;
-use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
 use Guanguans\Coole\Providers\AppServiceProvider;
-use Guanguans\Coole\Providers\EventDispatcherServiceProvider;
-use Guanguans\Coole\Providers\HttpFoundationServiceProvider;
-use Guanguans\Coole\Providers\WhoopsServiceProvider;
-use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
@@ -32,20 +25,14 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     public const VERSION = '1.0.0-dev';
 
+    protected $booted = false;
+
     /**
      * 核心服务
      *
-     * @var string[]
+     * @var array
      */
-    protected $providers = [
-        ConfigServiceProvider::class,
-        AppServiceProvider::class,
-        EventDispatcherServiceProvider::class,
-        HttpFoundationServiceProvider::class,
-        RoutingServiceProvider::class,
-        HttpKernelServiceProvider::class,
-        WhoopsServiceProvider::class,
-    ];
+    protected $providers = [];
 
     /**
      * App constructor.
@@ -60,7 +47,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         $this->instance(Container::class, $this);
 
-        $this->registerProviders($this->providers);
+        $this->register(new AppServiceProvider());
 
         $this->config($config);
     }
@@ -68,6 +55,25 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function version()
     {
         return static::VERSION;
+    }
+
+    public function boot()
+    {
+        if ($this->booted) {
+            return;
+        }
+
+        $this->booted = true;
+
+        foreach ($this->providers as $provider) {
+            if ($provider instanceof EventListenerAbleProviderInterface) {
+                $provider->subscribe($this, $this[EventDispatcher::class]);
+            }
+
+            if ($provider instanceof BootableProviderInterface) {
+                $provider->boot($this);
+            }
+        }
     }
 
     public function config($key = null, $default = null)
@@ -85,15 +91,11 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     public function register(ServiceProviderInterface $provider)
     {
-        if ($provider instanceof BootAbleProviderInterface) {
-            $provider->boot($this);
-        }
+        $this->providers[] = $provider;
 
         $provider->register($this);
 
-        if ($provider instanceof EventListenerAbleProviderInterface) {
-            $provider->subscribe($this, $this[EventDispatcher::class]);
-        }
+        return $this;
     }
 
     public function registerProviders(array $providers)
@@ -116,6 +118,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     public function handle(Request $request, int $type = self::MASTER_REQUEST, bool $catch = true)
     {
+        $this->boot();
+
         return $this['http_kernel']->handle($request, $type, $catch);
     }
 
