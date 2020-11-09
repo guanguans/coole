@@ -10,13 +10,16 @@
 
 namespace Guanguans\Coole\Providers;
 
+use Guanguans\Coole\Able\BootAbleProviderInterface;
+use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
+use Symfony\Component\ErrorHandler\ErrorHandler;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-class WhoopsServiceProvider implements ServiceProviderInterface
+class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface
 {
     public function register(Container $app)
     {
@@ -36,7 +39,14 @@ class WhoopsServiceProvider implements ServiceProviderInterface
             return $run;
         });
         $app->alias(Run::class, 'whoops');
+    }
 
-        $app['whoops']->register();
+    public function boot(App $app)
+    {
+        ErrorHandler::register();
+
+        if ($app['debug']) {
+            $app['whoops']->register();
+        }
     }
 }
