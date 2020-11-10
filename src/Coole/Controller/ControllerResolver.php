@@ -10,6 +10,7 @@
 
 namespace Guanguans\Coole\Controller;
 
+use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Di\Container;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,7 +48,7 @@ class ControllerResolver implements ControllerResolverInterface
                 try {
                     $controller[0] = $this->instantiateController($controller[0]);
                     if (! $controller[0] instanceof Controller) {
-                        throw new \InvalidArgumentException(sprintf('The controller must be implements "%s" .', Controller::class));
+                        throw new InvalidClassException(sprintf('The controller must be implements "%s" .', Controller::class));
                     }
                 } catch (\Error | \LogicException $e) {
                     try {
