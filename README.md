@@ -23,13 +23,20 @@ $ composer require guanguans/coole -vvv
 
 ``` php
 <?php
-// 1.
+// 1. Create App.
 $app = new \Guanguans\Coole\App();
-// 2.
+
+// 2. Add routes and middlewares.
 $app['route']->get('/', function (){
     return 'This is the Coole framework.';
+})->setMiddlewares(function (\Symfony\Component\HttpFoundation\Request $request, \Closure $next){
+    printf('Before request <br>');
+    $response = $next($request);
+    printf('<br> After request');
+
+    return $response;
 });
-// 3.
+// 3. Listen and Running.
 $app->run();
 ```
 
