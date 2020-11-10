@@ -21,7 +21,7 @@ class Route extends \Symfony\Component\Routing\Route
 
     public function setMiddlewares($middlewares)
     {
-        $this->middlewares = (array) $middlewares;
+        $this->middlewares = array_merge($this->middlewares, (array) $middlewares);
 
         return $this;
     }
