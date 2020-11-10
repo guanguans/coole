@@ -13,6 +13,7 @@ namespace Guanguans\Coole\Providers;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
+use Guanguans\Coole\Middleware\CheckResponseForModifications;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
@@ -34,6 +35,15 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
     ];
 
     /**
+     * 核心中间件类.
+     *
+     * @var string[]
+     */
+    protected $middlewares = [
+        CheckResponseForModifications::class,
+    ];
+
+    /**
      * app 配置.
      *
      * @var array
@@ -48,6 +58,8 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         foreach ($this->options as $key => $option) {
             $app[$key] = $option;
         }
+
+        $app->addMiddleware($this->middlewares);
     }
 
     public function register(Container $app)

@@ -17,6 +17,7 @@ use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
+use Mpociot\Pipeline\Pipeline;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Tightenco\Collect\Support\Collection;
 
-class App extends Container implements HttpKernelInterface, TerminableInterface
+class App extends Container implements TerminableInterface
 {
     public const VERSION = '1.0.0-dev';
 
@@ -36,6 +37,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      * @var array
      */
     protected $providers = [];
+
+    /**
+     * 核心中间件.
+     *
+     * @var string[]
+     */
+    protected $middlewares = [];
 
     /**
      * App constructor.
@@ -89,6 +97,15 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
     }
 
+    public function addMiddleware($middleware)
+    {
+        $middlewares = is_string($middleware) ? [$middleware] : $middleware;
+
+        foreach ($middlewares as $middleware) {
+            $this->middlewares[] = $middleware;
+        }
+    }
+
     public function register(ServiceProviderInterface $provider)
     {
         $this->providers[] = $provider;
@@ -119,16 +136,30 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             $request = Request::createFromGlobals();
         }
 
-        $response = $this->handle($request);
-        $response->send();
+        $response = $this->sendRequestThroughHandle($request);
+
         $this->terminate($request, $response);
     }
 
-    public function handle(Request $request, int $type = self::MASTER_REQUEST, bool $catch = true)
+    public function sendHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
     {
         $this->boot();
 
-        return $this['http_kernel']->handle($request, $type, $catch);
+        $response = $this['http_kernel']->handle($request, $type, $catch);
+
+        $response->send();
+
+        return $response;
+    }
+
+    public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+    {
+        return (new Pipeline())
+            ->send($request)
+            ->through($this->middlewares)
+            ->then(function () use ($request, $type, $catch) {
+                return $this->sendHandle($request, $type, $catch);
+            });
     }
 
     public function terminate(Request $request, Response $response)
