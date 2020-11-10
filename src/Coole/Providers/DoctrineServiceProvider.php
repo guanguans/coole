@@ -11,10 +11,13 @@
 namespace Guanguans\Coole\Providers;
 
 use Doctrine\DBAL\DriverManager;
+use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
+use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 
 /**
+ * ``` php
  * $app = new App();
  * $app['config']['dbs'] = [
  *      'db_mysql'  => [
@@ -32,28 +35,19 @@ use Guanguans\Di\ServiceProviderInterface;
  * ];
  * $app->register(new DoctrineServiceProvider());
  * $dbMysql  = app('dbs')->db_mysql;
- * $user     = $dbMysql->fetchAssoc('SELECT * FROM users WHERE id = ?', [1]);
- * $dbSqlite = app('dbs')->db_sqlite;.
+ * $queryBuilder = $dbMysql->createQueryBuilder();
+ * $query = $queryBuilder
+ *      ->select('id', 'name')
+ *      ->from('users')
+ *      ->where('id = 1')
+ * ;
+ * $user = $dbMysql->fetchAssoc($query->getSql());
+ * $dbSqlite = app('dbs')->db_sqlite;
+ * ```.
  */
-class DoctrineServiceProvider implements ServiceProviderInterface
+class DoctrineServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
-    public function register(Container $app)
-    {
-        $this->defaultOptions($app);
-
-        $app->singleton('dbs', function ($app) {
-            $dbs = new Container();
-            foreach ($app['config']['dbs'] as $name => $options) {
-                $dbs->singleton($name, function ($dbs) use ($options) {
-                    return DriverManager::getConnection($options);
-                });
-            }
-
-            return $dbs;
-        });
-    }
-
-    protected function defaultOptions(Container $app)
+    public function beforeRegister(App $app)
     {
         $app->addConfig([
             'dbs' => [
@@ -66,5 +60,19 @@ class DoctrineServiceProvider implements ServiceProviderInterface
                 ],
             ],
         ]);
+    }
+
+    public function register(Container $app)
+    {
+        $app->singleton('dbs', function ($app) {
+            $dbs = new Container();
+            foreach ($app['config']['dbs'] as $name => $options) {
+                $dbs->singleton($name, function ($dbs) use ($options) {
+                    return DriverManager::getConnection($options);
+                });
+            }
+
+            return $dbs;
+        });
     }
 }

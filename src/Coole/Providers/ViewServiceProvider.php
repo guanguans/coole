@@ -21,6 +21,19 @@ class ViewServiceProvider implements ServiceProviderInterface, BootAbleProviderI
 {
     public $loader;
 
+    public function register(Container $app)
+    {
+        $app->singleton(FilesystemLoader::class, function ($app) {
+            return $this->loader;
+        });
+        $app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
+
+        $app->singleton(Environment::class, function ($app) {
+            return new Environment($app['twig_filesystem_loader'], isset($app['config']['view']['options']) ? $app['config']['view']['options'] : []);
+        });
+        $app->alias(Environment::class, 'view');
+    }
+
     public function boot(App $app)
     {
         $loader = new FilesystemLoader();
@@ -36,18 +49,5 @@ class ViewServiceProvider implements ServiceProviderInterface, BootAbleProviderI
         }
 
         $this->loader = $loader;
-    }
-
-    public function register(Container $app)
-    {
-        $app->singleton(FilesystemLoader::class, function ($app) {
-            return $this->loader;
-        });
-        $app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
-
-        $app->singleton(Environment::class, function ($app) {
-            return new Environment($app['twig_filesystem_loader'], isset($app['config']['view']['options']) ? $app['config']['view']['options'] : []);
-        });
-        $app->alias(Environment::class, 'view');
     }
 }
