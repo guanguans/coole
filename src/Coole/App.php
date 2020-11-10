@@ -10,6 +10,8 @@
 
 namespace Guanguans\Coole;
 
+use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
+use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\Providers\AppServiceProvider;
@@ -76,14 +78,14 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function mergeConfig(array $configs)
     {
         foreach ($configs as $key => $config) {
-            $this['config'][$key] = new Collection($config);
+            $this['config'][$key] = $config instanceof Collection ? $config : new Collection($config);
         }
     }
 
     public function addConfig(array $values)
     {
         foreach ($values as $key => $config) {
-            $this['config']->offsetExists($key) || $this['config'][$key] = new Collection($config);
+            $this['config']->offsetExists($key) || $this['config'][$key] = $config instanceof Collection ? $config : new Collection($config);
         }
     }
 
@@ -91,7 +93,15 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $this->providers[] = $provider;
 
+        if ($provider instanceof BeforeRegisterAbleProviderInterface) {
+            $provider->beforeRegister($this);
+        }
+
         $provider->register($this);
+
+        if ($provider instanceof AfterRegisterAbleProviderInterface) {
+            $provider->afterRegister($this);
+        }
 
         return $this;
     }

@@ -10,12 +10,14 @@
 
 namespace Guanguans\Coole\Providers;
 
+use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
+use Guanguans\Coole\App;
 use Guanguans\Coole\HttpKernel\HttpKernelServiceProvider;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 
-class AppServiceProvider implements ServiceProviderInterface
+class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
     /**
      * 核心服务服务类.
@@ -32,7 +34,7 @@ class AppServiceProvider implements ServiceProviderInterface
     ];
 
     /**
-     * 核心配置.
+     * app 配置.
      *
      * @var array
      */
@@ -41,12 +43,15 @@ class AppServiceProvider implements ServiceProviderInterface
         'charset' => 'UTF-8',
     ];
 
-    public function register(Container $app)
+    public function beforeRegister(App $app)
     {
-        $app->registerProviders($this->providers);
-
         foreach ($this->options as $key => $option) {
             $app[$key] = $option;
         }
+    }
+
+    public function register(Container $app)
+    {
+        $app->registerProviders($this->providers);
     }
 }
