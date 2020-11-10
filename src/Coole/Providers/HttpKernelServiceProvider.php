@@ -12,13 +12,13 @@ namespace Guanguans\Coole\Providers;
 
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\App;
+use Guanguans\Coole\Controller\ControllerResolver;
 use Guanguans\Coole\Listeners\NullResponseListener;
 use Guanguans\Coole\Listeners\StringResponseListener;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
-use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 use Symfony\Component\HttpKernel\HttpKernel;
 
