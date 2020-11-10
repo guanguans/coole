@@ -156,10 +156,24 @@ class App extends Container implements TerminableInterface
     {
         return (new Pipeline())
             ->send($request)
-            ->through($this->middlewares)
+            ->through($this->getRouteMiddlewares($request))
             ->then(function () use ($request, $type, $catch) {
                 return $this->sendHandle($request, $type, $catch);
             });
+    }
+
+    public function getRouteMiddlewares($request)
+    {
+        $parameters = $this['url_matcher']->matchRequest($request);
+
+        $controllerMiddlewares = [];
+        if (is_array($parameters['_controller'])) {
+            $controllerMiddlewares = $this->make($parameters['_controller'][0])->getMiddlewares();
+        }
+
+        $routeMiddlewares = $this['route_collection']->get($parameters['_route'])->getMiddlewares();
+
+        return array_merge($controllerMiddlewares, $routeMiddlewares, $this->middlewares);
     }
 
     public function terminate(Request $request, Response $response)

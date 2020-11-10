@@ -12,8 +12,22 @@ namespace Guanguans\Coole\Routing;
 
 class Route extends \Symfony\Component\Routing\Route
 {
+    protected $middlewares = [];
+
     public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = '')
     {
         parent::__construct($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
+    }
+
+    public function setMiddlewares($middlewares)
+    {
+        $this->middlewares = (array) $middlewares;
+
+        return $this;
+    }
+
+    public function getMiddlewares()
+    {
+        return $this->middlewares;
     }
 }

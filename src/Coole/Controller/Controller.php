@@ -18,6 +18,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Controller implements ControllerInterface
 {
+    protected $middlewares = [];
+
     public function render($view, $params = [])
     {
         return app('view')->render($view, $params);
@@ -46,5 +48,10 @@ class Controller implements ControllerInterface
     public function sendFile($file, $status = 200, array $headers = [], $contentDisposition = null)
     {
         return new BinaryFileResponse($file, $status, $headers, true, $contentDisposition);
+    }
+
+    public function getMiddlewares()
+    {
+        return $this->middlewares;
     }
 }
