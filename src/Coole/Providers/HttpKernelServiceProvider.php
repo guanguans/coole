@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\HttpKernel;
+namespace Guanguans\Coole\Providers;
 
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\App;
@@ -20,6 +20,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
+use Symfony\Component\HttpKernel\HttpKernel;
 
 class HttpKernelServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface
 {
