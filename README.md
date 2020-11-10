@@ -30,9 +30,9 @@ $app = new \Guanguans\Coole\App();
 $app['route']->get('/', function (){
     return 'This is the Coole framework.';
 })->setMiddlewares(function (\Symfony\Component\HttpFoundation\Request $request, \Closure $next){
-    printf('Before request <br>');
+    printf('Before request. <br>');
     $response = $next($request);
-    printf('<br> After request');
+    printf('<br> After request.');
 
     return $response;
 });
