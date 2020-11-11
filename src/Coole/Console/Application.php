@@ -10,7 +10,6 @@
 
 namespace Guanguans\Coole\Console;
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,7 +35,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  *      );
  * }
  *
- * use Guanguans\Coole\Console\App;
+ * use Guanguans\Coole\Console\Application;
  * use Guanguans\Coole\Console\CommandDiscoverer;
  *
  * $commandDiscoverer = new CommandDiscoverer(
@@ -44,12 +43,12 @@ use Symfony\Component\Console\Output\OutputInterface;
  *      'Guanguans\Coole\Console\Commands'
  * );
  *
- * $app = new App(\Guanguans\Coole\App::getInstance(), $commandDiscoverer);
+ * $app = new Application(\Guanguans\Coole\Application::getInstance(), $commandDiscoverer);
  * $status = $app->run();
  * exit($status);
  * ```
  */
-class App extends Application
+class Application extends \Symfony\Component\Console\Application
 {
     protected $app;
 
