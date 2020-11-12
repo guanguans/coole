@@ -10,6 +10,7 @@
 
 namespace Guanguans\Coole\Console;
 
+use Guanguans\Coole\App;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -36,14 +37,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  * }
  *
  * use Guanguans\Coole\Console\Application;
- * use Guanguans\Coole\Console\CommandDiscoverer;
  *
- * $commandDiscoverer = new CommandDiscoverer(
- *      __DIR__.'/Console/Commands',
- *      'Guanguans\Coole\Console\Commands'
- * );
- *
- * $app = new Application(\Guanguans\Coole\Application::getInstance(), $commandDiscoverer);
+ * $app = new Application(\Guanguans\Coole\Application::getInstance());
  * $status = $app->run();
  * exit($status);
  * ```
@@ -51,8 +46,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Application extends \Symfony\Component\Console\Application
 {
     protected $app;
-
-    protected $commandDiscoverer;
 
     const LOGO = <<<'coole'
 <fg=green;options=bold>
@@ -70,10 +63,9 @@ coole;
 
     protected $container;
 
-    public function __construct(\Guanguans\Coole\App $app, CommandDiscoverer $commandDiscoverer)
+    public function __construct(App $app)
     {
         $this->app = $app;
-        $this->commandDiscoverer = $commandDiscoverer;
 
         parent::__construct('Coole Framework', $app->version());
     }
@@ -83,7 +75,9 @@ coole;
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        $this->registerCommands($this->commandDiscoverer->getCommands());
+        $this->app['command']->each(function ($commands) {
+            $this->registerCommands($commands);
+        });
 
         return parent::doRun($input, $output);
     }

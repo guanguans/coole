@@ -10,15 +10,19 @@
 
 namespace Guanguans\Coole\Providers;
 
+use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
+use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
 use Guanguans\Coole\Middleware\CheckResponseForModifications;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 
-class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
+class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
+    use LoadCommandAble;
+
     /**
      * 核心服务服务类.
      *
@@ -26,6 +30,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      */
     protected $providers = [
         ConfigServiceProvider::class,
+        CommandServiceProvider::class,
         EventDispatcherServiceProvider::class,
         HttpFoundationServiceProvider::class,
         RoutingServiceProvider::class,
@@ -64,5 +69,10 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
     public function register(Container $app)
     {
         $app->registerProviders($this->providers);
+    }
+
+    public function afterRegister(App $app)
+    {
+        $this->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
     }
 }

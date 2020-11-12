@@ -21,19 +21,16 @@ class CommandDiscoverer
 
     protected $suffix;
 
-    protected $finder;
-
     public function __construct(string $dir, string $namespace, string $suffix = '*Command.php')
     {
         $this->dir = $dir;
         $this->namespace = $namespace;
         $this->suffix = $suffix;
-        $this->finder = Finder::create();
     }
 
     public function getCommands()
     {
-        $files = $this->finder->files()->in($this->dir)->name($this->suffix);
+        $files = Finder::create()->files()->in($this->dir)->name($this->suffix);
 
         $commands = [];
         try {
@@ -81,18 +78,6 @@ class CommandDiscoverer
     public function setSuffix(string $suffix)
     {
         $this->suffix = $suffix;
-
-        return $this;
-    }
-
-    public function getFinder(): Finder
-    {
-        return $this->finder;
-    }
-
-    public function setFinder(Finder $finder)
-    {
-        $this->finder = $finder;
 
         return $this;
     }
