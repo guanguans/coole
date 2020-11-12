@@ -75,9 +75,7 @@ coole;
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        $this->app['command']->each(function ($commands) {
-            $this->registerCommands($commands);
-        });
+        $this->addCommands($this->app['command']->flatten()->all());
 
         return parent::doRun($input, $output);
     }
@@ -88,12 +86,5 @@ coole;
     public function getHelp()
     {
         return parent::getHelp().PHP_EOL.static::LOGO;
-    }
-
-    protected function registerCommands($commands = [])
-    {
-        $this->addCommands($commands);
-
-        return $this;
     }
 }
