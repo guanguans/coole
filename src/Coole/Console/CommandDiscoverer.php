@@ -28,7 +28,7 @@ class CommandDiscoverer
         $this->dir = $dir;
         $this->namespace = $namespace;
         $this->suffix = $suffix;
-        $this->finder = new Finder();
+        $this->finder = Finder::create();
     }
 
     public function getCommands()

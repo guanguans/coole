@@ -11,6 +11,7 @@
 namespace Guanguans\Coole\Console\Commands;
 
 use Guanguans\Coole\Console\Command;
+use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -22,14 +23,21 @@ class ServeCommand extends Command
     protected $description = 'Serve the application on the PHP development server';
 
     protected $options = [
-        ['php', null, InputOption::VALUE_OPTIONAL, 'The php path to serve the application on', 'php'],
         ['host', null, InputOption::VALUE_OPTIONAL, 'The host address to serve the application on', '127.0.0.1'],
         ['port', null, InputOption::VALUE_OPTIONAL, 'The port to serve the application on', 8000],
-        ['file', null, InputOption::VALUE_REQUIRED, 'The file to serve the application on', null],
+        ['docroot', null, InputOption::VALUE_REQUIRED, 'The docroot to serve the application on', null],
     ];
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (empty($this->input->getOption('docroot'))) {
+            throw new InvalidArgumentException('Please set option of docroot.');
+        }
+
+        if (! file_exists($this->input->getOption('docroot'))) {
+            throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $this->input->getOption('docroot')));
+        }
+
         $this->output->writeln("<info>Coole development server started:</info> <http://{$this->input->getOption('host')}:{$this->input->getOption('port')}>");
 
         passthru($this->serverCommand(), $status);
@@ -39,11 +47,11 @@ class ServeCommand extends Command
 
     protected function serverCommand()
     {
-        return sprintf('%s -S %s:%s %s',
-            $this->input->getOption('php'),
+        return sprintf('%s -S %s:%s -t %s',
+            PHP_BINARY,
             $this->input->getOption('host'),
             $this->input->getOption('port'),
-            $this->input->getOption('file')
+            $this->input->getOption('docroot'),
         );
     }
 }
