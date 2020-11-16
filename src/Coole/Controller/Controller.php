@@ -10,6 +10,7 @@
 
 namespace Guanguans\Coole\Controller;
 
+use Guanguans\Coole\App;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,9 +21,9 @@ class Controller implements ControllerInterface
 {
     protected $middlewares = [];
 
-    public function render($view, $params = [])
+    public function render($name, $context = []): string
     {
-        return app('view')->render($view, $params);
+        return App::getInstance()->make('view')->render($name, $context);
     }
 
     public function redirect($url, $status = 302, array $headers = [])

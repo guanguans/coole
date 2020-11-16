@@ -16,8 +16,6 @@ interface ControllerInterface
      * Renders a template.
      *
      * @param $name
-     *
-     * @return string
      */
-    public function render($name, array $context = []);
+    public function render($name, array $context = []): string;
 }

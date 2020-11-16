@@ -15,5 +15,5 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 interface EventListenerAbleProviderInterface
 {
-    public function subscribe(App $pp, EventDispatcherInterface $dispatcher);
+    public function subscribe(App $app, EventDispatcherInterface $dispatcher);
 }

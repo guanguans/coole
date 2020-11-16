@@ -34,6 +34,12 @@ class RouteRegistrar
     /**
      * @param  array|string|\Closure|null
      */
+
+    /**
+     * @param $middleware
+     *
+     * @return $this
+     */
     public function middleware($middleware)
     {
         $this->attributes['middleware'] = is_array($middleware) ? $middleware : [$middleware];
