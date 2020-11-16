@@ -14,6 +14,7 @@ use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
+use Guanguans\Coole\Facade\Facade;
 use Guanguans\Coole\Middleware\CheckResponseForModifications;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
@@ -73,6 +74,8 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
 
     public function afterRegister(App $app)
     {
+        Facade::setFacadeApplication($app);
+
         $this->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
     }
 }
