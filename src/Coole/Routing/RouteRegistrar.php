@@ -31,6 +31,16 @@ class RouteRegistrar
         return $this;
     }
 
+    /**
+     * @param  array|string|\Closure|null
+     */
+    public function middleware($middleware)
+    {
+        $this->attributes['middleware'] = is_array($middleware) ? $middleware : [$middleware];
+
+        return $this;
+    }
+
     public function group(callable $callback)
     {
         $this->router->group($this->attributes, $callback);

@@ -34,6 +34,8 @@ class Router
 
         $route->setDefault('_controller', $to);
 
+        $route->setMiddlewares($this->getGroupMiddlewares());
+
         $this->routeCollection->add($groupPattern, $route);
 
         return $route;
@@ -85,6 +87,15 @@ class Router
         return isset($attributes['prefix']) ? rtrim($attributes['prefix'], '/').'/'.$pattern : $pattern;
     }
 
+    protected function getGroupMiddlewares()
+    {
+        if (empty($this->groupStack)) {
+            return [];
+        }
+
+        return end($this->groupStack)['middleware'] ?? [];
+    }
+
     protected function updateGroupStack(array $attributes)
     {
         $newAttributes = [];
@@ -95,6 +106,11 @@ class Router
             isset($lastAttribute['prefix'])
             ? ($lastAttribute['prefix'].(isset($attributes['prefix']) ? '/'.$attributes['prefix'] : ''))
             : ($attributes['prefix'] ?? '');
+
+        $newAttributes['middleware'] =
+            isset($lastAttribute['middleware'])
+            ? (isset($attributes['middleware']) ? array_merge($lastAttribute['middleware'], $attributes['middleware']) : $lastAttribute['middleware'])
+            : ($attributes['middleware'] ?? []);
 
         $this->groupStack[] = $newAttributes;
 
