@@ -17,3 +17,4 @@ IndexController.php
 view/
 app.db
 cooler
+app.log

@@ -35,6 +35,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         EventDispatcherServiceProvider::class,
         HttpFoundationServiceProvider::class,
         RoutingServiceProvider::class,
+        MonologServiceProvider::class,
         HttpKernelServiceProvider::class,
         WhoopsServiceProvider::class,
     ];

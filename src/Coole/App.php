@@ -56,7 +56,7 @@ class App extends Container implements TerminableInterface
 
         $this->register(new AppServiceProvider());
 
-        $this->addConfig($config);
+        $this->mergeConfig($config);
     }
 
     public function version()
