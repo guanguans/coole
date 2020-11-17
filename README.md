@@ -1,6 +1,6 @@
-# coole
+<p align="center"><img src="./docs/logo.png" alt="Coole"></p>
 
-> The Coole Framework.
+> Coole is a PHP micro-framework based on open source excellent components for developing Web applications and APIs.
 
 ![Tests](https://github.com/guanguans/coole/workflows/Tests/badge.svg)
 ![Check & fix styling](https://github.com/guanguans/coole/workflows/Check%20&%20fix%20styling/badge.svg)
@@ -15,30 +15,45 @@
 
 ## Installation
 
-``` bash
+``` shell script
 $ composer require guanguans/coole -vvv
 ```
 
-## Usage
+## Quick start
 
 ``` php
 <?php
+
+use Guanguans\Coole\App;
+use Guanguans\Coole\Facade\Router;
+use Symfony\Component\HttpFoundation\Request;
+
+require __DIR__.'/vendor/autoload.php';
+
 // 1. Create App.
-$app = new \Guanguans\Coole\App();
+$app = new App();
+$app['debug'] = true;
 
 // 2. Add routes and middlewares.
-$app['route']->get('/', function (){
+Router::get('/', function (){
     return 'This is the Coole framework.';
-})->setMiddlewares(function (\Symfony\Component\HttpFoundation\Request $request, \Closure $next){
-    printf('Before request. <br>');
+})->setMiddleware(function (Request $request, Closure $next){
+    printf('Before request.<br>');
+
     $response = $next($request);
-    printf('<br> After request.');
+
+    printf('<br>After request.');
 
     return $response;
 });
+
 // 3. Listen and Running.
 $app->run();
 ```
+
+## Documentation
+
+[www.guanguans.cn/coole](https://www.guanguans.cn/coole/)
 
 ## Testing
 
