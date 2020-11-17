@@ -88,6 +88,8 @@ class App extends Container implements TerminableInterface
         foreach ($configs as $key => $config) {
             $this['config'][$key] = $config instanceof Collection ? $config : new Collection($config);
         }
+
+        return $this;
     }
 
     public function addConfig(array $values)
@@ -95,15 +97,15 @@ class App extends Container implements TerminableInterface
         foreach ($values as $key => $config) {
             $this['config']->offsetExists($key) || $this['config'][$key] = $config instanceof Collection ? $config : new Collection($config);
         }
+
+        return $this;
     }
 
     public function addMiddleware($middleware)
     {
-        $middlewares = is_string($middleware) ? [$middleware] : $middleware;
+        $this->middlewares = array_merge($this->middlewares, is_string($middleware) ? [$middleware] : $middleware);
 
-        foreach ($middlewares as $middleware) {
-            $this->middlewares[] = $middleware;
-        }
+        return $this;
     }
 
     public function register(ServiceProviderInterface $provider)
@@ -128,6 +130,8 @@ class App extends Container implements TerminableInterface
         foreach ($providers as $provider) {
             $this->register(new $provider());
         }
+
+        return $this;
     }
 
     public function run(Request $request = null)
