@@ -43,7 +43,7 @@ class App extends Container implements TerminableInterface
      *
      * @var string[]
      */
-    protected $middlewares = [];
+    protected $middleware = [];
 
     /**
      * App constructor.
@@ -103,7 +103,7 @@ class App extends Container implements TerminableInterface
 
     public function addMiddleware($middleware)
     {
-        $this->middlewares = array_merge($this->middlewares, is_string($middleware) ? [$middleware] : $middleware);
+        $this->middleware = array_merge($this->middleware, (array) $middleware);
 
         return $this;
     }
@@ -160,24 +160,33 @@ class App extends Container implements TerminableInterface
     {
         return (new Pipeline())
             ->send($request)
-            ->through($this->getRouteMiddlewares($request))
+            ->through($this->getRouteMiddleware($request))
             ->then(function () use ($request, $type, $catch) {
                 return $this->sendHandle($request, $type, $catch);
             });
     }
 
-    public function getRouteMiddlewares($request)
+    public function getRouteMiddleware($request)
     {
         $parameters = $this['url_matcher']->matchRequest($request);
 
-        $controllerMiddlewares = [];
+        $controllerMiddleware = [];
+
         if (is_array($parameters['_controller'])) {
-            $controllerMiddlewares = $this->make($parameters['_controller'][0])->getMiddlewares();
+            $controllerMiddleware = $this->make($parameters['_controller'][0])->getMiddleware();
         }
 
-        $routeMiddlewares = $this['route_collection']->get($parameters['_route'])->getMiddlewares();
+        $routeMiddleware = $this['route_collection']->get($parameters['_route'])->getMiddleware();
 
-        return array_merge($controllerMiddlewares, $routeMiddlewares, $this->middlewares);
+        $middleware = array_merge($controllerMiddleware, $routeMiddleware, $this->middleware);
+
+        array_walk($middleware, function (&$item) {
+            if (is_string($item)) {
+                $item = $this->make($item);
+            }
+        });
+
+        return  $middleware;
     }
 
     public function terminate(Request $request, Response $response)

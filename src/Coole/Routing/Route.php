@@ -12,22 +12,22 @@ namespace Guanguans\Coole\Routing;
 
 class Route extends \Symfony\Component\Routing\Route
 {
-    protected $middlewares = [];
+    protected $middleware = [];
 
     public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = '')
     {
         parent::__construct($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
     }
 
-    public function setMiddlewares($middlewares)
+    public function setMiddleware($middleware)
     {
-        $this->middlewares = array_merge($this->middlewares, (array) $middlewares);
+        $this->middleware = array_merge($this->middleware, (array) $middleware);
 
         return $this;
     }
 
-    public function getMiddlewares()
+    public function getMiddleware()
     {
-        return $this->middlewares;
+        return $this->middleware;
     }
 }

@@ -34,7 +34,7 @@ class Router
 
         $route->setDefault('_controller', $to);
 
-        $route->setMiddlewares($this->getGroupMiddlewares());
+        $route->setMiddleware($this->getGroupMiddleware());
 
         $this->routeCollection->add($groupPattern, $route);
 
@@ -87,7 +87,7 @@ class Router
         return isset($attributes['prefix']) ? rtrim($attributes['prefix'], '/').'/'.$pattern : $pattern;
     }
 
-    protected function getGroupMiddlewares()
+    protected function getGroupMiddleware()
     {
         if (empty($this->groupStack)) {
             return [];
