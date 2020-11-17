@@ -10,30 +10,19 @@
 
 namespace Guanguans\Coole\Providers;
 
-use Guanguans\Coole\Able\BootAbleProviderInterface;
-use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Tightenco\Collect\Support\Collection as Config;
 
-class ConfigServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface
+class ConfigServiceProvider implements ServiceProviderInterface
 {
     /**
      * {@inheritdoc}
      */
     public function register(Container $app)
     {
-        $app->singleton(Config::class, function ($app) {
+        $app->singleton('config', function ($app) {
             return new Config();
         });
-        $app->alias(Config::class, 'config');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function boot(App $app)
-    {
-        // TODO: Implement boot() method.
     }
 }

@@ -21,9 +21,8 @@ class CommandServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
-        $app->singleton(Command::class, function ($app) {
+        $app->singleton('command', function ($app) {
             return new Command();
         });
-        $app->alias(Command::class, 'command');
     }
 }
