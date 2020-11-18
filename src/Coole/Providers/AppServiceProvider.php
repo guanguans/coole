@@ -40,6 +40,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         WhoopsServiceProvider::class,
         DoctrineServiceProvider::class,
         DatabaseServiceProvider::class,
+        TwigServiceProvider::class,
     ];
 
     /**
