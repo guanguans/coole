@@ -14,6 +14,7 @@ use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
+use Guanguans\Coole\Database\DatabaseServiceProvider;
 use Guanguans\Coole\Facade\Facade;
 use Guanguans\Coole\Middleware\CheckResponseForModifications;
 use Guanguans\Coole\Routing\RoutingServiceProvider;
@@ -30,7 +31,6 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      * @var string[]
      */
     protected $providers = [
-        ConfigServiceProvider::class,
         CommandServiceProvider::class,
         EventDispatcherServiceProvider::class,
         HttpFoundationServiceProvider::class,
@@ -39,6 +39,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         HttpKernelServiceProvider::class,
         WhoopsServiceProvider::class,
         DoctrineServiceProvider::class,
+        DatabaseServiceProvider::class,
     ];
 
     /**

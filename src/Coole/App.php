@@ -15,6 +15,7 @@ use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\Providers\AppServiceProvider;
+use Guanguans\Coole\Providers\ConfigServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;
@@ -54,9 +55,11 @@ class App extends Container implements TerminableInterface
 
         $this->instance('app', $this);
 
-        $this->register(new AppServiceProvider());
+        $this->register(new ConfigServiceProvider());
 
         $this->mergeConfig($config);
+
+        $this->register(new AppServiceProvider());
     }
 
     public function version()

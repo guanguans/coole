@@ -74,9 +74,5 @@ class DoctrineServiceProvider implements ServiceProviderInterface, BeforeRegiste
 
             return $dbs;
         });
-
-        $app->singleton('db', function ($app) {
-            return $app['dbs']->default;
-        });
     }
 }
