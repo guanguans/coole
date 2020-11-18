@@ -65,7 +65,7 @@ class DoctrineServiceProvider implements ServiceProviderInterface, BeforeRegiste
     public function register(Container $app)
     {
         $app->singleton('dbs', function ($app) {
-            $dbs = Container::getInstance();
+            $dbs = new Container();
             foreach ($app['config']['dbs'] as $name => $options) {
                 $dbs->singleton($name, function ($dbs) use ($options) {
                     return DriverManager::getConnection($options);
@@ -73,6 +73,10 @@ class DoctrineServiceProvider implements ServiceProviderInterface, BeforeRegiste
             }
 
             return $dbs;
+        });
+
+        $app->singleton('db', function ($app) {
+            return $app['dbs']->default;
         });
     }
 }

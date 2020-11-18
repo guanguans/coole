@@ -10,10 +10,10 @@
 
 namespace Guanguans\Coole\Facade;
 
-class DBS extends Facade
+class DB extends Facade
 {
     public static function getFacadeAccessor()
     {
-        return 'dbs';
+        return 'db';
     }
 }

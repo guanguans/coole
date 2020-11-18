@@ -38,6 +38,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         MonologServiceProvider::class,
         HttpKernelServiceProvider::class,
         WhoopsServiceProvider::class,
+        DoctrineServiceProvider::class,
     ];
 
     /**
