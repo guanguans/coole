@@ -14,6 +14,7 @@ use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
+use Guanguans\Coole\Console\ConsoleServiceProvider;
 use Guanguans\Coole\Database\DatabaseServiceProvider;
 use Guanguans\Coole\Facade\Facade;
 use Guanguans\Coole\Middleware\CheckResponseForModifications;
@@ -41,6 +42,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         DoctrineServiceProvider::class,
         DatabaseServiceProvider::class,
         TwigServiceProvider::class,
+        ConsoleServiceProvider::class,
     ];
 
     /**
