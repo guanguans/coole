@@ -31,13 +31,13 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      * @var string[]
      */
     protected $providers = [
+        WhoopsServiceProvider::class,
         CommandServiceProvider::class,
         EventDispatcherServiceProvider::class,
         HttpFoundationServiceProvider::class,
         RoutingServiceProvider::class,
         MonologServiceProvider::class,
         HttpKernelServiceProvider::class,
-        WhoopsServiceProvider::class,
         DoctrineServiceProvider::class,
         DatabaseServiceProvider::class,
         TwigServiceProvider::class,
@@ -48,7 +48,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      *
      * @var string[]
      */
-    protected $middlewares = [
+    protected $middleware = [
         CheckResponseForModifications::class,
     ];
 
@@ -62,23 +62,56 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         'charset' => 'UTF-8',
     ];
 
+    /**
+     * AppServiceProvider constructor.
+     */
+    public function __construct(array $options)
+    {
+        $this->options = array_merge($this->options, $options);
+    }
+
     public function beforeRegister(App $app)
     {
         foreach ($this->options as $key => $option) {
             $app[$key] = $option;
         }
 
-        $app->addMiddleware($this->middlewares);
+        if (! isset($app['config']['app'])) {
+            return;
+        }
+
+        $app['config']['app']->filter(function ($value, $key) {
+            return ! is_array($value);
+        })->each(function ($value, $key) use ($app) {
+            $app[$key] = $value;
+        });
     }
 
     public function register(Container $app)
     {
         $app->registerProviders($this->providers);
+
+        if (isset($app['config']['app']['providers'])) {
+            $app->registerProviders($app['config']['app']['providers']);
+        }
     }
 
     public function afterRegister(App $app)
     {
         Facade::setFacadeApplication($app);
+
+        if (isset($app['config']['app']['route'])) {
+            foreach ($app['config']['app']['route'] as $file) {
+                if (file_exists($file)) {
+                    require $file;
+                }
+            }
+        }
+
+        $app->addMiddleware($this->middleware);
+        if (isset($app['config']['app']['middleware'])) {
+            $app->addMiddleware($app['config']['app']['middleware']);
+        }
 
         $this->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
     }

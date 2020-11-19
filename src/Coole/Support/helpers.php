@@ -27,3 +27,34 @@ if (! function_exists('app')) {
         return Container::getInstance()->makeWith($abstract, $parameters);
     }
 }
+
+if (! function_exists('base_path')) {
+    /**
+     * @return string|null
+     */
+    function base_path(string $path = '')
+    {
+        if (! defined('BASE_PATH')) {
+            return null;
+        }
+        if (! empty($path)) {
+            return BASE_PATH.'/'.trim($path, '/');
+        }
+
+        return BASE_PATH;
+    }
+}
+
+if (! function_exists('config_path')) {
+    /**
+     * @return string|null
+     */
+    function config_path(string $path = '')
+    {
+        if (! empty($path)) {
+            return base_path('config').'/'.trim($path, '/');
+        }
+
+        return base_path('config');
+    }
+}

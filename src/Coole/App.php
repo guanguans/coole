@@ -49,17 +49,13 @@ class App extends Container implements TerminableInterface
     /**
      * App constructor.
      */
-    public function __construct(array $config = [])
+    public function __construct(array $options = [])
     {
         static::setInstance($this);
 
-        $this->instance('app', $this);
-
         $this->register(new ConfigServiceProvider());
 
-        $this->mergeConfig($config);
-
-        $this->register(new AppServiceProvider());
+        $this->register(new AppServiceProvider($options));
     }
 
     public function version()
