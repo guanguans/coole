@@ -39,7 +39,6 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         RoutingServiceProvider::class,
         MonologServiceProvider::class,
         HttpKernelServiceProvider::class,
-        DoctrineServiceProvider::class,
         DatabaseServiceProvider::class,
         TwigServiceProvider::class,
         ConsoleServiceProvider::class,
