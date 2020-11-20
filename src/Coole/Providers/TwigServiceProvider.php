@@ -52,7 +52,7 @@ class TwigServiceProvider implements ServiceProviderInterface, BeforeRegisterAbl
         $app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
 
         $app->singleton(Environment::class, function ($app) {
-            return new Environment($app['twig_filesystem_loader'], isset($app['config']['view']['options']) ? $app['config']['view']['options'] : []);
+            return new Environment($app['twig_filesystem_loader'], $app['config']['view']['options'] ?? []);
         });
         $app->alias(Environment::class, 'view');
     }

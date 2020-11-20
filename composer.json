@@ -39,7 +39,8 @@
         "symfony/routing": "^5.0",
         "tightenco/collect": "^8.0",
         "topthink/think-orm": "^2.0",
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.7",

@@ -28,6 +28,22 @@ if (! function_exists('app')) {
     }
 }
 
+if (! function_exists('env')) {
+    /**
+     * @param null $value
+     *
+     * @return array|false|string
+     */
+    function env(string $name, $value = null)
+    {
+        if (null !== $value && false === getenv($name)) {
+            return $value;
+        }
+
+        return getenv($name);
+    }
+}
+
 if (! function_exists('base_path')) {
     /**
      * @return string|null

@@ -10,15 +10,28 @@
 
 namespace Guanguans\Coole\Providers;
 
+use Dotenv\Dotenv;
 use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
+use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\Finder\Finder;
 use Tightenco\Collect\Support\Collection as Config;
 
-class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface
+class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface, BeforeRegisterAbleProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function beforeRegister(App $app)
+    {
+        if (null !== base_path()) {
+            $dotenv = Dotenv::createUnsafeMutable(base_path());
+            $dotenv->load();
+        }
+    }
+
     /**
      * {@inheritdoc}
      */
