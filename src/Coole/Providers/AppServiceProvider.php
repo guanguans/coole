@@ -81,11 +81,13 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
             return;
         }
 
-        $app['config']['app']->filter(function ($value, $key) {
+        $app['config']['app']->filter(function ($value) {
             return ! is_array($value);
         })->each(function ($value, $key) use ($app) {
             $app[$key] = $value;
         });
+
+        Facade::setFacadeApplication($app);
     }
 
     public function register(Container $app)
@@ -99,19 +101,6 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
 
     public function afterRegister(App $app)
     {
-        Facade::setFacadeApplication($app);
-
-        if (isset($app['config']['app']['route'])) {
-            foreach ($app['config']['app']['route'] as $file) {
-                if (file_exists($file)) {
-                    require $file;
-                }
-            }
-        }
-
         $app->addMiddleware($this->middleware);
-        if (isset($app['config']['app']['middleware'])) {
-            $app->addMiddleware($app['config']['app']['middleware']);
-        }
     }
 }

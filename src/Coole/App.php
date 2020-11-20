@@ -165,7 +165,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             });
     }
 
-    public function getRouteMiddleware($request)
+    public function getRouteMiddleware(Request $request)
     {
         $parameters = $this['url_matcher']->matchRequest($request);
 
