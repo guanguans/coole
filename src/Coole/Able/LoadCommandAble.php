@@ -18,7 +18,10 @@ trait LoadCommandAble
     public function loadCommand(string $dir, string $namespace, string $suffix = '*Command.php')
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
+        if ($commands = $commandDiscoverer->getCommands()) {
+            App::getInstance()['command']->add($commands);
+        }
 
-        return App::getInstance()['command']->add($commandDiscoverer->getCommands());
+        return true;
     }
 }

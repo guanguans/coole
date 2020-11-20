@@ -8,7 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-use Guanguans\Di\Container;
+use Guanguans\Coole\App;
 use Tightenco\Collect\Support\Collection;
 
 if (! function_exists('app')) {
@@ -22,10 +22,10 @@ if (! function_exists('app')) {
     function app($abstract = null, array $parameters = [])
     {
         if (is_null($abstract)) {
-            return Container::getInstance();
+            return App::getInstance();
         }
 
-        return Container::getInstance()->makeWith($abstract, $parameters);
+        return App::getInstance()->makeWith($abstract, $parameters);
     }
 }
 

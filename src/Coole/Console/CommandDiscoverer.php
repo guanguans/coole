@@ -11,7 +11,6 @@
 namespace Guanguans\Coole\Console;
 
 use Symfony\Component\Finder\Finder;
-use Throwable;
 
 class CommandDiscoverer
 {
@@ -33,14 +32,11 @@ class CommandDiscoverer
         $files = Finder::create()->files()->in($this->dir)->name($this->suffix);
 
         $commands = [];
-        try {
-            foreach ($files as $file) {
-                $class = rtrim($this->namespace.'\\'.$file->getBasename(), '.php');
-                $command = new $class();
-                $command instanceof Command && $commands[] = $command;
-            }
-        } catch (Throwable $e) {
-            PHP_SAPI === 'cli' && die($e->getMessage());
+
+        foreach ($files as $file) {
+            $class = '\\'.trim($this->namespace.'\\'.$file->getBasename('.php'), '\\');
+            $command = new $class();
+            $command instanceof Command && $commands[] = $command;
         }
 
         return $commands;
