@@ -26,7 +26,7 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Tightenco\Collect\Support\Collection;
 
-class App extends Container implements TerminableInterface
+class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     public const VERSION = '1.0.0-dev';
 
@@ -144,10 +144,8 @@ class App extends Container implements TerminableInterface
         $this->terminate($request, $response);
     }
 
-    public function sendHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
     {
-        $this->boot();
-
         $response = $this['http_kernel']->handle($request, $type, $catch);
 
         $response->send();
@@ -157,11 +155,13 @@ class App extends Container implements TerminableInterface
 
     public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
     {
+        $this->boot();
+
         return (new Pipeline())
             ->send($request)
             ->through($this->getRouteMiddleware($request))
             ->then(function () use ($request, $type, $catch) {
-                return $this->sendHandle($request, $type, $catch);
+                return $this->handle($request, $type, $catch);
             });
     }
 

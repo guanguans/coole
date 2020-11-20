@@ -9,6 +9,7 @@
  */
 
 use Guanguans\Di\Container;
+use Tightenco\Collect\Support\Collection;
 
 if (! function_exists('app')) {
     /**
@@ -28,19 +29,64 @@ if (! function_exists('app')) {
     }
 }
 
+if (! function_exists('value')) {
+    /**
+     * Return the default value of the given value.
+     *
+     * @param mixed $value
+     */
+    function value($value)
+    {
+        return $value instanceof \Closure ? $value() : $value;
+    }
+}
+
 if (! function_exists('env')) {
     /**
-     * @param null $value
+     * Gets the value of an environment variable.
      *
-     * @return array|false|string
+     * @param string     $key
+     * @param mixed|null $default
      */
-    function env(string $name, $value = null)
+    function env($key, $default = null)
     {
-        if (null !== $value && false === getenv($name)) {
-            return $value;
+        $value = getenv($key);
+        if (false === $value) {
+            return value($default);
+        }
+        switch (strtolower($value)) {
+            case 'true':
+            case '(true)':
+                return true;
+            case 'false':
+            case '(false)':
+                return false;
+            case 'empty':
+            case '(empty)':
+                return '';
+            case 'null':
+            case '(null)':
+                return null;
+        }
+        if (($valueLength = strlen($value)) > 1 && '"' === $value[0] && '"' === $value[$valueLength - 1]) {
+            return substr($value, 1, -1);
         }
 
-        return getenv($name);
+        return $value;
+    }
+}
+
+if (! function_exists('collect')) {
+    /**
+     * Create a collection from the given value.
+     *
+     * @param mixed|null $value
+     *
+     * @return Collection
+     */
+    function collect($value = null)
+    {
+        return new Collection($value);
     }
 }
 
