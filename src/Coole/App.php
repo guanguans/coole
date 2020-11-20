@@ -58,7 +58,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->register(new AppServiceProvider($options));
     }
 
-    public function version()
+    public static function version()
     {
         return static::VERSION;
     }
