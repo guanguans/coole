@@ -19,7 +19,7 @@ trait LoadCommandAble
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
         if ($commands = $commandDiscoverer->getCommands()) {
-            App::getInstance()['command']->add($commands);
+            app('command')->add($commands);
         }
 
         return true;

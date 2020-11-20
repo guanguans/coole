@@ -10,12 +10,17 @@
 
 namespace Guanguans\Coole\Providers;
 
+use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
+use Guanguans\Coole\Able\LoadCommandAble;
+use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Tightenco\Collect\Support\Collection as Command;
 
-class CommandServiceProvider implements ServiceProviderInterface
+class CommandServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface
 {
+    use LoadCommandAble;
+
     /**
      * {@inheritdoc}
      */
@@ -24,5 +29,13 @@ class CommandServiceProvider implements ServiceProviderInterface
         $app->singleton('command', function ($app) {
             return new Command();
         });
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function afterRegister(App $app)
+    {
+        $this->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
     }
 }

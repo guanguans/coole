@@ -113,7 +113,5 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         if (isset($app['config']['app']['middleware'])) {
             $app->addMiddleware($app['config']['app']['middleware']);
         }
-
-        $this->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
     }
 }
