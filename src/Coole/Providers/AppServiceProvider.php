@@ -53,8 +53,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
     {
         Facade::setFacadeApplication($app);
 
-        $options =
-            isset($app['config']['app'])
+        $options = isset($app['config']['app'])
             ? $app['config']['app']->filter(function ($value) {
                 return ! is_array($value);
             })->toArray()

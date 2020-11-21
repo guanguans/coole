@@ -102,13 +102,11 @@ class Router
 
         $lastAttribute = end($this->groupStack);
 
-        $newAttributes['prefix'] =
-            isset($lastAttribute['prefix'])
+        $newAttributes['prefix'] = isset($lastAttribute['prefix'])
             ? ($lastAttribute['prefix'].(isset($attributes['prefix']) ? '/'.$attributes['prefix'] : ''))
             : ($attributes['prefix'] ?? '');
 
-        $newAttributes['middleware'] =
-            isset($lastAttribute['middleware'])
+        $newAttributes['middleware'] = isset($lastAttribute['middleware'])
             ? (isset($attributes['middleware']) ? array_merge($lastAttribute['middleware'], $attributes['middleware']) : $lastAttribute['middleware'])
             : ($attributes['middleware'] ?? []);
 
@@ -122,7 +120,6 @@ class Router
         // 添加组属性
         $this->updateGroupStack($attributes);
 
-        // 利用组属性
         $callback();
 
         // 释放组属性
