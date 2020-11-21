@@ -132,7 +132,7 @@ if (! function_exists('event')) {
 
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
-        $listeners = array_merge(app('listener')->get(get_class($event)), $listeners);
+        $listeners = array_merge((array) app('listener')->get(get_class($event)), $listeners);
 
         foreach ($listeners as $listener) {
             is_string($listener) && $listener = app($listener);
