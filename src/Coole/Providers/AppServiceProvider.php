@@ -30,7 +30,6 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      */
     protected $providers = [
         WhoopsServiceProvider::class,
-        CommandServiceProvider::class,
         EventServiceProvider::class,
         HttpFoundationServiceProvider::class,
         RoutingServiceProvider::class,
