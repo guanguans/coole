@@ -14,6 +14,7 @@ use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
+use Guanguans\Coole\Controller\ControllerAble;
 use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Coole\Providers\ConfigServiceProvider;
 use Guanguans\Di\Container;
@@ -28,6 +29,8 @@ use Tightenco\Collect\Support\Collection;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
+    use ControllerAble;
+
     public const VERSION = '1.0.0-dev';
 
     protected $booted = false;
