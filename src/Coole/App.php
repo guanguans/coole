@@ -47,6 +47,16 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     protected $middleware = [];
 
     /**
+     * 核心配置.
+     *
+     * @var []
+     */
+    protected $options = [
+        'debug' => false,
+        'charset' => 'UTF-8',
+    ];
+
+    /**
      * App constructor.
      */
     public function __construct(array $options = [])
@@ -55,31 +65,14 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         $this->register(new ConfigServiceProvider());
 
-        $this->register(new AppServiceProvider($options));
+        $this->addOption($options);
+
+        $this->register(new AppServiceProvider());
     }
 
     public static function version()
     {
         return static::VERSION;
-    }
-
-    public function boot()
-    {
-        if ($this->booted) {
-            return;
-        }
-
-        $this->booted = true;
-
-        foreach ($this->providers as $provider) {
-            if ($provider instanceof EventListenerAbleProviderInterface) {
-                $provider->subscribe($this, $this[EventDispatcher::class]);
-            }
-
-            if ($provider instanceof BootableProviderInterface) {
-                $provider->boot($this);
-            }
-        }
     }
 
     public function mergeConfig(array $configs)
@@ -105,6 +98,55 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->middleware = array_merge($this->middleware, (array) $middleware);
 
         return $this;
+    }
+
+    public function addOption(array $options)
+    {
+        $this->options = array_merge($this->options, $options);
+
+        foreach ($this->options as $key => $option) {
+            $this[$key] = $option;
+        }
+
+        return $this;
+    }
+
+    public function getControllerMiddleware(Request $request)
+    {
+        $parameters = $this['url_matcher']->matchRequest($request);
+
+        if (is_array($parameters['_controller'])) {
+            return $this->make($parameters['_controller'][0])->getMiddleware();
+        }
+
+        return [];
+    }
+
+    public function getRouteMiddleware(Request $request)
+    {
+        $parameters = $this['url_matcher']->matchRequest($request);
+
+        return $this['route_collection']->get($parameters['_route'])->getMiddleware();
+    }
+
+    public function getAllMiddleware(Request $request)
+    {
+        return array_merge(
+            $this->middleware,
+            $this->getControllerMiddleware($request),
+            $this->getRouteMiddleware($request),
+        );
+    }
+
+    public function makeAllMiddleware($middleware)
+    {
+        $middleware = (array) $middleware;
+
+        array_walk($middleware, function (&$item) {
+            is_string($item) && $item = $this->make($item);
+        });
+
+        return $middleware;
     }
 
     public function register(ServiceProviderInterface $provider)
@@ -133,6 +175,25 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $this;
     }
 
+    public function boot()
+    {
+        if ($this->booted) {
+            return;
+        }
+
+        $this->booted = true;
+
+        foreach ($this->providers as $provider) {
+            if ($provider instanceof EventListenerAbleProviderInterface) {
+                $provider->subscribe($this, $this[EventDispatcher::class]);
+            }
+
+            if ($provider instanceof BootableProviderInterface) {
+                $provider->boot($this);
+            }
+        }
+    }
+
     public function run(Request $request = null)
     {
         if (null === $request) {
@@ -159,33 +220,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         return (new Pipeline())
             ->send($request)
-            ->through($this->getRouteMiddleware($request))
+            ->through($this->makeAllMiddleware($this->getAllMiddleware($request)))
             ->then(function () use ($request, $type, $catch) {
                 return $this->handle($request, $type, $catch);
             });
-    }
-
-    public function getRouteMiddleware(Request $request)
-    {
-        $parameters = $this['url_matcher']->matchRequest($request);
-
-        $controllerMiddleware = [];
-
-        if (is_array($parameters['_controller'])) {
-            $controllerMiddleware = $this->make($parameters['_controller'][0])->getMiddleware();
-        }
-
-        $routeMiddleware = $this['route_collection']->get($parameters['_route'])->getMiddleware();
-
-        $middleware = array_merge($controllerMiddleware, $routeMiddleware, $this->middleware);
-
-        array_walk($middleware, function (&$item) {
-            if (is_string($item)) {
-                $item = $this->make($item);
-            }
-        });
-
-        return  $middleware;
     }
 
     public function terminate(Request $request, Response $response)

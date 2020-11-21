@@ -47,12 +47,12 @@ class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAb
      */
     public function afterRegister(App $app)
     {
-        if ($dir = config_path()) {
-            $files = Finder::create()->files()->in($dir)->name('*.php');
+        if ($configDir = config_path()) {
+            $configFiles = Finder::create()->files()->in($configDir)->name('*.php');
 
             $config = [];
-            foreach ($files as $file) {
-                $config[$file->getBasename('.php')] = require $file->getPathname();
+            foreach ($configFiles as $configFile) {
+                $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
             }
 
             $app->mergeConfig($config);

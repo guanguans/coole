@@ -25,8 +25,16 @@ class TwigServiceProvider implements ServiceProviderInterface, BeforeRegisterAbl
     {
         $app->addConfig([
             'view' => [
-                'path' => '',
-                'options' => [],
+                'path' => null,
+                'options' => [
+                    'debug' => false,
+                    'charset' => 'UTF-8',
+                    'strict_variables' => false,
+                    'autoescape' => 'html',
+                    'cache' => base_path('runtime/views'),
+                    'auto_reload' => null,
+                    'optimizations' => -1,
+                ],
             ],
         ]);
 

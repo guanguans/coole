@@ -10,7 +10,6 @@
 
 namespace Guanguans\Coole\Providers;
 
-use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
@@ -22,7 +21,7 @@ use Guanguans\Coole\Routing\RoutingServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 
-class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, AfterRegisterAbleProviderInterface
+class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
     use LoadCommandAble;
 
@@ -53,54 +52,26 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         CheckResponseForModifications::class,
     ];
 
-    /**
-     * app 配置.
-     *
-     * @var array
-     */
-    protected $options = [
-        'debug' => false,
-        'charset' => 'UTF-8',
-    ];
-
-    /**
-     * AppServiceProvider constructor.
-     */
-    public function __construct(array $options)
-    {
-        $this->options = array_merge($this->options, $options);
-    }
-
     public function beforeRegister(App $app)
     {
-        foreach ($this->options as $key => $option) {
-            $app[$key] = $option;
-        }
-
-        if (! isset($app['config']['app'])) {
-            return;
-        }
-
-        $app['config']['app']->filter(function ($value) {
-            return ! is_array($value);
-        })->each(function ($value, $key) use ($app) {
-            $app[$key] = $value;
-        });
-
         Facade::setFacadeApplication($app);
+
+        $options =
+            isset($app['config']['app'])
+            ? $app['config']['app']->filter(function ($value) {
+                return ! is_array($value);
+            })->toArray()
+            : [];
+
+        $app->addOption($options);
+
+        $app->addMiddleware($this->middleware);
     }
 
     public function register(Container $app)
     {
         $app->registerProviders($this->providers);
 
-        if (isset($app['config']['app']['providers'])) {
-            $app->registerProviders($app['config']['app']['providers']);
-        }
-    }
-
-    public function afterRegister(App $app)
-    {
-        $app->addMiddleware($this->middleware);
+        $app->registerProviders($app['config']['app']['providers'] ?? []);
     }
 }

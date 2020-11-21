@@ -10,7 +10,6 @@
 
 namespace Guanguans\Coole\Controller;
 
-use Guanguans\Coole\Facade\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,7 +22,7 @@ class Controller implements ControllerInterface
 
     public function render($name, $context = []): string
     {
-        return View::render($name, $context);
+        return app('view')->render($name, $context);
     }
 
     public function redirect($url, $status = 302, array $headers = [])

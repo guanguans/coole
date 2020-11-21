@@ -21,7 +21,7 @@ if (! function_exists('app')) {
      */
     function app($abstract = null, array $parameters = [])
     {
-        if (is_null($abstract)) {
+        if (null === $abstract) {
             return App::getInstance();
         }
 
@@ -78,11 +78,9 @@ if (! function_exists('env')) {
 
 if (! function_exists('collect')) {
     /**
-     * Create a collection from the given value.
+     * @param null $value
      *
-     * @param mixed|null $value
-     *
-     * @return Collection
+     * @return \Tightenco\Collect\Support\Collection
      */
     function collect($value = null)
     {
@@ -94,12 +92,12 @@ if (! function_exists('base_path')) {
     /**
      * @return string|null
      */
-    function base_path(string $path = '')
+    function base_path(string $path = null)
     {
         if (! defined('BASE_PATH')) {
             return null;
         }
-        if (! empty($path)) {
+        if (null !== $path) {
             return BASE_PATH.'/'.trim($path, '/');
         }
 
@@ -111,10 +109,10 @@ if (! function_exists('config_path')) {
     /**
      * @return string|null
      */
-    function config_path(string $path = '')
+    function config_path(string $path = null)
     {
-        if (! empty($path)) {
-            return base_path('config').'/'.trim($path, '/');
+        if (null !== $path) {
+            return base_path('config'.'/'.trim($path, '/'));
         }
 
         return base_path('config');
