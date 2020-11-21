@@ -9,6 +9,9 @@
  */
 
 use Guanguans\Coole\App;
+use Guanguans\Coole\Event\Event;
+use Guanguans\Coole\Event\ListenerInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Tightenco\Collect\Support\Collection;
 
 if (! function_exists('app')) {
@@ -116,5 +119,28 @@ if (! function_exists('config_path')) {
         }
 
         return base_path('config');
+    }
+}
+
+if (! function_exists('event')) {
+    /**
+     * @param null $listeners
+     */
+    function event(Event $event, $listeners = null)
+    {
+        $dispatcher = app('event_dispatcher');
+
+        $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
+
+        $listeners = array_merge(app('listener')->get(get_class($event)), $listeners);
+
+        foreach ($listeners as $listener) {
+            is_string($listener) && $listener = app($listener);
+            $listener instanceof Closure && $dispatcher->addListener($event->getEventName(), $listener);
+            $listener instanceof ListenerInterface && $dispatcher->addListener($event->getEventName(), [$listener, 'handle']);
+            $listener instanceof EventSubscriberInterface && $dispatcher->addSubscriber($listener);
+        }
+
+        $dispatcher->dispatch($event, $event->getEventName());
     }
 }
