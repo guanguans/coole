@@ -18,6 +18,7 @@ use Guanguans\Coole\Listeners\StringResponseListener;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -29,6 +30,11 @@ class HttpKernelServiceProvider implements ServiceProviderInterface, EventListen
      */
     public function register(Container $app)
     {
+        $app->singleton(RequestStack::class, function ($app) {
+            return new RequestStack();
+        });
+        $app->alias(RequestStack::class, 'request_stack');
+
         $app->singleton(ControllerResolver::class, function ($app) {
             return new ControllerResolver();
         });

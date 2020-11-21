@@ -30,14 +30,13 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      */
     protected $providers = [
         WhoopsServiceProvider::class,
-        EventServiceProvider::class,
-        HttpFoundationServiceProvider::class,
-        RoutingServiceProvider::class,
         MonologServiceProvider::class,
+        EventServiceProvider::class,
+        RoutingServiceProvider::class,
         HttpKernelServiceProvider::class,
-        DatabaseServiceProvider::class,
-        TwigServiceProvider::class,
         ConsoleServiceProvider::class,
+        TwigServiceProvider::class,
+        DatabaseServiceProvider::class,
     ];
 
     /**
