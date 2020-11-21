@@ -10,6 +10,7 @@
 
 namespace Guanguans\Coole\Providers;
 
+use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
@@ -19,7 +20,7 @@ use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface
+class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
     public function register(Container $app)
     {
@@ -39,6 +40,15 @@ class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProvide
             return $run;
         });
         $app->alias(Run::class, 'whoops');
+    }
+
+    public function afterRegister(App $app)
+    {
+        ErrorHandler::register();
+
+        if ($app['debug']) {
+            $app['whoops']->register();
+        }
     }
 
     public function boot(App $app)

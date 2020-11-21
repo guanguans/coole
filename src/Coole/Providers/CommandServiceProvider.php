@@ -11,8 +11,8 @@
 namespace Guanguans\Coole\Providers;
 
 use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
-use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
+use Guanguans\Coole\Console\LoadCommandAble;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Tightenco\Collect\Support\Collection as Command;

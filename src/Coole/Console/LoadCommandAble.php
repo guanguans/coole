@@ -8,10 +8,7 @@
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\Able;
-
-use Guanguans\Coole\App;
-use Guanguans\Coole\Console\CommandDiscoverer;
+namespace Guanguans\Coole\Console;
 
 trait LoadCommandAble
 {

@@ -11,7 +11,6 @@
 namespace Guanguans\Coole\Providers;
 
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
-use Guanguans\Coole\Able\LoadCommandAble;
 use Guanguans\Coole\App;
 use Guanguans\Coole\Console\ConsoleServiceProvider;
 use Guanguans\Coole\Database\DatabaseServiceProvider;
@@ -23,8 +22,6 @@ use Guanguans\Di\ServiceProviderInterface;
 
 class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
-    use LoadCommandAble;
-
     /**
      * 核心服务服务类.
      *
