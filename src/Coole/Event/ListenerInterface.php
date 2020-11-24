@@ -14,5 +14,12 @@ namespace Guanguans\Coole\Event;
 
 interface ListenerInterface
 {
+    /**
+     * 事件处理.
+     *
+     * @param \Guanguans\Coole\Event\Event $event
+     *
+     * @return mixed
+     */
     public function handle(Event $event);
 }

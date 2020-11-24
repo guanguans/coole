@@ -17,9 +17,9 @@ class Event extends \Symfony\Contracts\EventDispatcher\Event
     const  NAME = null;
 
     /**
-     * @return string|null
+     * 获取事件名称.
      */
-    public function getEventName()
+    public function getEventName(): string
     {
         if (static::NAME) {
             return static::NAME;

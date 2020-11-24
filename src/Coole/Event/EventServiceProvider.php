@@ -21,6 +21,9 @@ use Tightenco\Collect\Support\Collection as Listener;
 
 class EventServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function register(Container $app)
     {
         $app->singleton(EventDispatcher::class, function ($app) {
@@ -33,6 +36,9 @@ class EventServiceProvider implements ServiceProviderInterface, AfterRegisterAbl
         });
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function afterRegister(App $app)
     {
         $app['listener'] = $app['listener']->merge($app['config']['event']['listener'] ?? []);
