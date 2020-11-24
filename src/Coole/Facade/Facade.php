@@ -22,11 +22,11 @@ abstract class Facade
     protected static $app;
 
     /**
-     * The resolved object instances.
+     * 已经解析的对象实例.
      *
      * @var array
      */
-    protected static $resolvedInstance;
+    protected static $resolvedInstance = [];
 
     /**
      * @return mixed
@@ -47,6 +47,8 @@ abstract class Facade
     }
 
     /**
+     * 解析门面实例.
+     *
      * @param $name
      *
      * @return mixed
