@@ -15,7 +15,7 @@ namespace Guanguans\Coole\Controller;
 interface ControllerInterface
 {
     /**
-     * Renders a template.
+     * 渲染模板
      *
      * @param $name
      */

@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Guanguans\Coole\Controller;
 
 use Guanguans\Coole\Exception\InvalidClassException;
-use Guanguans\Di\Container;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
@@ -25,6 +24,9 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
  */
 class ControllerResolver implements ControllerResolverInterface
 {
+    /**
+     * @var \Psr\Log\LoggerInterface|null
+     */
     private $logger;
 
     public function __construct(LoggerInterface $logger = null)
@@ -101,7 +103,7 @@ class ControllerResolver implements ControllerResolverInterface
     }
 
     /**
-     * Returns a callable for the given controller.
+     * 返回给定控制器的可调用对象
      *
      * @return callable A PHP callable
      *
@@ -142,14 +144,9 @@ class ControllerResolver implements ControllerResolverInterface
         return $controller;
     }
 
-    /**
-     * Returns an instantiated controller.
-     *
-     * @return object
-     */
-    protected function instantiateController(string $class)
+    protected function instantiateController(string $class): ControllerResolverInterface
     {
-        return Container::getInstance()->make($class);
+        return app($class);
     }
 
     private function getControllerError($callable): string

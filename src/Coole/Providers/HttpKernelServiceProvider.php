@@ -38,7 +38,7 @@ class HttpKernelServiceProvider implements ServiceProviderInterface, EventListen
         $app->alias(RequestStack::class, 'request_stack');
 
         $app->singleton(ControllerResolver::class, function ($app) {
-            return new ControllerResolver();
+            return new ControllerResolver(app('logger'));
         });
         $app->alias(ControllerResolver::class, 'controller_resolver');
 
