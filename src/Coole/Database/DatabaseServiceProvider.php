@@ -21,6 +21,9 @@ use think\DbManager;
 
 class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function beforeRegister(App $app)
     {
         $app->addConfig([
@@ -44,6 +47,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function register(Container $app)
     {
         $app->singleton(DbManager::class, function ($app) {
@@ -58,6 +64,9 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
         $app->alias(DbManager::class, 'db');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function afterRegister(App $app)
     {
         Model::setDb($app['db']);
