@@ -17,5 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface MiddlewareInterface
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function handle(Request $request, Closure $next);
 }

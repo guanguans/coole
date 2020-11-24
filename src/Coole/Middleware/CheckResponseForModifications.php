@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckResponseForModifications implements MiddlewareInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function handle(Request $request, Closure $next)
     {
         $response = $next($request);
