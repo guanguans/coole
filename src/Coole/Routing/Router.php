@@ -100,17 +100,13 @@ class Router
 
     protected function updateGroupStack(array $attributes)
     {
-        $newAttributes = [];
-
         $lastAttribute = end($this->groupStack);
 
-        $newAttributes['prefix'] = isset($lastAttribute['prefix'])
-            ? ($lastAttribute['prefix'].(isset($attributes['prefix']) ? '/'.$attributes['prefix'] : ''))
-            : ($attributes['prefix'] ?? '');
+        $newAttributes = [];
 
-        $newAttributes['middleware'] = isset($lastAttribute['middleware'])
-            ? (isset($attributes['middleware']) ? array_merge($lastAttribute['middleware'], $attributes['middleware']) : $lastAttribute['middleware'])
-            : ($attributes['middleware'] ?? []);
+        $newAttributes['prefix'] = trim($lastAttribute['prefix'] ?? '', '/').'/'.trim($attributes['prefix'] ?? '', '/');
+
+        $newAttributes['middleware'] = array_merge($lastAttribute['middleware'] ?? [], $attributes['middleware'] ?? []);
 
         $this->groupStack[] = $newAttributes;
 
