@@ -21,8 +21,14 @@ use Twig\Loader\FilesystemLoader;
 
 class TwigServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
+    /**
+     * @var \Twig\Loader\LoaderInterface
+     */
     public $loader;
 
+    /**
+     * {@inheritdoc}
+     */
     public function beforeRegister(App $app)
     {
         $app->addConfig([
@@ -54,6 +60,9 @@ class TwigServiceProvider implements ServiceProviderInterface, BeforeRegisterAbl
         $this->loader = $loader;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function register(Container $app)
     {
         $app->singleton(FilesystemLoader::class, function ($app) {

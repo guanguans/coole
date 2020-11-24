@@ -28,6 +28,9 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MonologServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, EventListenerAbleProviderInterface, BeforeRegisterAbleProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function beforeRegister(App $app)
     {
         $app->addConfig([
@@ -42,6 +45,9 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
         ]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function register(Container $app)
     {
         $app->singleton('monolog', function ($app) {
@@ -87,6 +93,9 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
         $app->alias(LogListener::class, 'monolog.listener');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function subscribe(App $app, EventDispatcherInterface $dispatcher)
     {
         if ($app->has('monolog.listener')) {
@@ -94,6 +103,9 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot(App $app)
     {
         if ($app['debug']) {

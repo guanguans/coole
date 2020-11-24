@@ -26,7 +26,7 @@ use Guanguans\Di\ServiceProviderInterface;
 class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
     /**
-     * 核心服务服务类.
+     * 核心服务
      *
      * @var string[]
      */
@@ -42,7 +42,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
     ];
 
     /**
-     * 核心中间件类.
+     * 全局中间件.
      *
      * @var string[]
      */
@@ -50,8 +50,12 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         CheckResponseForModifications::class,
     ];
 
+    /**
+     * {@inheritdoc}
+     */
     public function beforeRegister(App $app)
     {
+        // 设置门面的 app 共享实例
         Facade::setFacadeApplication($app);
 
         $options = isset($app['config']['app'])
@@ -60,15 +64,22 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
             })->toArray()
             : [];
 
+        // 添加选项
         $app->addOption($options);
 
+        // 添加中间件
         $app->addMiddleware($this->middleware);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function register(Container $app)
     {
+        // 注册核心服务
         $app->registerProviders($this->providers);
 
+        // 注册第三方服务
         $app->registerProviders($app['config']['app']['providers'] ?? []);
     }
 }

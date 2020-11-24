@@ -24,6 +24,9 @@ use Whoops\Run;
 
 class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function register(Container $app)
     {
         $app->singleton('whoops_error_page_handler', function ($app) {
@@ -44,6 +47,9 @@ class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProvide
         $app->alias(Run::class, 'whoops');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function afterRegister(App $app)
     {
         ErrorHandler::register();
@@ -53,6 +59,9 @@ class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProvide
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function boot(App $app)
     {
         ErrorHandler::register();
