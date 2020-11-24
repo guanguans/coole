@@ -14,6 +14,12 @@ namespace Guanguans\Coole\Facade;
 
 use Twig\Environment;
 
+/**
+ * @method static \Twig\Environment render($name, array $context = [])
+ * @method static \Twig\Environment display($name, array $context = [])
+ *
+ * @see \Twig\Environment
+ */
 class View extends Facade
 {
     public static function getFacadeAccessor()
