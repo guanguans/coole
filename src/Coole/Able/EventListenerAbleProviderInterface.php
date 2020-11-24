@@ -17,5 +17,10 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 interface EventListenerAbleProviderInterface
 {
+    /**
+     * 服务订阅事件.
+     *
+     * @return mixed
+     */
     public function subscribe(App $app, EventDispatcherInterface $dispatcher);
 }

@@ -16,5 +16,10 @@ use Guanguans\Coole\App;
 
 interface AfterRegisterAbleProviderInterface
 {
+    /**
+     * 注册服务之后.
+     *
+     * @return mixed
+     */
     public function afterRegister(App $app);
 }

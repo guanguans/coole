@@ -16,5 +16,10 @@ use Guanguans\Coole\App;
 
 interface BeforeRegisterAbleProviderInterface
 {
+    /**
+     * 注册服务之前.
+     *
+     * @return mixed
+     */
     public function beforeRegister(App $app);
 }

@@ -16,5 +16,10 @@ use Guanguans\Coole\App;
 
 interface BootAbleProviderInterface
 {
+    /**
+     * 引导应用程序.
+     *
+     * @return mixed
+     */
     public function boot(App $app);
 }
