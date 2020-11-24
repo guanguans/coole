@@ -24,8 +24,14 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class LogListener implements EventSubscriberInterface
 {
+    /**
+     * @var \Psr\Log\LoggerInterface
+     */
     protected $logger;
 
+    /**
+     * @var \Closure
+     */
     protected $exceptionLogFilter;
 
     public function __construct(LoggerInterface $logger, $exceptionLogFilter = null)
@@ -73,6 +79,9 @@ class LogListener implements EventSubscriberInterface
         $this->logger->log(call_user_func($this->exceptionLogFilter, $event->getThrowable()), sprintf('%s: %s (uncaught exception) at %s line %s', get_class($event->getThrowable()), $event->getThrowable()->getMessage(), $event->getThrowable()->getFile(), $event->getThrowable()->getLine()), ['exception' => $event->getThrowable()]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents()
     {
         return [
