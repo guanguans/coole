@@ -47,8 +47,14 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class Application extends \Symfony\Component\Console\Application
 {
+    /**
+     * @var \Guanguans\Coole\App
+     */
     protected $app;
 
+    /**
+     * logo.
+     */
     const LOGO = <<<'coole'
 <fg=green;options=bold>
                                __           
@@ -62,8 +68,6 @@ class Application extends \Symfony\Component\Console\Application
   \$$$$$$$  \$$$$$$   \$$$$$$  \$$  \$$$$$$$
 </>
 coole;
-
-    protected $container;
 
     public function __construct(App $app)
     {

@@ -16,11 +16,26 @@ use Symfony\Component\Finder\Finder;
 
 class CommandDiscoverer
 {
-    protected $dir;
+    /**
+     * 目录.
+     *
+     * @var string
+     */
+    protected $dir = '';
 
-    protected $namespace;
+    /**
+     * 命名空间.
+     *
+     * @var string
+     */
+    protected $namespace = '';
 
-    protected $suffix;
+    /**
+     * 后缀
+     *
+     * @var string
+     */
+    protected $suffix = '';
 
     public function __construct(string $dir, string $namespace, string $suffix = '*Command.php')
     {
@@ -29,7 +44,10 @@ class CommandDiscoverer
         $this->suffix = $suffix;
     }
 
-    public function getCommands()
+    /**
+     * 获取命令.
+     */
+    public function getCommands(): array
     {
         $files = Finder::create()->files()->in($this->dir)->name($this->suffix);
 
@@ -44,36 +62,60 @@ class CommandDiscoverer
         return $commands;
     }
 
+    /**
+     * 获取目录.
+     */
     public function getDir(): string
     {
         return $this->dir;
     }
 
-    public function setDir(string $dir)
+    /**
+     * 设置目录.
+     *
+     * @return $this
+     */
+    public function setDir(string $dir): self
     {
         $this->dir = $dir;
 
         return $this;
     }
 
+    /**
+     * 获取命名空间.
+     */
     public function getNamespace(): string
     {
         return $this->namespace;
     }
 
-    public function setNamespace(string $namespace)
+    /**
+     * 设置命名空间.
+     *
+     * @return $this
+     */
+    public function setNamespace(string $namespace): self
     {
         $this->namespace = $namespace;
 
         return $this;
     }
 
+    /**
+     * 获取后缀
+     */
     public function getSuffix(): string
     {
         return $this->suffix;
     }
 
-    public function setSuffix(string $suffix)
+    /**
+     * 设置后缀
+     *
+     * @return $this
+     */
+    public function setSuffix(string $suffix): self
     {
         $this->suffix = $suffix;
 
