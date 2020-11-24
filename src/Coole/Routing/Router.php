@@ -86,7 +86,7 @@ class Router
 
         $attributes = end($this->groupStack);
 
-        return isset($attributes['prefix']) ? rtrim($attributes['prefix'], '/').'/'.$pattern : $pattern;
+        return trim(trim($attributes['prefix'] ?? '', '/').'/'.trim($pattern, '/'), '/');
     }
 
     protected function getGroupMiddleware()
@@ -104,7 +104,7 @@ class Router
 
         $newAttributes = [];
 
-        $newAttributes['prefix'] = trim($lastAttribute['prefix'] ?? '', '/').'/'.trim($attributes['prefix'] ?? '', '/');
+        $newAttributes['prefix'] = trim(trim($lastAttribute['prefix'] ?? '', '/').'/'.trim($attributes['prefix'] ?? '', '/'), '/');
 
         $newAttributes['middleware'] = array_merge($lastAttribute['middleware'] ?? [], $attributes['middleware'] ?? []);
 
