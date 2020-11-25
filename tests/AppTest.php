@@ -12,10 +12,12 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Tests;
 
-class CooleTest extends TestCase
+use Guanguans\Coole\App;
+
+class AppTest extends TestCase
 {
-    public function testTest()
+    public function testVersion()
     {
-        $this->assertTrue(true);
+        $this->assertIsString(App::version());
     }
 }

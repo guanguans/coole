@@ -17,9 +17,17 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">src/</directory>
+            <directory suffix=".php">src/Coole/</directory>
             <exclude>
-                <file>src/Skeleton.php</file>
+                <directory>src/Coole/Able/</directory>
+                <file>src/Coole/Console/Command.php</file>
+                <directory>src/Coole/Console/Commands/</directory>
+                <file>src/Coole/Controller/Controller.php</file>
+                <file>src/Coole/Controller/ControllerInterface.php</file>
+                <file>src/Coole/Database/Model.php</file>
+                <file>src/Coole/Event/ListenerInterface.php</file>
+                <directory>src/Coole/Exception/</directory>
+                <directory>src/Coole/Facade/</directory>
             </exclude>
         </whitelist>
     </filter>
