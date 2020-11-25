@@ -18,13 +18,11 @@ use Tightenco\Collect\Support\Collection;
 
 if (! function_exists('app')) {
     /**
-     * Get the available container instance.
+     * 获取 app 共享实例.
      *
-     * @param string|null $abstract
-     *
-     * @return mixed|\Guanguans\Coole\App
+     * @return \Guanguans\Coole\App|mixed
      */
-    function app($abstract = null, array $parameters = [])
+    function app(?string $abstract = null, array $parameters = [])
     {
         if (null === $abstract) {
             return App::getInstance();
@@ -34,31 +32,25 @@ if (! function_exists('app')) {
     }
 }
 
-if (! function_exists('value')) {
-    /**
-     * Return the default value of the given value.
-     *
-     * @param mixed $value
-     */
-    function value($value)
-    {
-        return $value instanceof \Closure ? $value() : $value;
-    }
-}
-
 if (! function_exists('env')) {
     /**
-     * Gets the value of an environment variable.
+     * 获取环境变量的值
      *
-     * @param string     $key
-     * @param mixed|null $default
+     * @param null $default
+     *
+     * @return array|bool|false|mixed|string|null
      */
-    function env($key, $default = null)
+    function env(?string $key = null, $default = null)
     {
+        if (null === $key) {
+            return getenv();
+        }
+
         $value = getenv($key);
         if (false === $value) {
-            return value($default);
+            return $default instanceof \Closure ? $default() : $default;
         }
+
         switch (strtolower($value)) {
             case 'true':
             case '(true)':
@@ -73,6 +65,7 @@ if (! function_exists('env')) {
             case '(null)':
                 return null;
         }
+
         if (($valueLength = strlen($value)) > 1 && '"' === $value[0] && '"' === $value[$valueLength - 1]) {
             return substr($value, 1, -1);
         }
@@ -83,6 +76,8 @@ if (! function_exists('env')) {
 
 if (! function_exists('collect')) {
     /**
+     * 创建集合.
+     *
      * @param null $value
      *
      * @return \Tightenco\Collect\Support\Collection
@@ -95,6 +90,8 @@ if (! function_exists('collect')) {
 
 if (! function_exists('base_path')) {
     /**
+     * 获取 base path.
+     *
      * @return string|null
      */
     function base_path(string $path = null)
@@ -112,6 +109,8 @@ if (! function_exists('base_path')) {
 
 if (! function_exists('config_path')) {
     /**
+     * 获取 config path.
+     *
      * @return string|null
      */
     function config_path(string $path = null)
@@ -126,6 +125,8 @@ if (! function_exists('config_path')) {
 
 if (! function_exists('event')) {
     /**
+     * 调度事件.
+     *
      * @param null $listeners
      */
     function event(Event $event, $listeners = null)
