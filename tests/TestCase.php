@@ -14,6 +14,10 @@ namespace Guanguans\Coole\Tests;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    protected function setUp(): void
+    {
+    }
+
     /**
      * Tear down the test case.
      */
