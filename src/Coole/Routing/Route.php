@@ -14,6 +14,11 @@ namespace Guanguans\Coole\Routing;
 
 class Route extends \Symfony\Component\Routing\Route
 {
+    /**
+     * 中间件.
+     *
+     * @var array
+     */
     protected $middleware = [];
 
     public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = '')
@@ -21,14 +26,24 @@ class Route extends \Symfony\Component\Routing\Route
         parent::__construct($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
     }
 
-    public function setMiddleware($middleware)
+    /**
+     * 设置中间件.
+     *
+     * @param $middleware
+     *
+     * @return $this
+     */
+    public function setMiddleware($middleware): self
     {
         $this->middleware = array_merge($this->middleware, (array) $middleware);
 
         return $this;
     }
 
-    public function getMiddleware()
+    /**
+     * 获取中间件.
+     */
+    public function getMiddleware(): array
     {
         return $this->middleware;
     }

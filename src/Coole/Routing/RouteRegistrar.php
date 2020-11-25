@@ -19,6 +19,11 @@ class RouteRegistrar
      */
     protected $router;
 
+    /**
+     * 路由组属性.
+     *
+     * @var array
+     */
     protected $attributes = [];
 
     public function __construct(Router $router)
@@ -26,7 +31,12 @@ class RouteRegistrar
         $this->router = $router;
     }
 
-    public function prefix($prefix)
+    /**
+     * 路由组前缀
+     *
+     * @return $this
+     */
+    public function prefix(string $prefix): self
     {
         $this->attributes['prefix'] = $prefix;
 
@@ -34,21 +44,24 @@ class RouteRegistrar
     }
 
     /**
-     * @param  array|string|\Closure|null
-     */
-
-    /**
+     * 路由组中间件.
+     *
      * @param $middleware
      *
      * @return $this
      */
-    public function middleware($middleware)
+    public function middleware($middleware): self
     {
-        $this->attributes['middleware'] = is_array($middleware) ? $middleware : [$middleware];
+        $this->attributes['middleware'] = (array) $middleware;
 
         return $this;
     }
 
+    /**
+     * 路由组.
+     *
+     * @return $this
+     */
     public function group(callable $callback)
     {
         $this->router->group($this->attributes, $callback);

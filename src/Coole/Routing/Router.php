@@ -16,10 +16,25 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Router
 {
+    /**
+     * 默认路由.
+     *
+     * @var \Guanguans\Coole\Routing\Route
+     */
     protected $defaultRoute;
 
+    /**
+     * 路由集合.
+     *
+     * @var \Symfony\Component\Routing\RouteCollection
+     */
     protected $routeCollection;
 
+    /**
+     * 路由组属性栈.
+     *
+     * @var array
+     */
     protected $groupStack = [];
 
     public function __construct(Route $defaultRoute, RouteCollection $routeCollection)
@@ -28,7 +43,14 @@ class Router
         $this->routeCollection = $routeCollection;
     }
 
-    public function match($pattern, $to = null)
+    /**
+     * 添加任意请求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function match(string $pattern, $to = null): Route
     {
         $route = clone $this->defaultRoute;
 
@@ -43,61 +65,114 @@ class Router
         return $route;
     }
 
-    public function any($pattern, $to = null)
+    /**
+     * 添加任意请求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function any(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to);
     }
 
-    public function get($pattern, $to = null)
+    /**
+     * 添加 get 求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function get(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to)->setMethods(['GET', 'HEAD']);
     }
 
-    public function post($pattern, $to = null)
+    /**
+     * 添加 post 请求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function post(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to)->setMethods('POST');
     }
 
-    public function put($pattern, $to = null)
+    /**
+     * 添加 put 请求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function put(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to)->setMethods('PUT');
     }
 
-    public function delete($pattern, $to = null)
+    /**
+     * 添加 delete 请求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function delete(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to)->setMethods('DELETE');
     }
 
-    public function options($pattern, $to = null)
+    /**
+     * 添加 options 请求路由.
+     *
+     * @param $pattern
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function options(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to)->setMethods('OPTIONS');
     }
 
-    public function patch($pattern, $to = null)
+    /**
+     * 添加 patch 请求路由.
+     *
+     * @param null $to
+     *
+     * @return \Guanguans\Coole\Routing\Route
+     */
+    public function patch(string $pattern, $to = null): Route
     {
         return $this->match($pattern, $to)->setMethods('PATCH');
     }
 
-    protected function getGroupPattern($pattern)
+    /**
+     * 获取路由组 pattern.
+     *
+     * @param $pattern
+     */
+    protected function getGroupPattern(string $pattern): string
     {
-        if (empty($this->groupStack)) {
-            return $pattern;
-        }
-
-        $attributes = end($this->groupStack);
-
-        return trim(trim($attributes['prefix'] ?? '', '/').'/'.trim($pattern, '/'), '/');
+        return trim(trim(end($this->groupStack)['prefix'] ?? '', '/').'/'.trim($pattern, '/'), '/');
     }
 
-    protected function getGroupMiddleware()
+    /**
+     * 获取路由组中间件.
+     */
+    protected function getGroupMiddleware(): array
     {
-        if (empty($this->groupStack)) {
-            return [];
-        }
-
         return end($this->groupStack)['middleware'] ?? [];
     }
 
+    /**
+     * 更新路由组栈.
+     *
+     * @return bool
+     */
     protected function updateGroupStack(array $attributes)
     {
         $lastAttribute = end($this->groupStack);
@@ -113,7 +188,12 @@ class Router
         return true;
     }
 
-    public function group($attributes, callable $callback)
+    /**
+     * 路由组.
+     *
+     * @return $this
+     */
+    public function group(array $attributes, callable $callback): self
     {
         // 添加组属性
         $this->updateGroupStack($attributes);
@@ -122,9 +202,14 @@ class Router
 
         // 释放组属性
         array_pop($this->groupStack);
+
+        return $this;
     }
 
-    public function __call($name, $arguments)
+    /**
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments)
     {
         return (new RouteRegistrar($this))->$name($arguments[0]);
     }
