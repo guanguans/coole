@@ -177,7 +177,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return array_merge(
             $this->middleware,
             $this->getControllerMiddleware($request),
-            $this->getRouteMiddleware($request),
+            $this->getRouteMiddleware($request)
         );
     }
 
