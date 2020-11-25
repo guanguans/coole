@@ -35,26 +35,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     public const VERSION = '1.0.0-dev';
 
-    protected $booted = false;
-
-    /**
-     * 核心服务
-     *
-     * @var array
-     */
-    protected $providers = [];
-
-    /**
-     * 核心中间件.
-     *
-     * @var string[]
-     */
-    protected $middleware = [];
-
     /**
      * 核心配置.
      *
-     * @var []
+     * @var array
      */
     protected $options = [
         'debug' => false,
@@ -62,25 +46,55 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     ];
 
     /**
-     * App constructor.
+     * 是否已经引导服务.
+     *
+     * @var bool
      */
+    protected $booted = false;
+
+    /**
+     * 核心服务.
+     *
+     * @var array
+     */
+    protected $providers = [];
+
+    /**
+     * 全局中间件.
+     *
+     * @var array
+     */
+    protected $middleware = [];
+
     public function __construct(array $options = [])
     {
+        // 设置 app 共享实例
         static::setInstance($this);
 
+        // 注册 config 服务
         $this->register(new ConfigServiceProvider());
 
+        // 添加全局配置
         $this->addOption($options);
 
+        // 注册 app 服务
         $this->register(new AppServiceProvider());
     }
 
-    public static function version()
+    /**
+     * 获取版本号.
+     */
+    public static function version(): string
     {
         return static::VERSION;
     }
 
-    public function mergeConfig(array $configs)
+    /**
+     * 合并配置.
+     *
+     * @return $this
+     */
+    public function mergeConfig(array $configs): self
     {
         foreach ($configs as $key => $config) {
             $this['config'][$key] = $config instanceof Collection ? $config : new Collection($config);
@@ -89,23 +103,40 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $this;
     }
 
-    public function addConfig(array $values)
+    /**
+     * 添加配置.
+     *
+     * @return $this
+     */
+    public function addConfig(array $configs): self
     {
-        foreach ($values as $key => $config) {
+        foreach ($configs as $key => $config) {
             $this['config']->offsetExists($key) || $this['config'][$key] = $config instanceof Collection ? $config : new Collection($config);
         }
 
         return $this;
     }
 
-    public function addMiddleware($middleware)
+    /**
+     * 添加全局中间件.
+     *
+     * @param $middleware
+     *
+     * @return $this
+     */
+    public function addMiddleware($middleware): self
     {
         $this->middleware = array_merge($this->middleware, (array) $middleware);
 
         return $this;
     }
 
-    public function addOption(array $options)
+    /**
+     * 添加全局配置.
+     *
+     * @return $this
+     */
+    public function addOption(array $options): self
     {
         $this->options = array_merge($this->options, $options);
 
@@ -116,25 +147,32 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $this;
     }
 
-    public function getControllerMiddleware(Request $request)
+    /**
+     * 获取控制器中间件.
+     */
+    public function getControllerMiddleware(Request $request): array
     {
         $parameters = $this['url_matcher']->matchRequest($request);
 
-        if (is_array($parameters['_controller'])) {
-            return $this->make($parameters['_controller'][0])->getMiddleware();
-        }
-
-        return [];
+        return is_array($parameters['_controller'])
+            ? $this->make($parameters['_controller'][0])->getMiddleware()
+            : [];
     }
 
-    public function getRouteMiddleware(Request $request)
+    /**
+     * 获取路由中间件.
+     */
+    public function getRouteMiddleware(Request $request): array
     {
         $parameters = $this['url_matcher']->matchRequest($request);
 
         return $this['route_collection']->get($parameters['_route'])->getMiddleware();
     }
 
-    public function getAllMiddleware(Request $request)
+    /**
+     * 获取当前请求的全部中间件.
+     */
+    public function getAllMiddleware(Request $request): array
     {
         return array_merge(
             $this->middleware,
@@ -143,7 +181,12 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         );
     }
 
-    public function makeAllMiddleware($middleware)
+    /**
+     * 批量实例化中间件.
+     *
+     * @param $middleware
+     */
+    public function makeAllMiddleware($middleware): array
     {
         $middleware = (array) $middleware;
 
@@ -154,24 +197,32 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $middleware;
     }
 
-    public function register(ServiceProviderInterface $provider)
+    /**
+     * 注册服务.
+     *
+     * @return $this
+     */
+    public function register(ServiceProviderInterface $provider): self
     {
         $this->providers[] = $provider;
 
-        if ($provider instanceof BeforeRegisterAbleProviderInterface) {
-            $provider->beforeRegister($this);
-        }
+        // 处理注册之前工作
+        $provider instanceof BeforeRegisterAbleProviderInterface && $provider->beforeRegister($this);
 
         $provider->register($this);
 
-        if ($provider instanceof AfterRegisterAbleProviderInterface) {
-            $provider->afterRegister($this);
-        }
+        // 处理注册之后工作
+        $provider instanceof AfterRegisterAbleProviderInterface && $provider->afterRegister($this);
 
         return $this;
     }
 
-    public function registerProviders(array $providers)
+    /**
+     * 批量注册服务.
+     *
+     * @return $this
+     */
+    public function registerProviders(array $providers): self
     {
         foreach ($providers as $provider) {
             $this->register(new $provider());
@@ -180,6 +231,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $this;
     }
 
+    /**
+     * 引导应用程序.
+     */
     public function boot()
     {
         if ($this->booted) {
@@ -189,28 +243,37 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->booted = true;
 
         foreach ($this->providers as $provider) {
-            if ($provider instanceof EventListenerAbleProviderInterface) {
-                $provider->subscribe($this, $this[EventDispatcher::class]);
-            }
-
-            if ($provider instanceof BootableProviderInterface) {
-                $provider->boot($this);
-            }
+            // 服务订阅事件
+            $provider instanceof EventListenerAbleProviderInterface && $provider->subscribe($this, $this[EventDispatcher::class]);
+            // 引导服务
+            $provider instanceof BootableProviderInterface && $provider->boot($this);
         }
     }
 
+    /**
+     * 启动运行服务
+     */
     public function run(Request $request = null)
     {
         if (null === $request) {
+            // 创建请求对象
             $request = Request::createFromGlobals();
         }
 
+        // 引导服务
+        $this->boot();
+
+        // 通过中间件发送响应
         $response = $this->sendRequestThroughHandle($request);
 
+        // 终止请求/响应生命周期
         $this->terminate($request, $response);
     }
 
-    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+    /**
+     * 处理请求为响应且发送响应.
+     */
+    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
     {
         $response = $this['http_kernel']->handle($request, $type, $catch);
 
@@ -219,10 +282,11 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $response;
     }
 
-    public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+    /**
+     * 通过中间件发送响应.
+     */
+    public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
     {
-        $this->boot();
-
         return (new Pipeline())
             ->send($request)
             ->through($this->makeAllMiddleware($this->getAllMiddleware($request)))
@@ -231,8 +295,11 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             });
     }
 
+    /**
+     * 终止请求/响应生命周期.
+     */
     public function terminate(Request $request, Response $response)
     {
-        return $this['http_kernel']->terminate($request, $response);
+        $this['http_kernel']->terminate($request, $response);
     }
 }

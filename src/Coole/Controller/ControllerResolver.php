@@ -144,7 +144,7 @@ class ControllerResolver implements ControllerResolverInterface
         return $controller;
     }
 
-    protected function instantiateController(string $class): ControllerResolverInterface
+    protected function instantiateController(string $class): ControllerInterface
     {
         return app($class);
     }
