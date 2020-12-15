@@ -14,12 +14,12 @@ namespace Guanguans\Coole\Event;
 
 class Event extends \Symfony\Contracts\EventDispatcher\Event
 {
-    const  NAME = null;
+    const NAME = null;
 
     /**
      * 获取事件名称.
      */
-    public function getEventName(): string
+    public function getName(): string
     {
         if (static::NAME) {
             return static::NAME;

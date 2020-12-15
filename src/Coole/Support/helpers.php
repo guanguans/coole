@@ -48,7 +48,7 @@ if (! function_exists('env')) {
 
         $value = getenv($key);
         if (false === $value) {
-            return $default instanceof \Closure ? $default() : $default;
+            return $default instanceof Closure ? $default() : $default;
         }
 
         switch (strtolower($value)) {
@@ -135,15 +135,18 @@ if (! function_exists('event')) {
 
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
-        $listeners = array_merge((array) app('listener')->get(get_class($event)), $listeners);
+        $listeners = array_unique(array_merge(
+            app('listener')->get(get_class($event)) ?? [],
+            $listeners
+        ));
 
         foreach ($listeners as $listener) {
             is_string($listener) && $listener = app($listener);
-            $listener instanceof Closure && $dispatcher->addListener($event->getEventName(), $listener);
-            $listener instanceof ListenerInterface && $dispatcher->addListener($event->getEventName(), [$listener, 'handle']);
+            $listener instanceof Closure && $dispatcher->addListener($event->getName(), $listener);
+            $listener instanceof ListenerInterface && $dispatcher->addListener($event->getName(), [$listener, 'handle']);
             $listener instanceof EventSubscriberInterface && $dispatcher->addSubscriber($listener);
         }
 
-        $dispatcher->dispatch($event, $event->getEventName());
+        $dispatcher->dispatch($event, $event->getName());
     }
 }
