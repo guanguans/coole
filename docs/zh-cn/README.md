@@ -1,5 +1,5 @@
 
-<p align="center"><img src="/static/logo.png" width="38%" alt="Coole"></p>
+<p align="center"><img src="../static/logo.png" width="38%" alt="Coole"></p>
 
 > [guanguans/coole](https://github.com/guanguans/coole) 是一个基于开源优秀组件组成的 PHP 微框架。
 
