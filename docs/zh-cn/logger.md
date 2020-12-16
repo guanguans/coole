@@ -1,12 +1,24 @@
 # 日志
 
-日志由 [monolog/monolog](https://github.com/monolog/monolog) 提供支持。
+> 日志由 [monolog/monolog](https://github.com/Seldaek/monolog) 提供支持。
 
-## 配置
+## 配置文件
 
-在 [coolephp/skeleton](https://github.com/coolephp/skeleton) 骨架下，默认在 `config/logger.php` 文件内完成的路由定义。
+默认 `config/logger.php`。
 
 ``` php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the coolephp/skeleton.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 use Monolog\Logger;
 
 return [
@@ -24,13 +36,13 @@ return [
 ``` php
 use Guanguans\Coole\Facade\Logger;
 
-Logger::log($level, $message, $context = []);
-Logger::debug($level, $message, $context = []);
-Logger::info($level, $message, $context = []);
-Logger::notice($level, $message, $context = []);
-Logger::warning($level, $message, $context = []);
-Logger::error($level, $message, $context = []);
-Logger::critical($level, $message, $context = []);
-Logger::alert($level, $message, $context = []);
-Logger::emergency($level, $message, $context = []);
+Logger::log($level, $message, $context);
+Logger::debug($level, $message, $context);
+Logger::info($level, $message, $context);
+Logger::notice($level, $message, $context);
+Logger::warning($level, $message, $context);
+Logger::error($level, $message, $context);
+Logger::critical($level, $message, $context);
+Logger::alert($level, $message, $context);
+Logger::emergency($level, $message, $context);
 ```

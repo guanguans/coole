@@ -1,6 +1,6 @@
-<p align="center"><img src="./docs/logo.png" alt="Coole"></p>
+<p align="center"><img src="./docs/logo.png" width="38%" alt="Coole"></p>
 
-> Coole is a PHP micro-framework based on open source excellent components for developing Web applications and APIs.
+> Coole is a PHP micro-framework based on open source excellent components.
 
 ![Tests](https://github.com/guanguans/coole/workflows/Tests/badge.svg)
 ![Check & fix styling](https://github.com/guanguans/coole/workflows/Check%20&%20fix%20styling/badge.svg)
@@ -8,6 +8,10 @@
 [![Latest Stable Version](https://poser.pugx.org/guanguans/coole/v)](//packagist.org/packages/guanguans/coole)
 [![Total Downloads](https://poser.pugx.org/guanguans/coole/downloads)](//packagist.org/packages/guanguans/coole)
 [![License](https://poser.pugx.org/guanguans/coole/license)](//packagist.org/packages/guanguans/coole)
+
+## Documentation
+
+[www.guanguans.cn/coole](https://www.guanguans.cn/coole/)
 
 ## Requirement
 
@@ -34,14 +38,12 @@ require __DIR__.'/vendor/autoload.php';
 $app = new App();
 $app['debug'] = true;
 
-// 2. Add routes and middlewares.
+// 2. Add route with closure middleware.
 Router::get('/', function (){
     return 'This is the Coole framework.';
 })->setMiddleware(function (Request $request, Closure $next){
     printf('Before request.<br>');
-
     $response = $next($request);
-
     printf('<br>After request.');
 
     return $response;
@@ -50,10 +52,6 @@ Router::get('/', function (){
 // 3. Listen and Running.
 $app->run();
 ```
-
-## Documentation
-
-[www.guanguans.cn/coole](https://www.guanguans.cn/coole/)
 
 ## Testing
 

@@ -1,23 +1,20 @@
 # 中间件
 
-中间间由 [mpociot/pipeline](https://github.com/mpociot/pipeline) 提供支持。
+> 中间件由 [mpociot/pipeline](https://github.com/mpociot/pipeline) 提供支持。
 
-## 一个中间件类必须实现 `Guanguans\Coole\Middleware\MiddlewareInterface` 接口
-
-## 示例
+## 前置中间件
 
 ``` php
+<?php
+
 use Closure;
+use Guanguans\Coole\Middleware\MiddlewareInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class BeforeRequest implements MiddlewareInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function handle(Request $request, Closure $next)
     {
-
         dump('Before request.');
 
         return $next($request);
@@ -25,18 +22,19 @@ class BeforeRequest implements MiddlewareInterface
 }
 ```
 
+## 后置中间件
+
 ``` php
+<?php
+
 use Closure;
+use Guanguans\Coole\Middleware\MiddlewareInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class AfterRequest implements MiddlewareInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function handle(Request $request, Closure $next)
     {
-
         $response = $next($request);
 
         dump('After request.');
@@ -48,10 +46,40 @@ class AfterRequest implements MiddlewareInterface
 
 ## 全局中间件
 
-在 [coolephp/skeleton](https://github.com/coolephp/skeleton) 骨架下，默认在 config/app.php 文件内配置全局中间件。
+### 配置添加
+
+默认在 `config/app.php` 文件内配置全局中间件。
 
 ``` php
-$app->addMiddleware(App\Middlewa\DemoMiddleware::class);
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the coolephp/skeleton.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
+return [
+    ...
+    /*
+     * 全局中间件
+     */
+    'middleware' => [
+        // \App\Middleware\ExampleMiddleware::class
+    ],
+    ...
+];
+
+```
+
+### 动态添加
+
+``` php
+$app->addMiddleware(\App\Middleware\ExampleMiddleware::class);
 ```
 
 ## 路由中间件
@@ -63,6 +91,8 @@ Router::get('/user/{id}', [App\Controller\UserController::class, 'show'])->setMi
 ## 控制器中间件
 
 ``` php
+<?php
+
 namespace App\Controller;
 
 use Guanguans\Coole\Controller\Controller;

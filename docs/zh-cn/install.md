@@ -9,6 +9,15 @@
 > Coole 使用 [Composer](https://getcomposer.org/) 来管理项目的依赖，在使用 Coole 之前，请确保你的运行环境已经安装好了 Composer。
 
 ``` shell
-$ composer require guanguans/coole -vvv
+$ composer create-project coolephp/skeleton -vvv
 ```
 
+## 启动服务
+
+``` shell script
+$ php coole serve
+```
+
+## 测试浏览器访问
+
+![](/static/index.png)

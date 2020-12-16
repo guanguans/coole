@@ -1,14 +1,39 @@
 # 路由
 
-路由由 [symfony/routing](https://github.com/symfony/routing) 提供支持。
+> 路由由 [symfony/routing](https://github.com/symfony/routing) 提供支持。
 
-## 通过配置文件定义路由
+## 配置文件
 
-在 [coolephp/skeleton](https://github.com/coolephp/skeleton) 骨架下，默认在 route/web.php 文件内完成的路由定义。
-
-## 通过闭包定义路由
+默认 `config/logger.php`。
 
 ``` php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the coolephp/skeleton.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
+return [
+    base_path('route/web.php'),
+];
+
+```
+
+## 路由文件
+
+默认在 `route/web.php` 文件内完成的路由定义。
+
+## 闭包路由
+
+``` php
+<?php
+
 use Guanguans\Coole\Facade\Router;
 
 Route::get('hello-coole', function () {
@@ -16,17 +41,21 @@ Route::get('hello-coole', function () {
 });
 ```
 
-## 定义标准路由
+## 标准路由
 
 ``` php
+<?php
+
 use Guanguans\Coole\Facade\Router;
 
 Router::get('/hello-coole', [App\Controller\IndexController::class, 'hello']);
 ```
 
-## 可用的路由方法
+## 路由方法
 
 ``` php
+<?php
+
 use Guanguans\Coole\Facade\Router;
 
 // 注册与方法名一致的 HTTP METHOD 的路由
@@ -42,9 +71,11 @@ Router::any($httpMethod, $uri, $to);
 Router::match($httpMethod, $uri, $to);
 ```
 
-## 路由组的定义方式
+## 路由组
 
 ``` php
+<?php
+
 use Guanguans\Coole\Facade\Router;
 
 Router::prefix('/user/')->group(function (){
@@ -57,17 +88,24 @@ Router::prefix('/user/')->group(function (){
 
 ## 路由参数
 
+### 路由文件中
+
 ``` php
 Router::get('/user/{id}', [App\Controller\UserController::class, 'show']);
 ```
 
+### 控制器中
+
 ``` php
+<?php
+
 public function show($id)
 {
     dd($id);
 }
 ```
-### 设置路由中间件
+
+### 路由中间件
 
 ``` php
 Router::get('/user/{id}', [App\Controller\UserController::class, 'show'])->setMiddleware(App\Middlewa\DemoMiddleware::class);

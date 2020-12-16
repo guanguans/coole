@@ -1,12 +1,23 @@
 # 视图
 
-模版引擎由 [twig/twig](https://github.com/twig/twig) 提供支持。
+模板引擎由 [twig/twig](https://github.com/twigphp/Twig) 提供支持。
 
-## 配置
+## 配置文件
 
-在 [coolephp/skeleton](https://github.com/coolephp/skeleton) 骨架下，默认在 `config/view.php` 配置。
+默认 `config/view.php`。
 
 ``` php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the coolephp/skeleton.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
 
 return [
     'path' => base_path('view'),
@@ -20,13 +31,16 @@ return [
         'optimizations' => -1,
     ],
 ];
+
 ```
 
-## 使用
+## 使用(详细使用请参考[twig](https://twig.symfony.com/))
 
 ### 控制器
 
 ``` php
+<?php
+
 class ViewController
 {
     public function index()
@@ -36,7 +50,7 @@ class ViewController
 }
 ```
 
-### 模板
+### 模板文件
 
 ``` html
 <!doctype html>

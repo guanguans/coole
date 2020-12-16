@@ -1,12 +1,24 @@
 # 数据库
 
-命令行 [topthink/think-orm](https://github.com/topthink/think-orm) 提供支持。
+> 数据库由 [topthink/think-orm](https://github.com/top-think/think-orm) 提供支持。
 
-## 配置
+## 配置文件
 
-在 [coolephp/skeleton](https://github.com/coolephp/skeleton) 骨架下，默认在 `config/database.php` 配置。
+默认 `config/database.php`。
 
 ``` php
+<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the coolephp/skeleton.
+ *
+ * (c) guanguans <ityaozm@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 return [
     'default' => env('DB_DEFAULT', 'mysql'),
     'connections' => [
@@ -26,4 +38,4 @@ return [
 ];
 ```
 
-## 使用，请参考[think-orm](https://www.kancloud.cn/manual/think-orm/1258001)
+## 使用方法请参考 [think-orm](https://www.kancloud.cn/manual/think-orm/1258001)

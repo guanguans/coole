@@ -1,10 +1,12 @@
 # 控制器
 
-Coole 控制器解析器没有用 [symfony/http-kernel](https://github.com/symfony/http-kernel) 默认的控制器解析器，而是自己实现了 `Symfony\Component\HttpKernel\Controller\ControllerResolverInterface` 接口，添加了构造方法依赖注入。
+Coole 的控制器解析器没有使用 [symfony/http-kernel](https://github.com/symfony/http-kernel) 默认的控制器解析器，而是自己实现了 `Symfony\Component\HttpKernel\Controller\ControllerResolverInterface` 接口，控制器构造方法实现了依赖注入的功能。
 
 ## 编写控制器
 
 ``` php
+<?php
+
 namespace App\Controller;
 
 use Guanguans\Coole\Controller\Controller;
@@ -20,7 +22,7 @@ class IndexController extends Controller
         $this->userService = $userService;
     }
 
-    public function hello($hello)
+    public function demo($hello)
     {
         return sprintf('Hello %s', $hello);
     }

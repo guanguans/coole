@@ -1,8 +1,12 @@
 # 响应
 
-响应对象(Request) 由 [symfony/http-foundation](https://github.com/symfony/http-foundation) 提供实现支持。
+> 响应对象(Response)由 [symfony/http-foundation](https://github.com/symfony/http-foundation) 提供实现支持。
+
+## 响应对象
 
 ``` php
+<?php
+
 namespace App\Controller;
 
 use Guanguans\Coole\Controller\Controller;
@@ -10,7 +14,12 @@ use Guanguans\Coole\Controller\Controller;
 class IndexController extends Controller
 {
     /**
-     * {@inheritdoc}
+     * 渲染模板.
+     *
+     * @param $name
+     * @param array $context
+     * 
+     * @return string
      */
     public function render($name, $context = []): string
     {

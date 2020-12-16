@@ -1,10 +1,12 @@
 # 请求
 
-请求对象(Request) 由 [symfony/http-foundation](https://github.com/symfony/http-foundation) 提供实现支持。
+> 请求对象(Request)由 [symfony/http-foundation](https://github.com/symfony/http-foundation) 提供实现支持。
 
-## 获取请求对象
+## 请求对象
 
 ``` php
+<?php
+
 namespace App\Controller;
 
 use Guanguans\Coole\Controller\Controller;
