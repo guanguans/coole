@@ -2,6 +2,8 @@
 
 > 命令行 [symfony/console](https://github.com/symfony/console) 提供支持。
 
+![](../static/console.png)
+
 ## 配置文件
 
 默认 `config/console.php`。
