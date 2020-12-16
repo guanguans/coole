@@ -32,8 +32,8 @@ class IndexController extends Controller
 
 ## 开启 debug
 
-![](/coole/static/on-debug.png)
+![](../static/on-debug.png)
 
 ## 关闭 debug
 
-![](/coole/static/off-debug.png)
+![](../static/off-debug.png)

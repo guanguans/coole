@@ -20,4 +20,4 @@ $ php coole serve
 
 ## 测试浏览器访问
 
-![](/coole/static/index.png)
+![](../static/index.png)

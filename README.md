@@ -1,4 +1,4 @@
-<p align="center"><img src="./docs/logo.png" width="38%" alt="Coole"></p>
+<p align="center"><img src="./docs/static/logo.png" width="38%" alt="Coole"></p>
 
 > Coole is a PHP micro-framework based on open source excellent components.
 
