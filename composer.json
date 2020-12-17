@@ -27,7 +27,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">7.2",
-        "doctrine/dbal": "^2.10",
         "filp/whoops": "^2.9",
         "guanguans/di": "^1.0",
         "monolog/monolog": "^2.1",

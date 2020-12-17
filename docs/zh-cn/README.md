@@ -5,7 +5,7 @@
 
 > [coolephp/skeleton](https://github.com/coolephp/skeleton) 是一个官方提供的 [Coole](https://github.com/guanguans/coole) 框架应用模板。
 
-![](./static/life-cycle.png)
+![生命周期](./static/life-cycle.png)
 
 ## 感谢以下开源组件包(排名不分先后)
 

@@ -13,6 +13,10 @@
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)
 
+## Life cycle
+
+<p align="center"><img src="./docs/static/life-cycle.png" alt="Life cycle"></p>
+
 ## Requirement
 
 * PHP >= 7.2
@@ -52,10 +56,6 @@ Router::get('/', function (){
 // 3. Listen and Running.
 $app->run();
 ```
-
-## Life cycle
-
-<p align="center"><img src="./docs/static/life-cycle.png" alt="Life cycle"></p>
 
 ## Testing
 
