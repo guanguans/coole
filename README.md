@@ -1,6 +1,6 @@
 <p align="center"><img src="./docs/static/logo.png" width="38%" alt="Coole"></p>
 
-> Coole is a PHP micro-framework based on open source excellent components.
+> Coole is a PHP micro framework based on open source component packages. -  Coole 是一个基于开源组件包组成的 PHP 微框架。
 
 ![Tests](https://github.com/guanguans/coole/workflows/Tests/badge.svg)
 ![Check & fix styling](https://github.com/guanguans/coole/workflows/Check%20&%20fix%20styling/badge.svg)
@@ -52,6 +52,10 @@ Router::get('/', function (){
 // 3. Listen and Running.
 $app->run();
 ```
+
+## Life cycle
+
+<p align="center"><img src="./docs/static/life-cycle.png" alt="Life cycle"></p>
 
 ## Testing
 

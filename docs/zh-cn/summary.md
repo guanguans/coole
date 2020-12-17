@@ -5,6 +5,7 @@
 * 快速入门
 
   * [安装](zh-cn/install.md)
+  * [生命周期](zh-cn/life-cycle.md)
 
 * 基础功能
 

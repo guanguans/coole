@@ -1,10 +1,12 @@
 {
     "name": "guanguans/coole",
-    "description": "Coole 是一个基于开源优秀组件组成的 PHP 微框架，用于开发 Web 应用程序和 API。 - Coole is a PHP micro-framework based on open source excellent components for developing Web applications and APIs.",
+    "description": "Coole is a PHP micro framework based on open source component packages. -  Coole 是一个基于开源组件包组成的 PHP 微框架。",
     "keywords": [
         "php",
         "coole",
-        "framework"
+        "framework",
+        "micro",
+        "microframework"
     ],
     "homepage": "https://github.com/guanguans/coole",
     "support": {
