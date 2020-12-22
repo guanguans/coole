@@ -1,9 +1,9 @@
 
 <p align="center"><img src="./static/logo.png" width="38%" alt="Coole"></p>
 
-> [guanguans/coole](https://github.com/guanguans/coole) 是一个基于开源组件包组成的 PHP 微框架。
+[Coole](https://github.com/guanguans/coole) Coole 是一个基于开源组件构建的 PHP 微框架。
 
-> [coolephp/skeleton](https://github.com/coolephp/skeleton) 是一个官方提供的 [Coole](https://github.com/guanguans/coole) 框架应用模板。
+[coolephp/skeleton](https://github.com/coolephp/skeleton) 是一个官方提供的 [Coole](https://github.com/guanguans/coole) 框架应用模板。
 
 ![生命周期](./static/life-cycle.png)
 
