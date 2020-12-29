@@ -98,4 +98,30 @@ trait ControllerAble
     {
         return $this->middleware;
     }
+
+    /**
+     * 设置中间件.
+     *
+     * @param $middleware
+     *
+     * @return $this
+     */
+    public function setMiddleware($middleware): self
+    {
+        return $this->addMiddleware($middleware);
+    }
+
+    /**
+     * 添加中间件.
+     *
+     * @param $middleware
+     *
+     * @return $this
+     */
+    public function addMiddleware($middleware): self
+    {
+        $this->middleware = array_unique(array_merge($this->middleware, (array) $middleware));
+
+        return $this;
+    }
 }

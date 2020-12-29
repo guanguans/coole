@@ -16,6 +16,7 @@ use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
+use Guanguans\Coole\Console\LoadCommandAble;
 use Guanguans\Coole\Controller\ControllerAble;
 use Guanguans\Coole\Providers\AppServiceProvider;
 use Guanguans\Coole\Providers\ConfigServiceProvider;
@@ -32,6 +33,7 @@ use Tightenco\Collect\Support\Collection;
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     use ControllerAble;
+    use LoadCommandAble;
 
     public const VERSION = '1.0.0';
 
@@ -74,11 +76,47 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         // 注册 config 服务
         $this->register(new ConfigServiceProvider());
 
-        // 添加全局配置
-        $this->addOption($options);
+        // 设置全局配置
+        $this->setOptions($options);
 
         // 注册 app 服务
         $this->register(new AppServiceProvider());
+    }
+
+    /**
+     * 注册服务.
+     *
+     * @return $this
+     */
+    public function register(ServiceProviderInterface $provider): self
+    {
+        $this->providers[] = $provider;
+
+        // 处理注册之前工作
+        $provider instanceof BeforeRegisterAbleProviderInterface && $provider->beforeRegister($this);
+
+        $provider->register($this);
+
+        // 处理注册之后工作
+        $provider instanceof AfterRegisterAbleProviderInterface && $provider->afterRegister($this);
+
+        return $this;
+    }
+
+    /**
+     * 添加全局配置.
+     *
+     * @return $this
+     */
+    public function addOptions(array $options): self
+    {
+        $this->options = array_merge($this->options, $options);
+
+        foreach ($this->options as $key => $option) {
+            $this[$key] = $option;
+        }
+
+        return $this;
     }
 
     /**
@@ -87,6 +125,16 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public static function version(): string
     {
         return static::VERSION;
+    }
+
+    /**
+     * 设置全局配置.
+     *
+     * @return $this
+     */
+    public function setOptions(array $options): self
+    {
+        return $this->addOptions($options);
     }
 
     /**
@@ -118,33 +166,97 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 添加全局中间件.
-     *
-     * @param $middleware
+     * 批量注册服务.
      *
      * @return $this
      */
-    public function addMiddleware($middleware): self
+    public function registerProviders(array $providers): self
     {
-        $this->middleware = array_merge($this->middleware, (array) $middleware);
+        foreach ($providers as $provider) {
+            $this->register(new $provider());
+        }
 
         return $this;
     }
 
     /**
-     * 添加全局配置.
-     *
-     * @return $this
+     * 启动运行服务
      */
-    public function addOption(array $options): self
+    public function run(Request $request = null)
     {
-        $this->options = array_merge($this->options, $options);
-
-        foreach ($this->options as $key => $option) {
-            $this[$key] = $option;
+        if (null === $request) {
+            // 创建请求对象
+            $request = Request::createFromGlobals();
         }
 
-        return $this;
+        // 引导服务
+        $this->boot();
+
+        // 通过中间件发送响应
+        $response = $this->sendRequestThroughHandle($request);
+
+        // 终止请求/响应生命周期
+        $this->terminate($request, $response);
+    }
+
+    /**
+     * 引导应用程序.
+     */
+    public function boot()
+    {
+        if ($this->booted) {
+            return;
+        }
+
+        $this->booted = true;
+
+        foreach ($this->providers as $provider) {
+            // 服务订阅事件
+            $provider instanceof EventListenerAbleProviderInterface && $provider->subscribe($this, $this[EventDispatcher::class]);
+            // 引导服务
+            $provider instanceof BootableProviderInterface && $provider->boot($this);
+        }
+    }
+
+    /**
+     * 通过中间件发送响应.
+     */
+    public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
+    {
+        return (new Pipeline())
+            ->send($request)
+            ->through($this->makeAllMiddleware($this->getAllMiddleware($request)))
+            ->then(function () use ($request, $type, $catch) {
+                return $this->handle($request, $type, $catch);
+            });
+    }
+
+    /**
+     * 批量实例化中间件.
+     *
+     * @param $middleware
+     */
+    public function makeAllMiddleware($middleware): array
+    {
+        $middleware = (array) $middleware;
+
+        array_walk($middleware, function (&$item) {
+            is_string($item) && $item = $this->make($item);
+        });
+
+        return $middleware;
+    }
+
+    /**
+     * 获取当前请求的全部中间件.
+     */
+    public function getAllMiddleware(Request $request): array
+    {
+        return array_merge(
+            $this->middleware,
+            $this->getControllerMiddleware($request),
+            $this->getRouteMiddleware($request)
+        );
     }
 
     /**
@@ -170,107 +282,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 获取当前请求的全部中间件.
-     */
-    public function getAllMiddleware(Request $request): array
-    {
-        return array_merge(
-            $this->middleware,
-            $this->getControllerMiddleware($request),
-            $this->getRouteMiddleware($request)
-        );
-    }
-
-    /**
-     * 批量实例化中间件.
-     *
-     * @param $middleware
-     */
-    public function makeAllMiddleware($middleware): array
-    {
-        $middleware = (array) $middleware;
-
-        array_walk($middleware, function (&$item) {
-            is_string($item) && $item = $this->make($item);
-        });
-
-        return $middleware;
-    }
-
-    /**
-     * 注册服务.
-     *
-     * @return $this
-     */
-    public function register(ServiceProviderInterface $provider): self
-    {
-        $this->providers[] = $provider;
-
-        // 处理注册之前工作
-        $provider instanceof BeforeRegisterAbleProviderInterface && $provider->beforeRegister($this);
-
-        $provider->register($this);
-
-        // 处理注册之后工作
-        $provider instanceof AfterRegisterAbleProviderInterface && $provider->afterRegister($this);
-
-        return $this;
-    }
-
-    /**
-     * 批量注册服务.
-     *
-     * @return $this
-     */
-    public function registerProviders(array $providers): self
-    {
-        foreach ($providers as $provider) {
-            $this->register(new $provider());
-        }
-
-        return $this;
-    }
-
-    /**
-     * 引导应用程序.
-     */
-    public function boot()
-    {
-        if ($this->booted) {
-            return;
-        }
-
-        $this->booted = true;
-
-        foreach ($this->providers as $provider) {
-            // 服务订阅事件
-            $provider instanceof EventListenerAbleProviderInterface && $provider->subscribe($this, $this[EventDispatcher::class]);
-            // 引导服务
-            $provider instanceof BootableProviderInterface && $provider->boot($this);
-        }
-    }
-
-    /**
-     * 启动运行服务
-     */
-    public function run(Request $request = null)
-    {
-        if (null === $request) {
-            // 创建请求对象
-            $request = Request::createFromGlobals();
-        }
-
-        // 引导服务
-        $this->boot();
-
-        // 通过中间件发送响应
-        $response = $this->sendRequestThroughHandle($request);
-
-        // 终止请求/响应生命周期
-        $this->terminate($request, $response);
-    }
-
-    /**
      * 处理请求为响应且发送响应.
      */
     public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
@@ -280,19 +291,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $response->send();
 
         return $response;
-    }
-
-    /**
-     * 通过中间件发送响应.
-     */
-    public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
-    {
-        return (new Pipeline())
-            ->send($request)
-            ->through($this->makeAllMiddleware($this->getAllMiddleware($request)))
-            ->then(function () use ($request, $type, $catch) {
-                return $this->handle($request, $type, $catch);
-            });
     }
 
     /**

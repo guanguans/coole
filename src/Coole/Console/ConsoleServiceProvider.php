@@ -20,8 +20,6 @@ use Tightenco\Collect\Support\Collection as Command;
 
 class ConsoleServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface
 {
-    use LoadCommandAble;
-
     /**
      * {@inheritdoc}
      */
@@ -42,6 +40,6 @@ class ConsoleServiceProvider implements ServiceProviderInterface, AfterRegisterA
      */
     public function afterRegister(App $app)
     {
-        $this->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
+        $app->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
     }
 }

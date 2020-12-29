@@ -88,7 +88,7 @@ class AppTest extends TestCase
     {
         $app = new App();
 
-        $app->addMiddleware(MiddlewareStub::class);
+        $app->setMiddleware(MiddlewareStub::class);
 
         $middleware = $app->getMiddleware();
 
@@ -99,7 +99,7 @@ class AppTest extends TestCase
     {
         $app = new App();
 
-        $app->addOption($options = [
+        $app->addOptions($options = [
             'debug' => true,
             'charset' => 'UTF-8',
         ]);

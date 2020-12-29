@@ -79,7 +79,8 @@ return [
 ### 动态添加
 
 ``` php
-$app->addMiddleware(\App\Middleware\ExampleMiddleware::class);
+``` php
+$app->setMiddleware(\App\Middleware\ExampleMiddleware::class);
 ```
 
 ## 路由中间件

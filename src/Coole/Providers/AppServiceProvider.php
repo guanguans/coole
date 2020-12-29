@@ -64,11 +64,11 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
             })->toArray()
             : [];
 
-        // 添加选项
-        $app->addOption($options);
+        // 设置选项
+        $app->setOptions($options);
 
-        // 添加中间件
-        $app->addMiddleware($this->middleware);
+        // 设置中间件
+        $app->setMiddleware($this->middleware);
     }
 
     /**
