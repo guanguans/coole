@@ -63,7 +63,7 @@ class ViewController
     <title>view</title>
 </head>
 <body>
-<p>{{ name }}</p>
+    <p>{{ name }}</p>
 </body>
 </html>
 ```
