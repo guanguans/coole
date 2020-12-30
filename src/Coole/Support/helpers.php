@@ -107,22 +107,6 @@ if (! function_exists('base_path')) {
     }
 }
 
-if (! function_exists('config_path')) {
-    /**
-     * 获取 config path.
-     *
-     * @return string|null
-     */
-    function config_path(string $path = null)
-    {
-        if (null !== $path) {
-            return base_path('config'.'/'.trim($path, '/'));
-        }
-
-        return base_path('config');
-    }
-}
-
 if (! function_exists('event')) {
     /**
      * 调度事件.

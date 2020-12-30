@@ -158,6 +158,18 @@ class AppTest extends TestCase
 
         $this->assertNull($app->boot());
     }
+
+    public function testLoadEnv()
+    {
+        $loadEnv = $this->app->loadEnv(__DIR__.'/feature');
+        $this->assertInstanceOf(App::class, $loadEnv);
+    }
+
+    public function testLoadConfig()
+    {
+        $loadConfig = $this->app->loadConfig(__DIR__.'/feature/config');
+        $this->assertInstanceOf(App::class, $loadConfig);
+    }
 }
 
 class MiddlewareStub

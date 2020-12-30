@@ -12,13 +12,11 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Provider;
 
-use Dotenv\Dotenv;
 use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
-use Symfony\Component\Finder\Finder;
 use Tightenco\Collect\Support\Collection as Config;
 
 class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface, BeforeRegisterAbleProviderInterface
@@ -28,10 +26,11 @@ class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAb
      */
     public function beforeRegister(App $app)
     {
-        if (null !== base_path()) {
-            $dotenv = Dotenv::createUnsafeMutable(base_path());
-            $dotenv->load();
+        if (null === $app['env_path']) {
+            return;
         }
+
+        $app->loadEnv($app['env_path']);
     }
 
     /**
@@ -49,15 +48,10 @@ class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAb
      */
     public function afterRegister(App $app)
     {
-        if ($configDir = config_path()) {
-            $configFiles = Finder::create()->files()->in($configDir)->name('*.php');
-
-            $config = [];
-            foreach ($configFiles as $configFile) {
-                $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
-            }
-
-            $app->mergeConfig($config);
+        if (null === $app['config_path']) {
+            return;
         }
+
+        $app->loadConfig($app['config_path']);
     }
 }

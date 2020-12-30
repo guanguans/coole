@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole;
 
+use Dotenv\Dotenv;
 use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
@@ -24,6 +25,7 @@ use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -45,6 +47,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     protected $options = [
         'debug' => false,
         'charset' => 'UTF-8',
+        'config_path' => null,
+        'env_path' => null,
     ];
 
     /**
@@ -73,11 +77,11 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         // 设置 app 共享实例
         static::setInstance($this);
 
-        // 注册 config 服务
-        $this->register(new ConfigServiceProvider());
-
         // 设置全局配置
         $this->setOptions($options);
+
+        // 注册 config 服务
+        $this->register(new ConfigServiceProvider());
 
         // 注册 app 服务
         $this->register(new AppServiceProvider());
@@ -125,6 +129,39 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public static function version(): string
     {
         return static::VERSION;
+    }
+
+    /**
+     * 加载 env.
+     *
+     * @param string|string[] $paths
+     *
+     * @return $this
+     */
+    public function loadEnv($paths): self
+    {
+        $dotenv = Dotenv::createUnsafeMutable($paths);
+        $dotenv->load();
+
+        return $this;
+    }
+
+    /**
+     * 加载配置.
+     *
+     * @return $this
+     */
+    public function loadConfig(string $path): self
+    {
+        $configFiles = Finder::create()->files()->in($path)->name('*.php');
+        $config = [];
+        foreach ($configFiles as $configFile) {
+            $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
+        }
+
+        $this->mergeConfig($config);
+
+        return $this;
     }
 
     /**
