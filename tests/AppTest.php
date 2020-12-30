@@ -21,14 +21,6 @@ use Tightenco\Collect\Support\Collection;
 
 class AppTest extends TestCase
 {
-    protected $app;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->app = new App();
-    }
-
     public function testConstruct()
     {
         $app = new App($options = [

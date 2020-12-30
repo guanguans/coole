@@ -12,10 +12,16 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Tests;
 
+use Guanguans\Coole\App;
+
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    protected $app;
+
     protected function setUp(): void
     {
+        parent::setUp();
+        $this->app = new App();
     }
 
     /**

@@ -52,7 +52,7 @@ trait ControllerAble
      * @param $statusCode
      * @param string $message
      */
-    public function abort($statusCode, $message = '', array $headers = []): HttpException
+    public function abort($statusCode, $message = '', array $headers = [])
     {
         throw new HttpException($statusCode, $message, null, $headers);
     }

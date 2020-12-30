@@ -21,13 +21,19 @@
             <exclude>
                 <directory>src/Coole/Able/</directory>
                 <file>src/Coole/Console/Command.php</file>
+                <file>src/Coole/Console/Application.php</file>
+                <file>src/Coole/Console/ConsoleServiceProvider.php</file>
                 <directory>src/Coole/Console/Commands/</directory>
                 <file>src/Coole/Controller/Controller.php</file>
                 <file>src/Coole/Controller/ControllerInterface.php</file>
+                <file>src/Coole/Controller/ControllerResolver.php</file>
                 <file>src/Coole/Database/Model.php</file>
                 <file>src/Coole/Event/ListenerInterface.php</file>
                 <directory>src/Coole/Exception/</directory>
+                <directory>src/Coole/Listener/</directory>
+                <directory>src/Coole/Middleware/</directory>
                 <directory>src/Coole/Facade/</directory>
+                <directory>src/Coole/Support/</directory>
             </exclude>
         </whitelist>
     </filter>
