@@ -97,7 +97,7 @@ class RouterTest extends TestCase
         $this->assertSame(['PATCH'], $route->getMethods());
     }
 
-    public function test__call()
+    public function testCall()
     {
         $routeRegistrar = $this->router->prefix('/');
         $this->assertInstanceOf(RouteRegistrar::class, $routeRegistrar);
