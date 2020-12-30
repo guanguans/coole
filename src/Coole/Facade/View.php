@@ -22,6 +22,9 @@ use Twig\Environment;
  */
 class View extends Facade
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function getFacadeAccessor()
     {
         return Environment::class;

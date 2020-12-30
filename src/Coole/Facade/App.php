@@ -12,19 +12,13 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Facade;
 
-/**
- * @method static \think\db\BaseQuery table($table)
- * @method static \think\db\BaseQuery name(string $name)
- *
- * @see \think\db\BaseQuery
- */
-class DB extends Facade
+class App extends Facade
 {
     /**
      * {@inheritdoc}
      */
     public static function getFacadeAccessor()
     {
-        return 'db';
+        return 'app';
     }
 }

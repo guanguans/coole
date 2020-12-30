@@ -39,6 +39,9 @@ namespace Guanguans\Coole\Facade;
  */
 class Router extends Facade
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function getFacadeAccessor()
     {
         return \Guanguans\Coole\Routing\Router::class;

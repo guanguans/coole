@@ -27,6 +27,9 @@ namespace Guanguans\Coole\Facade;
  */
 class Logger extends Facade
 {
+    /**
+     * {@inheritdoc}
+     */
     public static function getFacadeAccessor()
     {
         return 'logger';
