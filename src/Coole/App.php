@@ -77,6 +77,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         // 设置 app 共享实例
         static::setInstance($this);
 
+        // 将 app 实例注册为在容器中共享的实例
+        $this->instance('app', $this);
+
         // 设置全局配置
         $this->setOptions($options);
 
