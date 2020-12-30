@@ -32,6 +32,7 @@
                 <directory>src/Coole/Exception/</directory>
                 <directory>src/Coole/Listener/</directory>
                 <directory>src/Coole/Middleware/</directory>
+                <directory>src/Coole/Provider/</directory>
                 <directory>src/Coole/Facade/</directory>
                 <directory>src/Coole/Support/</directory>
             </exclude>

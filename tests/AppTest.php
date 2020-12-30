@@ -149,9 +149,14 @@ class AppTest extends TestCase
     public function testBoot()
     {
         $app = new SubAppStub();
+
         $this->assertFalse($app->getBooted());
         $app->boot();
         $this->assertTrue($app->getBooted());
+
+        $app->setBooted(true);
+
+        $this->assertNull($app->boot());
     }
 }
 
@@ -164,6 +169,13 @@ class SubAppStub extends App
     public function getBooted()
     {
         return $this->booted;
+    }
+
+    public function setBooted($value)
+    {
+        $this->booted = $value;
+
+        return $this;
     }
 }
 
