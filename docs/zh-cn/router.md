@@ -2,9 +2,9 @@
 
 > 路由由 [symfony/routing](https://github.com/symfony/routing) 提供支持。
 
-## 配置文件
+## 配置路由文件
 
-默认 `config/logger.php`。
+默认 `config/app.php`。
 
 ``` php
 <?php
@@ -20,14 +20,18 @@ declare(strict_types=1);
  */
 
 return [
-    base_path('route/web.php'),
+    ...
+    'route' => [
+        // 路由文件所在目录或者路由文件
+        base_path('route'),
+    ],
+    ...
 ];
-
 ```
 
 ## 路由文件
 
-默认在 `route/web.php` 文件内完成的路由定义。
+默认在 `route/web.php` 和 `route/api.php` 文件内完成的路由定义。
 
 ## 闭包路由
 
