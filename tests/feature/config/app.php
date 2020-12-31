@@ -19,16 +19,22 @@ return [
 
     'timezone' => 'Asia/Shanghai',
 
+    'env_path' => base_path(),
+
+    'config_path' => base_path('config'),
+
     'providers' => [
-        // \App\Provider\LoadCommandServiceProvider::class,
-        // \App\Provider\LoadRouteServiceProvider::class,
-        // \App\Provider\MiddlewareServiceProvider::class,
+        // \App\Provider\ExampleServiceProvider::class,
     ],
 
     /*
      * 全局中间件
      */
     'middleware' => [
-        // \App\Middleware\ExampleMiddleware::class
+        // \App\Middleware\ExampleMiddleware::class,
+    ],
+
+    'route' => [
+        base_path('route'),
     ],
 ];

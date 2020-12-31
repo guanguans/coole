@@ -14,6 +14,7 @@ namespace Guanguans\Coole\Tests;
 
 use Guanguans\Coole\App;
 use Guanguans\Coole\Controller\Controller;
+use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -169,6 +170,30 @@ class AppTest extends TestCase
     {
         $loadConfig = $this->app->loadConfig(__DIR__.'/feature/config');
         $this->assertInstanceOf(App::class, $loadConfig);
+
+        $loadConfig = $this->app->loadConfig(__DIR__.'/feature/config/app.php');
+        $this->assertInstanceOf(App::class, $loadConfig);
+    }
+
+    public function testLoadConfigException()
+    {
+        $this->expectException(UnknownFileException::class);
+        $this->app->loadConfig(__DIR__.'/feature/confi');
+    }
+
+    public function testLoadRoute()
+    {
+        $loadConfig = $this->app->loadRoute(__DIR__.'/feature/config');
+        $this->assertInstanceOf(App::class, $loadConfig);
+
+        $loadConfig = $this->app->loadRoute(__DIR__.'/feature/config/app.php');
+        $this->assertInstanceOf(App::class, $loadConfig);
+    }
+
+    public function testLoadRouteException()
+    {
+        $this->expectException(UnknownFileException::class);
+        $this->app->loadRoute(__DIR__.'/feature/confi');
     }
 }
 
