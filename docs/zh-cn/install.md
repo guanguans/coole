@@ -21,3 +21,27 @@ $ php coole serve
 ## 测试浏览器访问
 
 ![](../static/index.png)
+
+## Web 服务器配置
+
+### Apache
+
+``` apacheconfig
+Options +FollowSymLinks -Indexes
+RewriteEngine On
+
+RewriteCond %{HTTP:Authorization} .
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [L]
+```
+
+### Nginx
+
+``` conf
+location / {
+    try_files $uri $uri/ /index.php?$query_string;
+}
+```

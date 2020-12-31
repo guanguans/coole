@@ -6,6 +6,7 @@
 
   * [安装](zh-cn/install.md)
   * [生命周期](zh-cn/life-cycle.md)
+  * [目录结构](zh-cn/structure.md)
 
 * 基础功能
 
