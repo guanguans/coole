@@ -5,4 +5,4 @@
 <!--* 简单、灵活、高效-->
 
 [GitHub](https://github.com/guanguans/coole)
-[Get Started](#项目介绍)
+[快速开始](#项目介绍)
