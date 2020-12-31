@@ -58,16 +58,14 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         // 设置门面的 app 共享实例
         Facade::setFacadeApplication($app);
 
-        $options = isset($app['config']['app'])
-            ? $app['config']['app']->filter(function ($value) {
-                return ! is_array($value);
-            })->toArray()
-            : [];
+        if (isset($app['config']['app'])) {
+            // 设置第三方全局配置
+            $app->setOptions($app['config']['app']->toArray());
+            // 设置第三方全局中间件
+            $app->setMiddleware($app['config']['app']['middleware'] ?? []);
+        }
 
-        // 设置选项
-        $app->setOptions($options);
-
-        // 设置中间件
+        // 设置核心全局中间件
         $app->setMiddleware($this->middleware);
     }
 

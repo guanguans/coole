@@ -26,11 +26,9 @@ class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAb
      */
     public function beforeRegister(App $app)
     {
-        if (null === $app['env_path']) {
-            return;
+        if (isset($app['env_path'])) {
+            $app->loadEnv($app['env_path']);
         }
-
-        $app->loadEnv($app['env_path']);
     }
 
     /**
@@ -48,10 +46,8 @@ class ConfigServiceProvider implements ServiceProviderInterface, AfterRegisterAb
      */
     public function afterRegister(App $app)
     {
-        if (null === $app['config_path']) {
-            return;
+        if (isset($app['config_path'])) {
+            $app->loadConfig($app['config_path']);
         }
-
-        $app->loadConfig($app['config_path']);
     }
 }

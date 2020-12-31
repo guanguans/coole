@@ -12,6 +12,6 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Exception;
 
-class InvalidConfigException extends \Exception
+class UnknownFileException extends \Exception
 {
 }
