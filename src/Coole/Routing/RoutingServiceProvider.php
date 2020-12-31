@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Routing;
 
+use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
@@ -22,7 +23,7 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 
-class RoutingServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface
+class RoutingServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -56,5 +57,17 @@ class RoutingServiceProvider implements ServiceProviderInterface, EventListenerA
     public function subscribe(App $app, EventDispatcherInterface $dispatcher)
     {
         $dispatcher->addSubscriber(new RouterListener($app['url_matcher'], $app['request_stack']));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function afterRegister(App $app)
+    {
+        if (isset($app['route'])) {
+            foreach ($app['route'] as $file) {
+                $app->loadRoute($file);
+            }
+        }
     }
 }

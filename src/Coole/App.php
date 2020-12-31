@@ -17,8 +17,9 @@ use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
-use Guanguans\Coole\Console\LoadCommandAble;
+use Guanguans\Coole\Console\CommandDiscoverer;
 use Guanguans\Coole\Controller\ControllerAble;
+use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Coole\Provider\AppServiceProvider;
 use Guanguans\Coole\Provider\ConfigServiceProvider;
 use Guanguans\Di\Container;
@@ -35,7 +36,6 @@ use Tightenco\Collect\Support\Collection;
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     use ControllerAble;
-    use LoadCommandAble;
 
     public const VERSION = '1.0.1';
 
@@ -80,7 +80,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         // 将 app 实例注册为在容器中共享的实例
         $this->instance('app', $this);
 
-        // 设置全局配置
+        // 设置核心全局配置
         $this->setOptions($options);
 
         // 注册 config 服务
@@ -156,15 +156,63 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function loadConfig(string $path): self
     {
-        $configFiles = Finder::create()->files()->in($path)->name('*.php');
+        if (! file_exists($path)) {
+            throw new UnknownFileException(sprintf('File or directory does not exist.: %s', $path));
+        }
+
         $config = [];
-        foreach ($configFiles as $configFile) {
+
+        if (is_file($path)) {
+            $configFile = new \SplFileInfo($path);
             $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
+        }
+
+        if (is_dir($path)) {
+            $configFiles = Finder::create()->files()->in($path)->name('*.php');
+            foreach ($configFiles as $configFile) {
+                $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
+            }
         }
 
         $this->mergeConfig($config);
 
         return $this;
+    }
+
+    /**
+     * 加载路由.
+     *
+     * @return $this
+     */
+    public function loadRoute(string $path): self
+    {
+        if (! file_exists($path)) {
+            throw new UnknownFileException(sprintf('File or directory does not exist.: %s', $path));
+        }
+
+        if (is_file($path)) {
+            require $path;
+
+            return $this;
+        }
+
+        $routeFiles = Finder::create()->files()->in($path)->name('*.php');
+        foreach ($routeFiles as $routeFile) {
+            require $routeFile;
+        }
+
+        return $this;
+    }
+
+    /**
+     * 加载命令.
+     */
+    public function loadCommand(string $dir, string $namespace, string $suffix = '*Command.php')
+    {
+        $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
+        if ($commands = $commandDiscoverer->getCommands()) {
+            $this['command']->add($commands);
+        }
     }
 
     /**
