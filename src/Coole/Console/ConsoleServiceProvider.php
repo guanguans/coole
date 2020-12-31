@@ -41,5 +41,11 @@ class ConsoleServiceProvider implements ServiceProviderInterface, AfterRegisterA
     public function afterRegister(App $app)
     {
         $app->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
+
+        if (isset($app['config']['console']['command'])) {
+            foreach ($app['config']['console']['command'] as $command) {
+                $app->loadCommand($command['dir'], $command['namespace'], $command['suffix'] ?? '*Command.php');
+            }
+        }
     }
 }
