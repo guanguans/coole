@@ -37,7 +37,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     use ControllerAble;
 
-    public const VERSION = '1.0.1';
+    public const VERSION = '1.0.2';
 
     /**
      * 核心配置.
