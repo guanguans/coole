@@ -22,7 +22,7 @@ class IndexController extends Controller
         $this->userService = $userService;
     }
 
-    public function demo($hello)
+    public function hello($hello)
     {
         return sprintf('Hello %s', $hello);
     }

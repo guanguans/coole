@@ -21,3 +21,8 @@
   * [视图](zh-cn/view.md)
   * [数据库](zh-cn/database.md)
   * [事件](zh-cn/event.md)
+
+* Links
+  * [Github](https://github.com/guanguans/coole)
+  * [Packagist](https://packagist.org/packages/guanguans/coole)
+  * [Github organization](https://github.com/coolephp)
