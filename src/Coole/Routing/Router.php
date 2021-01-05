@@ -46,11 +46,12 @@ class Router
     /**
      * 添加任意请求路由.
      *
-     * @param null $to
+     * @param string|string[] $methods
+     * @param null            $to
      *
      * @return \Guanguans\Coole\Routing\Route
      */
-    public function match(string $pattern, $to = null): Route
+    public function match($methods, string $pattern, $to = null): Route
     {
         $route = clone $this->defaultRoute;
 
@@ -60,6 +61,8 @@ class Router
 
         $route->setMiddleware($this->getGroupMiddleware());
 
+        $route->setMethods($methods);
+
         $this->routeCollection->add($groupPattern, $route);
 
         return $route;
@@ -68,13 +71,14 @@ class Router
     /**
      * 添加任意请求路由.
      *
-     * @param null $to
+     * @param string|string[] $methods
+     * @param null            $to
      *
      * @return \Guanguans\Coole\Routing\Route
      */
-    public function any(string $pattern, $to = null): Route
+    public function any($methods, string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to);
+        return $this->match($methods, $pattern, $to);
     }
 
     /**
@@ -86,7 +90,7 @@ class Router
      */
     public function get(string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to)->setMethods(['GET', 'HEAD']);
+        return $this->match(['GET', 'HEAD'], $pattern, $to);
     }
 
     /**
@@ -98,7 +102,7 @@ class Router
      */
     public function post(string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to)->setMethods('POST');
+        return $this->match('POST', $pattern, $to);
     }
 
     /**
@@ -110,7 +114,7 @@ class Router
      */
     public function put(string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to)->setMethods('PUT');
+        return $this->match('PUT', $pattern, $to);
     }
 
     /**
@@ -122,7 +126,7 @@ class Router
      */
     public function delete(string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to)->setMethods('DELETE');
+        return $this->match('DELETE', $pattern, $to);
     }
 
     /**
@@ -135,7 +139,7 @@ class Router
      */
     public function options(string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to)->setMethods('OPTIONS');
+        return $this->match('OPTIONS', $pattern, $to);
     }
 
     /**
@@ -147,7 +151,7 @@ class Router
      */
     public function patch(string $pattern, $to = null): Route
     {
-        return $this->match($pattern, $to)->setMethods('PATCH');
+        return $this->match('PATCH', $pattern, $to);
     }
 
     /**

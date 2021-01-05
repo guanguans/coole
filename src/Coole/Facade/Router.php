@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace Guanguans\Coole\Facade;
 
 /**
- * @method static \Guanguans\Coole\Routing\Router any(string $pattern, array|string|callable|null $to = null)
+ * @method static \Guanguans\Coole\Routing\Router any(string|string[] $methods, string $pattern, array|string|callable|null $to = null)
  * @method static \Guanguans\Coole\Routing\Router delete(string $pattern, array|string|callable|null $to = null)
  * @method static \Guanguans\Coole\Routing\Router get(string $pattern, array|string|callable|null $to = null)
- * @method static \Guanguans\Coole\Routing\Router match(string $pattern, array|string|callable|null $to = null)
+ * @method static \Guanguans\Coole\Routing\Router match(string|string[] $methods, string $pattern, array|string|callable|null $to = null)
  * @method static \Guanguans\Coole\Routing\Router options(string $pattern, array|string|callable|null $to = null)
  * @method static \Guanguans\Coole\Routing\Router patch(string $pattern, array|string|callable|null $to = null)
  * @method static \Guanguans\Coole\Routing\Router post(string $pattern, array|string|callable|null $to = null)

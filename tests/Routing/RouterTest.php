@@ -29,12 +29,18 @@ class RouterTest extends TestCase
 
     public function testAny()
     {
-        $route = $this->router->any('/', function () {
+        $route = $this->router->any([], '/', function () {
             return 'any';
         });
 
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame([], $route->getMethods());
+
+        $route = $this->router->any(['GET', 'POST'], '/', function () {
+            return 'any';
+        });
+        $this->assertInstanceOf(Route::class, $route);
+        $this->assertSame(['GET', 'POST'], $route->getMethods());
     }
 
     public function testPost()
