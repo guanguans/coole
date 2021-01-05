@@ -141,7 +141,7 @@ class AppTest extends TestCase
         $app = new App();
         $app['router']->get('/', function () {})->setMiddleware(MiddlewareStub::class);
         $request = Request::createFromGlobals();
-        $allMiddleware = $app->getAllMiddleware($request);
+        $allMiddleware = $app->getCurrentRequestMiddleware($request);
         $this->assertIsArray($allMiddleware);
     }
 

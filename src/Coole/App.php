@@ -315,7 +315,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         return (new Pipeline())
             ->send($request)
-            ->through($this->makeMiddleware($this->getAllMiddleware($request)))
+            ->through($this->makeMiddleware($this->getCurrentRequestMiddleware($request)))
             ->then(function () use ($request, $type, $catch) {
                 return $this->handle($request, $type, $catch);
             });
@@ -338,9 +338,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 获取当前请求的全部中间件.
+     * 获取当前请求中间件.
      */
-    public function getAllMiddleware(Request $request): array
+    public function getCurrentRequestMiddleware(Request $request): array
     {
         return array_merge(
             $this->getMiddleware(),
