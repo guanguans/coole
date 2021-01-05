@@ -52,7 +52,7 @@ class ControllerResolver implements ControllerResolverInterface
                 try {
                     $controller[0] = $this->instantiateController($controller[0]);
                     if (! $controller[0] instanceof Controller) {
-                        throw new InvalidClassException(sprintf('The controller must be implements "%s" .', Controller::class));
+                        throw new InvalidClassException(sprintf('The controller must be extends "%s" .', Controller::class));
                     }
                 } catch (\Error | \LogicException $e) {
                     try {

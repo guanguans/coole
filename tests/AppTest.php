@@ -14,6 +14,7 @@ namespace Guanguans\Coole\Tests;
 
 use Guanguans\Coole\App;
 use Guanguans\Coole\Controller\Controller;
+use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
@@ -109,6 +110,20 @@ class AppTest extends TestCase
         $controllerMiddleware = $app->getControllerMiddleware($request);
         $this->assertIsArray($controllerMiddleware);
         $this->assertEmpty($controllerMiddleware);
+
+        $app['router']->get('/', [ControllerStub::class, 'hello']);
+        $controllerMiddleware = $app->getControllerMiddleware($request);
+        $this->assertIsArray($controllerMiddleware);
+        $this->assertNotEmpty($controllerMiddleware);
+    }
+
+    public function testGetControllerMiddlewareException()
+    {
+        $app = new App();
+        $app['router']->get('/', [InvalidControllerStub::class, 'hello']);
+        $request = Request::createFromGlobals();
+        $this->expectException(InvalidClassException::class);
+        $app->getControllerMiddleware($request);
     }
 
     public function testGetRouteMiddleware()
@@ -130,9 +145,9 @@ class AppTest extends TestCase
         $this->assertIsArray($allMiddleware);
     }
 
-    public function testMakeAllMiddleware()
+    public function testMakeMiddleware()
     {
-        $middlewares = $this->app->makeAllMiddleware(MiddlewareStub::class);
+        $middlewares = $this->app->makeMiddleware(MiddlewareStub::class);
 
         $this->assertIsArray($middlewares);
 
@@ -149,7 +164,7 @@ class AppTest extends TestCase
 
     public function testBoot()
     {
-        $app = new SubAppStub();
+        $app = new AppStub();
 
         $this->assertFalse($app->getBooted());
         $app->boot();
@@ -201,7 +216,7 @@ class MiddlewareStub
 {
 }
 
-class SubAppStub extends App
+class AppStub extends App
 {
     public function getBooted()
     {
@@ -217,6 +232,17 @@ class SubAppStub extends App
 }
 
 class ControllerStub extends Controller
+{
+    protected $middleware = [
+        MiddlewareStub::class,
+    ];
+
+    public function hello()
+    {
+    }
+}
+
+class InvalidControllerStub
 {
     public function hello()
     {

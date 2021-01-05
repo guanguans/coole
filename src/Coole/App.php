@@ -18,7 +18,9 @@ use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\Console\CommandDiscoverer;
+use Guanguans\Coole\Controller\Controller;
 use Guanguans\Coole\Controller\ControllerAble;
+use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Coole\Provider\AppServiceProvider;
 use Guanguans\Coole\Provider\ConfigServiceProvider;
@@ -313,7 +315,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         return (new Pipeline())
             ->send($request)
-            ->through($this->makeAllMiddleware($this->getAllMiddleware($request)))
+            ->through($this->makeMiddleware($this->getAllMiddleware($request)))
             ->then(function () use ($request, $type, $catch) {
                 return $this->handle($request, $type, $catch);
             });
@@ -324,7 +326,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @param $middleware
      */
-    public function makeAllMiddleware($middleware): array
+    public function makeMiddleware($middleware): array
     {
         $middleware = (array) $middleware;
 
@@ -341,7 +343,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function getAllMiddleware(Request $request): array
     {
         return array_merge(
-            $this->middleware,
+            $this->getMiddleware(),
             $this->getControllerMiddleware($request),
             $this->getRouteMiddleware($request)
         );
@@ -349,14 +351,22 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取控制器中间件.
+     *
+     * @throws \Guanguans\Coole\Exception\InvalidClassException
      */
     public function getControllerMiddleware(Request $request): array
     {
         $parameters = $this['url_matcher']->matchRequest($request);
+        if (! is_array($parameters['_controller'])) {
+            return [];
+        }
 
-        return is_array($parameters['_controller'])
-            ? $this->make($parameters['_controller'][0])->getMiddleware()
-            : [];
+        $controller = $this->make($parameters['_controller'][0]);
+        if (! $controller instanceof Controller) {
+            throw new InvalidClassException(sprintf('The controller must be extends "%s" .', Controller::class));
+        }
+
+        return $controller->getMiddleware();
     }
 
     /**
