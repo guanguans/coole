@@ -14,5 +14,5 @@ namespace Guanguans\Coole\Controller;
 
 class Controller implements ControllerInterface
 {
-    use ControllerAble;
+    use HasControllerAble;
 }

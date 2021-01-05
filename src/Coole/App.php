@@ -19,7 +19,7 @@ use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\Console\CommandDiscoverer;
 use Guanguans\Coole\Controller\Controller;
-use Guanguans\Coole\Controller\ControllerAble;
+use Guanguans\Coole\Controller\HasControllerAble;
 use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Coole\Provider\AppServiceProvider;
@@ -37,7 +37,7 @@ use Tightenco\Collect\Support\Collection;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
-    use ControllerAble;
+    use HasControllerAble;
 
     public const VERSION = '1.0.2';
 
