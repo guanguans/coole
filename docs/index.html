@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="./static/favicon.png"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/themes/vue.css"/>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.css"/>
     <style>
         .app-name-link img {
             width: 38%;
@@ -25,7 +26,7 @@
 <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github/index.js"></script>
 <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
 <script>
-  mermaid.initialize({ startOnLoad: false });
+  mermaid.initialize({startOnLoad: false});
 
   window.$docsify = {
     name: 'Coole PHP 微框架',
@@ -65,9 +66,9 @@
     plantuml: {
       skin: 'classic',
     },
-    markdown:{
+    markdown: {
       renderer: {
-        code: function(code, lang) {
+        code: function (code, lang) {
           if (lang === "mermaid") {
             return ('<div class="mermaid">' + mermaid.render(lang, code) + '</div>');
           }
@@ -81,6 +82,8 @@
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-plantuml/dist/docsify-plantuml.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 <script>
   // 百度统计
   var _hmt = _hmt || [];
@@ -99,6 +102,21 @@
 
   ga('create', '257572807', 'auto');
   ga('send', 'pageview');
+
+  // gitalk
+  var pathNames = decodeURI(window.location.href).split('#/');
+  var pathName = pathNames && pathNames[1] ? pathNames[1] : '/'
+  console.log(pathNames);
+  const gitalk = new Gitalk({
+    clientID: 'c3750903c5d7743a0a4f',
+    clientSecret: 'cab251713be26605a9993107b4ae9384ffa7ad14',
+    repo: 'docs',
+    owner: 'coolephp',
+    admin: ['guanguans'],
+    distractionFreeMode: false,
+    id: pathName.split('?')[0],
+    language: 'zh-CN',
+  })
 </script>
 </body>
 

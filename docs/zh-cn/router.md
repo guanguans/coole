@@ -71,8 +71,8 @@ Router::delete($uri, $to);
 Router::options($uri, $to);
 
 // 注册任意 HTTP METHOD 的路由
-Router::any($uri, $to)->setMethods($httpMethod);
-Router::match($uri, $to)->setMethods($httpMethod);
+Router::any($httpMethods, $uri, $to);
+Router::match($httpMethods, $uri, $to);
 ```
 
 ## 路由组
