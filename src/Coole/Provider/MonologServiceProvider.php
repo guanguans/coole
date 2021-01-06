@@ -38,7 +38,7 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
                 'name' => 'app',
                 'level' => Logger::DEBUG,
                 'bubble' => true,
-                'permission' => null,
+                'file_permission' => null,
                 'log_file' => null,
                 'use_locking' => false,
             ],
@@ -81,7 +81,7 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
                 $app['config']['logger']['log_file'],
                 $app['config']['logger']['level'] ?? Logger::DEBUG,
                 $app['config']['logger']['bubble'] ?? true,
-                $app['config']['logger']['permission'] ?? null,
+                $app['config']['logger']['file_permission'] ?? null,
                 $app['config']['logger']['use_locking'] ?? false
             );
             $handler->setFormatter($app['monolog.formatter']);
