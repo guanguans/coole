@@ -125,6 +125,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             $this[$key] = $option;
         }
 
+        $this['options'] = $this->options;
+
         return $this;
     }
 
