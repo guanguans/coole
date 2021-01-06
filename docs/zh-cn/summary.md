@@ -22,7 +22,7 @@
   * [数据库](zh-cn/database.md)
   * [事件](zh-cn/event.md)
 
-* Links
-  * [Github](https://github.com/guanguans/coole)
-  * [Packagist](https://packagist.org/packages/guanguans/coole)
+* 相关链接
+  * [Coole source code](https://github.com/guanguans/coole)
+  * [Skeleton source code](https://github.com/coolephp/skeleton)
   * [Github organization](https://github.com/coolephp)
