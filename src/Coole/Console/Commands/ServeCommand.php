@@ -30,6 +30,8 @@ class ServeCommand extends Command
         ['docroot', null, InputOption::VALUE_REQUIRED, 'The docroot to serve the application on', null],
     ];
 
+    protected $tries = 10;
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (empty($this->input->getOption('docroot'))) {
@@ -43,6 +45,11 @@ class ServeCommand extends Command
         $this->output->writeln("<info>Coole development server started:</info> <http://{$this->input->getOption('host')}:{$this->input->getOption('port')}>");
 
         passthru($this->serverCommand(), $status);
+        if ($status && $this->tries > 0) {
+            --$this->tries;
+            $input->setOption('port', $input->getOption('port') + 1);
+            $this->execute($input, $output);
+        }
 
         return parent::SUCCESS;
     }
