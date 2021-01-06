@@ -29,6 +29,7 @@
                 <file>src/Coole/Controller/ControllerResolver.php</file>
                 <file>src/Coole/Database/Model.php</file>
                 <file>src/Coole/Event/ListenerInterface.php</file>
+                <file>src/Coole/Routing/RoutingServiceProvider.php</file>
                 <directory>src/Coole/Exception/</directory>
                 <directory>src/Coole/Listener/</directory>
                 <directory>src/Coole/Middleware/</directory>

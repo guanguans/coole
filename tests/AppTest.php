@@ -16,6 +16,7 @@ use Guanguans\Coole\App;
 use Guanguans\Coole\Controller\Controller;
 use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
+use Guanguans\Coole\Provider\TwigServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -209,6 +210,28 @@ class AppTest extends TestCase
     {
         $this->expectException(UnknownFileException::class);
         $this->app->loadRoute(__DIR__.'/feature/confi');
+    }
+
+    public function testAddFinishHandler()
+    {
+        $addFinishListener = $this->app->addFinishHandler(function () {
+            return __FUNCTION__;
+        });
+
+        $this->assertInstanceOf(App::class, $addFinishListener);
+    }
+
+    public function testRender()
+    {
+        $this->app->mergeConfig([
+            'view' => [
+                'path' => __DIR__.'/feature/view',
+            ],
+        ]);
+        $this->app->register(new TwigServiceProvider());
+        $render = $this->app->render('index.twig');
+
+        $this->assertIsString($render);
     }
 }
 

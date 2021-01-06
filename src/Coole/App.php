@@ -26,7 +26,6 @@ use Guanguans\Coole\Provider\AppServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -268,7 +267,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 启动运行服务
+     * 启动运行服务.
      */
     public function run(Request $request = null)
     {
@@ -300,7 +299,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         foreach ($this->providers as $provider) {
             // 服务订阅事件
-            $provider instanceof EventListenerAbleProviderInterface && $provider->subscribe($this, $this[EventDispatcher::class]);
+            $provider instanceof EventListenerAbleProviderInterface && $provider->subscribe($this, $this['event_dispatcher']);
             // 引导服务
             $provider instanceof BootableProviderInterface && $provider->boot($this);
         }

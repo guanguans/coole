@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 trait HasControllerAble
 {
@@ -121,6 +122,20 @@ trait HasControllerAble
     public function addMiddleware($middleware): self
     {
         $this->middleware = array_unique(array_merge($this->middleware, (array) $middleware));
+
+        return $this;
+    }
+
+    /**
+     * 添加一个 `KernelEvents::TERMINATE` 事件监听处理器.
+     *
+     * 用来处理耗时逻辑业务
+     *
+     * @param callable $listener
+     */
+    public function addFinishHandler($listener, int $priority = 0)
+    {
+        app('event_dispatcher')->addListener(KernelEvents::TERMINATE, $listener, $priority);
 
         return $this;
     }
