@@ -42,6 +42,12 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
                 'log_file' => null,
                 'use_locking' => false,
             ],
+            'formatter' => [
+                'format' => null,
+                'date_format' => 'Y-m-d H:i:s',
+                'allow_inline_Line_Breaks' => false,
+                'ignore_empty_context_and_extra' => false,
+            ],
         ]);
     }
 
@@ -60,8 +66,14 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
         $app->alias('monolog', 'logger');
 
         $app->singleton(LineFormatter::class, function ($app) {
-            return new LineFormatter();
+            return new LineFormatter(
+                $app['config']['logger']['formatter']['format'] ?? null,
+                $app['config']['logger']['formatter']['date_format'] ?? null,
+                $app['config']['logger']['formatter']['allow_inline_Line_Breaks'] ?? false,
+                $app['config']['logger']['formatter']['ignore_empty_context_and_extra'] ?? false
+            );
         });
+
         $app->alias(LineFormatter::class, 'monolog.formatter');
 
         $app->singleton(StreamHandler::class, function ($app) {
