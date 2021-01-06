@@ -58,6 +58,9 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         // 设置门面的 app 共享实例
         Facade::setFacadeApplication($app);
 
+        // 注册 config 服务
+        $app->register(new ConfigServiceProvider());
+
         // 设置第三方全局配置
         isset($app['config']['app']) && $app->setOptions($app['config']['app']->toArray());
 

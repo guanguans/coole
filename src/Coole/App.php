@@ -23,7 +23,6 @@ use Guanguans\Coole\Controller\HasControllerAble;
 use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Coole\Provider\AppServiceProvider;
-use Guanguans\Coole\Provider\ConfigServiceProvider;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;
@@ -84,9 +83,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         // 设置核心全局配置
         $this->setOptions($options);
-
-        // 注册 config 服务
-        $this->register(new ConfigServiceProvider());
 
         // 注册 app 服务
         $this->register(new AppServiceProvider());

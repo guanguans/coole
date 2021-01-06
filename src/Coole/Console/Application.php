@@ -18,29 +18,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * ``` php
- * if (PHP_SAPI !== 'cli' && PHP_MINOR_VERSION < 5) {
- *      echo 'Warning: phplint should be invoked via the CLI minimum version of PHP 5.5.9, not the '.PHP_SAPI.' SAPI'.PHP_EOL;
- * }.
+ * use Guanguans\Coole\Console\Application;.
  *
- * $loaded = false;
- * foreach ([__DIR__.'/../../../autoload.php', __DIR__.'/../vendor/autoload.php'] as $file) {
- *      if (file_exists($file)) {
- *          require $file;
- *          $loaded = true;
- *          break;
- *      }
- * }
- * if (!$loaded) {
- *      die(
- *          'You need to set up the project dependencies using the following commands:'.PHP_EOL.
- *          'wget http://getcomposer.org/composer.phar'.PHP_EOL.
- *          'php composer.phar install'.PHP_EOL
- *      );
- * }
- *
- * use Guanguans\Coole\Console\Application;
- *
- * $app = new Application(\Guanguans\Coole\Application::getInstance());
+ * $app = new Application(\Guanguans\Coole\App::getInstance());
  * $status = $app->run();
  * exit($status);
  * ```
