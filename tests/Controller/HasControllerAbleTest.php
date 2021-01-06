@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class ControllerAbleTest extends TestCase
+class HasControllerAbleTest extends TestCase
 {
     protected $controller;
 
