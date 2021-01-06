@@ -126,11 +126,11 @@ if (! function_exists('event')) {
 
         foreach ($listeners as $listener) {
             is_string($listener) && $listener = app($listener);
-            $listener instanceof Closure && $dispatcher->addListener($event->getName(), $listener);
-            $listener instanceof ListenerInterface && $dispatcher->addListener($event->getName(), [$listener, 'handle']);
+            $listener instanceof Closure && $dispatcher->addListener($event::getName(), $listener);
+            $listener instanceof ListenerInterface && $dispatcher->addListener($event::getName(), [$listener, 'handle']);
             $listener instanceof EventSubscriberInterface && $dispatcher->addSubscriber($listener);
         }
 
-        $dispatcher->dispatch($event, $event->getName());
+        $dispatcher->dispatch($event, $event::getName());
     }
 }

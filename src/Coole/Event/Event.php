@@ -19,7 +19,7 @@ class Event extends \Symfony\Contracts\EventDispatcher\Event
     /**
      * 获取事件名称.
      */
-    public function getName(): string
+    public static function getName(): string
     {
         if (static::NAME) {
             return static::NAME;
