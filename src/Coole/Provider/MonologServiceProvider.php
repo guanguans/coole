@@ -41,12 +41,12 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
                 'file_permission' => null,
                 'log_file' => null,
                 'use_locking' => false,
-            ],
-            'formatter' => [
-                'format' => null,
-                'date_format' => 'Y-m-d H:i:s',
-                'allow_inline_Line_Breaks' => false,
-                'ignore_empty_context_and_extra' => false,
+                'formatter' => [
+                    'format' => null,
+                    'date_format' => 'Y-m-d H:i:s',
+                    'allow_inline_Line_Breaks' => false,
+                    'ignore_empty_context_and_extra' => false,
+                ],
             ],
         ]);
     }
