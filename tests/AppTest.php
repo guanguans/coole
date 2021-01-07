@@ -225,9 +225,10 @@ class AppTest extends TestCase
     {
         $this->app->mergeConfig([
             'view' => [
-                'path' => __DIR__.'/feature/view',
+                'path' => __DIR__.'/feature/view/',
             ],
         ]);
+
         $this->app->register(new TwigServiceProvider());
         $render = $this->app->render('index.twig');
 
