@@ -229,11 +229,10 @@ class AppTest extends TestCase
             ],
         ]);
 
-        $this->app->register(new TwigServiceProvider());
-        $render = $this->app->render('index.twig');
-
         $this->markTestSkipped('Github action is not available.');
 
+        $this->app->register(new TwigServiceProvider());
+        $render = $this->app->render('index.twig');
         $this->assertIsString($render);
     }
 }
