@@ -46,14 +46,14 @@ $app['debug'] = true;
 Router::get('/', function (){
     return 'This is the Coole framework.';
 })->setMiddleware(function (Request $request, Closure $next){
-    printf('Before request.<br>');
+    printf('Before response.<br>');
     $response = $next($request);
-    printf('<br>After request.');
+    printf('<br>After response.');
 
     return $response;
 });
 
-// 3. Listen and Running.
+// 3. Run service.
 $app->run();
 ```
 
