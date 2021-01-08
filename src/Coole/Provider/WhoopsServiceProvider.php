@@ -52,11 +52,7 @@ class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProvide
      */
     public function afterRegister(App $app)
     {
-        ErrorHandler::register();
-
-        if ($app['debug']) {
-            $app['whoops']->register();
-        }
+        $this->boot($app);
     }
 
     /**
