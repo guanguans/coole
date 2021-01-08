@@ -21,6 +21,7 @@
   * [视图](zh-cn/view.md)
   * [数据库](zh-cn/database.md)
   * [事件](zh-cn/event.md)
+  * [AOP 面向切面编程](zh-cn/aop.md)
 
 * 相关链接
   * [Coole source code](https://github.com/guanguans/coole)
