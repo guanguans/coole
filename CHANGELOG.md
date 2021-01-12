@@ -21,3 +21,20 @@ All notable changes to `guanguans/coole` will be documented in this file
 * Optimize global configuration file loading.
 * Rename listeners->listener.
 * Rename providers->provider.
+
+## 1.0.3 - 2021-01-12
+
+* Optimize whoops service provider.
+* Fix monolog service provider config.
+* Add a `KernelEvents::TERMINATE` event listener handler.
+* Update `getName` of event method to static method.
+* Optimize some methods of class.
+* Rename tests/Controller/ControllerAbleTest.php -> tests/Controller/HasControllerAbleTest.php.
+* Update name of monolog config option.
+* Add formatter configurable for logger.
+* Add time zone configurable.
+* Optimize serve command.
+* Optimize match method for Router.
+* Rename: `src/Coole/Controller/ControllerAble.php` -> `src/Coole/Controller/HasControllerAble.php`.
+* Rename `getAllMiddleware` -> `getCurrentRequestMiddleware`.
+* Optimize `getControllerMiddleware` method.
