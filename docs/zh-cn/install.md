@@ -12,11 +12,13 @@
 $ composer create-project coolephp/skeleton -vvv
 ```
 
-## 启动服务
+## 启动 PHP 内置服务
 
 ``` shell script
 $ php coole serve
 ```
+
+![](../static/serve.png)
 
 ## 测试访问
 
