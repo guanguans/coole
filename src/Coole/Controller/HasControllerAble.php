@@ -139,4 +139,16 @@ trait HasControllerAble
 
         return $this;
     }
+
+    /**
+     * 设置一个 `KernelEvents::TERMINATE` 事件监听处理器.
+     *
+     * 用来处理耗时逻辑业务
+     *
+     * @param callable $listener
+     */
+    public function setFinishHandler($listener, int $priority = 0)
+    {
+        return $this->addFinishHandler($listener, $priority);
+    }
 }
