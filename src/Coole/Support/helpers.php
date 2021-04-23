@@ -112,8 +112,9 @@ if (! function_exists('event')) {
      * 调度事件.
      *
      * @param null $listeners
+     * @param bool $isDispatch
      */
-    function event(Event $event, $listeners = null)
+    function event(Event $event, $listeners = null, $isDispatch = true)
     {
         $dispatcher = app('event_dispatcher');
 
@@ -131,6 +132,6 @@ if (! function_exists('event')) {
             $listener instanceof EventSubscriberInterface && $dispatcher->addSubscriber($listener);
         }
 
-        $dispatcher->dispatch($event, $event::getName());
+        $isDispatch && $dispatcher->dispatch($event, $event::getName());
     }
 }
