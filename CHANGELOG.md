@@ -38,3 +38,8 @@ All notable changes to `guanguans/coole` will be documented in this file
 * Rename: `src/Coole/Controller/ControllerAble.php` -> `src/Coole/Controller/HasControllerAble.php`.
 * Rename `getAllMiddleware` -> `getCurrentRequestMiddleware`.
 * Optimize `getControllerMiddleware` method.
+
+## 1.0.4 - 2021-04-23
+
+* Optimize the event scheduling function.
+* Add a `setFinishHandler` method for controller.
