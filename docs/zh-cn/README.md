@@ -12,9 +12,10 @@
 
 * [guanguans/di](https://github.com/guanguans/di) - 容器([illuminate/container](https://github.com/illuminate/container) 的衍生版)
 * [symfony/http-kernel](https://github.com/symfony/http-kernel) - HTTP 内核
-* [symfony/http-foundation](https://github.com/symfony/http-foundation) - HTTP 抽象对象层
+* [symfony/http-foundation](https://github.com/symfony/http-foundation) - HTTP 请求响应对象
 * [symfony/routing](https://github.com/symfony/routing) - 路由
 * [symfony/event-dispatcher](https://github.com/symfony/event-dispatcher) - 事件调度器
+* [goaop/framework](https://github.com/goaop/framework) - AOP(面向切面编程)
 * [filp/whoops](https://github.com/filp/whoops) - 错误处理
 * [symfony/error-handler](https://github.com/symfony/error-handler) - 错误处理
 * [monolog/monolog](https://github.com/Seldaek/monolog) - 日志
