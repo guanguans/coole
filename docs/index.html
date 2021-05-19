@@ -21,7 +21,7 @@
 
 <body>
 <div id="app"></div>
-<div id="google_translate_element" style="position:absolute;top:25px;right:70px;z-index:2000;opacity:0.7"></div>
+<div id="google_translate_element" style="position:absolute;top:12px;right:80px;z-index:2000;opacity:0.7"></div>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-edit-on-github/index.js"></script>
@@ -85,26 +85,6 @@
     }
   }
 </script>
-<script>
-  function googleTranslateElementInit() {
-    var google_translate_element = document.getElementById('google_translate_element');
-    var timer = setInterval(function () {
-      google_translate_element = document.getElementById('google_translate_element');
-      if (google_translate_element) {
-        clearInterval(timer);
-        var langName = navigator.language ? navigator.language.split('-')[0].toLowerCase() : 'en';
-        new google.translate.TranslateElement({
-              pageLanguage: langName,
-              //0，原生select，并且谷歌logo显示在按钮下方。1，原生select，并且谷歌logo显示在右侧。2，完全展开语言列表，适合pc，
-              layout: /mobile/i.test(navigator.userAgent) ? 0 : 0,
-            },
-            'google_translate_element'
-        );
-      }
-    }, 300);
-  }
-</script>
-<script id="translate_google_js" src="https://translate.google.cn/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify-plantuml/dist/docsify-plantuml.min.js"></script>
@@ -112,6 +92,7 @@
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+<script id="translate_google_js" src="https://translate.google.cn/translate_a/element.js?cb=googleTranslateElementInit"></script>
 <script>
   // 百度统计
   var _hmt = _hmt || [];
@@ -145,6 +126,25 @@
     id: pathName.split('?')[0],
     language: 'zh-CN',
   })
+
+  // 谷歌翻译
+  function googleTranslateElementInit() {
+    var google_translate_element = document.getElementById('google_translate_element');
+    var timer = setInterval(function () {
+      google_translate_element = document.getElementById('google_translate_element');
+      if (google_translate_element) {
+        clearInterval(timer);
+        var langName = navigator.language ? navigator.language.split('-')[0].toLowerCase() : 'en';
+        new google.translate.TranslateElement({
+              pageLanguage: langName,
+              //0，原生select，并且谷歌logo显示在按钮下方。1，原生select，并且谷歌logo显示在右侧。2，完全展开语言列表，适合pc，
+              layout: /mobile/i.test(navigator.userAgent) ? 0 : 0,
+            },
+            'google_translate_element'
+        );
+      }
+    }, 300);
+  }
 </script>
 </body>
 
