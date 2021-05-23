@@ -53,3 +53,7 @@ All notable changes to `guanguans/coole` will be documented in this file
 ## 1.1.1 - 2021-05-23
 
 * Add database bootstrop.
+
+## 1.1.2 - 2021-05-23
+
+* Add [illuminate/pagination](https://github.com/illuminate/pagination) expansion pack.
