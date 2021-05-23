@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Guanguans\Coole\Database;
 
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
+use Guanguans\Coole\Able\BootAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
@@ -20,7 +21,7 @@ use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
 
-class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
+class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, BootAbleProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -59,22 +60,26 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
     public function register(Container $app)
     {
         $app->singleton(Manager::class, function ($app) {
-            $manager = new Manager();
-            $manager->addConnection($app['config']['database']['connections'][$app['config']['database']['default']]);
-
-            // Set the event dispatcher used by Eloquent models... (optional)
-            $manager->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
-
-            // Make this Capsule instance available globally via static methods... (optional)
-            $manager->setAsGlobal();
-
-            // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-            $manager->bootEloquent();
-
-            return $manager;
+            return new Manager();
         });
 
         $app->alias(Manager::class, 'database');
         $app->alias(Manager::class, 'db');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function boot(App $app)
+    {
+        $app['db']->addConnection($app['config']['database']['connections'][$app['config']['database']['default']]);
+        // Set the event dispatcher used by Eloquent models... (optional)
+        $app['db']->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
+
+        // Make this Capsule instance available globally via static methods... (optional)
+        $app['db']->setAsGlobal();
+
+        // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+        $app['db']->bootEloquent();
     }
 }
