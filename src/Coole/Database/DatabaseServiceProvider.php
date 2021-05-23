@@ -12,14 +12,15 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Database;
 
-use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
 use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
-use think\DbManager;
+use Illuminate\Container\Container as IlluminateContainer;
+use Illuminate\Database\Capsule\Manager;
+use Illuminate\Events\Dispatcher;
 
-class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, AfterRegisterAbleProviderInterface
+class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
 {
     /**
      * {@inheritdoc}
@@ -28,19 +29,24 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
     {
         $app->addConfig([
             'database' => [
-                'default' => 'mysql',
+                'driver' => 'mysql',
                 'connections' => [
                     'mysql' => [
-                        'type' => 'mysql',
-                        'hostname' => '127.0.0.1',
-                        'hostport' => 3306,
-                        'username' => 'root',
+                        'driver' => 'mysql',
+                        'url' => '',
+                        'host' => '127.0.0.1',
+                        'port' => '3306',
+                        'database' => 'coole',
+                        'username' => 'coole',
                         'password' => '',
-                        'database' => '',
-                        'params' => [],
-                        'charset' => 'utf8',
+                        'unix_socket' => '',
+                        'charset' => 'utf8mb4',
+                        'collation' => 'utf8mb4_unicode_ci',
                         'prefix' => '',
-                        'debug' => true,
+                        'prefix_indexes' => true,
+                        'strict' => true,
+                        'engine' => null,
+                        'options' => [],
                     ],
                 ],
             ],
@@ -52,23 +58,23 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
      */
     public function register(Container $app)
     {
-        $app->singleton(DbManager::class, function ($app) {
-            $dbManager = new DbManager();
+        $app->singleton(Manager::class, function ($app) {
+            $manager = new Manager();
+            $manager->addConnection($app['config']['database']['connections'][$app['config']['database']['driver']]);
 
-            $dbManager->setConfig($app['config']['database']);
+            // Set the event dispatcher used by Eloquent models... (optional)
+            $manager->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
 
-            return $dbManager;
+            // Make this Capsule instance available globally via static methods... (optional)
+            $manager->setAsGlobal();
+
+            // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
+            $manager->bootEloquent();
+
+            return $manager;
         });
 
-        $app->alias(DbManager::class, 'database');
-        $app->alias(DbManager::class, 'db');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function afterRegister(App $app)
-    {
-        Model::setDb($app['db']);
+        $app->alias(Manager::class, 'database');
+        $app->alias(Manager::class, 'db');
     }
 }

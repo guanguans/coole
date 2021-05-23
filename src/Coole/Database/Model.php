@@ -12,6 +12,6 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Database;
 
-class Model extends \think\Model
+class Model extends \Illuminate\Database\Eloquent\Model
 {
 }
