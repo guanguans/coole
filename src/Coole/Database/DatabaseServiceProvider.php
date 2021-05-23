@@ -29,7 +29,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
     {
         $app->addConfig([
             'database' => [
-                'driver' => 'mysql',
+                'default' => 'mysql',
                 'connections' => [
                     'mysql' => [
                         'driver' => 'mysql',
@@ -60,7 +60,7 @@ class DatabaseServiceProvider implements ServiceProviderInterface, BeforeRegiste
     {
         $app->singleton(Manager::class, function ($app) {
             $manager = new Manager();
-            $manager->addConnection($app['config']['database']['connections'][$app['config']['database']['driver']]);
+            $manager->addConnection($app['config']['database']['connections'][$app['config']['database']['default']]);
 
             // Set the event dispatcher used by Eloquent models... (optional)
             $manager->setEventDispatcher(new Dispatcher(new IlluminateContainer()));

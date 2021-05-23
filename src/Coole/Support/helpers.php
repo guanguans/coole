@@ -32,7 +32,7 @@ if (! function_exists('app')) {
     }
 }
 
-if (! function_exists('env')) {
+if (! function_exists('cenv')) {
     /**
      * 获取环境变量的值
      *
@@ -40,7 +40,7 @@ if (! function_exists('env')) {
      *
      * @return array|bool|false|mixed|string|null
      */
-    function env(?string $key = null, $default = null)
+    function cenv(?string $key = null, $default = null)
     {
         if (null === $key) {
             return getenv();

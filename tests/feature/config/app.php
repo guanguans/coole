@@ -11,11 +11,11 @@ declare(strict_types=1);
  */
 
 return [
-    'name' => env('APP_NAME', 'Coole'),
+    'name' => cenv('APP_NAME', 'Coole'),
 
-    'env' => env('APP_ENV', 'production'),
+    'env' => cenv('APP_ENV', 'production'),
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => cenv('APP_DEBUG', false),
 
     'timezone' => 'Asia/Shanghai',
 
