@@ -14,13 +14,14 @@ $ composer require coolephp/goaop -vvv
 2. 配置服务。
 
 ``` php
+``` php
 <?php
 
 return [
     /*
      * App 名称
      */
-    'name' => env('APP_NAME', 'Coole'),
+    'name' => cenv('APP_NAME', 'Coole'),
     
     ...
 
@@ -39,13 +40,14 @@ return [
 3. `config/goaop.php` 中配置切面。
 
 ``` php
+``` php
 <?php
 
 return [
     /*
      * AOP Debug Mode
      */
-    'debug' => env('GOAOP_DEBUG', env('APP_DEBUG', false)),
+    'debug' => cenv('GOAOP_DEBUG', env('APP_DEBUG', false)),
     
     ...
     
