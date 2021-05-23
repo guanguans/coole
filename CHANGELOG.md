@@ -43,3 +43,9 @@ All notable changes to `guanguans/coole` will be documented in this file
 
 * Optimize the event scheduling function.
 * Add a `setFinishHandler` method for controller.
+
+## 1.1.0 - 2021-05-23
+
+* Remove [topthink/think-orm](https://github.com/top-think/think-orm) expansion pack.
+* Add [illuminate/database](https://github.com/illuminate/database) expansion pack.
+* Rename `env()` -> `cenv()`.
