@@ -49,3 +49,7 @@ All notable changes to `guanguans/coole` will be documented in this file
 * Remove [topthink/think-orm](https://github.com/top-think/think-orm) expansion pack.
 * Add [illuminate/database](https://github.com/illuminate/database) expansion pack.
 * Rename `env()` -> `cenv()`.
+
+## 1.1.1 - 2021-05-23
+
+* Add database bootstrop.
