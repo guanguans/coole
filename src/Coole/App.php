@@ -279,8 +279,11 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         // 引导服务
         $this->boot();
 
-        // 通过中间件发送响应
+        // 通过中间件将请求转化为响应
         $response = $this->sendRequestThroughHandle($request);
+
+        // 发送响应
+        $response->send();
 
         // 终止请求/响应生命周期
         $this->terminate($request, $response);
@@ -308,13 +311,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 通过中间件发送响应.
      */
-    public function sendRequestThroughHandle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
+    public function sendRequestThroughHandle(Request $request): Response
     {
         return (new Pipeline())
             ->send($request)
             ->through($this->makeMiddleware($this->getCurrentRequestMiddleware($request)))
-            ->then(function () use ($request, $type, $catch) {
-                return $this->handle($request, $type, $catch);
+            ->then(function ($request) {
+                return $this->handle($request);
             });
     }
 
@@ -381,11 +384,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
     {
-        $response = $this['http_kernel']->handle($request, $type, $catch);
-
-        $response->send();
-
-        return $response;
+        return $this['http_kernel']->handle($request, $type, $catch);
     }
 
     /**
