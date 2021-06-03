@@ -57,3 +57,9 @@ All notable changes to `guanguans/coole` will be documented in this file
 ## 1.1.2 - 2021-05-23
 
 * Add [illuminate/pagination](https://github.com/illuminate/pagination) expansion pack.
+
+## 1.1.3 - 2021-06-03
+
+* Fix to convert requests into responses through middleware.
+* Optimize controller resolver.
+
