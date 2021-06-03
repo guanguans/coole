@@ -32,6 +32,37 @@ if (! function_exists('app')) {
     }
 }
 
+if (! function_exists('config')) {
+    /**
+     * 获取/设置指定的配置值.
+     *
+     * @param array|string|null $key
+     * @param mixed             $default
+     *
+     * @return bool|\Guanguans\Coole\App|mixed
+     */
+    function config($key = null, $default = null)
+    {
+        if (is_null($key)) {
+            return app('config');
+        }
+
+        if (is_array($key)) {
+            foreach ($key as $k => $v) {
+                app('config')[$k] = $v;
+            }
+
+            return true;
+        }
+
+        if (! is_null($default)) {
+            return $default;
+        }
+
+        return app('config')[$key];
+    }
+}
+
 if (! function_exists('cenv')) {
     /**
      * 获取环境变量的值
