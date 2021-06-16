@@ -6,7 +6,7 @@
 
 [coolephp/skeleton](https://github.com/coolephp/skeleton) - 官方提供的 Coole 框架应用模板。
 
-[poetry](https://apipoetry.vercel.app) - 基于 Coole 开发部署在 Vercel 上的免费诗词 API 接口。
+[poetry](https://github.com/guanguans/poetry) - 基于 Coole 开发部署在 Vercel 上的免费诗词 API 接口。
 
 ![生命周期](./static/life-cycle.png)
 
