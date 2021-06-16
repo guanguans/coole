@@ -11,25 +11,25 @@
 [![Total Downloads](https://poser.pugx.org/guanguans/coole/downloads)](//packagist.org/packages/guanguans/coole)
 [![License](https://poser.pugx.org/guanguans/coole/license)](//packagist.org/packages/guanguans/coole)
 
-## Documentation
+## 文档
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)
 
-## Life cycle
+## 生命周期
 
 <p align="center"><img src="./docs/static/life-cycle.png" alt="Life cycle"></p>
 
-## Requirement
+## 环境要求
 
 * PHP >= 7.2
 
-## Installation
+## 安装
 
 ``` shell script
 $ composer require guanguans/coole -vvv
 ```
 
-## Quick start
+## 快速开始
 
 ``` php
 <?php
@@ -40,11 +40,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__.'/vendor/autoload.php';
 
-// 1. Create App.
+// 1. 创建应用
 $app = new App();
 $app['debug'] = true;
 
-// 2. Add route with closure middleware.
+// 2. 添加一个带中间件的路由
 Router::get('/', function (){
     return 'This is the Coole framework.';
 })->setMiddleware(function (Request $request, Closure $next){
@@ -54,33 +54,33 @@ Router::get('/', function (){
     return $response;
 });
 
-// 3. Run service.
+// 3. 启动运行服务
 $app->run();
 ```
 
-## Testing
+## 测试
 
 ``` bash
 $ composer test
 ```
 
-## Changelog
+## 变更日志
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+请参阅 [CHANGELOG](CHANGELOG.md) 获取最近有关更改的更多信息。
 
-## Contributing
+## 贡献指南
 
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+请参阅 [CONTRIBUTING](.github/CONTRIBUTING.md) 有关详细信息。
 
-## Security Vulnerabilities
+## 安全漏洞
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+请查看[我们的安全政策](../../security/policy)了解如何报告安全漏洞。
 
-## Credits
+## 贡献者
 
 * [guanguans](https://github.com/guanguans)
-* [All Contributors](../../contributors)
+* [所有贡献者](../../contributors)
 
-## License
+## 协议
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+MIT 许可证（MIT）。有关更多信息，请参见[协议文件](LICENSE)。
