@@ -1,15 +1,12 @@
 * 前言
-
   * [项目介绍](zh-cn/README.md)
 
 * 快速入门
-
   * [安装](zh-cn/install.md)
   * [生命周期](zh-cn/life-cycle.md)
   * [目录结构](zh-cn/structure.md)
 
 * 基础功能
-
   * [路由](zh-cn/router.md)
   * [中间件](zh-cn/middleware.md)
   * [控制器](zh-cn/controller.md)
@@ -21,8 +18,13 @@
   * [视图](zh-cn/view.md)
   * [数据库](zh-cn/database.md)
   * [事件](zh-cn/event.md)
-  * [AOP 面向切面编程](zh-cn/aop.md)
-
+  * [AOP 面向切面编程](zh-cn/goaop.md)
+    
+* 官方组件
+  * [coolephp/rate-limiter](zh-cn/rate-limiter.md)
+  * [coolephp/cors](zh-cn/cors.md)
+  * [coolephp/goaop](zh-cn/goaop.md)
+    
 * 相关链接
   * [Coole source code](https://github.com/guanguans/coole)
   * [Skeleton source code](https://github.com/coolephp/skeleton)

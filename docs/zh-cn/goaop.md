@@ -1,4 +1,6 @@
-# AOP 面向切面编程
+# coolephp/goaop
+
+> 提供 AOP 面向切面编程能力。
 
 ## 安装
 
@@ -126,6 +128,10 @@ cat `runtime/logging.log`
    2   │ this is a after method testing.
 ───────┴───────────────────────────────────────────────────────────────────
 ```
+
+## 源码链接
+
+* [https://github.com/coolephp/goaop](https://github.com/coolephp/goaop)
 
 ## 相关链接
 
