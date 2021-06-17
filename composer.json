@@ -101,12 +101,15 @@
         "fix-style": "php-cs-fixer fix --using-cache=no --config=.php_cs.dist --ansi",
         "psalm": "./vendor/bin/psalm",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
-        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
+        "doctum": "doctum update doctum.php"
     },
     "scripts-descriptions": {
         "check-style": "Run style checks (only dry run - no fixing!).",
         "fix-style": "Run style checks and fix violations.",
+        "psalm": ".Run psalm checks.",
         "test": "Run all tests.",
-        "test-coverage": "Run all tests with coverage."
+        "test-coverage": "Run all tests with coverage.",
+        "doctum": "Run rarses then renders a project."
     }
 }
