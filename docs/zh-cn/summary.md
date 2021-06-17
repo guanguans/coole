@@ -5,7 +5,7 @@
   * [安装](zh-cn/install.md)
   * [生命周期](zh-cn/life-cycle.md)
   * [目录结构](zh-cn/structure.md)
-
+    
 * 基础功能
   * [路由](zh-cn/router.md)
   * [中间件](zh-cn/middleware.md)
@@ -24,7 +24,10 @@
   * [coolephp/rate-limiter](zh-cn/rate-limiter.md)
   * [coolephp/cors](zh-cn/cors.md)
   * [coolephp/goaop](zh-cn/goaop.md)
-    
+
+* API
+  * [API 文档](https://www.guanguans.cn/coole/api)
+
 * 相关链接
   * [Coole source code](https://github.com/guanguans/coole)
   * [Skeleton source code](https://github.com/coolephp/skeleton)
