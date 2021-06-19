@@ -83,7 +83,9 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Thanks
 
-![jetbrains](docs/static/jetbrains.png)
+<a href="https://www.jetbrains.com" target="_blank">
+    <img src="./docs/static/jetbrains.png" alt="jetbrains" width="200"/>
+</a>
 
 ## License
 

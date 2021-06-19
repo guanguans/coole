@@ -81,9 +81,11 @@ $ composer test
 * [guanguans](https://github.com/guanguans)
 * [所有贡献者](../../contributors)
 
-## Thanks
+## 鸣谢
 
-![jetbrains](docs/static/jetbrains.png)
+<a href="https://www.jetbrains.com" target="_blank">
+    <img src="./docs/static/jetbrains.png" alt="jetbrains" width="200"/>
+</a>
 
 ## 协议
 

@@ -31,4 +31,6 @@
 * [symfony/rate-limiter](https://github.com/symfony/rate-limiter) - 提供令牌桶实现来限制 Coole 应用程序中的输入和输出
 * [asm89/stack-cors](https://github.com/asm89/stack-cors) - 在 Coole 应用程序中添加 CORS（跨源资源共享）头支持
 
-![jetbrains](./static/jetbrains.png)
+<a href="https://www.jetbrains.com" target="_blank">
+    <img src="./static/jetbrains.png" alt="jetbrains" width="200"/>
+</a>
