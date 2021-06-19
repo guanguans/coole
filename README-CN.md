@@ -81,6 +81,10 @@ $ composer test
 * [guanguans](https://github.com/guanguans)
 * [所有贡献者](../../contributors)
 
+## Thanks
+
+![jetbrains](docs/static/jetbrains.png)
+
 ## 协议
 
 MIT 许可证（MIT）。有关更多信息，请参见[协议文件](LICENSE)。
