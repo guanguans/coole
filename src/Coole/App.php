@@ -324,17 +324,17 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 批量实例化中间件.
      *
-     * @param $middleware
+     * @param string[]|object[]|Closure[]|string $middlewares
      */
-    public function makeMiddleware($middleware): array
+    public function makeMiddleware($middlewares): array
     {
-        $middleware = (array) $middleware;
+        $middlewares = (array) $middlewares;
 
-        array_walk($middleware, function (&$item) {
-            is_string($item) && $item = $this->make($item);
-        });
+        return array_map(function ($middleware) {
+            is_string($middleware) && $middleware = $this->make($middleware);
 
-        return $middleware;
+            return $middleware;
+        }, $middlewares);
     }
 
     /**
