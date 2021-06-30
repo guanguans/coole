@@ -280,7 +280,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->boot();
 
         // 通过中间件将请求转化为响应
-        $response = $this->sendRequestThroughHandle($request);
+        $response = $this->sendRequestThroughPipeline($request);
 
         // 发送响应
         $response->send();
@@ -309,9 +309,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 通过中间件发送响应.
+     * 通过管道发送响应.
      */
-    public function sendRequestThroughHandle(Request $request): Response
+    public function sendRequestThroughPipeline(Request $request): Response
     {
         return (new Pipeline())
             ->send($request)
