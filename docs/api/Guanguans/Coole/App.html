@@ -419,9 +419,9 @@
                     <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
                 </div>
                 <div class="col-md-8">
-                    <a href="#method_sendRequestThroughHandle">sendRequestThroughHandle</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+                    <a href="#method_sendRequestThroughPipeline">sendRequestThroughPipeline</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
         
-                                            <p><p>通过中间件发送响应.</p></p>                </div>
+                                            <p><p>通过管道发送响应.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -429,7 +429,7 @@
                     array
                 </div>
                 <div class="col-md-8">
-                    <a href="#method_makeMiddleware">makeMiddleware</a>($middleware)
+                    <a href="#method_makeMiddleware">makeMiddleware</a>(string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string $middlewares)
         
                                             <p><p>批量实例化中间件.</p></p>                </div>
                 <div class="col-md-2"></div>
@@ -1540,10 +1540,10 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_sendRequestThroughHandle">
+                    <h3 id="method_sendRequestThroughPipeline">
         <div class="location">at line 314</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
-    <strong>sendRequestThroughHandle</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+    <strong>sendRequestThroughPipeline</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
         </code>
     </h3>
     <div class="details">    
@@ -1551,7 +1551,7 @@
             
 
         <div class="method-description">
-                            <p><p>通过中间件发送响应.</p></p>                        
+                            <p><p>通过管道发送响应.</p></p>                        
         </div>
         <div class="tags">
                             <h4>Parameters</h4>
@@ -1585,7 +1585,7 @@
                     <h3 id="method_makeMiddleware">
         <div class="location">at line 329</div>
         <code>                    array
-    <strong>makeMiddleware</strong>($middleware)
+    <strong>makeMiddleware</strong>(string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string $middlewares)
         </code>
     </h3>
     <div class="details">    
@@ -1600,8 +1600,8 @@
 
                     <table class="table table-condensed">
                     <tr>
-                <td></td>
-                <td>$middleware</td>
+                <td>string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string</td>
+                <td>$middlewares</td>
                 <td></td>
             </tr>
             </table>
