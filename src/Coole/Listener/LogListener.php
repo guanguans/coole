@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-/*
+/**
  * This file is part of the guanguans/coole.
  *
  * (c) guanguans <ityaozm@gmail.com>

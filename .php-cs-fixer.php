@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-/**
+/*
  * This file is part of the guanguans/coole.
  *
  * (c) guanguans <ityaozm@gmail.com>
@@ -10,8 +8,4 @@ declare(strict_types=1);
  * This source file is subject to the MIT license that is bundled.
  */
 
-namespace Guanguans\Coole\Exception;
-
-class UnknownFileException extends \Exception
-{
-}
+return require __DIR__.'/.php_cs.dist';
