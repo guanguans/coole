@@ -35,7 +35,7 @@ class Application extends \Symfony\Component\Console\Application
     /**
      * logo.
      */
-    const LOGO = <<<'coole'
+    public const LOGO = <<<'coole'
 <fg=green;options=bold>
                                __           
                               |  \          
