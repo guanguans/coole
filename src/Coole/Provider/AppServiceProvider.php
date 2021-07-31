@@ -61,17 +61,40 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         // 注册 config 服务
         $app->register(new ConfigServiceProvider());
 
+        // 设置配置
+        $this->setUpConfig($app);
+
         // 设置第三方全局配置
-        isset($app['config']['app']) && $app->setOptions($app['config']['app']->toArray());
+        $app->setOptions($app['config']['app']->toArray());
 
         // 设置 timezone
-        isset($app['timezone']) && date_default_timezone_set($app['timezone']);
+        date_default_timezone_set($app['timezone']);
 
         // 设置核心全局中间件
         $app->setMiddleware($this->middleware);
 
         // 设置第三方全局中间件
-        $app->setMiddleware($app['config']['app']['middleware'] ?? []);
+        $app->setMiddleware($app['config']['app']['middleware']);
+    }
+
+    /**
+     * 设置配置.
+     */
+    protected function setUpConfig(App $app)
+    {
+        $app->addConfig([
+            'app' => [
+                'name' => cenv('APP_NAME', 'Coole'),
+                'env' => cenv('APP_ENV', 'production'),
+                'debug' => cenv('APP_DEBUG', true),
+                'timezone' => 'Asia/Shanghai',
+                'env_path' => base_path(),
+                'config_path' => base_path('config'),
+                'providers' => [],
+                'middleware' => [],
+                'route' => [],
+            ],
+        ]);
     }
 
     /**
@@ -83,6 +106,6 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         $app->registerProviders($this->providers);
 
         // 注册第三方服务
-        $app->registerProviders($app['config']['app']['providers'] ?? []);
+        $app->registerProviders($app['config']['app']['providers']);
     }
 }
