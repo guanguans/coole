@@ -166,3 +166,21 @@ if (! function_exists('event')) {
         $isDispatch && $dispatcher->dispatch($event, $event::getName());
     }
 }
+
+if (! function_exists('call')) {
+    /**
+     * 调用回调.
+     *
+     * @param callable|array|string $callable
+     *
+     * @return mixed
+     *
+     * @throws \Invoker\Exception\InvocationException
+     * @throws \Invoker\Exception\NotCallableException
+     * @throws \Invoker\Exception\NotEnoughParametersException
+     */
+    function call($callable, array $parameters = [])
+    {
+        return app('invoker')->call($callable, $parameters);
+    }
+}

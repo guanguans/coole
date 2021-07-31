@@ -39,6 +39,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
         ConsoleServiceProvider::class,
         TwigServiceProvider::class,
         DatabaseServiceProvider::class,
+        InvokerServiceProvider::class,
     ];
 
     /**
