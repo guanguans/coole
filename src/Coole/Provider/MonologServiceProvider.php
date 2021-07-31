@@ -67,10 +67,10 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
 
         $app->singleton(LineFormatter::class, function ($app) {
             return new LineFormatter(
-                $app['config']['logger']['formatter']['format'] ?? null,
-                $app['config']['logger']['formatter']['date_format'] ?? null,
-                $app['config']['logger']['formatter']['allow_inline_Line_Breaks'] ?? false,
-                $app['config']['logger']['formatter']['ignore_empty_context_and_extra'] ?? false
+                $app['config']['logger']['formatter']['format'],
+                $app['config']['logger']['formatter']['date_format'],
+                $app['config']['logger']['formatter']['allow_inline_Line_Breaks'],
+                $app['config']['logger']['formatter']['ignore_empty_context_and_extra']
             );
         });
 
@@ -79,10 +79,10 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
         $app->singleton(StreamHandler::class, function ($app) {
             $handler = new StreamHandler(
                 $app['config']['logger']['log_file'],
-                $app['config']['logger']['level'] ?? Logger::DEBUG,
-                $app['config']['logger']['bubble'] ?? true,
-                $app['config']['logger']['file_permission'] ?? null,
-                $app['config']['logger']['use_locking'] ?? false
+                $app['config']['logger']['level'],
+                $app['config']['logger']['bubble'],
+                $app['config']['logger']['file_permission'],
+                $app['config']['logger']['use_locking']
             );
             $handler->setFormatter($app['monolog.formatter']);
 
