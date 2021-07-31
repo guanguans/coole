@@ -64,10 +64,8 @@ class RoutingServiceProvider implements ServiceProviderInterface, EventListenerA
      */
     public function afterRegister(App $app)
     {
-        if (isset($app['route'])) {
-            foreach ($app['route'] as $file) {
-                $app->loadRoute($file);
-            }
+        foreach ($app['route'] as $file) {
+            $app->loadRoute($file);
         }
     }
 }
