@@ -63,3 +63,16 @@ All notable changes to `guanguans/coole` will be documented in this file
 * Fix to convert requests into responses through middleware.
 * Optimize controller resolver.
 
+## 1.1.4 - 2021-07-31
+
+* Add IDE helper files.
+* Add code-lts/doctum.
+* Add config function.
+* Update php-cs-fixer config file.
+* Rename sendRequestThroughHandle -> sendRequestThroughPipeline.
+* Optimize `RoutingServiceProvider` default config.
+* Optimize `TwigServiceProvider` default config.
+* Optimize `MonologServiceProvider` default config.
+* Optimize `AppServiceProvider` default config.
+* Optimize `ConsoleServiceProvider` default config
+* Optimize `makeMiddleware` method.
