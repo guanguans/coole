@@ -35,5 +35,5 @@ class EventTest extends TestCase
 
 class EventStub extends Event
 {
-    const NAME = 'eventName';
+    public const NAME = 'eventName';
 }

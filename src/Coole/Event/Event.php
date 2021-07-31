@@ -14,7 +14,7 @@ namespace Guanguans\Coole\Event;
 
 class Event extends \Symfony\Contracts\EventDispatcher\Event
 {
-    const NAME = null;
+    public const NAME = null;
 
     /**
      * 获取事件名称.
