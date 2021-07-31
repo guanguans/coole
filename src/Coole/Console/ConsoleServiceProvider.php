@@ -13,13 +13,32 @@ declare(strict_types=1);
 namespace Guanguans\Coole\Console;
 
 use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
+use Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Tightenco\Collect\Support\Collection as Command;
 
-class ConsoleServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface
+class ConsoleServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function beforeRegister(App $app)
+    {
+        $app->addConfig([
+            'console' => [
+                'command' => [
+                    [
+                        'dir' => __DIR__.'/../Console/Commands',
+                        'namespace' => '\Guanguans\Coole\Console\Commands',
+                        'suffix' => '*Command.php',
+                    ],
+                ],
+            ],
+        ]);
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -42,10 +61,8 @@ class ConsoleServiceProvider implements ServiceProviderInterface, AfterRegisterA
     {
         $app->loadCommand(__DIR__.'/../Console/Commands', '\Guanguans\Coole\Console\Commands');
 
-        if (isset($app['config']['console']['command'])) {
-            foreach ($app['config']['console']['command'] as $command) {
-                $app->loadCommand($command['dir'], $command['namespace'], $command['suffix'] ?? '*Command.php');
-            }
+        foreach ($app['config']['console']['command'] as $command) {
+            $app->loadCommand($command['dir'], $command['namespace'], $command['suffix']);
         }
     }
 }
