@@ -38,6 +38,27 @@ class HasControllerAbleTest extends TestCase
         $this->assertSame($middleware, $this->controller->getMiddleware());
     }
 
+    public function testAddExcludedMiddleware()
+    {
+        $middleware = [CheckResponseForModifications::class];
+        $this->controller->addExcludedMiddleware($middleware);
+        $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
+    }
+
+    public function testSetExcludedMiddleware()
+    {
+        $middleware = [CheckResponseForModifications::class];
+        $this->controller->setExcludedMiddleware($middleware);
+        $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
+    }
+
+    public function testWithoutMiddleware()
+    {
+        $middleware = [CheckResponseForModifications::class];
+        $this->controller->withoutMiddleware($middleware);
+        $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
+    }
+
     public function testJson()
     {
         $this->assertInstanceOf(JsonResponse::class, $this->controller->json());
