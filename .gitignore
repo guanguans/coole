@@ -17,6 +17,7 @@ index.php
 IndexController.php
 view/
 app.db
-cooler
+/cooler
 app.log
 doctum-cache/
+/coole
