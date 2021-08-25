@@ -20,9 +20,9 @@ use Guanguans\Coole\Able\EventListenerAbleProviderInterface;
 use Guanguans\Coole\Console\CommandDiscoverer;
 use Guanguans\Coole\Controller\Controller;
 use Guanguans\Coole\Controller\HasControllerAble;
-use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Coole\Provider\AppServiceProvider;
+use Guanguans\Coole\Routing\Route;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;
@@ -315,10 +315,26 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         return (new Pipeline())
             ->send($request)
-            ->through($this->makeMiddleware($this->getCurrentRequestMiddleware($request)))
+            ->through($this->makeMiddleware($this->getCurrentRequestShouldExecutedMiddleware($request)))
             ->then(function ($request) {
                 return $this->handle($request);
             });
+    }
+
+    /**
+     * 处理请求为响应且发送响应.
+     */
+    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
+    {
+        return $this['http_kernel']->handle($request, $type, $catch);
+    }
+
+    /**
+     * 终止请求/响应生命周期.
+     */
+    public function terminate(Request $request, Response $response)
+    {
+        $this['http_kernel']->terminate($request, $response);
     }
 
     /**
@@ -338,6 +354,36 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
+     * 获取当前请求应该被执行的中间件.
+     */
+    public function getCurrentRequestShouldExecutedMiddleware(Request $request): array
+    {
+        $middlewares = $this->getCurrentRequestMiddleware($request);
+
+        $classMiddleware = array_filter($middlewares, function ($middleware) {
+            return is_string($middleware);
+        });
+
+        $objectMiddleware = array_filter($middlewares, function ($middleware) {
+            return ! is_string($middleware);
+        });
+
+        return array_merge(array_diff($classMiddleware, $this->getCurrentRequestExcludedMiddleware($request)), $objectMiddleware);
+    }
+
+    /**
+     * 获取当前请求排除中间件.
+     */
+    public function getCurrentRequestExcludedMiddleware(Request $request): array
+    {
+        return array_merge(
+            $this->getExcludedMiddleware(),
+            $this->getControllerExcludedMiddleware($request),
+            $this->getRouteExcludedMiddleware($request)
+        );
+    }
+
+    /**
      * 获取当前请求中间件.
      */
     public function getCurrentRequestMiddleware(Request $request): array
@@ -350,20 +396,34 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 获取控制器中间件.
-     *
-     * @throws \Guanguans\Coole\Exception\InvalidClassException
+     * 获取控制器排除中间件.
      */
-    public function getControllerMiddleware(Request $request): array
+    public function getControllerExcludedMiddleware(Request $request): array
     {
-        $parameters = $this['url_matcher']->matchRequest($request);
-        if (! is_array($parameters['_controller'])) {
+        $controller = $this->getCurrentController($request);
+        if (is_null($controller)) {
             return [];
         }
 
-        $controller = $this->make($parameters['_controller'][0]);
-        if (! $controller instanceof Controller) {
-            throw new InvalidClassException(sprintf('The controller must be extends "%s" .', Controller::class));
+        return $controller->getExcludedMiddleware();
+    }
+
+    /**
+     * 获取路由排除中间件.
+     */
+    public function getRouteExcludedMiddleware(Request $request): array
+    {
+        return $this->getCurrentRoute($request)->getExcludedMiddleware();
+    }
+
+    /**
+     * 获取控制器中间件.
+     */
+    public function getControllerMiddleware(Request $request): array
+    {
+        $controller = $this->getCurrentController($request);
+        if (is_null($controller)) {
+            return [];
         }
 
         return $controller->getMiddleware();
@@ -374,24 +434,29 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function getRouteMiddleware(Request $request): array
     {
+        return $this->getCurrentRoute($request)->getMiddleware();
+    }
+
+    /**
+     * 获取当前路由.
+     */
+    public function getCurrentRoute(Request $request): Route
+    {
         $parameters = $this['url_matcher']->matchRequest($request);
 
-        return $this['route_collection']->get($parameters['_route'])->getMiddleware();
+        return $this['route_collection']->get($parameters['_route']);
     }
 
     /**
-     * 处理请求为响应且发送响应.
+     * 获取当前控制器.
      */
-    public function handle(Request $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true): Response
+    public function getCurrentController(Request $request): ?Controller
     {
-        return $this['http_kernel']->handle($request, $type, $catch);
-    }
+        $parameters = $this['url_matcher']->matchRequest($request);
+        if (! is_array($parameters['_controller'])) {
+            return null;
+        }
 
-    /**
-     * 终止请求/响应生命周期.
-     */
-    public function terminate(Request $request, Response $response)
-    {
-        $this['http_kernel']->terminate($request, $response);
+        return $this->make($parameters['_controller'][0]);
     }
 }

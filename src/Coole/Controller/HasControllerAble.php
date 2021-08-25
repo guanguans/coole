@@ -29,6 +29,13 @@ trait HasControllerAble
     protected $middleware = [];
 
     /**
+     * 排除的中间件.
+     *
+     * @var array
+     */
+    protected $excludedMiddleware = [];
+
+    /**
      * {@inheritdoc}
      */
     public function render($name, $context = []): string
@@ -122,6 +129,52 @@ trait HasControllerAble
     public function addMiddleware($middleware): self
     {
         $this->middleware = array_unique(array_merge($this->middleware, (array) $middleware));
+
+        return $this;
+    }
+
+    /**
+     * 获取排除的中间件.
+     */
+    public function getExcludedMiddleware(): array
+    {
+        return $this->excludedMiddleware;
+    }
+
+    /**
+     * 排除中间件.
+     *
+     * @param $excludedMiddleware
+     *
+     * @return $this
+     */
+    public function withoutMiddleware($excludedMiddleware): self
+    {
+        return $this->addExcludedMiddleware($excludedMiddleware);
+    }
+
+    /**
+     * 设置排除的中间件.
+     *
+     * @param $excludedMiddleware
+     *
+     * @return $this
+     */
+    public function setExcludedMiddleware($excludedMiddleware): self
+    {
+        return $this->addExcludedMiddleware($excludedMiddleware);
+    }
+
+    /**
+     * 添加排除的中间件.
+     *
+     * @param $excludedMiddleware
+     *
+     * @return $this
+     */
+    public function addExcludedMiddleware($excludedMiddleware): self
+    {
+        $this->excludedMiddleware = array_unique(array_merge($this->excludedMiddleware, (array) $excludedMiddleware));
 
         return $this;
     }

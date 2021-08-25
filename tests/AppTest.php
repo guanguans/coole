@@ -14,7 +14,6 @@ namespace Guanguans\Coole\Tests;
 
 use Guanguans\Coole\App;
 use Guanguans\Coole\Controller\Controller;
-use Guanguans\Coole\Exception\InvalidClassException;
 use Guanguans\Coole\Exception\UnknownFileException;
 use Guanguans\Coole\Provider\TwigServiceProvider;
 use Guanguans\Di\Container;
@@ -118,15 +117,6 @@ class AppTest extends TestCase
         $this->assertNotEmpty($controllerMiddleware);
     }
 
-    public function testGetControllerMiddlewareException()
-    {
-        $app = new App();
-        $app['router']->get('/', [InvalidControllerStub::class, 'hello']);
-        $request = Request::createFromGlobals();
-        $this->expectException(InvalidClassException::class);
-        $app->getControllerMiddleware($request);
-    }
-
     public function testGetRouteMiddleware()
     {
         $app = new App();
@@ -137,12 +127,12 @@ class AppTest extends TestCase
         $this->assertSame(MiddlewareStub::class, end($routeMiddleware));
     }
 
-    public function testGetAllMiddleware()
+    public function testGetCurrentRequestShouldExecutedMiddleware()
     {
         $app = new App();
         $app['router']->get('/', function () {})->setMiddleware(MiddlewareStub::class);
         $request = Request::createFromGlobals();
-        $allMiddleware = $app->getCurrentRequestMiddleware($request);
+        $allMiddleware = $app->getCurrentRequestShouldExecutedMiddleware($request);
         $this->assertIsArray($allMiddleware);
     }
 
