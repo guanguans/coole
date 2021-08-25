@@ -76,3 +76,8 @@ All notable changes to `guanguans/coole` will be documented in this file
 * Optimize `AppServiceProvider` default config.
 * Optimize `ConsoleServiceProvider` default config
 * Optimize `makeMiddleware` method.
+
+## 1.1.5 - 2021-08-25
+
+Add `excludedMiddleware` feature.
+Add `php-di/invoker`.
