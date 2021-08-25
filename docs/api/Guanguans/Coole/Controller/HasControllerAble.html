@@ -96,6 +96,15 @@
                 <td class="last"><p>中间件.</p></td>
                 <td></td>
             </tr>
+                    <tr>
+                <td class="type" id="property_excludedMiddleware">
+                                        protected                                        array
+                                                                                
+                                    </td>
+                <td>$excludedMiddleware</td>
+                <td class="last"><p>排除的中间件.</p></td>
+                <td></td>
+            </tr>
             </table>
 
     
@@ -194,6 +203,46 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getExcludedMiddleware">getExcludedMiddleware</a>()
+        
+                                            <p><p>获取排除的中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_withoutMiddleware">withoutMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>排除中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setExcludedMiddleware">setExcludedMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>设置排除的中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addExcludedMiddleware">addExcludedMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>添加排除的中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8">
@@ -220,7 +269,7 @@
             <div id="method-details">
                     <div class="method-item">
                     <h3 id="method_render">
-        <div class="location">at line 34</div>
+        <div class="location">at line 41</div>
         <code>                    string
     <strong>render</strong>($name, $context = [])
         </code>
@@ -267,7 +316,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_redirect">
-        <div class="location">at line 45</div>
+        <div class="location">at line 52</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>redirect</strong>($url, int $status = 302, array $headers = [])
         </code>
@@ -319,7 +368,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_abort">
-        <div class="location">at line 56</div>
+        <div class="location">at line 63</div>
         <code>                    
     <strong>abort</strong>($statusCode, string $message = &#039;&#039;, array $headers = [])
         </code>
@@ -362,7 +411,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_stream">
-        <div class="location">at line 67</div>
+        <div class="location">at line 74</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
     <strong>stream</strong>(null $callback = null, int $status = 200, array $headers = [])
         </code>
@@ -414,7 +463,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_json">
-        <div class="location">at line 78</div>
+        <div class="location">at line 85</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\JsonResponse">JsonResponse</abbr>
     <strong>json</strong>(array $data = [], int $status = 200, array $headers = [])
         </code>
@@ -466,7 +515,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_sendFile">
-        <div class="location">at line 90</div>
+        <div class="location">at line 97</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\BinaryFileResponse">BinaryFileResponse</abbr>
     <strong>sendFile</strong>($file, int $status = 200, array $headers = [], null $contentDisposition = null)
         </code>
@@ -523,7 +572,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_getMiddleware">
-        <div class="location">at line 98</div>
+        <div class="location">at line 105</div>
         <code>                    array
     <strong>getMiddleware</strong>()
         </code>
@@ -555,7 +604,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setMiddleware">
-        <div class="location">at line 110</div>
+        <div class="location">at line 117</div>
         <code>                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
     <strong>setMiddleware</strong>($middleware)
         </code>
@@ -597,7 +646,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_addMiddleware">
-        <div class="location">at line 122</div>
+        <div class="location">at line 129</div>
         <code>                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
     <strong>addMiddleware</strong>($middleware)
         </code>
@@ -638,8 +687,166 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getExcludedMiddleware">
+        <div class="location">at line 139</div>
+        <code>                    array
+    <strong>getExcludedMiddleware</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_withoutMiddleware">
+        <div class="location">at line 151</div>
+        <code>                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>withoutMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setExcludedMiddleware">
+        <div class="location">at line 163</div>
+        <code>                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>setExcludedMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>设置排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addExcludedMiddleware">
+        <div class="location">at line 175</div>
+        <code>                    <a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>addExcludedMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addFinishHandler">
-        <div class="location">at line 136</div>
+        <div class="location">at line 189</div>
         <code>                    
     <strong>addFinishHandler</strong>(callable $listener, int $priority = 0)
         </code>
@@ -677,7 +884,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_setFinishHandler">
-        <div class="location">at line 150</div>
+        <div class="location">at line 203</div>
         <code>                    
     <strong>setFinishHandler</strong>(callable $listener, int $priority = 0)
         </code>

@@ -115,7 +115,9 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::abort</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
                     <dd><p>抛出 http 异常.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_addMiddleware">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::addMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
-                    <dd><p>添加中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_addFinishHandler">
+                    <dd><p>添加中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_addExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::addExcludedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
+                    <dd><p>添加排除的中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_addFinishHandler">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::addFinishHandler</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
                     <dd><p>添加一个 <code>KernelEvents::TERMINATE</code> 事件监听处理器.</p></dd><dt><a href="Guanguans/Coole/Event/EventServiceProvider.html#method_afterRegister">
 <abbr title="Guanguans\Coole\Event\EventServiceProvider">EventServiceProvider</abbr>::afterRegister</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Event/EventServiceProvider.html"><abbr title="Guanguans\Coole\Event\EventServiceProvider">EventServiceProvider</abbr></a></em></dt>
@@ -162,7 +164,9 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\App">App</abbr>#booted</a> &mdash; <em>Property in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
                     <dd><p>是否已经引导服务.</p></dd><dt><a href="Guanguans/Coole/App.html#method_boot">
 <abbr title="Guanguans\Coole\App">App</abbr>::boot</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
-                    <dd><p>引导应用程序.</p></dd><dt><a href="Guanguans/Coole/Database/DatabaseServiceProvider.html#method_beforeRegister">
+                    <dd><p>引导应用程序.</p></dd><dt><a href="Guanguans/Coole/Console/ConsoleServiceProvider.html#method_beforeRegister">
+<abbr title="Guanguans\Coole\Console\ConsoleServiceProvider">ConsoleServiceProvider</abbr>::beforeRegister</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Console/ConsoleServiceProvider.html"><abbr title="Guanguans\Coole\Console\ConsoleServiceProvider">ConsoleServiceProvider</abbr></a></em></dt>
+                    <dd><p>注册服务之前.</p></dd><dt><a href="Guanguans/Coole/Database/DatabaseServiceProvider.html#method_beforeRegister">
 <abbr title="Guanguans\Coole\Database\DatabaseServiceProvider">DatabaseServiceProvider</abbr>::beforeRegister</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Database/DatabaseServiceProvider.html"><abbr title="Guanguans\Coole\Database\DatabaseServiceProvider">DatabaseServiceProvider</abbr></a></em></dt>
                     <dd><p>注册服务之前.</p></dd><dt><a href="Guanguans/Coole/Database/DatabaseServiceProvider.html#method_boot">
 <abbr title="Guanguans\Coole\Database\DatabaseServiceProvider">DatabaseServiceProvider</abbr>::boot</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Database/DatabaseServiceProvider.html"><abbr title="Guanguans\Coole\Database\DatabaseServiceProvider">DatabaseServiceProvider</abbr></a></em></dt>
@@ -230,7 +234,9 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
         <dl id="indexE"><dt><a href="Guanguans/Coole/Able/EventListenerAbleProviderInterface.html"><abbr title="Guanguans\Coole\Able\EventListenerAbleProviderInterface">EventListenerAbleProviderInterface</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Able.html">Guanguans\Coole\Able</a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Console/Commands/ServeCommand.html#method_execute">
 <abbr title="Guanguans\Coole\Console\Commands\ServeCommand">ServeCommand</abbr>::execute</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Console/Commands/ServeCommand.html"><abbr title="Guanguans\Coole\Console\Commands\ServeCommand">ServeCommand</abbr></a></em></dt>
-                    <dd></dd><dt><a href="Guanguans/Coole/Event/Event.html"><abbr title="Guanguans\Coole\Event\Event">Event</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Event.html">Guanguans\Coole\Event</a></em></dt>
+                    <dd></dd><dt>$<a href="Guanguans/Coole/Controller/HasControllerAble.html#property_excludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>#excludedMiddleware</a> &mdash; <em>Property in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
+                    <dd><p>排除的中间件.</p></dd><dt><a href="Guanguans/Coole/Event/Event.html"><abbr title="Guanguans\Coole\Event\Event">Event</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Event.html">Guanguans\Coole\Event</a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Event/EventServiceProvider.html"><abbr title="Guanguans\Coole\Event\EventServiceProvider">EventServiceProvider</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Event.html">Guanguans\Coole\Event</a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_extend">
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::extend</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
@@ -245,13 +251,25 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::factory</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/Facade.html"><abbr title="Guanguans\Coole\Facade\Facade">Facade</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Facade.html">Guanguans\Coole\Facade</a></em></dt>
                     <dd></dd>        </dl><h2 id="letterG">G</h2>
-        <dl id="indexG"><dt><a href="Guanguans/Coole/App.html#method_getCurrentRequestMiddleware">
+        <dl id="indexG"><dt><a href="Guanguans/Coole/App.html#method_getCurrentRequestShouldExecutedMiddleware">
+<abbr title="Guanguans\Coole\App">App</abbr>::getCurrentRequestShouldExecutedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
+                    <dd><p>获取当前请求应该被执行的中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getCurrentRequestExcludedMiddleware">
+<abbr title="Guanguans\Coole\App">App</abbr>::getCurrentRequestExcludedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
+                    <dd><p>获取当前请求排除中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getCurrentRequestMiddleware">
 <abbr title="Guanguans\Coole\App">App</abbr>::getCurrentRequestMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
-                    <dd><p>获取当前请求中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getControllerMiddleware">
+                    <dd><p>获取当前请求中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getControllerExcludedMiddleware">
+<abbr title="Guanguans\Coole\App">App</abbr>::getControllerExcludedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
+                    <dd><p>获取控制器排除中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getRouteExcludedMiddleware">
+<abbr title="Guanguans\Coole\App">App</abbr>::getRouteExcludedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
+                    <dd><p>获取路由排除中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getControllerMiddleware">
 <abbr title="Guanguans\Coole\App">App</abbr>::getControllerMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
                     <dd><p>获取控制器中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getRouteMiddleware">
 <abbr title="Guanguans\Coole\App">App</abbr>::getRouteMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
-                    <dd><p>获取路由中间件.</p></dd><dt><a href="Guanguans/Coole/Console/Application.html#method_getHelp">
+                    <dd><p>获取路由中间件.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getCurrentRoute">
+<abbr title="Guanguans\Coole\App">App</abbr>::getCurrentRoute</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
+                    <dd><p>获取当前路由.</p></dd><dt><a href="Guanguans/Coole/App.html#method_getCurrentController">
+<abbr title="Guanguans\Coole\App">App</abbr>::getCurrentController</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></em></dt>
+                    <dd><p>获取当前控制器.</p></dd><dt><a href="Guanguans/Coole/Console/Application.html#method_getHelp">
 <abbr title="Guanguans\Coole\Console\Application">Application</abbr>::getHelp</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Console/Application.html"><abbr title="Guanguans\Coole\Console\Application">Application</abbr></a></em></dt>
                     <dd><p>{@inheritdoc}</p></dd><dt><a href="Guanguans/Coole/Console/Command.html#method_getArguments">
 <abbr title="Guanguans\Coole\Console\Command">Command</abbr>::getArguments</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Console/Command.html"><abbr title="Guanguans\Coole\Console\Command">Command</abbr></a></em></dt>
@@ -267,16 +285,18 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Console\CommandDiscoverer">CommandDiscoverer</abbr>::getSuffix</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Console/CommandDiscoverer.html"><abbr title="Guanguans\Coole\Console\CommandDiscoverer">CommandDiscoverer</abbr></a></em></dt>
                     <dd><p>获取后缀</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_getMiddleware">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::getMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
-                    <dd><p>获取中间件.</p></dd><dt><a href="Guanguans/Coole/Event/Event.html#method_getName">
+                    <dd><p>获取中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_getExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::getExcludedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
+                    <dd><p>获取排除的中间件.</p></dd><dt><a href="Guanguans/Coole/Event/Event.html#method_getName">
 <abbr title="Guanguans\Coole\Event\Event">Event</abbr>::getName</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Event/Event.html"><abbr title="Guanguans\Coole\Event\Event">Event</abbr></a></em></dt>
                     <dd><p>获取事件名称.</p></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getFacadeAccessor">
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::getFacadeAccessor</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
-                    <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getCurrentRequestMiddleware">
-<abbr title="Guanguans\Coole\Facade\App">App</abbr>::getCurrentRequestMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
-                    <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getControllerMiddleware">
-<abbr title="Guanguans\Coole\Facade\App">App</abbr>::getControllerMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
-                    <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getRouteMiddleware">
-<abbr title="Guanguans\Coole\Facade\App">App</abbr>::getRouteMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
+                    <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getCurrentRequestShouldExecutedMiddleware">
+<abbr title="Guanguans\Coole\Facade\App">App</abbr>::getCurrentRequestShouldExecutedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
+                    <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getControllerShouldExecutedMiddleware">
+<abbr title="Guanguans\Coole\Facade\App">App</abbr>::getControllerShouldExecutedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
+                    <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getRouteShouldExecutedMiddleware">
+<abbr title="Guanguans\Coole\Facade\App">App</abbr>::getRouteShouldExecutedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_getMiddleware">
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::getMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_get">
@@ -346,6 +366,7 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Facade\DB">DB</abbr>::insert</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/DB.html"><abbr title="Guanguans\Coole\Facade\DB">DB</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/Logger.html#method_info">
 <abbr title="Guanguans\Coole\Facade\Logger">Logger</abbr>::info</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/Logger.html"><abbr title="Guanguans\Coole\Facade\Logger">Logger</abbr></a></em></dt>
+                    <dd></dd><dt><a href="Guanguans/Coole/Provider/InvokerServiceProvider.html"><abbr title="Guanguans\Coole\Provider\InvokerServiceProvider">InvokerServiceProvider</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Provider.html">Guanguans\Coole\Provider</a></em></dt>
                     <dd></dd>        </dl><h2 id="letterJ">J</h2>
         <dl id="indexJ"><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_json">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::json</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
@@ -513,6 +534,8 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Provider\ConfigServiceProvider">ConfigServiceProvider</abbr>::register</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/ConfigServiceProvider.html"><abbr title="Guanguans\Coole\Provider\ConfigServiceProvider">ConfigServiceProvider</abbr></a></em></dt>
                     <dd><p>{@inheritdoc}</p></dd><dt><a href="Guanguans/Coole/Provider/HttpKernelServiceProvider.html#method_register">
 <abbr title="Guanguans\Coole\Provider\HttpKernelServiceProvider">HttpKernelServiceProvider</abbr>::register</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/HttpKernelServiceProvider.html"><abbr title="Guanguans\Coole\Provider\HttpKernelServiceProvider">HttpKernelServiceProvider</abbr></a></em></dt>
+                    <dd><p>{@inheritdoc}</p></dd><dt><a href="Guanguans/Coole/Provider/InvokerServiceProvider.html#method_register">
+<abbr title="Guanguans\Coole\Provider\InvokerServiceProvider">InvokerServiceProvider</abbr>::register</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/InvokerServiceProvider.html"><abbr title="Guanguans\Coole\Provider\InvokerServiceProvider">InvokerServiceProvider</abbr></a></em></dt>
                     <dd><p>{@inheritdoc}</p></dd><dt><a href="Guanguans/Coole/Provider/MonologServiceProvider.html#method_register">
 <abbr title="Guanguans\Coole\Provider\MonologServiceProvider">MonologServiceProvider</abbr>::register</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/MonologServiceProvider.html"><abbr title="Guanguans\Coole\Provider\MonologServiceProvider">MonologServiceProvider</abbr></a></em></dt>
                     <dd><p>{@inheritdoc}</p></dd><dt><a href="Guanguans/Coole/Provider/TwigServiceProvider.html#method_register">
@@ -555,7 +578,9 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::sendFile</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
                     <dd><p>返回二进制文件响应.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_setMiddleware">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::setMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
-                    <dd><p>设置中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_setFinishHandler">
+                    <dd><p>设置中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_setExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::setExcludedMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
+                    <dd><p>设置排除的中间件.</p></dd><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_setFinishHandler">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::setFinishHandler</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
                     <dd><p>设置一个 <code>KernelEvents::TERMINATE</code> 事件监听处理器.</p></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_setOptions">
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::setOptions</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
@@ -600,7 +625,9 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/Router.html#method_setCondition">
 <abbr title="Guanguans\Coole\Facade\Router">Router</abbr>::setCondition</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/Router.html"><abbr title="Guanguans\Coole\Facade\Router">Router</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Listener/StringResponseListener.html"><abbr title="Guanguans\Coole\Listener\StringResponseListener">StringResponseListener</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Listener.html">Guanguans\Coole\Listener</a></em></dt>
-                    <dd></dd><dt><a href="Guanguans/Coole/Provider/HttpKernelServiceProvider.html#method_subscribe">
+                    <dd></dd><dt><a href="Guanguans/Coole/Provider/AppServiceProvider.html#method_setUpConfig">
+<abbr title="Guanguans\Coole\Provider\AppServiceProvider">AppServiceProvider</abbr>::setUpConfig</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/AppServiceProvider.html"><abbr title="Guanguans\Coole\Provider\AppServiceProvider">AppServiceProvider</abbr></a></em></dt>
+                    <dd><p>设置配置.</p></dd><dt><a href="Guanguans/Coole/Provider/HttpKernelServiceProvider.html#method_subscribe">
 <abbr title="Guanguans\Coole\Provider\HttpKernelServiceProvider">HttpKernelServiceProvider</abbr>::subscribe</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/HttpKernelServiceProvider.html"><abbr title="Guanguans\Coole\Provider\HttpKernelServiceProvider">HttpKernelServiceProvider</abbr></a></em></dt>
                     <dd><p>服务订阅事件.</p></dd><dt><a href="Guanguans/Coole/Provider/MonologServiceProvider.html#method_subscribe">
 <abbr title="Guanguans\Coole\Provider\MonologServiceProvider">MonologServiceProvider</abbr>::subscribe</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Provider/MonologServiceProvider.html"><abbr title="Guanguans\Coole\Provider\MonologServiceProvider">MonologServiceProvider</abbr></a></em></dt>
@@ -637,7 +664,9 @@ use Guanguans\Coole\Console\Application;.</code></pre></dd><dt>$<a href="Guangua
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::version</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/View.html"><abbr title="Guanguans\Coole\Facade\View">View</abbr></a> &mdash; <em>Class in namespace <a href="Guanguans/Coole/Facade.html">Guanguans\Coole\Facade</a></em></dt>
                     <dd></dd>        </dl><h2 id="letterW">W</h2>
-        <dl id="indexW"><dt><a href="Guanguans/Coole/Facade/App.html#method_wrap">
+        <dl id="indexW"><dt><a href="Guanguans/Coole/Controller/HasControllerAble.html#method_withoutMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr>::withoutMiddleware</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></em></dt>
+                    <dd><p>排除中间件.</p></dd><dt><a href="Guanguans/Coole/Facade/App.html#method_wrap">
 <abbr title="Guanguans\Coole\Facade\App">App</abbr>::wrap</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/App.html"><abbr title="Guanguans\Coole\Facade\App">App</abbr></a></em></dt>
                     <dd></dd><dt><a href="Guanguans/Coole/Facade/Logger.html#method_warning">
 <abbr title="Guanguans\Coole\Facade\Logger">Logger</abbr>::warning</a>() &mdash; <em>Method in class <a href="Guanguans/Coole/Facade/Logger.html"><abbr title="Guanguans\Coole\Facade\Logger">Logger</abbr></a></em></dt>

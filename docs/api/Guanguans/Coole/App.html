@@ -120,6 +120,16 @@
                 <td></td>
             </tr>
                     <tr>
+                <td class="type" id="property_excludedMiddleware">
+                                        protected                                        array
+                                                                                
+                                    </td>
+                <td>$excludedMiddleware</td>
+                <td class="last"><p>排除的中间件.</p></td>
+                <td><small>from&nbsp;<a href="../../Guanguans/Coole/Controller/HasControllerAble.html#property_excludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></small></td>
+            </tr>
+                    <tr>
                 <td class="type" id="property_options">
                                         protected                                        array
                                                                                 
@@ -249,6 +259,50 @@
         
                                             <p><p>添加中间件.</p></p>                </div>
                 <div class="col-md-2"><small>from&nbsp;<a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_addMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getExcludedMiddleware">getExcludedMiddleware</a>()
+        
+                                            <p><p>获取排除的中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_getExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_withoutMiddleware">withoutMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>排除中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_withoutMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setExcludedMiddleware">setExcludedMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>设置排除的中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_setExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addExcludedMiddleware">addExcludedMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>添加排除的中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_addExcludedMiddleware">
 <abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
             </div>
                     <div class="row">
@@ -426,6 +480,26 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_handle">handle</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+        
+                                            <p><p>处理请求为响应且发送响应.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_terminate">terminate</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr> $response)
+        
+                                            <p><p>终止请求/响应生命周期.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
                     array
                 </div>
                 <div class="col-md-8">
@@ -439,9 +513,49 @@
                     array
                 </div>
                 <div class="col-md-8">
+                    <a href="#method_getCurrentRequestShouldExecutedMiddleware">getCurrentRequestShouldExecutedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前请求应该被执行的中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCurrentRequestExcludedMiddleware">getCurrentRequestExcludedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前请求排除中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
                     <a href="#method_getCurrentRequestMiddleware">getCurrentRequestMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
         
                                             <p><p>获取当前请求中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getControllerExcludedMiddleware">getControllerExcludedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取控制器排除中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getRouteExcludedMiddleware">getRouteExcludedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取路由排除中间件.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
@@ -466,22 +580,22 @@
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                    <a href="../../Guanguans/Coole/Routing/Route.html"><abbr title="Guanguans\Coole\Routing\Route">Route</abbr></a>
                 </div>
                 <div class="col-md-8">
-                    <a href="#method_handle">handle</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+                    <a href="#method_getCurrentRoute">getCurrentRoute</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
         
-                                            <p><p>处理请求为响应且发送响应.</p></p>                </div>
+                                            <p><p>获取当前路由.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
                     <div class="row">
                 <div class="col-md-2 type">
-                    
+                    <abbr title="Guanguans\Coole\Guanguans\Coole\Controller\Controller">Controller</abbr>|null
                 </div>
                 <div class="col-md-8">
-                    <a href="#method_terminate">terminate</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr> $response)
+                    <a href="#method_getCurrentController">getCurrentController</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
         
-                                            <p><p>终止请求/响应生命周期.</p></p>                </div>
+                                            <p><p>获取当前控制器.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -493,7 +607,7 @@
                     <div class="method-item">
                     <h3 id="method_render">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_render">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 34</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 41</div>
         <code>                    string
     <strong>render</strong>($name, $context = [])
         </code>
@@ -541,7 +655,7 @@
                     <div class="method-item">
                     <h3 id="method_redirect">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_redirect">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 45</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 52</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
     <strong>redirect</strong>($url, int $status = 302, array $headers = [])
         </code>
@@ -594,7 +708,7 @@
                     <div class="method-item">
                     <h3 id="method_abort">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_abort">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 56</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 63</div>
         <code>                    
     <strong>abort</strong>($statusCode, string $message = &#039;&#039;, array $headers = [])
         </code>
@@ -638,7 +752,7 @@
                     <div class="method-item">
                     <h3 id="method_stream">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_stream">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 67</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 74</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
     <strong>stream</strong>(null $callback = null, int $status = 200, array $headers = [])
         </code>
@@ -691,7 +805,7 @@
                     <div class="method-item">
                     <h3 id="method_json">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_json">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 78</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 85</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\JsonResponse">JsonResponse</abbr>
     <strong>json</strong>(array $data = [], int $status = 200, array $headers = [])
         </code>
@@ -744,7 +858,7 @@
                     <div class="method-item">
                     <h3 id="method_sendFile">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_sendFile">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 90</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 97</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\BinaryFileResponse">BinaryFileResponse</abbr>
     <strong>sendFile</strong>($file, int $status = 200, array $headers = [], null $contentDisposition = null)
         </code>
@@ -802,7 +916,7 @@
                     <div class="method-item">
                     <h3 id="method_getMiddleware">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_getMiddleware">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 98</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 105</div>
         <code>                    array
     <strong>getMiddleware</strong>()
         </code>
@@ -835,7 +949,7 @@
                     <div class="method-item">
                     <h3 id="method_setMiddleware">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_setMiddleware">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 110</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 117</div>
         <code>                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
     <strong>setMiddleware</strong>($middleware)
         </code>
@@ -878,7 +992,7 @@
                     <div class="method-item">
                     <h3 id="method_addMiddleware">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_addMiddleware">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 122</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 129</div>
         <code>                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
     <strong>addMiddleware</strong>($middleware)
         </code>
@@ -919,9 +1033,171 @@
 
             </div>
                     <div class="method-item">
+                    <h3 id="method_getExcludedMiddleware">
+        <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_getExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 139</div>
+        <code>                    array
+    <strong>getExcludedMiddleware</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_withoutMiddleware">
+        <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_withoutMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 151</div>
+        <code>                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>withoutMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setExcludedMiddleware">
+        <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_setExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 163</div>
+        <code>                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>setExcludedMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>设置排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addExcludedMiddleware">
+        <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_addExcludedMiddleware">
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 175</div>
+        <code>                    <a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>addExcludedMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Guanguans/Coole/Controller/HasControllerAble.html"><abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
                     <h3 id="method_addFinishHandler">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_addFinishHandler">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 136</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 189</div>
         <code>                    
     <strong>addFinishHandler</strong>(callable $listener, int $priority = 0)
         </code>
@@ -960,7 +1236,7 @@
                     <div class="method-item">
                     <h3 id="method_setFinishHandler">
         <div class="location">in <a href="../../Guanguans/Coole/Controller/HasControllerAble.html#method_setFinishHandler">
-<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 150</div>
+<abbr title="Guanguans\Coole\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 203</div>
         <code>                    
     <strong>setFinishHandler</strong>(callable $listener, int $priority = 0)
         </code>
@@ -1582,185 +1858,8 @@
 
             </div>
                     <div class="method-item">
-                    <h3 id="method_makeMiddleware">
-        <div class="location">at line 329</div>
-        <code>                    array
-    <strong>makeMiddleware</strong>(string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string $middlewares)
-        </code>
-    </h3>
-    <div class="details">    
-    
-            
-
-        <div class="method-description">
-                            <p><p>批量实例化中间件.</p></p>                        
-        </div>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td>string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string</td>
-                <td>$middlewares</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getCurrentRequestMiddleware">
-        <div class="location">at line 343</div>
-        <code>                    array
-    <strong>getCurrentRequestMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
-        </code>
-    </h3>
-    <div class="details">    
-    
-            
-
-        <div class="method-description">
-                            <p><p>获取当前请求中间件.</p></p>                        
-        </div>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
-                <td>$request</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getControllerMiddleware">
-        <div class="location">at line 357</div>
-        <code>                    array
-    <strong>getControllerMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
-        </code>
-    </h3>
-    <div class="details">    
-    
-            
-
-        <div class="method-description">
-                            <p><p>获取控制器中间件.</p></p>                        
-        </div>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
-                <td>$request</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-                            <h4>Exceptions</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../../Guanguans/Coole/Exception/InvalidClassException.html"><abbr title="Guanguans\Coole\Exception\InvalidClassException">InvalidClassException</abbr></a></td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_getRouteMiddleware">
-        <div class="location">at line 375</div>
-        <code>                    array
-    <strong>getRouteMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
-        </code>
-    </h3>
-    <div class="details">    
-    
-            
-
-        <div class="method-description">
-                            <p><p>获取路由中间件.</p></p>                        
-        </div>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
-                <td>$request</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>array</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_handle">
-        <div class="location">at line 385</div>
+        <div class="location">at line 327</div>
         <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
     <strong>handle</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
         </code>
@@ -1812,7 +1911,7 @@
             </div>
                     <div class="method-item">
                     <h3 id="method_terminate">
-        <div class="location">at line 393</div>
+        <div class="location">at line 335</div>
         <code>                    
     <strong>terminate</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr> $response)
         </code>
@@ -1841,6 +1940,426 @@
             </table>
 
             
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_makeMiddleware">
+        <div class="location">at line 345</div>
+        <code>                    array
+    <strong>makeMiddleware</strong>(string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string $middlewares)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>批量实例化中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string[]|object[]|<abbr title="Guanguans\Coole\Closure">Closure</abbr>[]|string</td>
+                <td>$middlewares</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRequestShouldExecutedMiddleware">
+        <div class="location">at line 359</div>
+        <code>                    array
+    <strong>getCurrentRequestShouldExecutedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前请求应该被执行的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRequestExcludedMiddleware">
+        <div class="location">at line 377</div>
+        <code>                    array
+    <strong>getCurrentRequestExcludedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前请求排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRequestMiddleware">
+        <div class="location">at line 389</div>
+        <code>                    array
+    <strong>getCurrentRequestMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前请求中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getControllerExcludedMiddleware">
+        <div class="location">at line 401</div>
+        <code>                    array
+    <strong>getControllerExcludedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取控制器排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRouteExcludedMiddleware">
+        <div class="location">at line 414</div>
+        <code>                    array
+    <strong>getRouteExcludedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取路由排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getControllerMiddleware">
+        <div class="location">at line 422</div>
+        <code>                    array
+    <strong>getControllerMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取控制器中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRouteMiddleware">
+        <div class="location">at line 435</div>
+        <code>                    array
+    <strong>getRouteMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取路由中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRoute">
+        <div class="location">at line 443</div>
+        <code>                    <a href="../../Guanguans/Coole/Routing/Route.html"><abbr title="Guanguans\Coole\Routing\Route">Route</abbr></a>
+    <strong>getCurrentRoute</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前路由.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Guanguans/Coole/Routing/Route.html"><abbr title="Guanguans\Coole\Routing\Route">Route</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentController">
+        <div class="location">at line 453</div>
+        <code>                    <abbr title="Guanguans\Coole\Guanguans\Coole\Controller\Controller">Controller</abbr>|null
+    <strong>getCurrentController</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前控制器.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Guanguans\Coole\Guanguans\Coole\Controller\Controller">Controller</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
             
             
             

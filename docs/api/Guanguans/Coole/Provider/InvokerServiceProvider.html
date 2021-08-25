@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="robots" content="index, follow, all" />
-    <title>Guanguans\Coole\Console\ConsoleServiceProvider | Coole API</title>
+    <title>Guanguans\Coole\Provider\InvokerServiceProvider | Coole API</title>
 
             <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../../../css/bootstrap-theme.min.css">
@@ -19,7 +19,7 @@
 
     </head>
 
-    <body id="class" data-name="class:Guanguans_Coole_Console_ConsoleServiceProvider" data-root-path="../../../">
+    <body id="class" data-name="class:Guanguans_Coole_Provider_InvokerServiceProvider" data-root-path="../../../">
             <div id="content">
         <div id="left-column">
                 <div id="control-panel">
@@ -63,19 +63,19 @@
                         <div class="namespace-breadcrumbs">
             <ol class="breadcrumb">
                 <li><span class="label label-default">class</span></li>
-                        <li><a href="../../../Guanguans.html">Guanguans</a></li><li class="backslash">\</li><li><a href="../../../Guanguans/Coole.html">Coole</a></li><li class="backslash">\</li><li><a href="../../../Guanguans/Coole/Console.html">Console</a></li><li class="backslash">\</li><li>ConsoleServiceProvider</li>
+                        <li><a href="../../../Guanguans.html">Guanguans</a></li><li class="backslash">\</li><li><a href="../../../Guanguans/Coole.html">Coole</a></li><li class="backslash">\</li><li><a href="../../../Guanguans/Coole/Provider.html">Provider</a></li><li class="backslash">\</li><li>InvokerServiceProvider</li>
             </ol>
         </div>
                 <div id="page-content">
     <div class="page-header">
-        <h1>ConsoleServiceProvider    
+        <h1>InvokerServiceProvider    
             </h1>
     </div>
 
     
     <p>        class
-    <strong>ConsoleServiceProvider</strong>        implements
-        <abbr title="Guanguans\Di\ServiceProviderInterface">ServiceProviderInterface</abbr>, <a href="../../../Guanguans/Coole/Able/BeforeRegisterAbleProviderInterface.html"><abbr title="Guanguans\Coole\Able\BeforeRegisterAbleProviderInterface">BeforeRegisterAbleProviderInterface</abbr></a>, <a href="../../../Guanguans/Coole/Able/AfterRegisterAbleProviderInterface.html"><abbr title="Guanguans\Coole\Able\AfterRegisterAbleProviderInterface">AfterRegisterAbleProviderInterface</abbr></a>
+    <strong>InvokerServiceProvider</strong>        implements
+        <abbr title="Guanguans\Di\ServiceProviderInterface">ServiceProviderInterface</abbr>
 </p>
 
         
@@ -91,32 +91,12 @@
             <div class="container-fluid underlined">
                     <div class="row">
                 <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8">
-                    <a href="#method_beforeRegister">beforeRegister</a>(<a href="../../../Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a> $app)
-        
-                                            <p><p>注册服务之前.</p></p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
                     
                 </div>
                 <div class="col-md-8">
                     <a href="#method_register">register</a>(<abbr title="Guanguans\Di\Container">Container</abbr> $app)
         
                                             <p><p>{@inheritdoc}</p></p>                </div>
-                <div class="col-md-2"></div>
-            </div>
-                    <div class="row">
-                <div class="col-md-2 type">
-                    mixed
-                </div>
-                <div class="col-md-8">
-                    <a href="#method_afterRegister">afterRegister</a>(<a href="../../../Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a> $app)
-        
-                                            <p><p>注册服务之后.</p></p>                </div>
                 <div class="col-md-2"></div>
             </div>
             </div>
@@ -126,50 +106,8 @@
 
             <div id="method-details">
                     <div class="method-item">
-                    <h3 id="method_beforeRegister">
-        <div class="location">at line 27</div>
-        <code>                    mixed
-    <strong>beforeRegister</strong>(<a href="../../../Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a> $app)
-        </code>
-    </h3>
-    <div class="details">    
-    
-            
-
-        <div class="method-description">
-                            <p><p>注册服务之前.</p></p>                        
-        </div>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../../../Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></td>
-                <td>$app</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td></td>
-        </tr>
-    </table>
-
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
                     <h3 id="method_register">
-        <div class="location">at line 45</div>
+        <div class="location">at line 25</div>
         <code>                    
     <strong>register</strong>(<abbr title="Guanguans\Di\Container">Container</abbr> $app)
         </code>
@@ -193,48 +131,6 @@
             </table>
 
             
-            
-            
-            
-                    </div>
-    </div>
-
-            </div>
-                    <div class="method-item">
-                    <h3 id="method_afterRegister">
-        <div class="location">at line 60</div>
-        <code>                    mixed
-    <strong>afterRegister</strong>(<a href="../../../Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a> $app)
-        </code>
-    </h3>
-    <div class="details">    
-    
-            
-
-        <div class="method-description">
-                            <p><p>注册服务之后.</p></p>                        
-        </div>
-        <div class="tags">
-                            <h4>Parameters</h4>
-
-                    <table class="table table-condensed">
-                    <tr>
-                <td><a href="../../../Guanguans/Coole/App.html"><abbr title="Guanguans\Coole\App">App</abbr></a></td>
-                <td>$app</td>
-                <td></td>
-            </tr>
-            </table>
-
-            
-                            <h4>Return Value</h4>
-
-                    <table class="table table-condensed">
-        <tr>
-            <td>mixed</td>
-            <td></td>
-        </tr>
-    </table>
-
             
             
             
