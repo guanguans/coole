@@ -55,6 +55,7 @@
         "symfony/process": "^5.3",
         "symfony/routing": "^5.0",
         "symfony/serializer": "^5.3",
+        "symfony/validator": "^5.3",
         "tightenco/collect": "^8.0",
         "twig/twig": "^3.0",
         "vlucas/phpdotenv": "^5.2"
