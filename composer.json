@@ -57,6 +57,7 @@
         "symfony/messenger": "^5.3",
         "symfony/notifier": "^5.3",
         "symfony/options-resolver": "^5.3",
+        "symfony/password-hasher": "^5.3",
         "symfony/process": "^5.3",
         "symfony/routing": "^5.0",
         "symfony/serializer": "^5.3",
