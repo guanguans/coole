@@ -66,6 +66,7 @@
         "symfony/serializer": "^5.3",
         "symfony/stopwatch": "^5.3",
         "symfony/translation": "^5.3",
+        "symfony/uid": "^5.3",
         "symfony/validator": "^5.3",
         "tightenco/collect": "^8.0",
         "twig/twig": "^3.0",
