@@ -84,6 +84,9 @@
         "code-lts/doctum": "^5.4",
         "friendsofphp/php-cs-fixer": "^2.16",
         "mockery/mockery": "^1.2",
+        "nyholm/nsa": "^1.3",
+        "overtrue/phplint": "^2.3 || ^3.0",
+        "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^8.0",
         "symfony/var-exporter": "^5.3",
         "vimeo/psalm": "^3.11"
@@ -107,12 +110,16 @@
     "extra": {
         "hooks": {
             "pre-commit": [
-                "composer test",
-                "composer check-style"
+                "composer lint",
+                "composer style-lint",
+                "composer md-lint",
+                "composer test"
             ],
             "pre-push": [
-                "composer test",
-                "composer check-style"
+                "composer lint",
+                "composer style-lint",
+                "composer md-lint",
+                "composer test"
             ]
         }
     },
@@ -132,17 +139,25 @@
             "cghooks update"
         ],
         "cghooks": "./vendor/bin/cghooks",
-        "check-style": "php-cs-fixer fix --using-cache=no --diff --config=.php_cs.dist --dry-run --ansi",
-        "fix-style": "php-cs-fixer fix --using-cache=no --config=.php_cs.dist --ansi",
+        "lint": "./vendor/bin/phplint --no-cache --configuration=.phplint.yml --ansi",
+        "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/",
+        "md-fix": "lint-md --config .lintmdrc --fix ./*.md ./.github/ ./docs/",
+        "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
+        "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "psalm": "./vendor/bin/psalm",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
+        "benchmark": "./vendor/bin/phpbench run --retry-threshold=3 --iterations=15 --revs=1000 --warmup=2",
         "doctum": "doctum update doctum.php"
     },
     "scripts-descriptions": {
-        "check-style": "Run style checks (only dry run - no fixing!).",
-        "fix-style": "Run style checks and fix violations.",
-        "psalm": ".Run psalm checks.",
+        "cghooks": "Run git cghooks.",
+        "lint": "Run phplint checks.",
+        "md-lint": "Run markdown checks.",
+        "md-fix": "Run markdown fixing.",
+        "style-lint": "Run style checks (only dry run - no fixing!).",
+        "style-fix": "Run style checks and fix violations.",
+        "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage.",
         "doctum": "Run rarses then renders a project."

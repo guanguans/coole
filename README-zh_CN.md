@@ -2,10 +2,10 @@
 
 > Coole is a PHP micro-framework built on open source components. - Coole 是一个基于开源组件构建的 PHP 微框架。
 
-[简体中文](README-CN.md) | [ENGLISH](README.md)
+[简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
-![Tests](https://github.com/guanguans/coole/workflows/Tests/badge.svg)
-![Check & fix styling](https://github.com/guanguans/coole/workflows/Check%20&%20fix%20styling/badge.svg)
+![tests](https://github.com/guanguans/coole/workflows/tests/badge.svg)
+![check & fix styling](https://github.com/guanguans/coole/workflows/check%20&%20fix%20styling/badge.svg)
 [![codecov](https://codecov.io/gh/guanguans/coole/branch/main/graph/badge.svg?token=URGFAWS6S4)](https://codecov.io/gh/guanguans/coole)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/coole/v)](//packagist.org/packages/guanguans/coole)
 [![Total Downloads](https://poser.pugx.org/guanguans/coole/downloads)](//packagist.org/packages/guanguans/coole)
