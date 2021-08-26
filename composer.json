@@ -68,6 +68,7 @@
         "symfony/security-csrf": "^5.3",
         "symfony/security-guard": "^5.3",
         "symfony/security-http": "^5.3",
+        "symfony/semaphore": "^5.3",
         "symfony/serializer": "^5.3",
         "symfony/stopwatch": "^5.3",
         "symfony/translation": "^5.3",
