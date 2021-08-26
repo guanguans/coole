@@ -35,6 +35,7 @@
         "monolog/monolog": "^2.1",
         "mpociot/pipeline": "^1.0",
         "php-di/invoker": "^2.3",
+        "sebastiaanluca/php-pipe-operator": "^3.0",
         "symfony/console": "^5.0",
         "symfony/error-handler": "^5.0",
         "symfony/event-dispatcher": "^5.0",
