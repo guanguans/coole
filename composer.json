@@ -49,6 +49,7 @@
         "symfony/finder": "^5.0",
         "symfony/http-foundation": "^5.0",
         "symfony/http-kernel": "^5.0",
+        "symfony/mailer": "^5.3",
         "symfony/notifier": "^5.3",
         "symfony/options-resolver": "^5.3",
         "symfony/process": "^5.3",
