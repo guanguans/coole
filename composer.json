@@ -32,6 +32,7 @@
         "illuminate/database": "^7.30",
         "illuminate/events": "^7.30",
         "illuminate/pagination": "^7.30",
+        "league/flysystem": "^2.2",
         "monolog/monolog": "^2.1",
         "mpociot/pipeline": "^1.0",
         "nette/robot-loader": "^3.4",
