@@ -141,7 +141,7 @@
         "cghooks": "./vendor/bin/cghooks",
         "lint": "./vendor/bin/phplint --no-cache --configuration=.phplint.yml --ansi",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/",
-        "md-fix": "lint-md --config .lintmdrc --fix ./*.md ./.github/ ./docs/",
+        "md-fix": "lint-md --config .lintmdrc --fix ./*.md ./docs/",
         "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "psalm": "./vendor/bin/psalm",
