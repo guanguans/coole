@@ -42,6 +42,7 @@
         "spatie/macroable": "^1.0",
         "spatie/once": "^2.2",
         "spatie/url-signer": "^1.2",
+        "symfony/cache": "^5.3",
         "symfony/console": "^5.0",
         "symfony/error-handler": "^5.0",
         "symfony/event-dispatcher": "^5.0",
