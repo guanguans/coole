@@ -39,7 +39,7 @@
         "nette/utils": "^3.2",
         "opis/closure": "^3.6",
         "php-di/invoker": "^2.3",
-        "sebastiaanluca/php-pipe-operator": "^3.0",
+        "sebastiaanluca/php-pipe-operator": "^3.0 || ^4.0",
         "spatie/async": "^1.5",
         "spatie/blink": "^1.1",
         "spatie/macroable": "^1.0",
