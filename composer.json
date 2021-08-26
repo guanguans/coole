@@ -34,6 +34,7 @@
         "illuminate/pagination": "^7.30",
         "monolog/monolog": "^2.1",
         "mpociot/pipeline": "^1.0",
+        "nette/robot-loader": "^3.4",
         "nette/utils": "^3.2",
         "php-di/invoker": "^2.3",
         "sebastiaanluca/php-pipe-operator": "^3.0",
