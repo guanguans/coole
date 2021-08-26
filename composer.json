@@ -36,6 +36,7 @@
         "mpociot/pipeline": "^1.0",
         "php-di/invoker": "^2.3",
         "sebastiaanluca/php-pipe-operator": "^3.0",
+        "spatie/blink": "^1.1",
         "spatie/macroable": "^1.0",
         "spatie/once": "^2.2",
         "spatie/url-signer": "^1.2",
