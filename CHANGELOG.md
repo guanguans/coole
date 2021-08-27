@@ -79,5 +79,9 @@ All notable changes to `guanguans/coole` will be documented in this file
 
 ## 1.1.5 - 2021-08-25
 
-Add `excludedMiddleware` feature.
-Add `php-di/invoker`.
+* Add `excludedMiddleware` feature.
+* Add `php-di/invoker`.
+
+## 1.2.0 - 2021-08-27
+
+* Upgrade packages version.
