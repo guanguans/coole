@@ -96,7 +96,7 @@
             "Guanguans\\Coole\\": "src/Coole"
         },
         "files": [
-            "src/Coole/Support/helpers.php"
+            "src/Coole/Foundation/helpers.php"
         ]
     },
     "autoload-dev": {

@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Console;
 
-use Guanguans\Coole\App;
+use Guanguans\Coole\Foundation\App;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * ``` php
  * use Guanguans\Coole\Console\Application;.
  *
- * $app = new Application(\Guanguans\Coole\App::getInstance());
+ * $app = new Application(\Guanguans\Coole\Foundation\App::getInstance());
  * $status = $app->run();
  * exit($status);
  * ```
@@ -28,7 +28,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 class Application extends \Symfony\Component\Console\Application
 {
     /**
-     * @var \Guanguans\Coole\App
+     * @var \Guanguans\Coole\Foundation\App
      */
     protected $app;
 

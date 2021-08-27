@@ -9,7 +9,7 @@
 
 namespace App\Controller;
 
-use Guanguans\Coole\Controller\Controller;
+use Guanguans\Coole\Foundation\Controller\Controller;
 
 class IndexController extends Controller
 {

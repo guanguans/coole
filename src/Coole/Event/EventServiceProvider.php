@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Event;
 
-use Guanguans\Coole\Able\AfterRegisterAbleProviderInterface;
-use Guanguans\Coole\App;
+use Guanguans\Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
+use Guanguans\Coole\Foundation\App;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;

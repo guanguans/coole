@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Routing;
 
-use Guanguans\Coole\Controller\HasControllerAble;
+use Guanguans\Coole\HttpKernel\Controller\HasControllerAble;
 
 class Route extends \Symfony\Component\Routing\Route
 {
