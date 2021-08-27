@@ -43,7 +43,7 @@
         "spatie/async": "^1.5",
         "spatie/blink": "^1.1",
         "spatie/macroable": "^1.0 || ^2.0",
-        "spatie/once": "^2.2",
+        "spatie/once": "^2.2 || ^3.0",
         "spatie/url-signer": "^1.2",
         "symfony/browser-kit": "^5.3",
         "symfony/cache": "^5.3",
