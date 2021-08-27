@@ -15,7 +15,7 @@ namespace Guanguans\Coole\Foundation;
 use Guanguans\Coole\Config\ConfigServiceProvider;
 use Guanguans\Coole\Console\ConsoleServiceProvider;
 use Guanguans\Coole\DB\DBServiceProvider;
-use Guanguans\Coole\ErrorHandler\WhoopsServiceProvider;
+use Guanguans\Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Guanguans\Coole\Event\EventServiceProvider;
 use Guanguans\Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
 use Guanguans\Coole\Foundation\Able\EventListenerAbleProviderInterface;
@@ -41,7 +41,7 @@ class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAble
      * @var string[]
      */
     protected $providers = [
-        WhoopsServiceProvider::class,
+        ErrorHandlerServiceProvider::class,
         LogServiceProvider::class,
         EventServiceProvider::class,
         RoutingServiceProvider::class,

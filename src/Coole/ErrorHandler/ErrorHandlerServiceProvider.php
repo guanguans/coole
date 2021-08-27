@@ -22,7 +22,7 @@ use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-class WhoopsServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, AfterRegisterAbleProviderInterface
+class ErrorHandlerServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, AfterRegisterAbleProviderInterface
 {
     /**
      * {@inheritdoc}
