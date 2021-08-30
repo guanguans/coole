@@ -3,16 +3,15 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/coole.
+ * This file is part of Coole.
  *
- * (c) guanguans <ityaozm@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled.
+ * @link     https://github.com/guanguans/coole
+ * @contact  guanguans <ityaozm@gmail.com>
+ * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
 namespace Coole\Foundation;
 
-use Dotenv\Dotenv;
 use Coole\Console\CommandDiscoverer;
 use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
 use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
@@ -22,6 +21,7 @@ use Coole\Foundation\Exception\UnknownFileException;
 use Coole\HttpKernel\Controller\Controller;
 use Coole\HttpKernel\Controller\HasControllerAble;
 use Coole\Routing\Route;
+use Dotenv\Dotenv;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;

@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /**
- * This file is part of the guanguans/coole.
+ * This file is part of Coole.
  *
- * (c) guanguans <ityaozm@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled.
+ * @link     https://github.com/guanguans/coole
+ * @contact  guanguans <ityaozm@gmail.com>
+ * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
 namespace Coole\HttpKernel;
