@@ -34,20 +34,7 @@ class LogServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
     public function beforeRegister(App $app)
     {
         $app->addConfig([
-            'logger' => [
-                'name' => 'app',
-                'level' => Logger::DEBUG,
-                'bubble' => true,
-                'file_permission' => null,
-                'log_file' => null,
-                'use_locking' => false,
-                'formatter' => [
-                    'format' => null,
-                    'date_format' => 'Y-m-d H:i:s',
-                    'allow_inline_Line_Breaks' => false,
-                    'ignore_empty_context_and_extra' => false,
-                ],
-            ],
+            'log' => require __DIR__.'/../config/log.php',
         ]);
     }
 
@@ -57,20 +44,20 @@ class LogServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
     public function register(Container $app)
     {
         $app->singleton('monolog', function ($app) {
-            $log = new Logger($app['config']['logger']['name']);
+            $log = new Logger($app['config']['log']['name']);
             $handler = new GroupHandler($app['monolog.handlers']);
             $log->pushHandler($handler);
 
             return $log;
         });
-        $app->alias('monolog', 'logger');
+        $app->alias('monolog', 'log');
 
         $app->singleton(LineFormatter::class, function ($app) {
             return new LineFormatter(
-                $app['config']['logger']['formatter']['format'],
-                $app['config']['logger']['formatter']['date_format'],
-                $app['config']['logger']['formatter']['allow_inline_Line_Breaks'],
-                $app['config']['logger']['formatter']['ignore_empty_context_and_extra']
+                $app['config']['log']['formatter']['format'],
+                $app['config']['log']['formatter']['date_format'],
+                $app['config']['log']['formatter']['allow_inline_Line_Breaks'],
+                $app['config']['log']['formatter']['ignore_empty_context_and_extra']
             );
         });
 
@@ -78,11 +65,11 @@ class LogServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
 
         $app->singleton(StreamHandler::class, function ($app) {
             $handler = new StreamHandler(
-                $app['config']['logger']['log_file'],
-                $app['config']['logger']['level'],
-                $app['config']['logger']['bubble'],
-                $app['config']['logger']['file_permission'],
-                $app['config']['logger']['use_locking']
+                $app['config']['log']['log_file'],
+                $app['config']['log']['level'],
+                $app['config']['log']['bubble'],
+                $app['config']['log']['file_permission'],
+                $app['config']['log']['use_locking']
             );
             $handler->setFormatter($app['monolog.formatter']);
 
@@ -92,7 +79,7 @@ class LogServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
 
         $app->singleton('monolog.handlers', function ($app) {
             $handlers = [];
-            if ($app['config']['logger']['log_file']) {
+            if ($app['config']['log']['log_file']) {
                 $handlers[] = $app['monolog.handler'];
             }
 
@@ -100,7 +87,7 @@ class LogServiceProvider implements ServiceProviderInterface, BootAbleProviderIn
         });
 
         $app->singleton(LogListener::class, function ($app) {
-            return new LogListener($app['logger']);
+            return new LogListener($app['log']);
         });
         $app->alias(LogListener::class, 'monolog.listener');
     }

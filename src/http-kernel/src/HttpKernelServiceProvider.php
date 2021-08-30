@@ -33,7 +33,7 @@ class HttpKernelServiceProvider implements ServiceProviderInterface
         $app->alias(RequestStack::class, 'request_stack');
 
         $app->singleton(ControllerResolver::class, function ($app) {
-            return new ControllerResolver(app('logger'));
+            return new ControllerResolver(app('log'));
         });
         $app->alias(ControllerResolver::class, 'controller_resolver');
 

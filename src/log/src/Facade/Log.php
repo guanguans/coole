@@ -34,6 +34,6 @@ class Log extends Facade
      */
     public static function getFacadeAccessor()
     {
-        return 'logger';
+        return 'log';
     }
 }
