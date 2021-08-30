@@ -27,15 +27,7 @@ class ConsoleServiceProvider implements ServiceProviderInterface, BeforeRegister
     public function beforeRegister(App $app)
     {
         $app->addConfig([
-            'console' => [
-                'command' => [
-                    [
-                        'dir' => __DIR__.'/Commands',
-                        'namespace' => '\Coole\Console\Commands',
-                        'suffix' => '*Command.php',
-                    ],
-                ],
-            ],
+            'console' => require __DIR__.'/../config/console.php',
         ]);
     }
 
