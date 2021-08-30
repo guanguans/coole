@@ -1,0 +1,90 @@
+{
+    "name": "coole/view",
+    "conflict": {
+        "coole/config": "<1.1.6",
+        "coole/foundation": "<1.1.6",
+        "coole/invoker": "<1.1.6",
+        "coole/http-kernel": "<1.1.6",
+        "coole/db": "<1.1.6",
+        "coole/log": "<1.1.6",
+        "coole/routing": "<1.1.6",
+        "coole/error-handler": "<1.1.6",
+        "coole/event": "<1.1.6",
+        "coole/console": "<1.1.6"
+    },
+    "description": "View component of the Coole framework.",
+    "keywords": ["coole", "view"],
+    "homepage": "https://github.com/coole/view",
+    "authors": [
+        {
+            "name": "guanguans",
+            "email": "ityaozm@gmail.com",
+            "homepage": "https://www.guanguans.cn",
+            "role": "developer"
+        }
+    ],
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": ">7.2"
+    },
+    "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "mockery/mockery": "^1.3",
+        "nyholm/nsa": "^1.3",
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "vimeo/psalm": "^4.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Coole\\View\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Coole\\View\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "composer style-lint",
+                "composer test"
+            ],
+            "pre-push": [
+                "composer style-lint",
+                "composer test"
+            ]
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "cghooks update"
+        ],
+        "post-merge": "composer install",
+        "post-install-cmd": [
+            "cghooks add --ignore-lock",
+            "cghooks update"
+        ],
+        "cghooks": "./vendor/bin/cghooks",
+        "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
+        "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
+        "psalm": "./vendor/bin/psalm",
+        "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose"
+    },
+    "scripts-descriptions": {
+        "cghooks": "Run git cghooks.",
+        "style-lint": "Run style checks (only dry run - no fixing!).",
+        "style-fix": "Run style checks and fix violations.",
+        "psalm": "Run psalm checks.",
+        "test": "Run all tests.",
+        "test-coverage": "Run all tests with coverage."
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

@@ -15,7 +15,6 @@ tests.php
 .history/
 index.php
 IndexController.php
-view/
 app.db
 /cooler
 app.log
