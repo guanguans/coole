@@ -29,28 +29,7 @@ class DBServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleP
     public function beforeRegister(App $app)
     {
         $app->addConfig([
-            'database' => [
-                'default' => 'mysql',
-                'connections' => [
-                    'mysql' => [
-                        'driver' => 'mysql',
-                        'url' => '',
-                        'host' => '127.0.0.1',
-                        'port' => '3306',
-                        'database' => 'coole',
-                        'username' => 'coole',
-                        'password' => '',
-                        'unix_socket' => '',
-                        'charset' => 'utf8mb4',
-                        'collation' => 'utf8mb4_unicode_ci',
-                        'prefix' => '',
-                        'prefix_indexes' => true,
-                        'strict' => true,
-                        'engine' => null,
-                        'options' => [],
-                    ],
-                ],
-            ],
+            'database' => require __DIR__.'/../config/database.php',
         ]);
     }
 
