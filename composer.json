@@ -177,8 +177,8 @@
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
         "benchmark": "./vendor/bin/phpbench run --retry-threshold=3 --iterations=15 --revs=1000 --warmup=2",
         "doctum": "doctum update doctum.php",
-        "release": "./vendor/bin/monorepo-builder release patch --ansi",
-        "release-dry": "./vendor/bin/monorepo-builder release patch --dry-run --ansi"
+        "release": "./vendor/bin/monorepo-builder release patch --ansi -vvv",
+        "release-dry": "./vendor/bin/monorepo-builder release patch --dry-run --ansi -vvv"
     },
     "scripts-descriptions": {
         "cghooks": "Run git cghooks.",
@@ -190,6 +190,8 @@
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage.",
-        "doctum": "Run rarses then renders a project."
+        "doctum": "Run rarses then renders a project.",
+        "release": "Run perform release process with set Release Workers.",
+        "release-dry": "Run perform release process with set Release Workers(Do not perform operations, just their preview)."
     }
 }
