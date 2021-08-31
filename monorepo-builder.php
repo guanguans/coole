@@ -99,7 +99,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
 
     $parameters->set(Option::REPOSITORY, [
-        'src/config' => 'git@github.com:coole/config.git',
+        'src/config' => 'git@github.com:coolephp/config.git',
     ]);
 
     $parameters->set(Option::EXCLUDE_PACKAGE, []);
