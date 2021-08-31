@@ -70,19 +70,16 @@ use Symplify\MonorepoBuilder\ValueObject\Option;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::DEFAULT_BRANCH_NAME, '2.x');
+    $parameters->set(Option::PACKAGE_ALIAS_FORMAT, '<major>.<minor>.x-dev');
 
-    $parameters->set(Option::ROOT_DIRECTORY, [__DIR__]);
+    $parameters->set(Option::ROOT_DIRECTORY, __DIR__);
 
     $parameters->set(Option::PACKAGE_DIRECTORIES, ['src']);
-
-    // $parameters->set(Option::SUBSPLIT_CACHE_DIRECTORY, 'src');
 
     $parameters->set(Option::PACKAGE_DIRECTORIES_EXCLUDES, []);
 
     $parameters->set(Option::DATA_TO_REMOVE, [
         'require' => [
-            // remove these to merge of packages' composer.json
             // 'phpunit/phpunit' => '*',
         ],
     ]);
@@ -98,11 +95,19 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
     ]);
 
-    $parameters->set(Option::REPOSITORY, [
+    $parameters->set(Option::DIRECTORIES_TO_REPOSITORIES, [
         'src/config' => 'git@github.com:coolephp/config.git',
+        'src/console' => 'git@github.com:coolephp/console.git',
+        'src/db' => 'git@github.com:coolephp/db.git',
+        'src/error-handler' => 'git@github.com:coolephp/error-handler.git',
+        'src/event' => 'git@github.com:coolephp/event.git',
+        'src/foundation' => 'git@github.com:coolephp/foundation.git',
+        'src/http-kernel' => 'git@github.com:coolephp/http-kernel.git',
+        'src/invoker' => 'git@github.com:coolephp/invoker.git',
+        'src/log' => 'git@github.com:coolephp/log.git',
+        'src/routing' => 'git@github.com:coolephp/routing.git',
+        'src/view' => 'git@github.com:coolephp/view.git',
     ]);
-
-    $parameters->set(Option::EXCLUDE_PACKAGE, []);
 
     $services = $containerConfigurator->services();
 

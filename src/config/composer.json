@@ -1,10 +1,7 @@
 {
     "name": "coole/config",
     "description": "Config component of the Coole framework.",
-    "keywords": [
-        "coole",
-        "config"
-    ],
+    "keywords": ["coole", "config"],
     "homepage": "https://github.com/coole/config",
     "support": {
         "issues": "https://github.com/coole/config/issues",
@@ -23,7 +20,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">7.2"
+        "php": ">7.2",
+        "coole/http-kernel": "dev-2.x"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
@@ -36,18 +34,13 @@
     "autoload": {
         "psr-4": {
             "Coole\\Config\\": "src/"
-
-        },
-        "files": [
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Coole\\Config\\Tests\\": "tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
     "config": {
         "sort-packages": true
     },
