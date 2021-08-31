@@ -126,17 +126,17 @@
         }
     },
     "replace": {
-        "coole/config": "self.version",
-        "coole/console": "self.version",
-        "coole/db": "self.version",
-        "coole/error-handler": "self.version",
-        "coole/event": "self.version",
-        "coole/foundation": "self.version",
-        "coole/http-kernel": "self.version",
-        "coole/invoker": "self.version",
-        "coole/log": "self.version",
-        "coole/routing": "self.version",
-        "coole/view": "self.version"
+        "coole/config": "*",
+        "coole/console": "*",
+        "coole/db": "*",
+        "coole/error-handler": "*",
+        "coole/event": "*",
+        "coole/foundation": "*",
+        "coole/http-kernel": "*",
+        "coole/invoker": "*",
+        "coole/log": "*",
+        "coole/routing": "*",
+        "coole/view": "*"
     },
     "config": {
         "sort-packages": true
