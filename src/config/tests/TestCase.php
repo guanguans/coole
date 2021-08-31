@@ -14,20 +14,19 @@ namespace Coole\Config\Tests;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    protected $app;
-
+    /**
+     * This method is called before each test.
+     */
     protected function setUp(): void
     {
-        parent::setUp();
     }
 
     /**
-     * Tear down the test case.
+     * This method is called after each test.
      */
     public function tearDown(): void
     {
         $this->finish();
-        parent::tearDown();
     }
 
     /**
