@@ -75,7 +75,7 @@
         "symfony/translation": "^5.3",
         "symfony/uid": "^5.3",
         "symfony/validator": "^5.3",
-        "symplify/monorepo-builder": "^8.3",
+        "symplify/monorepo-builder": "^8.3 || ^9.0",
         "tightenco/collect": "^8.34",
         "twig/twig": "^3.3",
         "vlucas/phpdotenv": "^5.3"
