@@ -5,6 +5,7 @@
 .phpunit.result.cache
 build/
 composer.lock
+packages.json
 coverage/
 clover.xml
 phpunit.xml
