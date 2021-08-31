@@ -2,7 +2,7 @@
 
 > Config component of the Coole framework.
 
-![tests](https://github.com/coole/config/workflows/tests/badge.svg)
+[![tests](https://github.com/coolephp/config/actions/workflows/tests.yml/badge.svg)](https://github.com/coolephp/config/actions/workflows/tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/coole/config/v)](//packagist.org/packages/coole/config)
 [![License](https://poser.pugx.org/coole/config/license)](//packagist.org/packages/coole/config)
 
