@@ -1,13 +1,13 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
-/*
- * This file is part of the guanguans/coole.
+/**
+ * This file is part of Coole.
  *
- * (c) guanguans <ityaozm@gmail.com>
- *
- * This source file is subject to the MIT license that is bundled.
+ * @link     https://github.com/guanguans/coole
+ * @contact  guanguans <ityaozm@gmail.com>
+ * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
 use Doctum\Doctum;
@@ -25,12 +25,12 @@ $versions = GitVersionCollection::create($dir)
     ->add('main', 'main branch');
 
 return new Doctum($iterator, [
-        'theme'                => 'default',
-        'versions'             => $versions,
-        'title'                => 'Coole API',
+        'theme' => 'default',
+        'versions' => $versions,
+        'title' => 'Coole API',
         // 'build_dir'            => __DIR__.'/docs/api/%version%',
-        'build_dir'            => __DIR__.'/docs/api/',
-        'cache_dir'            => __DIR__.'/doctum-cache/api/%version%',
+        'build_dir' => __DIR__.'/docs/api/',
+        'cache_dir' => __DIR__.'/doctum-cache/api/%version%',
         'default_opened_level' => 2,
     ]
 );

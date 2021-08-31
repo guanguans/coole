@@ -1,17 +1,5 @@
 {
     "name": "coole/view",
-    "conflict": {
-        "coole/config": "<1.1.6",
-        "coole/foundation": "<1.1.6",
-        "coole/invoker": "<1.1.6",
-        "coole/http-kernel": "<1.1.6",
-        "coole/db": "<1.1.6",
-        "coole/log": "<1.1.6",
-        "coole/routing": "<1.1.6",
-        "coole/error-handler": "<1.1.6",
-        "coole/event": "<1.1.6",
-        "coole/console": "<1.1.6"
-    },
     "description": "View component of the Coole framework.",
     "keywords": ["coole", "view"],
     "homepage": "https://github.com/coole/view",

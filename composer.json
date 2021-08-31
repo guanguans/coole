@@ -9,10 +9,6 @@
         "microframework"
     ],
     "homepage": "https://github.com/guanguans/coole",
-    "support": {
-        "issues": "https://github.com/guanguans/coole/issues",
-        "source": "https://github.com/guanguans/coole"
-    },
     "authors": [
         {
             "name": "guanguans",
@@ -25,6 +21,10 @@
     "license": "MIT",
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "support": {
+        "issues": "https://github.com/guanguans/coole/issues",
+        "source": "https://github.com/guanguans/coole"
+    },
     "require": {
         "php": ">7.2",
         "filp/whoops": "^2.14",
@@ -89,9 +89,13 @@
         "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^8.0 || ^9.0",
         "symfony/var-exporter": "^5.3",
+        "symplify/monorepo-builder": "^9.4",
         "vimeo/psalm": "^4.9"
     },
     "autoload": {
+        "files": [
+            "src/foundation/src/helpers.php"
+        ],
         "psr-4": {
             "Coole\\Config\\": "src/config/src/",
             "Coole\\Console\\": "src/console/src/",
@@ -104,10 +108,7 @@
             "Coole\\Log\\": "src/log/src/",
             "Coole\\Routing\\": "src/routing/src/",
             "Coole\\View\\": "src/view/src/"
-        },
-        "files": [
-            "src/foundation/src/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -124,33 +125,38 @@
             "Coole\\View\\Tests\\": "src/view/tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
+    "replace": {
+        "coole/config": "self.version",
+        "coole/console": "self.version",
+        "coole/db": "self.version",
+        "coole/error-handler": "self.version",
+        "coole/event": "self.version",
+        "coole/foundation": "self.version",
+        "coole/http-kernel": "self.version",
+        "coole/invoker": "self.version",
+        "coole/log": "self.version",
+        "coole/routing": "self.version",
+        "coole/view": "self.version"
+    },
     "config": {
         "sort-packages": true
     },
     "extra": {
         "hooks": {
             "pre-commit": [
-                "composer lint",
                 "composer style-lint",
-                "composer md-lint",
-                "composer test"
+                "composer test",
+                "composer lint",
+                "composer md-lint"
             ],
             "pre-push": [
-                "composer lint",
                 "composer style-lint",
-                "composer md-lint",
-                "composer test"
+                "composer test",
+                "composer lint",
+                "composer md-lint"
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -170,7 +176,9 @@
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
         "benchmark": "./vendor/bin/phpbench run --retry-threshold=3 --iterations=15 --revs=1000 --warmup=2",
-        "doctum": "doctum update doctum.php"
+        "doctum": "doctum update doctum.php",
+        "release": "./vendor/bin/monorepo-builder release patch --ansi",
+        "release-dry": "./vendor/bin/monorepo-builder release patch --dry-run --ansi"
     },
     "scripts-descriptions": {
         "cghooks": "Run git cghooks.",
