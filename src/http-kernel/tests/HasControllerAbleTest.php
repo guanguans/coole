@@ -51,6 +51,20 @@ class HasControllerAbleTest extends TestCase
         $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
     }
 
+    public function testAddFinishHandler()
+    {
+        $controller = $this->controller->addFinishHandler(function () {});
+
+        $this->assertInstanceOf(Controller::class, $controller);
+    }
+
+    public function testSetFinishHandler()
+    {
+        $controller = $this->controller->setFinishHandler(function () {});
+
+        $this->assertInstanceOf(Controller::class, $controller);
+    }
+
     public function testJson()
     {
         $this->assertInstanceOf(JsonResponse::class, $this->controller->json());
