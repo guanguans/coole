@@ -21,7 +21,8 @@
     "prefer-stable": true,
     "require": {
         "php": ">7.2",
-        "coole/http-kernel": "dev-2.x"
+        "coole/foundation": "^2.0",
+        "tightenco/collect": "^8.34"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
