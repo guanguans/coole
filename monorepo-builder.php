@@ -14,12 +14,10 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\AddTagToChangelogReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushNextDevReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\PushTagReleaseWorker;
-use Symplify\MonorepoBuilder\Release\ReleaseWorker\SetCurrentMutualConflictsReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\SetCurrentMutualDependenciesReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\SetNextMutualDependenciesReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\TagVersionReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateBranchAliasReleaseWorker;
-use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateReplaceReleaseWorker;
 use Symplify\MonorepoBuilder\ValueObject\Option;
 
 /*
@@ -70,19 +68,14 @@ use Symplify\MonorepoBuilder\ValueObject\Option;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PACKAGE_ALIAS_FORMAT, 'v<major>.<minor>.x-dev');
-
-    $parameters->set(Option::ROOT_DIRECTORY, __DIR__);
-
     $parameters->set(Option::PACKAGE_DIRECTORIES, ['src']);
-
-    $parameters->set(Option::PACKAGE_DIRECTORIES_EXCLUDES, []);
 
     $parameters->set(Option::DATA_TO_REMOVE, [
         'require' => [
             'phpbench/phpbench' => '*',
         ],
     ]);
+
     $parameters->set(Option::DATA_TO_APPEND, [
         'type' => 'library',
         'require-dev' => [
@@ -96,24 +89,11 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     ]);
 
     $parameters->set(Option::DIRECTORIES_TO_REPOSITORIES, [
-        'src/config' => 'git@github.com:coolephp/config.git',
-        'src/console' => 'git@github.com:coolephp/console.git',
-        'src/db' => 'git@github.com:coolephp/db.git',
-        'src/error-handler' => 'git@github.com:coolephp/error-handler.git',
-        'src/event' => 'git@github.com:coolephp/event.git',
-        'src/foundation' => 'git@github.com:coolephp/foundation.git',
-        'src/http-kernel' => 'git@github.com:coolephp/http-kernel.git',
-        'src/invoker' => 'git@github.com:coolephp/invoker.git',
-        'src/log' => 'git@github.com:coolephp/log.git',
-        'src/routing' => 'git@github.com:coolephp/routing.git',
-        'src/view' => 'git@github.com:coolephp/view.git',
+        'src/*' => 'git@github.com:coolephp/*.git',
     ]);
 
     $services = $containerConfigurator->services();
 
-    // release workers - in order to execute
-    // $services->set(UpdateReplaceReleaseWorker::class);
-    // $services->set(SetCurrentMutualConflictsReleaseWorker::class);
     $services->set(SetCurrentMutualDependenciesReleaseWorker::class);
     $services->set(AddTagToChangelogReleaseWorker::class);
     $services->set(TagVersionReleaseWorker::class);
