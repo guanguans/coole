@@ -14,7 +14,9 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": ">7.2"
+        "php": ">7.2",
+        "coole/foundation": "^2.0",
+        "twig/twig": "^3.3"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
