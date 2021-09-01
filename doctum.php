@@ -28,9 +28,9 @@ return new Doctum($iterator, [
         'theme' => 'default',
         'versions' => $versions,
         'title' => 'Coole API',
-        // 'build_dir'            => __DIR__.'/docs/api/%version%',
+        // 'build_dir' => __DIR__.'/docs/api/%version%',
         'build_dir' => __DIR__.'/docs/api/',
-        'cache_dir' => __DIR__.'/doctum-cache/api/%version%',
+        'cache_dir' => __DIR__.'/doctum/api/%version%',
         'default_opened_level' => 2,
     ]
 );
