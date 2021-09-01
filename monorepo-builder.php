@@ -80,7 +80,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $parameters->set(Option::DATA_TO_REMOVE, [
         'require' => [
-            // 'phpunit/phpunit' => '*',
+            'phpbench/phpbench' => '*',
         ],
     ]);
     $parameters->set(Option::DATA_TO_APPEND, [

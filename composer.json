@@ -87,7 +87,6 @@
         "mockery/mockery": "^1.3",
         "nyholm/nsa": "^1.3",
         "overtrue/phplint": "^2.4 || ^3.0",
-        "phpbench/phpbench": "^1.1",
         "phpunit/phpunit": "^8.0 || ^9.0",
         "symfony/var-exporter": "^5.3",
         "vimeo/psalm": "^4.9"
@@ -169,18 +168,16 @@
         ],
         "cghooks": "./vendor/bin/cghooks",
         "lint": "./vendor/bin/phplint --no-cache --configuration=.phplint.yml --ansi",
-        "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/",
+        "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/ ./src/*/*.md",
         "md-fix": "lint-md --config .lintmdrc --fix ./*.md ./docs/",
         "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "psalm": "./vendor/bin/psalm",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
-        "benchmark": "./vendor/bin/phpbench run --retry-threshold=3 --iterations=15 --revs=1000 --warmup=2",
         "doctum": "doctum update doctum.php",
         "split": "./vendor/bin/monorepo-builder split --ansi -vvv",
-        "release": "./vendor/bin/monorepo-builder release patch --ansi -vvv",
-        "release-dry": "./vendor/bin/monorepo-builder release patch --dry-run --ansi -vvv"
+        "release": "./vendor/bin/monorepo-builder release patch --ansi -vvv"
     },
     "scripts-descriptions": {
         "cghooks": "Run git cghooks.",
@@ -194,7 +191,6 @@
         "test-coverage": "Run all tests with coverage.",
         "doctum": "Run rarses then renders a project.",
         "split": "Run Splits monorepo packages to standalone repositories.",
-        "release": "Run perform release process with set Release Workers.",
-        "release-dry": "Run perform release process with set Release Workers(Do not perform operations, just their preview)."
+        "release": "Run perform release process with set Release Workers."
     }
 }
