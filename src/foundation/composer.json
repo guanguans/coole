@@ -22,7 +22,8 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">7.2"
+        "php": ">7.2",
+        "guanguans/di": "^1.0"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
