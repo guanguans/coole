@@ -12,7 +12,7 @@
 >
     <testsuites>
         <testsuite name="Coole Test Suite">
-            <directory suffix="Test.php">./src/tests</directory>
+            <directory suffix="Test.php">./tests</directory>
             <directory suffix="Test.php">./src/config/tests</directory>
             <directory suffix="Test.php">./src/console/tests</directory>
             <directory suffix="Test.php">./src/db/tests</directory>

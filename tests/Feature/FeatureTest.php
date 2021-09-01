@@ -14,13 +14,10 @@ use Guanguans\Coole\Tests\TestCase;
 
 class FeatureTest extends TestCase
 {
-    public function setUp(): void
-    {
-        passthru(sprintf('%s coole serve --docroot=%s --port=8008', PHP_BINARY, __DIR__));
-    }
-
     public function testFeature()
     {
-        $this->assertTrue(true);
+        $response = exec(sprintf('%s %s', PHP_BINARY, __DIR__.'/index.php'));
+
+        $this->assertSame('This is the Coole framework.', $response);
     }
 }
