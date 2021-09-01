@@ -180,7 +180,7 @@
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
         "doctum": "doctum update doctum.php",
         "split": "./vendor/bin/monorepo-builder split --ansi -vvv",
-        "release": "./vendor/bin/monorepo-builder release patch --ansi -vvv"
+        "release": "./vendor/bin/monorepo-builder release --ansi -vvv"
     },
     "scripts-descriptions": {
         "cghooks": "Run git cghooks.",
