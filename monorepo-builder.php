@@ -70,7 +70,7 @@ use Symplify\MonorepoBuilder\ValueObject\Option;
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
 
-    $parameters->set(Option::PACKAGE_ALIAS_FORMAT, '<major>.<minor>.x-dev');
+    $parameters->set(Option::PACKAGE_ALIAS_FORMAT, 'v<major>.<minor>.x-dev');
 
     $parameters->set(Option::ROOT_DIRECTORY, __DIR__);
 
