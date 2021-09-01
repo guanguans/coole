@@ -12,25 +12,21 @@ declare(strict_types=1);
 
 namespace Guanguans\Coole\Tests;
 
-use Guanguans\Coole\App;
-
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    protected $app;
-
+    /**
+     * This method is called before each test.
+     */
     protected function setUp(): void
     {
-        parent::setUp();
-        $this->app = new App();
     }
 
     /**
-     * Tear down the test case.
+     * This method is called after each test.
      */
     public function tearDown(): void
     {
         $this->finish();
-        parent::tearDown();
     }
 
     /**
