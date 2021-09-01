@@ -111,7 +111,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Guanguans\\Coole\\Tests\\": "src/tests/",
+            "Guanguans\\Coole\\Tests\\": "tests/",
             "Coole\\Config\\Tests\\": "src/config/tests/",
             "Coole\\Console\\Tests\\": "src/console/tests/",
             "Coole\\DB\\Tests\\": "src/db/tests/",
