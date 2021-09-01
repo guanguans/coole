@@ -23,7 +23,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">7.2"
+        "php": ">7.2",
+        "coole/foundation": "^2.0",
+        "php-di/invoker": "^2.0"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
