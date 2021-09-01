@@ -142,11 +142,6 @@
         "sort-packages": true
     },
     "extra": {
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.0-dev"
-            }
-        },
         "hooks": {
             "pre-commit": [
                 "composer style-lint",
