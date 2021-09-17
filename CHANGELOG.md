@@ -2,25 +2,83 @@
 
 All notable changes to `guanguans/coole` will be documented in this file
 
-## 1.0.0 - 2020-12-17
+## 2.0.0-beta1 - 2021-09-17
 
-* Initial release.
+* Split into individual independent components.
+* Add `league/flysystem`.
+* Add `symfony/semaphore`.
+* Add `symfony/browser-kit`.
+* Add `symfony/security`.
+* Add `symfony/uid`.
+* Add `symfony/var-exporter`.
+* Add `symfony/stopwatch`.
+* Add `symfony/filesystem`.
+* Add `symfony/rate-limiter`.
+* Add `symfony/lock`.
+* Add `symfony/password-hasher`.
+* Add `symfony/expression-language`.
+* Add `symfony/translation`.
+* Add `symfony/messenger`.
+* Add `opis/closure`.
+* Add `spatie/async`.
+* Add `symfony/http-client`.
+* Add `symfony/validator`.
+* Add `symfony/mailer`.
+* Add `symfony/options-resolver`.
+* Add `symfony/process`.
+* Add `symfony/notifier`.
+* Add `symfony/cache`.
+* Add `symfony/serializer`.
+* Add `robot-loader`.
+* Add `nette/utils`.
+* Add `spatie/blink`.
+* Add `spatie/url-signer`.
+* Add `spatie/once`.
+* Add `spatie/macroable`.
+* Add `sebastiaanluca/php-pipe-operator`.
 
-## 1.0.1 - 2020-12-29
+## 1.1.5 - 2021-08-25
 
-* Add loading command able for app.
-* Optimize some methods name.
+* Add `excludedMiddleware` feature.
+* Add `php-di/invoker`.
 
-## 1.0.2 - 2021-01-04
+## 1.1.4 - 2021-07-31
 
-* Add automatic loading command file.
-* Add automatic loading route file.
-* Add app facade.
-* Add loadEnv method for app.
-* Add loadConfig method for app.
-* Optimize global configuration file loading.
-* Rename listeners->listener.
-* Rename providers->provider.
+* Add IDE helper files.
+* Add code-lts/doctum.
+* Add config function.
+* Update php-cs-fixer config file.
+* Rename sendRequestThroughHandle -> sendRequestThroughPipeline.
+* Optimize `RoutingServiceProvider` default config.
+* Optimize `TwigServiceProvider` default config.
+* Optimize `MonologServiceProvider` default config.
+* Optimize `AppServiceProvider` default config.
+* Optimize `ConsoleServiceProvider` default config
+* Optimize `makeMiddleware` method.
+
+## 1.1.3 - 2021-06-03
+
+* Fix to convert requests into responses through middleware.
+* Optimize controller resolver.
+
+## 1.1.2 - 2021-05-23
+
+* Add [illuminate/pagination](https://github.com/illuminate/pagination) expansion pack.
+
+## 1.1.1 - 2021-05-23
+
+* Add database bootstrop.
+
+## 1.1.0 - 2021-05-23
+
+* Remove [topthink/think-orm](https://github.com/top-think/think-orm) expansion pack.
+* Add [illuminate/database](https://github.com/illuminate/database) expansion pack.
+* Rename `env()` -> `cenv()`.
+
+## 1.0.4 - 2021-04-23
+
+* Optimize the event scheduling function.
+* Add a `setFinishHandler` method for controller.
 
 ## 1.0.3 - 2021-01-12
 
@@ -39,45 +97,22 @@ All notable changes to `guanguans/coole` will be documented in this file
 * Rename `getAllMiddleware` -> `getCurrentRequestMiddleware`.
 * Optimize `getControllerMiddleware` method.
 
-## 1.0.4 - 2021-04-23
+## 1.0.2 - 2021-01-04
 
-* Optimize the event scheduling function.
-* Add a `setFinishHandler` method for controller.
+* Add automatic loading command file.
+* Add automatic loading route file.
+* Add app facade.
+* Add loadEnv method for app.
+* Add loadConfig method for app.
+* Optimize global configuration file loading.
+* Rename listeners->listener.
+* Rename providers->provider.
 
-## 1.1.0 - 2021-05-23
+## 1.0.1 - 2020-12-29
 
-* Remove [topthink/think-orm](https://github.com/top-think/think-orm) expansion pack.
-* Add [illuminate/database](https://github.com/illuminate/database) expansion pack.
-* Rename `env()` -> `cenv()`.
+* Add loading command able for app.
+* Optimize some methods name.
 
-## 1.1.1 - 2021-05-23
+## 1.0.0 - 2020-12-17
 
-* Add database bootstrop.
-
-## 1.1.2 - 2021-05-23
-
-* Add [illuminate/pagination](https://github.com/illuminate/pagination) expansion pack.
-
-## 1.1.3 - 2021-06-03
-
-* Fix to convert requests into responses through middleware.
-* Optimize controller resolver.
-
-## 1.1.4 - 2021-07-31
-
-* Add IDE helper files.
-* Add code-lts/doctum.
-* Add config function.
-* Update php-cs-fixer config file.
-* Rename sendRequestThroughHandle -> sendRequestThroughPipeline.
-* Optimize `RoutingServiceProvider` default config.
-* Optimize `TwigServiceProvider` default config.
-* Optimize `MonologServiceProvider` default config.
-* Optimize `AppServiceProvider` default config.
-* Optimize `ConsoleServiceProvider` default config
-* Optimize `makeMiddleware` method.
-
-## 1.1.5 - 2021-08-25
-
-* Add `excludedMiddleware` feature.
-* Add `php-di/invoker`.
+* Initial release.
