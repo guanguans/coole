@@ -174,7 +174,8 @@
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
         "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
         "doctum": "doctum update doctum.php",
-        "release": "./vendor/bin/monorepo-builder release --ansi -vvv"
+        "release": "./vendor/bin/monorepo-builder release --ansi -vvv",
+        "serve": "./bin/coole serve --docroot=./ --port=8008 --ansi -vvv"
     },
     "scripts-descriptions": {
         "cghooks": "Run git cghooks.",
@@ -187,6 +188,7 @@
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage.",
         "doctum": "Run rarses then renders a project.",
-        "release": "Run perform release process with set Release Workers."
+        "release": "Run perform release process with set Release Workers.",
+        "serve": "Run Coole serve."
     }
 }

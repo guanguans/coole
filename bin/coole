@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+/**
+ * This file is part of Coole.
+ *
+ * @link     https://github.com/guanguans/coole
+ * @contact  guanguans <ityaozm@gmail.com>
+ * @license  https://github.com/guanguans/coole/blob/main/LICENSE
+ */
+
+use Coole\Foundation\App;
+
+! defined('BASE_PATH') && define('BASE_PATH', __DIR__.'/../');
+
+require BASE_PATH.'/vendor/autoload.php';
+
+$app = new App();
+
+$app->make('console')->run();

@@ -14,7 +14,6 @@ vendor/
 tests.php
 .DS_Store
 .history/
-index.php
 IndexController.php
 app.db
 /cooler
