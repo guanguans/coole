@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel;
 
-use Coole\Foundation\App;
 use Coole\HttpKernel\Controller\ControllerResolver;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
