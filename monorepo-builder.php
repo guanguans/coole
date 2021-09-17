@@ -88,9 +88,9 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ],
     ]);
 
-    $parameters->set(Option::DIRECTORIES_TO_REPOSITORIES, [
-        'src/*' => 'git@github.com:coolephp/*.git',
-    ]);
+    // $parameters->set(Option::DIRECTORIES_TO_REPOSITORIES, [
+    //     'src/*' => 'git@github.com:coolephp/*.git',
+    // ]);
 
     $services = $containerConfigurator->services();
 
