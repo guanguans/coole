@@ -24,12 +24,8 @@ if [[ $# -eq 0 ]]; then
     REPOS=$(ls $BASEPATH)
 fi
 
-#for REPO in $REPOS ; do
-#    remote $REPO git@github.com:coolephp/$REPO.git
-#
-#    split "src/$REPO" $REPO
-#done
+for REPO in $REPOS ; do
+    remote $REPO git@github.com:coolephp/$REPO.git
 
-remote config git@github.com:coolephp/config.git
-
-split 'src/config' config
+    split "src/$REPO" $REPO
+done
