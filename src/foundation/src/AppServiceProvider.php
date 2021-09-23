@@ -23,7 +23,6 @@ use Coole\Foundation\Listener\NullResponseListener;
 use Coole\Foundation\Listener\StringResponseListener;
 use Coole\Foundation\Middleware\CheckResponseForModifications;
 use Coole\HttpKernel\HttpKernelServiceProvider;
-use Coole\Invoker\InvokerServiceProvider;
 use Coole\Log\LogServiceProvider;
 use Coole\Routing\RoutingServiceProvider;
 use Coole\View\ViewServiceProvider;
@@ -47,7 +46,6 @@ class AppServiceProvider extends ServiceProvider
         ConsoleServiceProvider::class,
         ViewServiceProvider::class,
         DBServiceProvider::class,
-        InvokerServiceProvider::class,
     ];
 
     /**
