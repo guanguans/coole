@@ -177,6 +177,7 @@ class AppTest extends TestCase
 
     public function testLoadEnv()
     {
+        $this->markTestSkipped(__METHOD__);
         $loadEnv = $this->app->loadEnv(__DIR__.'/Stub');
         $this->assertInstanceOf(App::class, $loadEnv);
     }
