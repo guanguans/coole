@@ -12,14 +12,13 @@ declare(strict_types=1);
 
 namespace Coole\Event;
 
-use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Tightenco\Collect\Support\Collection as Listener;
 
-class EventServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface
+class EventServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

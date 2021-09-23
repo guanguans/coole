@@ -12,14 +12,12 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
-use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
-use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Tightenco\Collect\Support\Collection as Command;
 
-class ConsoleServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, AfterRegisterAbleProviderInterface
+class ConsoleServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

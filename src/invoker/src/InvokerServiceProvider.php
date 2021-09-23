@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace Coole\Invoker;
 
+use Coole\Foundation\Able\ServiceProvider;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 
-class InvokerServiceProvider implements ServiceProviderInterface
+class InvokerServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

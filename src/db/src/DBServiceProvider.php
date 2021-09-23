@@ -12,16 +12,14 @@ declare(strict_types=1);
 
 namespace Coole\DB;
 
-use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
-use Coole\Foundation\Able\BootAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
 
-class DBServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, BootAbleProviderInterface
+class DBServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

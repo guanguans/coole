@@ -12,14 +12,13 @@ declare(strict_types=1);
 
 namespace Coole\View;
 
-use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-class ViewServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface
+class ViewServiceProvider extends ServiceProvider
 {
     /**
      * @var \Twig\Loader\LoaderInterface

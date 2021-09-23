@@ -12,14 +12,14 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel;
 
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\HttpKernel\Controller\ControllerResolver;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\HttpKernel;
 
-class HttpKernelServiceProvider implements ServiceProviderInterface
+class HttpKernelServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

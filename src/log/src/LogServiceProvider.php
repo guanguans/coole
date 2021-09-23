@@ -12,13 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\Log;
 
-use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
-use Coole\Foundation\Able\BootAbleProviderInterface;
-use Coole\Foundation\Able\EventListenerAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Coole\Foundation\Listener\LogListener;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\GroupHandler;
@@ -26,7 +23,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class LogServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, EventListenerAbleProviderInterface, BeforeRegisterAbleProviderInterface
+class LogServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

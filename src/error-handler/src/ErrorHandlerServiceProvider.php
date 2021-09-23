@@ -12,17 +12,15 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
-use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
-use Coole\Foundation\Able\BootAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\ErrorHandler\ErrorHandler;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run;
 
-class ErrorHandlerServiceProvider implements ServiceProviderInterface, BootAbleProviderInterface, AfterRegisterAbleProviderInterface
+class ErrorHandlerServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

@@ -12,18 +12,16 @@ declare(strict_types=1);
 
 namespace Coole\Routing;
 
-use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
-use Coole\Foundation\Able\EventListenerAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\EventListener\RouterListener;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollection;
 
-class RoutingServiceProvider implements ServiceProviderInterface, EventListenerAbleProviderInterface, AfterRegisterAbleProviderInterface
+class RoutingServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}

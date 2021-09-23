@@ -17,8 +17,7 @@ use Coole\Console\ConsoleServiceProvider;
 use Coole\DB\DBServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Coole\Event\EventServiceProvider;
-use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
-use Coole\Foundation\Able\EventListenerAbleProviderInterface;
+use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\Facade\Facade;
 use Coole\Foundation\Listener\NullResponseListener;
 use Coole\Foundation\Listener\StringResponseListener;
@@ -29,11 +28,10 @@ use Coole\Log\LogServiceProvider;
 use Coole\Routing\RoutingServiceProvider;
 use Coole\View\ViewServiceProvider;
 use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
-class AppServiceProvider implements ServiceProviderInterface, BeforeRegisterAbleProviderInterface, EventListenerAbleProviderInterface
+class AppServiceProvider extends ServiceProvider
 {
     /**
      * 核心服务
