@@ -24,7 +24,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">7.2",
-        "coole/foundation": "^2.0",
         "symfony/event-dispatcher": "^5.3"
     },
     "require-dev": {

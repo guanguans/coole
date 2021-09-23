@@ -15,7 +15,6 @@
     "license": "MIT",
     "require": {
         "php": ">7.2",
-        "coole/foundation": "^2.0",
         "twig/twig": "^3.3"
     },
     "require-dev": {

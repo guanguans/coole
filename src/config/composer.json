@@ -21,7 +21,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">7.2",
-        "coole/foundation": "^2.0",
         "tightenco/collect": "^8.34"
     },
     "require-dev": {

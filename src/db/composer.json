@@ -25,7 +25,6 @@
     "prefer-stable": true,
     "require": {
         "php": ">7.2",
-        "coole/foundation": "^2.0",
         "illuminate/database": "^7.30",
         "illuminate/events": "^7.30",
         "illuminate/pagination": "^7.30"

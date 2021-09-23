@@ -24,7 +24,7 @@
     "prefer-stable": true,
     "require": {
         "php": ">7.2",
-        "coole/foundation": "^2.0",
+        "symfony/http-foundation": "^5.3",
         "symfony/http-kernel": "^5.3"
     },
     "require-dev": {
