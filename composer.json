@@ -172,7 +172,7 @@
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "psalm": "./vendor/bin/psalm",
         "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
-        "test-coverage": "./vendor/bin/phpunit --coverage-html=coverage/ --coverage-clover=clover.xml --color=always --verbose",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=./build/coverage/ --coverage-clover=clover.xml --color=always --verbose",
         "doctum": "doctum update doctum.php",
         "release": "./vendor/bin/monorepo-builder release --ansi -vvv",
         "serve": "./bin/coole serve --docroot=./ --port=8008 --ansi -vvv"
