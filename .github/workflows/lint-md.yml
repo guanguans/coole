@@ -14,4 +14,4 @@ jobs:
         with:
           configFile: .lintmdrc
           failOnWarnings: false
-          files: ./*.md ./docs/ ./src/*/*.md
+          files: ./*.md ./docs/*.md ./docs/*/*.md ./src/*/*.md
