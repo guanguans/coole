@@ -1,6 +1,6 @@
 path: ./
 jobs: 10
-cache: .phpunit.result.cache
+cache: .phplint.result.cache
 extensions:
   - php
 exclude:
