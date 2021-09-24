@@ -25,13 +25,13 @@
 
 ## 安装
 
-``` shell script
+```shell script
 $ composer require guanguans/coole -vvv
 ```
 
 ## 快速开始
 
-``` php
+```php
 <?php
 
 use Coole\Foundation\App;
@@ -60,7 +60,7 @@ $app->run();
 
 ## 测试
 
-``` bash
+```bash
 $ composer test
 ```
 

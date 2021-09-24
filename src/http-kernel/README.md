@@ -11,7 +11,7 @@
 
 ## Installation
 
-``` shell script
+```shell script
 $ composer require coole/http-kernel -vvv
 ```
 
