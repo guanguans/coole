@@ -13,7 +13,7 @@ $ composer require coolephp/rate-limiter --prefer-dist -vvv
 1. 复制 `rate-limiter/config/rate-limiter.php` 为 `coole-skeleton/config/rate-limiter.php`.
 2. 配置 `\Coole\RateLimiter\RateLimiter::class` 中间件.
 
-``` php
+```php
 <?php
 
 return [

@@ -13,7 +13,7 @@ $ composer require coolephp/cors -vvv
 1. 复制 `cors/config/cors.php` 到 `coole-skeleton/config/cors.php`.
 2. 配置 `\Coole\Cors\Cors::class` 中间件.
 
-``` php
+```php
 <?php
 
 return [

@@ -32,10 +32,10 @@
   window.$docsify = {
     name: 'Coole PHP 微框架',
     repo: 'guanguans/coole',
-    homepage: 'zh-cn/README.md',
+    homepage: './前言/项目介绍.md',
     loadSidebar: 'summary.md',
-    loadNavbar: true,
-    fallbackLanguages: ['zh-cn', 'en'],
+    loadNavbar: false,
+    fallbackLanguages: [],
     coverpage: true,
     mergeNavbar: true,
     themeColor: '#4948cc',
@@ -44,23 +44,19 @@
     subMaxLevel: 4,
     topMargin: 20,
     search: {
+      maxAge: 86400000,
       depth: 6,
       noData: {
-        '/en/': 'No results!',
-        '/zh-cn/': '没有找到结果!',
         '/': '没有找到结果!'
       },
       paths: 'auto',
       placeholder: {
-        '/en/': 'Type to Search',
-        '/zh-cn/': '输入关键词搜索',
         '/': '输入关键词搜索'
       },
-      pathNamespaces: ['/zh-cn', '/en']
+      namespace: 'coole',
+      pathNamespaces: ['/']
     },
-    alias: {
-      '/summary.md': './zh-cn/summary.md'
-    },
+    alias: {},
     plugins: [
       EditOnGithubPlugin.create('https://github.com/guanguans/coole/blob/main/docs/')
     ],

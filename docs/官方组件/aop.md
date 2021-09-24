@@ -15,8 +15,8 @@ $ composer require coolephp/goaop -vvv
 1. 复制 `goaop/config/goaop.php` 到 `coole-skeleton/config/goaop.php`。
 2. 配置服务。
 
-``` php
-``` php
+```php
+```php
 <?php
 
 return [
@@ -41,8 +41,8 @@ return [
 
 3. `config/goaop.php` 中配置切面。
 
-``` php
-``` php
+```php
+```php
 <?php
 
 return [
@@ -64,7 +64,7 @@ return [
 
 ### 创建 `app\Service\LoggingService`
 
-``` php
+```php
 <?php
 
 namespace App\Service;
@@ -80,7 +80,7 @@ class LoggingService
 
 ### 定义切面 `App\Aspect\LoggingServiceAspect`
 
-``` php
+```php
 <?php
 
 namespace App\Aspect;
