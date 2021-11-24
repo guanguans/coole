@@ -13,8 +13,8 @@ declare(strict_types=1);
 use Coole\Event\Event;
 use Coole\Event\ListenerInterface;
 use Coole\Foundation\App;
+use Illuminate\Support\Collection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Tightenco\Collect\Support\Collection;
 
 if (! function_exists('app')) {
     /**
@@ -111,7 +111,7 @@ if (! function_exists('collect')) {
      *
      * @param null $value
      *
-     * @return \Tightenco\Collect\Support\Collection
+     * @return \Illuminate\Support\Collection
      */
     function collect($value = null)
     {

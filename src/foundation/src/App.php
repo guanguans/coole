@@ -25,13 +25,13 @@ use Dotenv\Dotenv;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Collection;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
-use Tightenco\Collect\Support\Collection;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {

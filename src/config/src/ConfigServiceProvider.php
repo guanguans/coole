@@ -15,7 +15,7 @@ namespace Coole\Config;
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Guanguans\Di\Container;
-use Tightenco\Collect\Support\Collection as Config;
+use Illuminate\Support\Collection as Config;
 
 class ConfigServiceProvider extends ServiceProvider
 {

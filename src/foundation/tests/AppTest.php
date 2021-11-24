@@ -16,8 +16,8 @@ use Coole\Foundation\Tests\Stub\AppStub;
 use Coole\Foundation\Tests\Stub\ControllerStub;
 use Coole\Foundation\Tests\Stub\MiddlewareStub;
 use Coole\Foundation\Tests\Stub\ServiceProviderStub;
+use Illuminate\Support\Collection;
 use Symfony\Component\HttpFoundation\Request;
-use Tightenco\Collect\Support\Collection;
 
 class AppTest extends TestCase
 {
