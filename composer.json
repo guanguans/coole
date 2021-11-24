@@ -171,8 +171,8 @@
         "style-lint": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --diff --dry-run --ansi",
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",
         "psalm": "./vendor/bin/psalm",
-        "test": "./vendor/bin/phpunit --coverage-text --colors=always --verbose",
-        "test-coverage": "./vendor/bin/phpunit --coverage-html=./build/coverage/ --coverage-clover=clover.xml --color=always --verbose",
+        "test": "./vendor/bin/phpunit --coverage-text --colors=always --cache-result-file=./build/.phpunit.result.cache --verbose",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html=./build/coverage/ --coverage-clover=clover.xml --color=always --cache-result-file=./build/.phpunit.result.cache --verbose",
         "doctum": "doctum update doctum.php",
         "release": "./vendor/bin/monorepo-builder release --ansi -vvv",
         "serve": "./bin/coole serve --docroot=./ --port=8008 --ansi -vvv"
