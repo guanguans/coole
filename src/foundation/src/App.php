@@ -24,7 +24,7 @@ use Coole\Routing\Route;
 use Dotenv\Dotenv;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
-use Mpociot\Pipeline\Pipeline;
+use Illuminate\Pipeline\Pipeline;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
