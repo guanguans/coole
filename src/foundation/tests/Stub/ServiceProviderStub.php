@@ -10,8 +10,8 @@
 
 namespace Coole\Foundation\Tests\Stub;
 
-use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
+use Coole\Foundation\Able\ServiceProviderInterface;
+use Illuminate\Container\Container;
 
 class ServiceProviderStub implements ServiceProviderInterface
 {

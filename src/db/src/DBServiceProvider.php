@@ -14,7 +14,7 @@ namespace Coole\DB;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;

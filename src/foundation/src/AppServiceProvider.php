@@ -26,7 +26,7 @@ use Coole\HttpKernel\HttpKernelServiceProvider;
 use Coole\Log\LogServiceProvider;
 use Coole\Routing\RoutingServiceProvider;
 use Coole\View\ViewServiceProvider;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 

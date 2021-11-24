@@ -11,8 +11,7 @@
 namespace Coole\Foundation\Able;
 
 use Coole\Foundation\App;
-use Guanguans\Di\Container;
-use Guanguans\Di\ServiceProviderInterface;
+use Illuminate\Container\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 abstract class ServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface, BeforeRegisterAbleProviderInterface, BootAbleProviderInterface, EventListenerAbleProviderInterface

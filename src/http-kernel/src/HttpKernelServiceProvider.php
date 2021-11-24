@@ -14,7 +14,7 @@ namespace Coole\HttpKernel;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\HttpKernel\Controller\ControllerResolver;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\HttpKernel;

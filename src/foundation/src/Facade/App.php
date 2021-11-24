@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Coole\Foundation\Facade;
 
 /**
- * @method static \Coole\Foundation\App register(\Guanguans\Di\ServiceProviderInterface $provider)
+ * @method static \Coole\Foundation\App register(\Coole\Foundation\Able\ServiceProviderInterface $provider)
  * @method static \Coole\Foundation\App addOptions(array $options)
  * @method static \Coole\Foundation\App version()
  * @method static \Coole\Foundation\App loadEnv($paths)
@@ -57,7 +57,7 @@ namespace Coole\Foundation\Facade;
  * @method static mixed get($id)
  *
  * @see \Coole\Foundation\App
- * @see \Guanguans\Di\Container
+ * @see \Illuminate\Container\Container
  * @see \Coole\HttpKernel\Controller\HasControllerAble
  */
 class App extends Facade

@@ -28,9 +28,9 @@
     "require": {
         "php": ">7.3",
         "filp/whoops": "^2.14",
-        "guanguans/di": "^1.0",
         "illuminate/collections": "^8.70",
         "illuminate/config": "^8.70",
+        "illuminate/container": "^8.70",
         "illuminate/database": "^8.70",
         "illuminate/events": "^8.70",
         "illuminate/macroable": "^8.70",

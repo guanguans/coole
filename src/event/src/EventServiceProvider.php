@@ -14,7 +14,7 @@ namespace Coole\Event;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Illuminate\Support\Collection as Listener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 

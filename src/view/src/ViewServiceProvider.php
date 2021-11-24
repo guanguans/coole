@@ -14,7 +14,7 @@ namespace Coole\View;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 

@@ -15,7 +15,7 @@ namespace Coole\Log;
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Coole\Foundation\Listener\LogListener;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\GroupHandler;

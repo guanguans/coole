@@ -14,7 +14,7 @@ namespace Coole\Console;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Illuminate\Support\Collection as Command;
 
 class ConsoleServiceProvider extends ServiceProvider

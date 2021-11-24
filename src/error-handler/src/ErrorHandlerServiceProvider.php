@@ -14,7 +14,7 @@ namespace Coole\ErrorHandler;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Symfony\Component\ErrorHandler\ErrorHandler;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;

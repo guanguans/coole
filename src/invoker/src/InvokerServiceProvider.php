@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Coole\Invoker;
 
 use Coole\Foundation\Able\ServiceProvider;
-use Guanguans\Di\Container;
+use Illuminate\Container\Container;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 
