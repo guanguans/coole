@@ -16,7 +16,7 @@ return [
 
     /*
      * 数据库连接
-    */
+     */
     'connections' => [
         'sqlite' => [
             'driver' => 'sqlite',
