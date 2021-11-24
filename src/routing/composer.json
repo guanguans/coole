@@ -1,15 +1,8 @@
 {
     "name": "coole/routing",
     "description": "Routing component of the Coole framework.",
-    "keywords": [
-        "coole",
-        "routing"
-    ],
+    "keywords": ["coole", "routing"],
     "homepage": "https://github.com/coole/routing",
-    "support": {
-        "issues": "https://github.com/coole/routing/issues",
-        "source": "https://github.com/coole/routing"
-    },
     "authors": [
         {
             "name": "guanguans",
@@ -20,10 +13,8 @@
     ],
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "php": ">7.2",
+        "php": ">7.3",
         "symfony/event-dispatcher": "^5.3",
         "symfony/http-kernel": "^5.3",
         "symfony/routing": "^5.3"
@@ -39,18 +30,13 @@
     "autoload": {
         "psr-4": {
             "Coole\\Routing\\": "src/"
-
-        },
-        "files": [
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Coole\\Routing\\Tests\\": "tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
     "config": {
         "sort-packages": true
     },
@@ -66,12 +52,6 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -95,5 +75,7 @@
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage."
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

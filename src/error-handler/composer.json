@@ -1,16 +1,8 @@
 {
     "name": "coole/error-handler",
     "description": "Error handler component of the Coole framework.",
-    "keywords": [
-        "coole",
-        "error",
-        "exception"
-    ],
+    "keywords": ["coole", "error", "exception"],
     "homepage": "https://github.com/coole/error-handler",
-    "support": {
-        "issues": "https://github.com/coole/error-handler/issues",
-        "source": "https://github.com/coole/error-handler"
-    },
     "authors": [
         {
             "name": "guanguans",
@@ -21,10 +13,8 @@
     ],
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "php": ">7.2",
+        "php": ">7.3",
         "filp/whoops": "^2.14",
         "symfony/error-handler": "^5.3"
     },
@@ -39,18 +29,13 @@
     "autoload": {
         "psr-4": {
             "Coole\\ErrorHandler\\": "src/"
-
-        },
-        "files": [
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Coole\\ErrorHandler\\Tests\\": "tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
     "config": {
         "sort-packages": true
     },
@@ -66,12 +51,6 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -95,5 +74,7 @@
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage."
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

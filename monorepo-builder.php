@@ -79,7 +79,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(Option::DATA_TO_APPEND, [
         'type' => 'library',
         'require' => [
-            'php' => '>7.2',
+            'php' => '>7.3',
         ],
         'require-dev' => [
             'brainmaestro/composer-git-hooks' => '^2.8',

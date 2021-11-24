@@ -26,12 +26,12 @@
         "source": "https://github.com/guanguans/coole"
     },
     "require": {
-        "php": ">7.2",
+        "php": ">7.3",
         "filp/whoops": "^2.14",
         "guanguans/di": "^1.0",
-        "illuminate/database": "^7.30",
-        "illuminate/events": "^7.30",
-        "illuminate/pagination": "^7.30",
+        "illuminate/database": "^8.70",
+        "illuminate/events": "^8.70",
+        "illuminate/pagination": "^8.70",
         "league/flysystem": "^2.2",
         "monolog/monolog": "^2.3",
         "mpociot/pipeline": "^1.0",

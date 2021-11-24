@@ -1,15 +1,8 @@
 {
     "name": "coole/console",
     "description": "Console component of the Coole framework.",
-    "keywords": [
-        "coole",
-        "console"
-    ],
+    "keywords": ["coole", "console"],
     "homepage": "https://github.com/coole/console",
-    "support": {
-        "issues": "https://github.com/coole/console/issues",
-        "source": "https://github.com/coole/console"
-    },
     "authors": [
         {
             "name": "guanguans",
@@ -20,13 +13,11 @@
     ],
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "php": ">7.2",
-        "tightenco/collect": "^8.34",
+        "php": ">7.3",
         "symfony/console": "^5.3",
-        "symfony/finder": "^5.3"
+        "symfony/finder": "^5.3",
+        "tightenco/collect": "^8.34"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
@@ -39,18 +30,13 @@
     "autoload": {
         "psr-4": {
             "Coole\\Console\\": "src/"
-
-        },
-        "files": [
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Coole\\Console\\Tests\\": "tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
     "config": {
         "sort-packages": true
     },
@@ -66,12 +52,6 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -95,5 +75,7 @@
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage."
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

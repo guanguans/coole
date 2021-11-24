@@ -1,14 +1,8 @@
 {
     "name": "coole/foundation",
     "description": "Foundation component of the Coole framework.",
-    "keywords": [
-        "coole"
-    ],
+    "keywords": ["coole"],
     "homepage": "https://github.com/coole/foundation",
-    "support": {
-        "issues": "https://github.com/coole/foundation/issues",
-        "source": "https://github.com/coole/foundation"
-    },
     "authors": [
         {
             "name": "guanguans",
@@ -19,10 +13,8 @@
     ],
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "php": ">7.2",
+        "php": ">7.3",
         "guanguans/di": "^1.0"
     },
     "require-dev": {
@@ -36,18 +28,13 @@
     "autoload": {
         "psr-4": {
             "Coole\\Foundation\\": "src/"
-
-        },
-        "files": [
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Coole\\Foundation\\Tests\\": "tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
     "config": {
         "sort-packages": true
     },
@@ -63,12 +50,6 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -92,5 +73,7 @@
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage."
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

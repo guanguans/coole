@@ -1,15 +1,8 @@
 {
     "name": "coole/http-kernel",
     "description": "Http kernel component of the Coole framework.",
-    "keywords": [
-        "coole",
-        "http-kernel"
-    ],
+    "keywords": ["coole", "http-kernel"],
     "homepage": "https://github.com/coole/http-kernel",
-    "support": {
-        "issues": "https://github.com/coole/http-kernel/issues",
-        "source": "https://github.com/coole/http-kernel"
-    },
     "authors": [
         {
             "name": "guanguans",
@@ -20,10 +13,8 @@
     ],
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "require": {
-        "php": ">7.2",
+        "php": ">7.3",
         "symfony/http-foundation": "^5.3",
         "symfony/http-kernel": "^5.3"
     },
@@ -38,18 +29,13 @@
     "autoload": {
         "psr-4": {
             "Coole\\HttpKernel\\": "src/"
-
-        },
-        "files": [
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
             "Coole\\HttpKernel\\Tests\\": "tests/"
         }
     },
-    "replace": {},
-    "suggest": {},
     "config": {
         "sort-packages": true
     },
@@ -65,12 +51,6 @@
             ]
         }
     },
-    "funding": [
-        {
-            "type": "wechat",
-            "url": "https://www.guanguans.cn/images/wechat.jpeg"
-        }
-    ],
     "scripts": {
         "post-update-cmd": [
             "cghooks update"
@@ -94,5 +74,7 @@
         "psalm": "Run psalm checks.",
         "test": "Run all tests.",
         "test-coverage": "Run all tests with coverage."
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
