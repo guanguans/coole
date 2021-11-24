@@ -25,6 +25,7 @@ use Dotenv\Dotenv;
 use Guanguans\Di\Container;
 use Guanguans\Di\ServiceProviderInterface;
 use Mpociot\Pipeline\Pipeline;
+use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -151,8 +152,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      * 加载配置.
      *
      * @return $this
+     *
+     * @throws \Coole\Foundation\Exception\UnknownFileException
      */
-    public function loadConfig(string $path): self
+    public function loadConfig(string $path, bool $force = true): self
     {
         if (! file_exists($path)) {
             throw new UnknownFileException(sprintf('File or directory does not exist.: %s', $path));
@@ -161,7 +164,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $config = [];
 
         if (is_file($path)) {
-            $configFile = new \SplFileInfo($path);
+            $configFile = new SplFileInfo($path);
             $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
         }
 
@@ -172,7 +175,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             }
         }
 
-        $this->mergeConfig($config);
+        $force ? $this->mergeConfig($config) : $this->addConfig($config);
 
         return $this;
     }
