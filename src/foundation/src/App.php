@@ -207,13 +207,16 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 加载命令.
+     *
+     * @return $this
      */
     public function loadCommand(string $dir, string $namespace, string $suffix = '*Command.php')
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
-        if ($commands = $commandDiscoverer->getCommands()) {
-            $this['command']->add($commands);
-        }
+
+        $commands = $commandDiscoverer->getCommands() and $this['command']->add($commands);
+
+        return $this;
     }
 
     /**
