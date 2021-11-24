@@ -24,9 +24,7 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function beforeRegister(App $app)
     {
-        if (null !== $app['env_path']) {
-            $app->loadEnv($app['env_path']);
-        }
+        is_null($app['env_path']) or $app->loadEnv($app['env_path']);
     }
 
     /**
@@ -44,8 +42,6 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function afterRegister(App $app)
     {
-        if (null !== $app['config_path']) {
-            $app->loadConfig($app['config_path']);
-        }
+        is_null($app['config_path']) or $app->loadConfig($app['config_path']);
     }
 }
