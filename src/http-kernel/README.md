@@ -2,9 +2,6 @@
 
 > Http kernel component of the Coole framework.
 
-[![Latest Stable Version](https://poser.pugx.org/coole/http-kernel/v)](//packagist.org/packages/coole/http-kernel)
-[![License](https://poser.pugx.org/coole/http-kernel/license)](//packagist.org/packages/coole/http-kernel)
-
 ## Documentation
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)

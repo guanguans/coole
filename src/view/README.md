@@ -2,9 +2,6 @@
 
 > View component of the Coole framework.
 
-[![Latest Stable Version](https://poser.pugx.org/coole/view/v)](//packagist.org/packages/coole/view)
-[![License](https://poser.pugx.org/coole/view/license)](//packagist.org/packages/coole/view)
-
 ## Documentation
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)

@@ -2,9 +2,6 @@
 
 > Console component of the Coole framework.
 
-[![Latest Stable Version](https://poser.pugx.org/coole/console/v)](//packagist.org/packages/coole/console)
-[![License](https://poser.pugx.org/coole/console/license)](//packagist.org/packages/coole/console)
-
 ## Documentation
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)

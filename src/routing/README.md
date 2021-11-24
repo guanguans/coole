@@ -2,9 +2,6 @@
 
 > Routing component of the Coole framework.
 
-[![Latest Stable Version](https://poser.pugx.org/coole/routing/v)](//packagist.org/packages/coole/routing)
-[![License](https://poser.pugx.org/coole/routing/license)](//packagist.org/packages/coole/routing)
-
 ## Documentation
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)

@@ -2,9 +2,6 @@
 
 > Invoker component of the Coole framework.
 
-[![Latest Stable Version](https://poser.pugx.org/coole/invoker/v)](//packagist.org/packages/coole/invoker)
-[![License](https://poser.pugx.org/coole/invoker/license)](//packagist.org/packages/coole/invoker)
-
 ## Documentation
 
 [www.guanguans.cn/coole](https://www.guanguans.cn/coole/)
