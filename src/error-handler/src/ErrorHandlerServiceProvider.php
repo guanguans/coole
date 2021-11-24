@@ -60,8 +60,6 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     {
         ErrorHandler::register();
 
-        if ($app['debug']) {
-            $app['whoops']->register();
-        }
+        $app['debug'] and $app['whoops']->register();
     }
 }

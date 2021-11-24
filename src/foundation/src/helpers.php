@@ -24,7 +24,7 @@ if (! function_exists('app')) {
      */
     function app(?string $abstract = null, array $parameters = [])
     {
-        if (null === $abstract) {
+        if (is_null($abstract)) {
             return App::getInstance();
         }
 
@@ -73,7 +73,7 @@ if (! function_exists('cenv')) {
      */
     function cenv(?string $key = null, $default = null)
     {
-        if (null === $key) {
+        if (is_null($key)) {
             return getenv();
         }
 
@@ -130,7 +130,7 @@ if (! function_exists('base_path')) {
         if (! defined('BASE_PATH')) {
             return null;
         }
-        if (null !== $path) {
+        if (! is_null($path)) {
             return BASE_PATH.'/'.trim($path, '/');
         }
 
