@@ -9,24 +9,9 @@
  */
 
 namespace {
-
-    class App extends \Guanguans\Coole\Facade\App
-    {
-    }
-
-    class DB extends \Guanguans\Coole\Facade\DB
-    {
-    }
-
-    class Logger extends \Guanguans\Coole\Facade\Logger
-    {
-    }
-
-    class Router extends \Guanguans\Coole\Facade\Router
-    {
-    }
-
-    class View extends \Guanguans\Coole\Facade\View
-    {
-    }
+    class App extends  \Coole\Foundation\Facade\App{}
+    class DB extends \Coole\DB\Facade\DB{}
+    class Log extends \Coole\Log\Facade\Log{}
+    class Router extends \Coole\Routing\Facade\Router{}
+    class View extends \Coole\View\Facade\View{}
 }
