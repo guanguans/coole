@@ -21,31 +21,11 @@ use Twig\Loader\FilesystemLoader;
 class ViewServiceProvider extends ServiceProvider
 {
     /**
-     * @var \Twig\Loader\LoaderInterface
-     */
-    public $loader;
-
-    /**
      * {@inheritdoc}
      */
     public function beforeRegister(App $app)
     {
-        $app->addConfig([
-            'view' => require __DIR__.'/../config/view.php',
-        ]);
-
-        $loader = new FilesystemLoader();
-
-        $paths = (array) $app['config']['view']['path'];
-        foreach ($paths as $namespace => $path) {
-            if (is_string($namespace)) {
-                $loader->setPaths($path, $namespace);
-            } else {
-                $loader->addPath($path);
-            }
-        }
-
-        $this->loader = $loader;
+        $app->loadConfig(__DIR__.'/../config/view.php', false);
     }
 
     /**
@@ -54,7 +34,13 @@ class ViewServiceProvider extends ServiceProvider
     public function register(Container $app)
     {
         $app->singleton(FilesystemLoader::class, function ($app) {
-            return $this->loader;
+            $loader = new FilesystemLoader();
+
+            foreach ((array) $app['config']['view']['path'] as $namespace => $path) {
+                is_string($namespace) ? $loader->setPaths($path, $namespace) : $loader->addPath($path);
+            }
+
+            return $loader;
         });
         $app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
 

@@ -30,9 +30,7 @@ class LogServiceProvider extends ServiceProvider
      */
     public function beforeRegister(App $app)
     {
-        $app->addConfig([
-            'log' => require __DIR__.'/../config/log.php',
-        ]);
+        $app->loadConfig(__DIR__.'/../config/log.php', false);
     }
 
     /**

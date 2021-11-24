@@ -24,9 +24,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function beforeRegister(App $app)
     {
-        $app->addConfig([
-            'console' => require __DIR__.'/../config/console.php',
-        ]);
+        $app->loadConfig(__DIR__.'/../config/console.php', false);
     }
 
     /**

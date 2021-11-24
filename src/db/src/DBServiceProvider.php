@@ -26,9 +26,7 @@ class DBServiceProvider extends ServiceProvider
      */
     public function beforeRegister(App $app)
     {
-        $app->addConfig([
-            'database' => require __DIR__.'/../config/database.php',
-        ]);
+        $app->loadConfig(__DIR__.'/../config/database.php', false);
     }
 
     /**
