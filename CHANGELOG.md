@@ -2,6 +2,10 @@
 
 All notable changes to `guanguans/coole` will be documented in this file
 
+## 1.1.6 - 2021-11-25
+
+* Fix config for logger.
+
 ## 1.1.5 - 2021-08-25
 
 Add `excludedMiddleware` feature.
