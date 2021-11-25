@@ -54,7 +54,7 @@ return [
         'date_format' => 'Y-m-d H:i:s',
 
         // 是否在日志条目中允许行内换行
-        'allow_inline_Line_breaks' => false,
+        'allow_inline_line_breaks' => false,
 
         // 是否忽略空上下文和额外内容
         'ignore_empty_context_and_extra' => false,

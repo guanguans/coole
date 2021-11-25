@@ -51,7 +51,7 @@ class LogServiceProvider extends ServiceProvider
             return new LineFormatter(
                 $app['config']['log']['formatter']['format'],
                 $app['config']['log']['formatter']['date_format'],
-                $app['config']['log']['formatter']['allow_inline_Line_Breaks'],
+                $app['config']['log']['formatter']['allow_inline_line_breaks'],
                 $app['config']['log']['formatter']['ignore_empty_context_and_extra']
             );
         });
