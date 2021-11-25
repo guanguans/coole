@@ -69,7 +69,7 @@ class MonologServiceProvider implements ServiceProviderInterface, BootAbleProvid
             return new LineFormatter(
                 $app['config']['logger']['formatter']['format'],
                 $app['config']['logger']['formatter']['date_format'],
-                $app['config']['logger']['formatter']['allow_inline_Line_Breaks'],
+                $app['config']['logger']['formatter']['allow_inline_line_breaks'],
                 $app['config']['logger']['formatter']['ignore_empty_context_and_extra']
             );
         });
