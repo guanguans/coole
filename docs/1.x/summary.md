@@ -25,7 +25,7 @@
   * [coolephp/goaop](官方组件/aop.md)
 
 * API
-  * <a href="/api/1.x">API 文档</a>
+  * <a href="/coole/api/1.x">API 文档</a>
 
 * 相关链接
   * [Coole 框架源码](https://github.com/guanguans/coole)
