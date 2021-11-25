@@ -39,7 +39,7 @@ return new Doctum($iterator, [
             'target' => '_blank',
             'before_text' => 'You can edit the configuration',
             'link_text' => 'on this', // Required if the href key is set
-            'after_text' => 'repository',
+            'after_text' => 'repository.',
         ],
     ]
 );
