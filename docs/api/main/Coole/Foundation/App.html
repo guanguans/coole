@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow, all" />
+    <title>Coole\Foundation\App | Coole API</title>
+
+            <link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="../../css/doctum.css">
+        <link rel="stylesheet" type="text/css" href="../../fonts/doctum-font.css">
+        <script src="../../js/jquery-3.5.1.slim.min.js"></script>
+        <script async defer src="../../js/bootstrap.min.js"></script>
+        <script src="../../js/typeahead.min.js"></script>
+        <script src="../../doctum.js"></script>
+        <meta name="MobileOptimized" content="width">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    </head>
+
+    <body id="class" data-name="class:Coole_Foundation_App" data-root-path="../../">
+            <div id="content">
+        <div id="left-column">
+                <div id="control-panel">
+                    <form action="#">
+                <select  class="form-control" id="version-switcher" name="version">
+                                            <option value="../../../1.x/index.html" data-version="1.x">1.x branch</option>
+                                            <option value="../../../main/index.html" data-version="main">main branch</option>
+                                    </select>
+            </form>
+                <form id="search-form" action="../../search.html">
+            <span class="icon icon-search"></span>
+            <input name="search"
+                   class="typeahead form-control"
+                   type="search"
+                   placeholder="Search">
+        </form>
+    </div>
+
+                <div id="api-tree"></div>
+
+        </div>
+        <div id="right-column">
+                <nav id="site-nav" class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-elements">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../../index.html">Coole API</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-elements">
+                <ul class="nav navbar-nav">
+                    <li><a href="../../classes.html">Classes</a></li>
+                    <li><a href="../../namespaces.html">Namespaces</a></li>
+                    <li><a href="../../interfaces.html">Interfaces</a></li>
+                    <li><a href="../../traits.html">Traits</a></li>
+                    <li><a href="../../doc-index.html">Index</a></li>
+                    <li><a href="../../search.html">Search</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+                        <div class="namespace-breadcrumbs">
+            <ol class="breadcrumb">
+                <li><span class="label label-default">class</span></li>
+                        <li><a href="../../Coole.html">Coole</a></li><li class="backslash">\</li><li><a href="../../Coole/Foundation.html">Foundation</a></li><li class="backslash">\</li><li>App</li>
+            </ol>
+        </div>
+                <div id="page-content">
+    <div class="page-header">
+        <h1>App    
+            </h1>
+    </div>
+
+    
+    <p>        class
+    <strong>App</strong>        extends <abbr title="Illuminate\Container\Container">Container</abbr>        implements
+        <abbr title="Symfony\Component\HttpKernel\HttpKernelInterface">HttpKernelInterface</abbr>, <abbr title="Symfony\Component\HttpKernel\TerminableInterface">TerminableInterface</abbr>
+</p>
+
+        
+    
+        
+
+            
+                <h2>Traits</h2>
+
+        
+    <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-6">
+                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>    </div>
+                <div class="col-md-6"></div>
+            </div>
+            </div>
+    
+            <h2>Constants</h2>    <table class="table table-condensed">
+                    <tr>
+                <td>
+                                                                                                                        VERSION
+                                    </td>
+                <td class="last">
+                    <p><em></em></p>
+                    <p></p>
+                </td>
+            </tr>
+            </table>
+
+    
+            <h2>Properties</h2>
+
+            <table class="table table-condensed">
+                    <tr>
+                <td class="type" id="property_middleware">
+                                        protected                                        array
+                                                                                
+                                    </td>
+                <td>$middleware</td>
+                <td class="last"><p>全局中间件.</p></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_excludedMiddleware">
+                                        protected                                        array
+                                                                                
+                                    </td>
+                <td>$excludedMiddleware</td>
+                <td class="last"><p>排除的中间件.</p></td>
+                <td><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#property_excludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_options">
+                                        protected                                        array
+                                                                                
+                                    </td>
+                <td>$options</td>
+                <td class="last"><p>核心配置.</p></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_booted">
+                                        protected                                        bool
+                                                                                
+                                    </td>
+                <td>$booted</td>
+                <td class="last"><p>是否已经引导服务.</p></td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td class="type" id="property_providers">
+                                        protected                                        array
+                                                                                
+                                    </td>
+                <td>$providers</td>
+                <td class="last"><p>核心服务.</p></td>
+                <td></td>
+            </tr>
+            </table>
+
+    
+            <h2>Methods</h2>
+
+            <div class="container-fluid underlined">
+                    <div class="row">
+                <div class="col-md-2 type">
+                    string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_render">render</a>($name, $context = [])
+        
+                                            <p><p>{@inheritdoc}</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_render">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_redirect">redirect</a>($url, int $status = 302, array $headers = [])
+        
+                                            <p><p>重定 url.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_redirect">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_abort">abort</a>($statusCode, string $message = &#039;&#039;, array $headers = [])
+        
+                                            <p><p>抛出 http 异常.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_abort">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_stream">stream</a>(null $callback = null, int $status = 200, array $headers = [])
+        
+                                            <p><p>返回流响应.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_stream">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\JsonResponse">JsonResponse</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_json">json</a>(array $data = [], int $status = 200, array $headers = [])
+        
+                                            <p><p>返回 json 响应.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_json">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\BinaryFileResponse">BinaryFileResponse</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_sendFile">sendFile</a>($file, int $status = 200, array $headers = [], null $contentDisposition = null)
+        
+                                            <p><p>返回二进制文件响应.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_sendFile">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getMiddleware">getMiddleware</a>()
+        
+                                            <p><p>获取中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_getMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setMiddleware">setMiddleware</a>($middleware)
+        
+                                            <p><p>设置中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_setMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addMiddleware">addMiddleware</a>($middleware)
+        
+                                            <p><p>添加中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_addMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getExcludedMiddleware">getExcludedMiddleware</a>()
+        
+                                            <p><p>获取排除的中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_getExcludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_withoutMiddleware">withoutMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>排除中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_withoutMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setExcludedMiddleware">setExcludedMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>设置排除的中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_setExcludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addExcludedMiddleware">addExcludedMiddleware</a>($excludedMiddleware)
+        
+                                            <p><p>添加排除的中间件.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_addExcludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addFinishHandler">addFinishHandler</a>(callable $listener, int $priority = 0)
+        
+                                            <p><p>添加一个 <code>KernelEvents::TERMINATE</code> 事件监听处理器.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_addFinishHandler">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setFinishHandler">setFinishHandler</a>(callable $listener, int $priority = 0)
+        
+                                            <p><p>设置一个 <code>KernelEvents::TERMINATE</code> 事件监听处理器.</p></p>                </div>
+                <div class="col-md-2"><small>from&nbsp;<a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_setFinishHandler">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></small></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method___construct">__construct</a>(array $options = [])
+        
+                                            <p class="no-description">No description</p>
+                                    </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_register">register</a>(<a href="../../Coole/Foundation/Able/ServiceProviderInterface.html"><abbr title="Coole\Foundation\Able\ServiceProviderInterface">ServiceProviderInterface</abbr></a> $provider)
+        
+                                            <p><p>注册服务.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addOptions">addOptions</a>(array $options)
+        
+                                            <p><p>添加全局配置.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    static&nbsp;string
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_version">version</a>()
+        
+                                            <p><p>获取版本号.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_loadEnv">loadEnv</a>(string|string[] $paths)
+        
+                                            <p><p>加载 env.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_loadConfig">loadConfig</a>(string $path, bool $force = true)
+        
+                                            <p><p>加载配置.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_loadRoute">loadRoute</a>(string $path)
+        
+                                            <p><p>加载路由.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    $this
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_loadCommand">loadCommand</a>(string $dir, string $namespace, string $suffix = &#039;*Command.php&#039;)
+        
+                                            <p><p>加载命令.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_setOptions">setOptions</a>(array $options)
+        
+                                            <p><p>设置全局配置.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_mergeConfig">mergeConfig</a>(array $configs)
+        
+                                            <p><p>合并配置.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_addConfig">addConfig</a>(array $configs)
+        
+                                            <p><p>添加配置.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_registerProviders">registerProviders</a>(array $providers)
+        
+                                            <p><p>批量注册服务.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_run">run</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request = null)
+        
+                                            <p><p>启动运行服务.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_boot">boot</a>()
+        
+                                            <p><p>引导应用程序.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_sendRequestThroughPipeline">sendRequestThroughPipeline</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>通过管道发送响应.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_handle">handle</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+        
+                                            <p><p>处理请求为响应且发送响应.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_terminate">terminate</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr> $response)
+        
+                                            <p><p>终止请求/响应生命周期.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_makeMiddleware">makeMiddleware</a>(string[]|object[]|<abbr title="Coole\Foundation\Closure">Closure</abbr>[]|string $middlewares)
+        
+                                            <p><p>批量实例化中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCurrentRequestShouldExecutedMiddleware">getCurrentRequestShouldExecutedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前请求应该被执行的中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCurrentRequestExcludedMiddleware">getCurrentRequestExcludedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前请求排除中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCurrentRequestMiddleware">getCurrentRequestMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前请求中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getControllerExcludedMiddleware">getControllerExcludedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取控制器排除中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getRouteExcludedMiddleware">getRouteExcludedMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取路由排除中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getControllerMiddleware">getControllerMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取控制器中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    array
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getRouteMiddleware">getRouteMiddleware</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取路由中间件.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <a href="../../Coole/Routing/Route.html"><abbr title="Coole\Routing\Route">Route</abbr></a>
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCurrentRoute">getCurrentRoute</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前路由.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+                    <div class="row">
+                <div class="col-md-2 type">
+                    <abbr title="Coole\Foundation\Coole\HttpKernel\Controller\Controller">Controller</abbr>|null
+                </div>
+                <div class="col-md-8">
+                    <a href="#method_getCurrentController">getCurrentController</a>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        
+                                            <p><p>获取当前控制器.</p></p>                </div>
+                <div class="col-md-2"></div>
+            </div>
+            </div>
+
+
+        <h2>Details</h2>
+
+            <div id="method-details">
+                    <div class="method-item">
+                    <h3 id="method_render">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_render">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 41</div>
+        <code>                    string
+    <strong>render</strong>($name, $context = [])
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>{@inheritdoc}</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$name</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td></td>
+                <td>$context</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_redirect">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_redirect">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 52</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr>
+    <strong>redirect</strong>($url, int $status = 302, array $headers = [])
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>重定 url.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$url</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$status</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\RedirectResponse">RedirectResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_abort">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_abort">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 63</div>
+        <code>                    
+    <strong>abort</strong>($statusCode, string $message = &#039;&#039;, array $headers = [])
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>抛出 http 异常.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$statusCode</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$message</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_stream">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_stream">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 74</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr>
+    <strong>stream</strong>(null $callback = null, int $status = 200, array $headers = [])
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>返回流响应.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>null</td>
+                <td>$callback</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$status</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\StreamedResponse">StreamedResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_json">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_json">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 85</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\JsonResponse">JsonResponse</abbr>
+    <strong>json</strong>(array $data = [], int $status = 200, array $headers = [])
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>返回 json 响应.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$data</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$status</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\JsonResponse">JsonResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sendFile">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_sendFile">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 97</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\BinaryFileResponse">BinaryFileResponse</abbr>
+    <strong>sendFile</strong>($file, int $status = 200, array $headers = [], null $contentDisposition = null)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>返回二进制文件响应.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$file</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$status</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>array</td>
+                <td>$headers</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>null</td>
+                <td>$contentDisposition</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\BinaryFileResponse">BinaryFileResponse</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_getMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 105</div>
+        <code>                    array
+    <strong>getMiddleware</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取中间件.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_setMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 117</div>
+        <code>                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>setMiddleware</strong>($middleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>设置中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$middleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_addMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 129</div>
+        <code>                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>addMiddleware</strong>($middleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$middleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getExcludedMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_getExcludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 139</div>
+        <code>                    array
+    <strong>getExcludedMiddleware</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_withoutMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_withoutMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 151</div>
+        <code>                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>withoutMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setExcludedMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_setExcludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 163</div>
+        <code>                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>setExcludedMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>设置排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addExcludedMiddleware">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_addExcludedMiddleware">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 175</div>
+        <code>                    <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a>
+    <strong>addExcludedMiddleware</strong>($excludedMiddleware)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加排除的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td></td>
+                <td>$excludedMiddleware</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/HttpKernel/Controller/HasControllerAble.html"><abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addFinishHandler">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_addFinishHandler">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 189</div>
+        <code>                    
+    <strong>addFinishHandler</strong>(callable $listener, int $priority = 0)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加一个 <code>KernelEvents::TERMINATE</code> 事件监听处理器.</p></p>                <p><p>用来处理耗时逻辑业务</p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>callable</td>
+                <td>$listener</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$priority</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setFinishHandler">
+        <div class="location">in <a href="../../Coole/HttpKernel/Controller/HasControllerAble.html#method_setFinishHandler">
+<abbr title="Coole\HttpKernel\Controller\HasControllerAble">HasControllerAble</abbr></a> at line 203</div>
+        <code>                    
+    <strong>setFinishHandler</strong>(callable $listener, int $priority = 0)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>设置一个 <code>KernelEvents::TERMINATE</code> 事件监听处理器.</p></p>                <p><p>用来处理耗时逻辑业务</p></p>        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>callable</td>
+                <td>$listener</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$priority</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method___construct">
+        <div class="location">at line 75</div>
+        <code>                    
+    <strong>__construct</strong>(array $options = [])
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p class="no-description">No description</p>
+                    
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_register">
+        <div class="location">at line 95</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>register</strong>(<a href="../../Coole/Foundation/Able/ServiceProviderInterface.html"><abbr title="Coole\Foundation\Able\ServiceProviderInterface">ServiceProviderInterface</abbr></a> $provider)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>注册服务.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../Coole/Foundation/Able/ServiceProviderInterface.html"><abbr title="Coole\Foundation\Able\ServiceProviderInterface">ServiceProviderInterface</abbr></a></td>
+                <td>$provider</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addOptions">
+        <div class="location">at line 115</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>addOptions</strong>(array $options)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加全局配置.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_version">
+        <div class="location">at line 131</div>
+        <code>        static            string
+    <strong>version</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取版本号.</p></p>                        
+        </div>
+        <div class="tags">
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>string</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadEnv">
+        <div class="location">at line 143</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>loadEnv</strong>(string|string[] $paths)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>加载 env.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string|string[]</td>
+                <td>$paths</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadConfig">
+        <div class="location">at line 158</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>loadConfig</strong>(string $path, bool $force = true)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>加载配置.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$force</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+                            <h4>Exceptions</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><a href="../../Coole/Foundation/Exception/UnknownFileException.html"><abbr title="Coole\Foundation\Exception\UnknownFileException">UnknownFileException</abbr></a></td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadRoute">
+        <div class="location">at line 188</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>loadRoute</strong>(string $path)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>加载路由.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$path</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_loadCommand">
+        <div class="location">at line 213</div>
+        <code>                    $this
+    <strong>loadCommand</strong>(string $dir, string $namespace, string $suffix = &#039;*Command.php&#039;)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>加载命令.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string</td>
+                <td>$dir</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$namespace</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>string</td>
+                <td>$suffix</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>$this</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_setOptions">
+        <div class="location">at line 227</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>setOptions</strong>(array $options)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>设置全局配置.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$options</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_mergeConfig">
+        <div class="location">at line 237</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>mergeConfig</strong>(array $configs)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>合并配置.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$configs</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_addConfig">
+        <div class="location">at line 251</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>addConfig</strong>(array $configs)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>添加配置.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$configs</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_registerProviders">
+        <div class="location">at line 265</div>
+        <code>                    <a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a>
+    <strong>registerProviders</strong>(array $providers)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>批量注册服务.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>array</td>
+                <td>$providers</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Foundation/App.html"><abbr title="Coole\Foundation\App">App</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_run">
+        <div class="location">at line 277</div>
+        <code>                    
+    <strong>run</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request = null)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>启动运行服务.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_boot">
+        <div class="location">at line 300</div>
+        <code>                    
+    <strong>boot</strong>()
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>引导应用程序.</p></p>                        
+        </div>
+        <div class="tags">
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_sendRequestThroughPipeline">
+        <div class="location">at line 319</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>sendRequestThroughPipeline</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>通过管道发送响应.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_handle">
+        <div class="location">at line 332</div>
+        <code>                    <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr>
+    <strong>handle</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, int $type = HttpKernelInterface::MASTER_REQUEST, bool $catch = true)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>处理请求为响应且发送响应.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>int</td>
+                <td>$type</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td>bool</td>
+                <td>$catch</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_terminate">
+        <div class="location">at line 340</div>
+        <code>                    
+    <strong>terminate</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request, <abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr> $response)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>终止请求/响应生命周期.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Response">Response</abbr></td>
+                <td>$response</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_makeMiddleware">
+        <div class="location">at line 350</div>
+        <code>                    array
+    <strong>makeMiddleware</strong>(string[]|object[]|<abbr title="Coole\Foundation\Closure">Closure</abbr>[]|string $middlewares)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>批量实例化中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td>string[]|object[]|<abbr title="Coole\Foundation\Closure">Closure</abbr>[]|string</td>
+                <td>$middlewares</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRequestShouldExecutedMiddleware">
+        <div class="location">at line 362</div>
+        <code>                    array
+    <strong>getCurrentRequestShouldExecutedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前请求应该被执行的中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRequestExcludedMiddleware">
+        <div class="location">at line 380</div>
+        <code>                    array
+    <strong>getCurrentRequestExcludedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前请求排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRequestMiddleware">
+        <div class="location">at line 392</div>
+        <code>                    array
+    <strong>getCurrentRequestMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前请求中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getControllerExcludedMiddleware">
+        <div class="location">at line 404</div>
+        <code>                    array
+    <strong>getControllerExcludedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取控制器排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRouteExcludedMiddleware">
+        <div class="location">at line 417</div>
+        <code>                    array
+    <strong>getRouteExcludedMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取路由排除中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getControllerMiddleware">
+        <div class="location">at line 425</div>
+        <code>                    array
+    <strong>getControllerMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取控制器中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getRouteMiddleware">
+        <div class="location">at line 438</div>
+        <code>                    array
+    <strong>getRouteMiddleware</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取路由中间件.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td>array</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentRoute">
+        <div class="location">at line 446</div>
+        <code>                    <a href="../../Coole/Routing/Route.html"><abbr title="Coole\Routing\Route">Route</abbr></a>
+    <strong>getCurrentRoute</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前路由.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><a href="../../Coole/Routing/Route.html"><abbr title="Coole\Routing\Route">Route</abbr></a></td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+                    <div class="method-item">
+                    <h3 id="method_getCurrentController">
+        <div class="location">at line 456</div>
+        <code>                    <abbr title="Coole\Foundation\Coole\HttpKernel\Controller\Controller">Controller</abbr>|null
+    <strong>getCurrentController</strong>(<abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr> $request)
+        </code>
+    </h3>
+    <div class="details">    
+    
+            
+
+        <div class="method-description">
+                            <p><p>获取当前控制器.</p></p>                        
+        </div>
+        <div class="tags">
+                            <h4>Parameters</h4>
+
+                    <table class="table table-condensed">
+                    <tr>
+                <td><abbr title="Symfony\Component\HttpFoundation\Request">Request</abbr></td>
+                <td>$request</td>
+                <td></td>
+            </tr>
+            </table>
+
+            
+                            <h4>Return Value</h4>
+
+                    <table class="table table-condensed">
+        <tr>
+            <td><abbr title="Coole\Foundation\Coole\HttpKernel\Controller\Controller">Controller</abbr>|null</td>
+            <td></td>
+        </tr>
+    </table>
+
+            
+            
+            
+                    </div>
+    </div>
+
+            </div>
+            </div>
+
+    
+</div><div id="footer">
+        Generated by <a href="https://github.com/code-lts/doctum">Doctum, a API Documentation generator and fork of Sami</a>.            <br/>You can edit the configuration <a href="https://github.com/guanguans/coole" rel="noreferrer noopener" target="_blank">on this</a> repository.</div></div>
+    </div>
+    </body>
+
+</html>
