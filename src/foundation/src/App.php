@@ -169,7 +169,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
 
         if (is_dir($path)) {
-            $configFiles = Finder::create()->files()->in($path)->name('*.php');
+            $configFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
             foreach ($configFiles as $configFile) {
                 $config[$configFile->getBasename('.php')] = require $configFile->getPathname();
             }
@@ -192,14 +192,14 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
 
         if (is_file($path)) {
-            require $path;
+            require_once $path;
 
             return $this;
         }
 
-        $routeFiles = Finder::create()->files()->in($path)->name('*.php');
+        $routeFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
         foreach ($routeFiles as $routeFile) {
-            require $routeFile;
+            require_once $routeFile;
         }
 
         return $this;

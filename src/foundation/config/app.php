@@ -59,6 +59,6 @@ return [
      * 路由目录
      */
     'route' => [
-        base_path('route'),
+        // base_path('config/route'),
     ],
 ];
