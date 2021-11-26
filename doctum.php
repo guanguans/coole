@@ -29,6 +29,7 @@ return new Doctum($iterator, [
         'theme' => 'default',
         'versions' => $versions,
         'title' => 'Coole API',
+        'favicon' => 'https://www.guanguans.cn/coole/static/favicon.png',
         'build_dir' => __DIR__.'/docs/api/%version%',
         // 'build_dir' => __DIR__.'/docs/api/',
         'cache_dir' => __DIR__.'/build/doctum/api/%version%',
