@@ -18,11 +18,13 @@ EOF;
 
 $finder = PhpCsFixer\Finder::create()
     ->in([
-        __DIR__,
+        // __DIR__,
+        __DIR__ . '/src',
+        __DIR__ . '/tests',
     ])
     ->exclude([
-        __DIR__.'/vendor/',
-        __DIR__.'/build/',
+        __DIR__.'/vendor',
+        __DIR__.'/build',
     ])
     ->name('*.php')
     ->notName('*.blade.php')
