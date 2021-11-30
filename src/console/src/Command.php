@@ -12,10 +12,11 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class Command extends \Symfony\Component\Console\Command\Command
+class Command extends SymfonyCommand
 {
     /**
      * 名称.
