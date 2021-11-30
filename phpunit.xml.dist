@@ -40,6 +40,7 @@
             <directory suffix=".php">./src/view/src</directory>
             <exclude>
                 <file>src/config/src/ConfigServiceProvider.php</file>
+                <file>src/config/src/Config.php</file>
 
                 <directory>src/console/src/Commands/</directory>
                 <file>src/console/src/Application.php</file>

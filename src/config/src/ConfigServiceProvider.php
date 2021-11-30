@@ -15,7 +15,6 @@ namespace Coole\Config;
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
 use Illuminate\Container\Container;
-use Illuminate\Support\Collection as Config;
 
 class ConfigServiceProvider extends ServiceProvider
 {
@@ -32,9 +31,10 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function register(Container $app)
     {
-        $app->singleton('config', function ($app) {
+        $app->singleton(Config::class, function ($app) {
             return new Config();
         });
+        $app->alias(Config::class, 'config');
     }
 
     /**
