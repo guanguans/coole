@@ -12,7 +12,6 @@
 >
     <testsuites>
         <testsuite name="Coole Test Suite">
-            <directory suffix="Test.php">./tests</directory>
             <directory suffix="Test.php">./src/config/tests</directory>
             <directory suffix="Test.php">./src/console/tests</directory>
             <directory suffix="Test.php">./src/db/tests</directory>
@@ -56,6 +55,7 @@
                 <file>src/event/src/EventServiceProvider.php</file>
 
                 <directory>src/foundation/src/Able</directory>
+                <directory>src/foundation/src/Exception</directory>
                 <directory>src/foundation/src/Facade</directory>
                 <directory>src/foundation/src/Listener</directory>
                 <directory>src/foundation/src/Middleware</directory>
