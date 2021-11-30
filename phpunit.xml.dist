@@ -53,7 +53,9 @@
 
                 <file>src/error-handler/src/ErrorHandlerServiceProvider.php</file>
 
+                <file>src/event/src/Event.php</file>
                 <file>src/event/src/EventServiceProvider.php</file>
+                <file>src/event/src/ListenerInterface.php</file>
 
                 <directory>src/foundation/src/Able</directory>
                 <directory>src/foundation/src/Exception</directory>

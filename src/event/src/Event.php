@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace Coole\Event;
 
-class Event extends \Symfony\Contracts\EventDispatcher\Event
+use Symfony\Contracts\EventDispatcher\Event as SymfonyEvent;
+
+class Event extends SymfonyEvent
 {
     public const NAME = null;
 
