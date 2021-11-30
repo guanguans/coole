@@ -15,7 +15,7 @@
     "license": "MIT",
     "require": {
         "php": ">7.3",
-        "tightenco/collect": "^8.34"
+        "illuminate/collections": "^8.70"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.8",
