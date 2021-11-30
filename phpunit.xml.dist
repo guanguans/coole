@@ -65,6 +65,7 @@
                 <file>src/foundation/src/AppServiceProvider.php</file>
                 <file>src/foundation/src/helpers.php</file>
 
+                <file>src/http-kernel/src/Controller/Controller.php</file>
                 <file>src/http-kernel/src/Controller/ControllerResolver.php</file>
                 <file>src/http-kernel/src/HttpKernelServiceProvider.php</file>
 

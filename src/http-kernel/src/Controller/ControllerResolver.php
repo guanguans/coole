@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel\Controller;
 
-class ControllerResolver extends \Symfony\Component\HttpKernel\Controller\ControllerResolver
+use Symfony\Component\HttpKernel\Controller\ControllerResolver as SymfonyControllerResolver;
+
+class ControllerResolver extends SymfonyControllerResolver
 {
     /**
      * {@inheritDoc}
