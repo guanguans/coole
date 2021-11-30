@@ -1,6 +1,6 @@
 <p align="center"><img src="./docs/static/logo.png" width="38%" alt="Coole"></p>
 
-> Coole is a PHP micro-framework built on open source components. - Coole 是一个基于开源组件构建的 PHP 微框架。
+> Coole is a PHP framework built on open source components. - Coole 是一个基于开源组件构建的 PHP 框架。
 
 [简体中文](README-zh_CN.md) | [ENGLISH](README.md)
 
