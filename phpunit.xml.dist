@@ -47,7 +47,7 @@
                 <file>src/console/src/Command.php</file>
                 <file>src/console/src/ConsoleServiceProvider.php</file>
 
-                <directory>src/db/src/Facade</directory>
+                <directory>src/db/src/Facades</directory>
                 <file>src/db/src/Model.php</file>
                 <file>src/db/src/DBServiceProvider.php</file>
 
