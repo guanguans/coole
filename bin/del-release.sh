@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
+
 set -e
+set -x
 
 if (( "$#" != 1 ))
 then
@@ -38,7 +40,7 @@ do
         git clone $REMOTE_URL .
         git checkout "$CURRENT_BRANCH";
 
-        if [[ $(git log --pretty="%d" -n 1 | grep tag --count) -eq 0 ]]; then
+        if [[ $(git tag | grep $VERSION --count) -eq 1 ]]; then
             echo "Deleting release $REMOTE"
             git tag --delete $VERSION
             git push --delete origin $VERSION
