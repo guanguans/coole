@@ -40,14 +40,8 @@
     },
     "extra": {
         "hooks": {
-            "pre-commit": [
-                "composer style-lint",
-                "composer test"
-            ],
-            "pre-push": [
-                "composer style-lint",
-                "composer test"
-            ]
+            "pre-commit": [],
+            "pre-push": []
         }
     },
     "scripts": {
