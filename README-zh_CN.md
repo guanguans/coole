@@ -35,7 +35,7 @@ $ composer require guanguans/coole -vvv
 <?php
 
 use Coole\Foundation\App;
-use Coole\Routing\Facade\Router;
+use Coole\Routing\Facades\Router;
 use Symfony\Component\HttpFoundation\Request;
 
 require __DIR__.'/vendor/autoload.php';

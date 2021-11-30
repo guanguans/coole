@@ -13,8 +13,9 @@ declare(strict_types=1);
 namespace Coole\Routing;
 
 use Coole\HttpKernel\Controller\HasControllerAble;
+use Symfony\Component\Routing\Route as SymfonyRoute;
 
-class Route extends \Symfony\Component\Routing\Route
+class Route extends SymfonyRoute
 {
     use HasControllerAble;
 

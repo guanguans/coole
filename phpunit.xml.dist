@@ -76,10 +76,10 @@
                 <directory>src/log/src/Facades</directory>
                 <file>src/log/src/LogServiceProvider.php</file>
 
-                <directory>src/routing/src/Facade</directory>
+                <directory>src/routing/src/Facades</directory>
                 <file>src/routing/src/RoutingServiceProvider.php</file>
 
-                <directory>src/view/src/Facade</directory>
+                <directory>src/view/src/Facades</directory>
                 <file>src/view/src/ViewServiceProvider.php</file>
             </exclude>
         </whitelist>

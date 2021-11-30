@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Routing\Facade;
+namespace Coole\Routing\Facades;
 
 use Coole\Foundation\Facades\Facade;
 
@@ -46,6 +46,6 @@ class Router extends Facade
      */
     public static function getFacadeAccessor()
     {
-        return \Coole\Routing\Router::class;
+        return 'router';
     }
 }
