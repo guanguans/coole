@@ -13,5 +13,5 @@ namespace {
     class DB extends \Coole\DB\Facades\DB{}
     class Log extends \Coole\Log\Facades\Log{}
     class Router extends \Coole\Routing\Facades\Router{}
-    class View extends \Coole\View\Facade\View{}
+    class View extends \Coole\View\Facades\View{}
 }
