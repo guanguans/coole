@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Log\Facade;
+namespace Coole\Log\Facades;
 
 use Coole\Foundation\Facades\Facade;
 

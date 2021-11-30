@@ -69,11 +69,11 @@
                 <file>src/http-kernel/src/Controller/ControllerResolver.php</file>
                 <file>src/http-kernel/src/HttpKernelServiceProvider.php</file>
 
-                <file>src/invoker/src/Facades</file>
+                <directory>src/invoker/src/Facades</directory>
                 <file>src/invoker/src/helpers.php</file>
                 <file>src/invoker/src/InvokerServiceProvider.php</file>
 
-                <directory>src/log/src/Facade</directory>
+                <directory>src/log/src/Facades</directory>
                 <file>src/log/src/LogServiceProvider.php</file>
 
                 <directory>src/routing/src/Facade</directory>
