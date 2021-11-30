@@ -9,7 +9,7 @@
  */
 
 namespace {
-    class App extends  \Coole\Foundation\Facade\App{}
+    class App extends  \Coole\Foundation\Facades\App{}
     class DB extends \Coole\DB\Facades\DB{}
     class Log extends \Coole\Log\Facade\Log{}
     class Router extends \Coole\Routing\Facade\Router{}

@@ -11,7 +11,7 @@
 namespace Coole\Foundation\Tests;
 
 use Coole\Foundation\App;
-use Coole\Foundation\Exception\UnknownFileException;
+use Coole\Foundation\Exceptions\UnknownFileException;
 use Coole\Foundation\Tests\Stub\AppStub;
 use Coole\Foundation\Tests\Stub\ControllerStub;
 use Coole\Foundation\Tests\Stub\MiddlewareStub;

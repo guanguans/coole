@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation\Exception;
+namespace Coole\Foundation\Exceptions;
 
 class InvalidClassException extends \Exception
 {

@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation\Facade;
+namespace Coole\Foundation\Facades;
 
 use RuntimeException;
 

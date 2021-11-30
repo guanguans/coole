@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation\Listener;
+namespace Coole\Foundation\Listeners;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;

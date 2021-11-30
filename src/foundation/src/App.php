@@ -16,9 +16,9 @@ use Coole\Console\CommandDiscoverer;
 use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
 use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
 use Coole\Foundation\Able\BootAbleProviderInterface;
-use Coole\Foundation\Able\EventListenerAbleProviderInterface;
 use Coole\Foundation\Able\ServiceProviderInterface;
-use Coole\Foundation\Exception\UnknownFileException;
+use Coole\Foundation\Able\SubscribeEventAbleProviderInterface;
+use Coole\Foundation\Exceptions\UnknownFileException;
 use Coole\HttpKernel\Controller\Controller;
 use Coole\HttpKernel\Controller\HasControllerAble;
 use Coole\Routing\Route;
@@ -97,12 +97,12 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->providers[] = $provider;
 
         // 处理注册之前工作
-        $provider instanceof BeforeRegisterAbleProviderInterface && $provider->beforeRegister($this);
+        $provider instanceof BeforeRegisterAbleProviderInterface and $provider->beforeRegister($this);
 
         $provider->register($this);
 
         // 处理注册之后工作
-        $provider instanceof AfterRegisterAbleProviderInterface && $provider->afterRegister($this);
+        $provider instanceof AfterRegisterAbleProviderInterface and $provider->afterRegister($this);
 
         return $this;
     }
@@ -153,7 +153,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return $this
      *
-     * @throws \Coole\Foundation\Exception\UnknownFileException
+     * @throws \Coole\Foundation\Exceptions\UnknownFileException
      */
     public function loadConfig(string $path, bool $force = true): self
     {
@@ -307,9 +307,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         foreach ($this->providers as $provider) {
             // 服务订阅事件
-            $provider instanceof EventListenerAbleProviderInterface && $provider->subscribe($this, $this['event_dispatcher']);
+            $provider instanceof SubscribeEventAbleProviderInterface and $provider->subscribe($this, $this['event_dispatcher']);
             // 引导服务
-            $provider instanceof BootableProviderInterface && $provider->boot($this);
+            $provider instanceof BootableProviderInterface and $provider->boot($this);
         }
     }
 

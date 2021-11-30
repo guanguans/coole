@@ -14,7 +14,7 @@ use Coole\Foundation\App;
 use Illuminate\Container\Container;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-abstract class ServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface, BeforeRegisterAbleProviderInterface, BootAbleProviderInterface, EventListenerAbleProviderInterface
+abstract class ServiceProvider implements ServiceProviderInterface, AfterRegisterAbleProviderInterface, BeforeRegisterAbleProviderInterface, BootAbleProviderInterface, SubscribeEventAbleProviderInterface
 {
     /**
      * {@inheritDoc}

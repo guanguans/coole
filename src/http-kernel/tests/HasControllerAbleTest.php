@@ -10,7 +10,7 @@
 
 namespace Coole\HttpKernel\Tests;
 
-use Coole\Foundation\Middleware\CheckResponseForModifications;
+use Coole\Foundation\Middlewares\CheckResponseForModifications;
 use Coole\HttpKernel\Controller\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;

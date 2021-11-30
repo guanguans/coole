@@ -15,7 +15,7 @@ namespace Coole\Foundation\Able;
 use Coole\Foundation\App;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-interface EventListenerAbleProviderInterface
+interface SubscribeEventAbleProviderInterface
 {
     /**
      * 服务订阅事件.

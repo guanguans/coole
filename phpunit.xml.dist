@@ -58,10 +58,10 @@
                 <file>src/event/src/ListenerInterface.php</file>
 
                 <directory>src/foundation/src/Able</directory>
-                <directory>src/foundation/src/Exception</directory>
-                <directory>src/foundation/src/Facade</directory>
-                <directory>src/foundation/src/Listener</directory>
-                <directory>src/foundation/src/Middleware</directory>
+                <directory>src/foundation/src/Exceptions</directory>
+                <directory>src/foundation/src/Facades</directory>
+                <directory>src/foundation/src/Listeners</directory>
+                <directory>src/foundation/src/Middlewares</directory>
                 <file>src/foundation/src/AppServiceProvider.php</file>
                 <file>src/foundation/src/helpers.php</file>
 

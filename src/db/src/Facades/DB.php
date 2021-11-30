@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\DB\Facades;
 
-use Coole\Foundation\Facade\Facade;
+use Coole\Foundation\Facades\Facade;
 
 /**
  * @method static \Illuminate\Database\ConnectionInterface connection(string $name = null)

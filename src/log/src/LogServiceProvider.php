@@ -14,7 +14,7 @@ namespace Coole\Log;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
-use Coole\Foundation\Listener\LogListener;
+use Coole\Foundation\Listeners\LogListener;
 use Illuminate\Container\Container;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
