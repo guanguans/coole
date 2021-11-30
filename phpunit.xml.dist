@@ -69,6 +69,7 @@
                 <file>src/http-kernel/src/Controller/ControllerResolver.php</file>
                 <file>src/http-kernel/src/HttpKernelServiceProvider.php</file>
 
+                <file>src/invoker/src/Facades</file>
                 <file>src/invoker/src/helpers.php</file>
                 <file>src/invoker/src/InvokerServiceProvider.php</file>
 
