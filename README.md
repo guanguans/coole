@@ -9,7 +9,7 @@
 [![codecov](https://codecov.io/gh/guanguans/coole/branch/main/graph/badge.svg?token=URGFAWS6S4)](https://codecov.io/gh/guanguans/coole)
 [![Latest Stable Version](https://poser.pugx.org/guanguans/coole/v)](//packagist.org/packages/guanguans/coole)
 [![Total Downloads](https://poser.pugx.org/guanguans/coole/downloads)](//packagist.org/packages/guanguans/coole)
-[![License](https://poser.pugx.org/guanguans/coole/license)](//packagist.org/packages/guanguans/coole)
+[![License](https://poser.pugx.org/guanguans/coole/license)](//packagist.org/packages/guanguans/coole) [![Join the chat at https://gitter.im/guanguans/coole](https://badges.gitter.im/guanguans/coole.svg)](https://gitter.im/guanguans/coole?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Documentation
 
