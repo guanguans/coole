@@ -69,7 +69,7 @@ coole;
     /**
      * {@inheritdoc}
      */
-    public function getHelp()
+    public function getHelp(): string
     {
         return parent::getHelp().PHP_EOL.static::LOGO;
     }
