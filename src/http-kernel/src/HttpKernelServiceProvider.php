@@ -32,7 +32,7 @@ class HttpKernelServiceProvider extends ServiceProvider
         $app->alias(RequestStack::class, 'request_stack');
 
         $app->singleton(ControllerResolver::class, function ($app) {
-            return new ControllerResolver(app('log'));
+            return new ControllerResolver(app('logger'));
         });
         $app->alias(ControllerResolver::class, 'controller_resolver');
 

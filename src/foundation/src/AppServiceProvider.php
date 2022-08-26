@@ -23,7 +23,7 @@ use Coole\Foundation\Listeners\NullResponseListener;
 use Coole\Foundation\Listeners\StringResponseListener;
 use Coole\Foundation\Middlewares\CheckResponseForModifications;
 use Coole\HttpKernel\HttpKernelServiceProvider;
-use Coole\Log\LogServiceProvider;
+use Coole\Logger\LoggerServiceProvider;
 use Coole\Routing\RoutingServiceProvider;
 use Coole\View\ViewServiceProvider;
 use Illuminate\Container\Container;
@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected $providers = [
         ErrorHandlerServiceProvider::class,
-        LogServiceProvider::class,
+        LoggerServiceProvider::class,
         EventServiceProvider::class,
         RoutingServiceProvider::class,
         HttpKernelServiceProvider::class,

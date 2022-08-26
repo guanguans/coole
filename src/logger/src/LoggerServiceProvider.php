@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Log;
+namespace Coole\Logger;
 
 use Coole\Foundation\Able\ServiceProvider;
 use Coole\Foundation\App;
@@ -23,7 +23,7 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-class LogServiceProvider extends ServiceProvider
+class LoggerServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}
@@ -39,20 +39,20 @@ class LogServiceProvider extends ServiceProvider
     public function register(Container $app)
     {
         $app->singleton('monolog', function ($app) {
-            $log = new Logger($app['config']['log']['name']);
+            $log = new Logger($app['config']['logger']['name']);
             $handler = new GroupHandler($app['monolog.handlers']);
             $log->pushHandler($handler);
 
             return $log;
         });
-        $app->alias('monolog', 'log');
+        $app->alias('monolog', 'logger');
 
         $app->singleton(LineFormatter::class, function ($app) {
             return new LineFormatter(
-                $app['config']['log']['formatter']['format'],
-                $app['config']['log']['formatter']['date_format'],
-                $app['config']['log']['formatter']['allow_inline_line_breaks'],
-                $app['config']['log']['formatter']['ignore_empty_context_and_extra']
+                $app['config']['logger']['formatter']['format'],
+                $app['config']['logger']['formatter']['date_format'],
+                $app['config']['logger']['formatter']['allow_inline_line_breaks'],
+                $app['config']['logger']['formatter']['ignore_empty_context_and_extra']
             );
         });
 
@@ -60,11 +60,11 @@ class LogServiceProvider extends ServiceProvider
 
         $app->singleton(StreamHandler::class, function ($app) {
             $handler = new StreamHandler(
-                $app['config']['log']['log_file'],
-                $app['config']['log']['level'],
-                $app['config']['log']['bubble'],
-                $app['config']['log']['file_permission'],
-                $app['config']['log']['use_locking']
+                $app['config']['logger']['log_file'],
+                $app['config']['logger']['level'],
+                $app['config']['logger']['bubble'],
+                $app['config']['logger']['file_permission'],
+                $app['config']['logger']['use_locking']
             );
             $handler->setFormatter($app['monolog.formatter']);
 
@@ -74,7 +74,7 @@ class LogServiceProvider extends ServiceProvider
 
         $app->singleton('monolog.handlers', function ($app) {
             $handlers = [];
-            if ($app['config']['log']['log_file']) {
+            if ($app['config']['logger']['log_file']) {
                 $handlers[] = $app['monolog.handler'];
             }
 
@@ -82,7 +82,7 @@ class LogServiceProvider extends ServiceProvider
         });
 
         $app->singleton(LogListener::class, function ($app) {
-            return new LogListener($app['log']);
+            return new LogListener($app['logger']);
         });
         $app->alias(LogListener::class, 'monolog.listener');
     }

@@ -100,7 +100,7 @@ class LoggingServiceAspect implements Aspect
      */
     public function beforeMethodExecution(MethodInvocation $invocation)
     {
-        file_put_contents(base_path('runtime/logging.log'), 'this is a before method testing.'.PHP_EOL, FILE_APPEND);
+        file_put_contents(base_path('runtime/logging.logger'), 'this is a before method testing.'.PHP_EOL, FILE_APPEND);
     }
 
     /**
@@ -111,7 +111,7 @@ class LoggingServiceAspect implements Aspect
      */
     public function afterMethodExecution(MethodInvocation $invocation)
     {
-        file_put_contents(base_path('runtime/logging.log'), 'this is a after method testing.'.PHP_EOL, FILE_APPEND);
+        file_put_contents(base_path('runtime/logging.logger'), 'this is a after method testing.'.PHP_EOL, FILE_APPEND);
     }
 }
 ```

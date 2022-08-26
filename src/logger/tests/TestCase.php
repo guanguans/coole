@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Log\Tests;
+namespace Coole\Logger\Tests;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {

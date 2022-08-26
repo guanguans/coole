@@ -116,7 +116,7 @@
             "Coole\\Foundation\\": "src/foundation/src/",
             "Coole\\HttpKernel\\": "src/http-kernel/src/",
             "Coole\\Invoker\\": "src/invoker/src/",
-            "Coole\\Log\\": "src/log/src/",
+            "Coole\\Logger\\": "src/logger/src/",
             "Coole\\Routing\\": "src/routing/src/",
             "Coole\\View\\": "src/view/src/"
         },
@@ -134,7 +134,7 @@
             "Coole\\Foundation\\Tests\\": "src/foundation/tests/",
             "Coole\\HttpKernel\\Tests\\": "src/http-kernel/tests/",
             "Coole\\Invoker\\Tests\\": "src/invoker/tests/",
-            "Coole\\Log\\Tests\\": "src/log/tests/",
+            "Coole\\Logger\\Tests\\": "src/logger/tests/",
             "Coole\\Routing\\Tests\\": "src/routing/tests/",
             "Coole\\View\\Tests\\": "src/view/tests/"
         }

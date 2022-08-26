@@ -8,9 +8,9 @@
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Log\Tests;
+namespace Coole\Logger\Tests;
 
-class LogServiceProviderTest extends TestCase
+class LoggerServiceProviderTest extends TestCase
 {
     public function testTrue()
     {

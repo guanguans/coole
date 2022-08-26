@@ -9,7 +9,7 @@
 ## Installation
 
 ```shell script
-$ composer require coole/log -vvv
+$ composer require coole/logger -vvv
 ```
 
 ## License

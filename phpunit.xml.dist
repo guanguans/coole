@@ -20,7 +20,7 @@
             <directory suffix="Test.php">./src/foundation/tests</directory>
             <directory suffix="Test.php">./src/http-kernel/tests</directory>
             <directory suffix="Test.php">./src/invoker/tests</directory>
-            <directory suffix="Test.php">./src/log/tests</directory>
+            <directory suffix="Test.php">./src/logger/tests</directory>
             <directory suffix="Test.php">./src/routing/tests</directory>
             <directory suffix="Test.php">./src/view/tests</directory>
         </testsuite>

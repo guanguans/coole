@@ -10,12 +10,12 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Log\Facades;
+namespace Coole\Logger\Facades;
 
 use Coole\Foundation\Facades\Facade;
 
 /**
- * @method static \Monolog\Logger log($level, $message, array $context = [])
+ * @method static \Monolog\Logger logger($level, $message, array $context = [])
  * @method static \Monolog\Logger debug($level, $message, array $context = [])
  * @method static \Monolog\Logger info($level, $message, array $context = [])
  * @method static \Monolog\Logger notice($level, $message, array $context = [])
@@ -27,13 +27,13 @@ use Coole\Foundation\Facades\Facade;
  *
  * @see \Monolog\Logger
  */
-class Log extends Facade
+class Logger extends Facade
 {
     /**
      * {@inheritdoc}
      */
     public static function getFacadeAccessor()
     {
-        return 'log';
+        return 'logger';
     }
 }
