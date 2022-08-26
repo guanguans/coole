@@ -18,13 +18,19 @@ EOF;
 
 $finder = PhpCsFixer\Finder::create()
     ->in([
-        // __DIR__,
         __DIR__ . '/src',
-        // __DIR__ . '/tests',
+    ])
+    ->append([
+        __DIR__.'.php-cs-fixer.php',
+        __DIR__.'/doctum.php',
+        __DIR__.'/index.php',
+        __DIR__.'/monorepo-builder.php',
     ])
     ->exclude([
-        __DIR__.'/vendor',
-        __DIR__.'/build',
+        '.github',
+        'build',
+        'doc',
+        'docs',
     ])
     ->name('*.php')
     ->notName('*.blade.php')
@@ -49,10 +55,10 @@ return (new PhpCsFixer\Config())
         'single_quote' => true,
         'class_attributes_separation' => true,
         'standardize_not_equals' => true,
+        'declare_strict_types' => true,
         // 'trailing_comma_in_multiline' => true,
         // 'php_unit_construct' => true,
         // 'php_unit_strict' => true,
-        // 'declare_strict_types' => true,
     ])
-    // ->setRiskyAllowed(true)
+    ->setRiskyAllowed(true)
     ->setFinder($finder);
