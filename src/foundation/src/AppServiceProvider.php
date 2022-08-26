@@ -14,7 +14,7 @@ namespace Coole\Foundation;
 
 use Coole\Config\ConfigServiceProvider;
 use Coole\Console\ConsoleServiceProvider;
-use Coole\DB\DBServiceProvider;
+use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Coole\Event\EventServiceProvider;
 use Coole\Foundation\Able\ServiceProvider;
@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
         HttpKernelServiceProvider::class,
         ConsoleServiceProvider::class,
         ViewServiceProvider::class,
-        DBServiceProvider::class,
+        DatabaseServiceProvider::class,
     ];
 
     /**

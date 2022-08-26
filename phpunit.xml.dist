@@ -14,7 +14,7 @@
         <testsuite name="Coole Test Suite">
             <directory suffix="Test.php">./src/config/tests</directory>
             <directory suffix="Test.php">./src/console/tests</directory>
-            <directory suffix="Test.php">./src/db/tests</directory>
+            <directory suffix="Test.php">./src/database/tests</directory>
             <directory suffix="Test.php">./src/error-handler/tests</directory>
             <directory suffix="Test.php">./src/event/tests</directory>
             <directory suffix="Test.php">./src/foundation/tests</directory>

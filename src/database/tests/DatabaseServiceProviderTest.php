@@ -8,9 +8,9 @@
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\DB\Tests;
+namespace Coole\Database\Tests;
 
-class DBServiceProviderTest extends TestCase
+class DatabaseServiceProviderTest extends TestCase
 {
     public function testTrue()
     {

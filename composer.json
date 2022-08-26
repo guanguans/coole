@@ -110,7 +110,7 @@
         "psr-4": {
             "Coole\\Config\\": "src/config/src/",
             "Coole\\Console\\": "src/console/src/",
-            "Coole\\DB\\": "src/db/src/",
+            "Coole\\Database\\": "src/database/src/",
             "Coole\\ErrorHandler\\": "src/error-handler/src/",
             "Coole\\Event\\": "src/event/src/",
             "Coole\\Foundation\\": "src/foundation/src/",
@@ -128,7 +128,7 @@
         "psr-4": {
             "Coole\\Config\\Tests\\": "src/config/tests/",
             "Coole\\Console\\Tests\\": "src/console/tests/",
-            "Coole\\DB\\Tests\\": "src/db/tests/",
+            "Coole\\Database\\Tests\\": "src/database/tests/",
             "Coole\\ErrorHandler\\Tests\\": "src/error-handler/tests/",
             "Coole\\Event\\Tests\\": "src/event/tests/",
             "Coole\\Foundation\\Tests\\": "src/foundation/tests/",

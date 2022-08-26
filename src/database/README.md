@@ -9,7 +9,7 @@
 ## Installation
 
 ```shell script
-$ composer require coole/db -vvv
+$ composer require coole/database -vvv
 ```
 
 ## License

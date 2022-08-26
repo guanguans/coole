@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\DB\Facades;
+namespace Coole\Database\Facades;
 
 use Coole\Foundation\Facades\Facade;
 
@@ -47,6 +47,6 @@ class DB extends Facade
      */
     public static function getFacadeAccessor()
     {
-        return 'db';
+        return 'database';
     }
 }
