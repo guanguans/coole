@@ -1,8 +1,0 @@
-path: ./
-jobs: 10
-cache: .phplint.result.cache
-extensions:
-  - php
-exclude:
-  - vendor
-warning: true
