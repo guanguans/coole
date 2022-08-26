@@ -1,0 +1,17 @@
+includes:
+    - ./phpstan-baseline.neon
+
+parameters:
+    paths:
+        - src
+
+    # The level 9 is the highest level
+    level: 5
+
+    ignoreErrors:
+        - '#PHPDoc tag @var#'
+
+    excludePaths:
+        - ./*/*/FileToBeExcluded.php
+
+    checkMissingIterableValueType: false
