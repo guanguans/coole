@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\Config;
 
-use Illuminate\Support\Collection;
+use Illuminate\Config\Repository;
 
-class Config extends Collection
+class Config extends Repository
 {
 }
