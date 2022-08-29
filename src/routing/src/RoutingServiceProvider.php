@@ -23,7 +23,7 @@ class RoutingServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(RouteCollection::class, function ($app) {
             return new RouteCollection();
@@ -49,14 +49,14 @@ class RoutingServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registered()
+    public function registered(): void
     {
-        foreach ($this->app['route'] as $file) {
+        foreach ($this->app['route_paths'] as $file) {
             $this->app->loadRoutesFrom($file);
         }
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->app['event_dispatcher']->addSubscriber(new RouterListener($this->app['url_matcher'], $this->app['request_stack']));
     }

@@ -111,26 +111,20 @@ trait HasControllerAble
      * 设置中间件.
      *
      * @param $middleware
-     *
-     * @return $this
      */
-    public function setMiddleware($middleware): self
+    public function setMiddleware($middleware): void
     {
-        return $this->addMiddleware($middleware);
+        $this->addMiddleware($middleware);
     }
 
     /**
      * 添加中间件.
      *
      * @param $middleware
-     *
-     * @return $this
      */
-    public function addMiddleware($middleware): self
+    public function addMiddleware($middleware): void
     {
         $this->middleware = array_unique(array_merge($this->middleware, (array) $middleware));
-
-        return $this;
     }
 
     /**
@@ -145,24 +139,20 @@ trait HasControllerAble
      * 排除中间件.
      *
      * @param $excludedMiddleware
-     *
-     * @return $this
      */
-    public function withoutMiddleware($excludedMiddleware): self
+    public function withoutMiddleware($excludedMiddleware): void
     {
-        return $this->addExcludedMiddleware($excludedMiddleware);
+        $this->addExcludedMiddleware($excludedMiddleware);
     }
 
     /**
      * 设置排除的中间件.
      *
      * @param $excludedMiddleware
-     *
-     * @return $this
      */
-    public function setExcludedMiddleware($excludedMiddleware): self
+    public function setExcludedMiddleware($excludedMiddleware): void
     {
-        return $this->addExcludedMiddleware($excludedMiddleware);
+        $this->addExcludedMiddleware($excludedMiddleware);
     }
 
     /**
@@ -172,11 +162,9 @@ trait HasControllerAble
      *
      * @return $this
      */
-    public function addExcludedMiddleware($excludedMiddleware): self
+    public function addExcludedMiddleware($excludedMiddleware): void
     {
         $this->excludedMiddleware = array_unique(array_merge($this->excludedMiddleware, (array) $excludedMiddleware));
-
-        return $this;
     }
 
     /**
@@ -186,11 +174,9 @@ trait HasControllerAble
      *
      * @param callable $listener
      */
-    public function addFinishHandler($listener, int $priority = 0)
+    public function addFinishHandler($listener, int $priority = 0): void
     {
         app('event_dispatcher')->addListener(KernelEvents::TERMINATE, $listener, $priority);
-
-        return $this;
     }
 
     /**
@@ -200,8 +186,8 @@ trait HasControllerAble
      *
      * @param callable $listener
      */
-    public function setFinishHandler($listener, int $priority = 0)
+    public function setFinishHandler($listener, int $priority = 0): void
     {
-        return $this->addFinishHandler($listener, $priority);
+        $this->addFinishHandler($listener, $priority);
     }
 }

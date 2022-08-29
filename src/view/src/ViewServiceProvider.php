@@ -21,7 +21,7 @@ class ViewServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering()
+    public function registering(): void
     {
         $this->app->loadConfigsFrom(__DIR__.'/../config', false);
     }
@@ -29,7 +29,7 @@ class ViewServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(FilesystemLoader::class, function ($app) {
             $loader = new FilesystemLoader();

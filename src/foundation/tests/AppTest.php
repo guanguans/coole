@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Coole\Foundation\Tests;
 
 use Coole\Foundation\App;
-use Coole\Foundation\Exceptions\UnknownFileException;
+use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
 use Coole\Foundation\Tests\Stub\AppStub;
 use Coole\Foundation\Tests\Stub\ControllerStub;
 use Coole\Foundation\Tests\Stub\MiddlewareStub;
@@ -195,7 +195,7 @@ class AppTest extends TestCase
 
     public function testLoadConfigException()
     {
-        $this->expectException(UnknownFileException::class);
+        $this->expectException(UnknownFileOrDirectoryException::class);
         $this->app->loadConfigsFrom(__DIR__.'/Stub/conf');
     }
 
@@ -210,7 +210,7 @@ class AppTest extends TestCase
 
     public function testLoadRouteException()
     {
-        $this->expectException(UnknownFileException::class);
+        $this->expectException(UnknownFileOrDirectoryException::class);
         $this->app->loadRoutesFrom(__DIR__.'/Stub/conf');
     }
 }

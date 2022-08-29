@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Exceptions;
 
-class UnknownFileException extends Exception
+class UnknownFileOrDirectoryException extends Exception
 {
+    public static function create(string $path): static
+    {
+        return new static(sprintf('File or directory not exist.: %s', $path));
+    }
 }

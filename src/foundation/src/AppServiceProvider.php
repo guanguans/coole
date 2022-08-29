@@ -56,7 +56,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering()
+    public function registering(): void
     {
         // 设置门面的 app 共享实例
         Facade::setFacadeApplication($this->app);
@@ -65,10 +65,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->register(new ConfigServiceProvider($this->app));
 
         // 设置配置
-        $this->setUpConfig();
+        $this->app->loadConfigsFrom(__DIR__.'/../config/app.php');
 
         // 设置第三方全局配置
-        $this->app->setOptions($this->app['config']['app']->toArray());
+        $this->app->setOptions($this->app['config']['app']);
 
         // 设置 timezone
         date_default_timezone_set($this->app['timezone']);
@@ -81,29 +81,9 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-     * 设置配置.
-     */
-    protected function setUpConfig()
-    {
-        $this->app->addConfig([
-            'app' => [
-                'name' => cenv('APP_NAME', 'Coole'),
-                'env' => cenv('APP_ENV', 'production'),
-                'debug' => cenv('APP_DEBUG', true),
-                'timezone' => 'Asia/Shanghai',
-                'env_path' => base_path(),
-                'config_path' => base_path('config'),
-                'providers' => [],
-                'middleware' => [],
-                'route' => [],
-            ],
-        ]);
-    }
-
-    /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         // 注册核心服务
         $this->app->registerProviders($this->providers);
@@ -112,7 +92,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->registerProviders($this->app['config']['app']['providers']);
     }
 
-    public function boot()
+    public function boot(): void
     {
         $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['charset']));
         $this->app['event_dispatcher']->addSubscriber(new StringResponseListener());

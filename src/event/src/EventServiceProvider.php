@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(EventDispatcher::class, function ($app) {
             return new EventDispatcher();
@@ -36,7 +36,7 @@ class EventServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registered()
+    public function registered(): void
     {
         $this->app['listener'] = $this->app['listener']->merge($this->app['config']['event']['listener'] ?? []);
     }

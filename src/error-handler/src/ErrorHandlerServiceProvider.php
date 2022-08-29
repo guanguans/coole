@@ -23,7 +23,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('whoops_error_page_handler', function ($app) {
             if (PHP_SAPI === 'cli') {
@@ -46,7 +46,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registered()
+    public function registered(): void
     {
         $this->boot();
     }
@@ -54,7 +54,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         ErrorHandler::register();
 

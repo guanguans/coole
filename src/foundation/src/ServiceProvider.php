@@ -20,10 +20,8 @@ abstract class ServiceProvider
 
     /**
      * 注册服务之前.
-     *
-     * @return void
      */
-    public function registering()
+    public function registering(): void
     {
     }
 
@@ -32,46 +30,36 @@ abstract class ServiceProvider
      * This method should only be used to configure services and parameters.
      * It should not get services.
      * 在给定的容器上注册服务。此方法仅应用于配置服务和参数。它不应获得服务。
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
     }
 
     /**
      * 注册服务之后.
-     *
-     * @return void
      */
-    public function registered()
+    public function registered(): void
     {
     }
 
     /**
      * 引导应用程序之前.
-     *
-     * @return void
      */
-    public function booting()
+    public function booting(): void
     {
     }
 
     /**
      * 引导应用程序.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
     }
 
     /**
      * 引导应用程序之后.
-     *
-     * @return void
      */
-    public function booted()
+    public function booted(): void
     {
     }
 }

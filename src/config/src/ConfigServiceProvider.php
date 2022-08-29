@@ -19,7 +19,7 @@ class ConfigServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering()
+    public function registering(): void
     {
         is_null($this->app['env_path']) or $this->app->loadEnvsFrom($this->app['env_path']);
     }
@@ -27,7 +27,7 @@ class ConfigServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Config::class, function ($app) {
             return new Config();
@@ -38,7 +38,7 @@ class ConfigServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registered()
+    public function registered(): void
     {
         is_null($this->app['config_path']) or $this->app->loadConfigsFrom($this->app['config_path']);
     }

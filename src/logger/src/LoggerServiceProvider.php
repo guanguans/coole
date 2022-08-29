@@ -25,7 +25,7 @@ class LoggerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering()
+    public function registering(): void
     {
         $this->app->loadConfigsFrom(__DIR__.'/../config', false);
     }
@@ -33,7 +33,7 @@ class LoggerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton('monolog', function ($app) {
             $log = new Logger($app['config']['logger']['name']);
@@ -87,7 +87,7 @@ class LoggerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         if ($this->app->has('monolog.listener')) {
             $this->app['event_dispatcher']->addSubscriber($this->app['monolog.listener']);

@@ -22,7 +22,7 @@ class DatabaseServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering()
+    public function registering(): void
     {
         $this->app->loadConfigsFrom(__DIR__.'/../config', false);
     }
@@ -30,7 +30,7 @@ class DatabaseServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Manager::class, function ($app) {
             return new Manager();
@@ -43,7 +43,7 @@ class DatabaseServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function boot()
+    public function boot(): void
     {
         $this->app['database']->addConnection($this->app['config']['database']['connections'][$this->app['config']['database']['default']]);
         // Set the event dispatcher used by Eloquent models... (optional)

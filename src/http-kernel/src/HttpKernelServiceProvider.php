@@ -23,7 +23,7 @@ class HttpKernelServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(RequestStack::class, function ($app) {
             return new RequestStack();

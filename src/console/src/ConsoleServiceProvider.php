@@ -20,7 +20,7 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering()
+    public function registering(): void
     {
         $this->app->loadConfigsFrom(__DIR__.'/../config', false);
     }
@@ -28,7 +28,7 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register()
+    public function register(): void
     {
         $this->app->singleton(Application::class, function ($app) {
             return new Application($this->app);
@@ -43,7 +43,7 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registered()
+    public function registered(): void
     {
         $this->app->loadCommandsFrom(__DIR__.'/Commands', '\Coole\Console\Commands');
 
