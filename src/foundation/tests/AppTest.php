@@ -180,37 +180,37 @@ class AppTest extends TestCase
     public function testLoadEnv()
     {
         $this->markTestSkipped(__METHOD__);
-        $loadEnv = $this->app->loadEnv(__DIR__.'/Stub');
+        $loadEnv = $this->app->loadEnvsFrom(__DIR__.'/Stub');
         $this->assertInstanceOf(App::class, $loadEnv);
     }
 
     public function testLoadConfig()
     {
-        $loadConfig = $this->app->loadConfig(__DIR__.'/Stub/config');
+        $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config');
         $this->assertInstanceOf(App::class, $loadConfig);
 
-        $loadConfig = $this->app->loadConfig(__DIR__.'/Stub/config/app.php');
+        $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config/app.php');
         $this->assertInstanceOf(App::class, $loadConfig);
     }
 
     public function testLoadConfigException()
     {
         $this->expectException(UnknownFileException::class);
-        $this->app->loadConfig(__DIR__.'/Stub/conf');
+        $this->app->loadConfigsFrom(__DIR__.'/Stub/conf');
     }
 
     public function testLoadRoute()
     {
-        $loadConfig = $this->app->loadRoute(__DIR__.'/Stub/config');
+        $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config');
         $this->assertInstanceOf(App::class, $loadConfig);
 
-        $loadConfig = $this->app->loadRoute(__DIR__.'/Stub/config/app.php');
+        $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config/app.php');
         $this->assertInstanceOf(App::class, $loadConfig);
     }
 
     public function testLoadRouteException()
     {
         $this->expectException(UnknownFileException::class);
-        $this->app->loadRoute(__DIR__.'/Stub/conf');
+        $this->app->loadRoutesFrom(__DIR__.'/Stub/conf');
     }
 }

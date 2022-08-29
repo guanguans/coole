@@ -22,7 +22,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function registering()
     {
-        $this->app->loadConfig(__DIR__.'/../config', false);
+        $this->app->loadConfigsFrom(__DIR__.'/../config', false);
     }
 
     /**
@@ -45,10 +45,10 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function registered()
     {
-        $this->app->loadCommand(__DIR__.'/Commands', '\Coole\Console\Commands');
+        $this->app->loadCommandsFrom(__DIR__.'/Commands', '\Coole\Console\Commands');
 
         foreach ($this->app['config']['console']['command'] as $command) {
-            $this->app->loadCommand($command['dir'], $command['namespace'], $command['suffix']);
+            $this->app->loadCommandsFrom($command['dir'], $command['namespace'], $command['suffix']);
         }
     }
 }

@@ -131,7 +131,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return $this
      */
-    public function loadEnv($paths): self
+    public function loadEnvsFrom($paths): self
     {
         $dotenv = Dotenv::createUnsafeMutable($paths);
         $dotenv->load();
@@ -146,7 +146,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @throws \Coole\Foundation\Exceptions\UnknownFileException
      */
-    public function loadConfig(string $path, bool $force = true): self
+    public function loadConfigsFrom(string $path, bool $force = true): self
     {
         if (! file_exists($path)) {
             throw new UnknownFileException(sprintf('File or directory does not exist.: %s', $path));
@@ -171,12 +171,21 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $this;
     }
 
+    public function mergeConfigFrom(string $path, string $key)
+    {
+        $config = $this->app->make('config');
+
+        $config->set($key, array_merge(
+            require $path, $config->get($key, [])
+        ));
+    }
+
     /**
      * 加载路由.
      *
      * @return $this
      */
-    public function loadRoute(string $path): self
+    public function loadRoutesFrom(string $path): self
     {
         if (! file_exists($path)) {
             throw new UnknownFileException(sprintf('File or directory does not exist.: %s', $path));
@@ -201,7 +210,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return $this
      */
-    public function loadCommand(string $dir, string $namespace, string $suffix = '*Command.php')
+    public function loadCommandsFrom(string $dir, string $namespace, string $suffix = '*Command.php')
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
 

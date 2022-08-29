@@ -23,7 +23,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function registering()
     {
-        $this->app->loadConfig(__DIR__.'/../config', false);
+        $this->app->loadConfigsFrom(__DIR__.'/../config', false);
     }
 
     /**

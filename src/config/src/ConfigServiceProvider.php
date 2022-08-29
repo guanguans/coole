@@ -21,7 +21,7 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function registering()
     {
-        is_null($this->app['env_path']) or $this->app->loadEnv($this->app['env_path']);
+        is_null($this->app['env_path']) or $this->app->loadEnvsFrom($this->app['env_path']);
     }
 
     /**
@@ -40,6 +40,6 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function registered()
     {
-        is_null($this->app['config_path']) or $this->app->loadConfig($this->app['config_path']);
+        is_null($this->app['config_path']) or $this->app->loadConfigsFrom($this->app['config_path']);
     }
 }
