@@ -12,42 +12,39 @@ declare(strict_types=1);
 
 namespace Coole\Logger;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\App;
 use Coole\Foundation\Listeners\LogListener;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\GroupHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class LoggerServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}
      */
-    public function beforeRegister(App $app)
+    public function registering()
     {
-        $app->loadConfig(__DIR__.'/../config', false);
+        $this->app->loadConfig(__DIR__.'/../config', false);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton('monolog', function ($app) {
+        $this->app->singleton('monolog', function ($app) {
             $log = new Logger($app['config']['logger']['name']);
             $handler = new GroupHandler($app['monolog.handlers']);
             $log->pushHandler($handler);
 
             return $log;
         });
-        $app->alias('monolog', 'logger');
+        $this->app->alias('monolog', 'logger');
 
-        $app->singleton(LineFormatter::class, function ($app) {
+        $this->app->singleton(LineFormatter::class, function ($app) {
             return new LineFormatter(
                 $app['config']['logger']['formatter']['format'],
                 $app['config']['logger']['formatter']['date_format'],
@@ -56,9 +53,9 @@ class LoggerServiceProvider extends ServiceProvider
             );
         });
 
-        $app->alias(LineFormatter::class, 'monolog.formatter');
+        $this->app->alias(LineFormatter::class, 'monolog.formatter');
 
-        $app->singleton(StreamHandler::class, function ($app) {
+        $this->app->singleton(StreamHandler::class, function ($app) {
             $handler = new StreamHandler(
                 $app['config']['logger']['log_file'],
                 $app['config']['logger']['level'],
@@ -70,9 +67,9 @@ class LoggerServiceProvider extends ServiceProvider
 
             return $handler;
         });
-        $app->alias(StreamHandler::class, 'monolog.handler');
+        $this->app->alias(StreamHandler::class, 'monolog.handler');
 
-        $app->singleton('monolog.handlers', function ($app) {
+        $this->app->singleton('monolog.handlers', function ($app) {
             $handlers = [];
             if ($app['config']['logger']['log_file']) {
                 $handlers[] = $app['monolog.handler'];
@@ -81,29 +78,23 @@ class LoggerServiceProvider extends ServiceProvider
             return $handlers;
         });
 
-        $app->singleton(LogListener::class, function ($app) {
+        $this->app->singleton(LogListener::class, function ($app) {
             return new LogListener($app['logger']);
         });
-        $app->alias(LogListener::class, 'monolog.listener');
+        $this->app->alias(LogListener::class, 'monolog.listener');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function subscribe(App $app, EventDispatcherInterface $dispatcher)
+    public function boot()
     {
-        if ($app->has('monolog.listener')) {
-            $dispatcher->addSubscriber($app['monolog.listener']);
+        if ($this->app->has('monolog.listener')) {
+            $this->app['event_dispatcher']->addSubscriber($this->app['monolog.listener']);
         }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function boot(App $app)
-    {
-        if ($app['debug']) {
-            ErrorHandler::register($app['monolog']);
+        if ($this->app['debug']) {
+            ErrorHandler::register($this->app['monolog']);
         }
     }
 }

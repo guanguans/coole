@@ -12,8 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Invoker;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
 
@@ -22,12 +21,12 @@ class InvokerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(Invoker::class, function ($app) {
+        $this->app->singleton(Invoker::class, function ($app) {
             return new Invoker(new TypeHintContainerResolver($app), $app);
         });
 
-        $app->alias(Invoker::class, 'invoker');
+        $this->app->alias(Invoker::class, 'invoker');
     }
 }

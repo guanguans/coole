@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Event;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\App;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 use Illuminate\Support\Collection as Listener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
@@ -23,14 +21,14 @@ class EventServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(EventDispatcher::class, function ($app) {
+        $this->app->singleton(EventDispatcher::class, function ($app) {
             return new EventDispatcher();
         });
-        $app->alias(EventDispatcher::class, 'event_dispatcher');
+        $this->app->alias(EventDispatcher::class, 'event_dispatcher');
 
-        $app->singleton('listener', function () {
+        $this->app->singleton('listener', function () {
             return new Listener();
         });
     }
@@ -38,8 +36,8 @@ class EventServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function afterRegister(App $app)
+    public function registered()
     {
-        $app['listener'] = $app['listener']->merge($app['config']['event']['listener'] ?? []);
+        $this->app['listener'] = $this->app['listener']->merge($this->app['config']['event']['listener'] ?? []);
     }
 }

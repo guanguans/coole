@@ -13,7 +13,6 @@ declare(strict_types=1);
 use Coole\Event\Event;
 use Coole\Event\ListenerInterface;
 use Coole\Foundation\App;
-use Illuminate\Support\Collection;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 if (! function_exists('app')) {
@@ -102,20 +101,6 @@ if (! function_exists('cenv')) {
         }
 
         return $value;
-    }
-}
-
-if (! function_exists('collect')) {
-    /**
-     * 创建集合.
-     *
-     * @param null $value
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    function collect($value = null)
-    {
-        return new Collection($value);
     }
 }
 

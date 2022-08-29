@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\App;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 use Illuminate\Support\Collection as Command;
 
 class ConsoleServiceProvider extends ServiceProvider
@@ -22,22 +20,22 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function beforeRegister(App $app)
+    public function registering()
     {
-        $app->loadConfig(__DIR__.'/../config', false);
+        $this->app->loadConfig(__DIR__.'/../config', false);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(Application::class, function ($app) {
-            return new Application($app);
+        $this->app->singleton(Application::class, function ($app) {
+            return new Application($this->app);
         });
-        $app->alias(Application::class, 'console');
+        $this->app->alias(Application::class, 'console');
 
-        $app->singleton('command', function ($app) {
+        $this->app->singleton('command', function ($app) {
             return new Command();
         });
     }
@@ -45,12 +43,12 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function afterRegister(App $app)
+    public function registered()
     {
-        $app->loadCommand(__DIR__.'/Commands', '\Coole\Console\Commands');
+        $this->app->loadCommand(__DIR__.'/Commands', '\Coole\Console\Commands');
 
-        foreach ($app['config']['console']['command'] as $command) {
-            $app->loadCommand($command['dir'], $command['namespace'], $command['suffix']);
+        foreach ($this->app['config']['console']['command'] as $command) {
+            $this->app->loadCommand($command['dir'], $command['namespace'], $command['suffix']);
         }
     }
 }

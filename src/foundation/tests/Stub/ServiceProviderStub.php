@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Tests\Stub;
 
-use Coole\Foundation\Able\ServiceProviderInterface;
+use Coole\Foundation\ServiceProviderInterface;
 use Illuminate\Container\Container;
 
 class ServiceProviderStub implements ServiceProviderInterface

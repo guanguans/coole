@@ -10,16 +10,8 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation\Able;
+namespace Coole\Foundation\Exceptions;
 
-use Coole\Foundation\App;
-
-interface BeforeRegisterAbleProviderInterface
+class Exception extends \Exception
 {
-    /**
-     * 注册服务之前.
-     *
-     * @return mixed
-     */
-    public function beforeRegister(App $app);
 }

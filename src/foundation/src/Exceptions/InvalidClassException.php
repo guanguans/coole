@@ -12,6 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Exceptions;
 
-class InvalidClassException extends \Exception
+class InvalidClassException extends Exception
 {
 }

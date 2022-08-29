@@ -13,11 +13,6 @@ declare(strict_types=1);
 namespace Coole\Foundation;
 
 use Coole\Console\CommandDiscoverer;
-use Coole\Foundation\Able\AfterRegisterAbleProviderInterface;
-use Coole\Foundation\Able\BeforeRegisterAbleProviderInterface;
-use Coole\Foundation\Able\BootAbleProviderInterface;
-use Coole\Foundation\Able\ServiceProviderInterface;
-use Coole\Foundation\Able\SubscribeEventAbleProviderInterface;
 use Coole\Foundation\Exceptions\UnknownFileException;
 use Coole\HttpKernel\Controller\Controller;
 use Coole\HttpKernel\Controller\HasControllerAble;
@@ -61,7 +56,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 核心服务.
      *
-     * @var array
+     * @var array<ServiceProvider>
      */
     protected $providers = [];
 
@@ -84,7 +79,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->setOptions($options);
 
         // 注册 app 服务
-        $this->register(new AppServiceProvider());
+        $this->register(new AppServiceProvider($this));
     }
 
     /**
@@ -92,17 +87,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return $this
      */
-    public function register(ServiceProviderInterface $provider): self
+    public function register(ServiceProvider $provider): self
     {
         $this->providers[] = $provider;
 
-        // 处理注册之前工作
-        $provider instanceof BeforeRegisterAbleProviderInterface and $provider->beforeRegister($this);
-
-        $provider->register($this);
-
-        // 处理注册之后工作
-        $provider instanceof AfterRegisterAbleProviderInterface and $provider->afterRegister($this);
+        $provider->registering();
+        $provider->register();
+        $provider->registered();
 
         return $this;
     }
@@ -265,7 +256,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function registerProviders(array $providers): self
     {
         foreach ($providers as $provider) {
-            $this->register(new $provider());
+            $this->register(new $provider($this));
         }
 
         return $this;
@@ -306,10 +297,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->booted = true;
 
         foreach ($this->providers as $provider) {
-            // 服务订阅事件
-            $provider instanceof SubscribeEventAbleProviderInterface and $provider->subscribe($this, $this['event_dispatcher']);
             // 引导服务
-            $provider instanceof BootableProviderInterface and $provider->boot($this);
+            $provider->booting();
+            $provider->boot();
+            $provider->booted();
         }
     }
 

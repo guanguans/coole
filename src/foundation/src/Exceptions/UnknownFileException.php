@@ -12,6 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Exceptions;
 
-class UnknownFileException extends \Exception
+class UnknownFileException extends Exception
 {
 }

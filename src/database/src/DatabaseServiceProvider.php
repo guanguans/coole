@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Database;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\App;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
@@ -24,37 +22,37 @@ class DatabaseServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function beforeRegister(App $app)
+    public function registering()
     {
-        $app->loadConfig(__DIR__.'/../config', false);
+        $this->app->loadConfig(__DIR__.'/../config', false);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(Manager::class, function ($app) {
+        $this->app->singleton(Manager::class, function ($app) {
             return new Manager();
         });
 
-        $app->alias(Manager::class, 'database');
-        $app->alias(Manager::class, 'database');
+        $this->app->alias(Manager::class, 'database');
+        $this->app->alias(Manager::class, 'database');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function boot(App $app)
+    public function boot()
     {
-        $app['database']->addConnection($app['config']['database']['connections'][$app['config']['database']['default']]);
+        $this->app['database']->addConnection($this->app['config']['database']['connections'][$this->app['config']['database']['default']]);
         // Set the event dispatcher used by Eloquent models... (optional)
-        $app['database']->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
+        $this->app['database']->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
 
         // Make this Capsule instance available globally via static methods... (optional)
-        $app['database']->setAsGlobal();
+        $this->app['database']->setAsGlobal();
 
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-        $app['database']->bootEloquent();
+        $this->app['database']->bootEloquent();
     }
 }

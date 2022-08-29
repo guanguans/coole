@@ -12,9 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel;
 
-use Coole\Foundation\Able\ServiceProvider;
+use Coole\Foundation\ServiceProvider;
 use Coole\HttpKernel\Controller\ControllerResolver;
-use Illuminate\Container\Container;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -24,26 +23,26 @@ class HttpKernelServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(RequestStack::class, function ($app) {
+        $this->app->singleton(RequestStack::class, function ($app) {
             return new RequestStack();
         });
-        $app->alias(RequestStack::class, 'request_stack');
+        $this->app->alias(RequestStack::class, 'request_stack');
 
-        $app->singleton(ControllerResolver::class, function ($app) {
+        $this->app->singleton(ControllerResolver::class, function ($app) {
             return new ControllerResolver(app('logger'));
         });
-        $app->alias(ControllerResolver::class, 'controller_resolver');
+        $this->app->alias(ControllerResolver::class, 'controller_resolver');
 
-        $app->singleton(ArgumentResolver::class, function ($app) {
+        $this->app->singleton(ArgumentResolver::class, function ($app) {
             return new ArgumentResolver();
         });
-        $app->alias(ArgumentResolver::class, 'argument_resolver');
+        $this->app->alias(ArgumentResolver::class, 'argument_resolver');
 
-        $app->singleton(HttpKernel::class, function ($app) {
+        $this->app->singleton(HttpKernel::class, function ($app) {
             return new HttpKernel($app['event_dispatcher'], $app['controller_resolver'], $app['request_stack'], $app['argument_resolver']);
         });
-        $app->alias(HttpKernel::class, 'http_kernel');
+        $this->app->alias(HttpKernel::class, 'http_kernel');
     }
 }

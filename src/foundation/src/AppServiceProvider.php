@@ -17,8 +17,6 @@ use Coole\Console\ConsoleServiceProvider;
 use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Coole\Event\EventServiceProvider;
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\Facades\Facade;
 use Coole\Foundation\Listeners\NullResponseListener;
 use Coole\Foundation\Listeners\StringResponseListener;
 use Coole\Foundation\Middlewares\CheckResponseForModifications;
@@ -26,8 +24,6 @@ use Coole\HttpKernel\HttpKernelServiceProvider;
 use Coole\Logger\LoggerServiceProvider;
 use Coole\Routing\RoutingServiceProvider;
 use Coole\View\ViewServiceProvider;
-use Illuminate\Container\Container;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\EventListener\ResponseListener;
 
 class AppServiceProvider extends ServiceProvider
@@ -60,36 +56,36 @@ class AppServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function beforeRegister(App $app)
+    public function registering()
     {
         // 设置门面的 app 共享实例
-        Facade::setFacadeApplication($app);
+        Facade::setFacadeApplication($this->app);
 
         // 注册 config 服务
-        $app->register(new ConfigServiceProvider());
+        $this->app->register(new ConfigServiceProvider($this->app));
 
         // 设置配置
-        $this->setUpConfig($app);
+        $this->setUpConfig();
 
         // 设置第三方全局配置
-        $app->setOptions($app['config']['app']->toArray());
+        $this->app->setOptions($this->app['config']['app']->toArray());
 
         // 设置 timezone
-        date_default_timezone_set($app['timezone']);
+        date_default_timezone_set($this->app['timezone']);
 
         // 设置核心全局中间件
-        $app->setMiddleware($this->middleware);
+        $this->app->setMiddleware($this->middleware);
 
         // 设置第三方全局中间件
-        $app->setMiddleware($app['config']['app']['middleware']);
+        $this->app->setMiddleware($this->app['config']['app']['middleware']);
     }
 
     /**
      * 设置配置.
      */
-    protected function setUpConfig(App $app)
+    protected function setUpConfig()
     {
-        $app->addConfig([
+        $this->app->addConfig([
             'app' => [
                 'name' => cenv('APP_NAME', 'Coole'),
                 'env' => cenv('APP_ENV', 'production'),
@@ -107,22 +103,19 @@ class AppServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
         // 注册核心服务
-        $app->registerProviders($this->providers);
+        $this->app->registerProviders($this->providers);
 
         // 注册第三方服务
-        $app->registerProviders($app['config']['app']['providers']);
+        $this->app->registerProviders($this->app['config']['app']['providers']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function subscribe(App $app, EventDispatcherInterface $dispatcher)
+    public function boot()
     {
-        $dispatcher->addSubscriber(new ResponseListener($app['charset']));
-        $dispatcher->addSubscriber(new StringResponseListener());
-        $dispatcher->addSubscriber(new NullResponseListener());
+        $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['charset']));
+        $this->app['event_dispatcher']->addSubscriber(new StringResponseListener());
+        $this->app['event_dispatcher']->addSubscriber(new NullResponseListener());
     }
 }

@@ -155,12 +155,8 @@
             "dev-main": "2.x-dev"
         },
         "hooks": {
-            "pre-commit": [
-                "composer checks"
-            ],
-            "pre-merge": [
-                "composer checks"
-            ]
+            "pre-commit": [],
+            "pre-merge": []
         }
     },
     "scripts": {

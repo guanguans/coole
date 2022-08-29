@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\View;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\App;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -23,17 +21,17 @@ class ViewServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function beforeRegister(App $app)
+    public function registering()
     {
-        $app->loadConfig(__DIR__.'/../config', false);
+        $this->app->loadConfig(__DIR__.'/../config', false);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(FilesystemLoader::class, function ($app) {
+        $this->app->singleton(FilesystemLoader::class, function ($app) {
             $loader = new FilesystemLoader();
 
             foreach ((array) $app['config']['view']['path'] as $namespace => $path) {
@@ -42,11 +40,11 @@ class ViewServiceProvider extends ServiceProvider
 
             return $loader;
         });
-        $app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
+        $this->app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
 
-        $app->singleton(Environment::class, function ($app) {
+        $this->app->singleton(Environment::class, function ($app) {
             return new Environment($app['twig_filesystem_loader'], $app['config']['view']['options']);
         });
-        $app->alias(Environment::class, 'view');
+        $this->app->alias(Environment::class, 'view');
     }
 }

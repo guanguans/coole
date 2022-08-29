@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Coole\Foundation\Facades;
 
 /**
- * @method static \Coole\Foundation\App register(\Coole\Foundation\Able\ServiceProviderInterface $provider)
+ * @method static \Coole\Foundation\App register(\Coole\Foundation\ServiceProvider $provider)
  * @method static \Coole\Foundation\App addOptions(array $options)
  * @method static \Coole\Foundation\App version()
  * @method static \Coole\Foundation\App loadEnv($paths)

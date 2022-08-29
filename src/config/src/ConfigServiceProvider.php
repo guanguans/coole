@@ -12,36 +12,34 @@ declare(strict_types=1);
 
 namespace Coole\Config;
 
-use Coole\Foundation\Able\ServiceProvider;
-use Coole\Foundation\App;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 
 class ConfigServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritdoc}
      */
-    public function beforeRegister(App $app)
+    public function registering()
     {
-        is_null($app['env_path']) or $app->loadEnv($app['env_path']);
+        is_null($this->app['env_path']) or $this->app->loadEnv($this->app['env_path']);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function register(Container $app)
+    public function register()
     {
-        $app->singleton(Config::class, function ($app) {
+        $this->app->singleton(Config::class, function ($app) {
             return new Config();
         });
-        $app->alias(Config::class, 'config');
+        $this->app->alias(Config::class, 'config');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function afterRegister(App $app)
+    public function registered()
     {
-        is_null($app['config_path']) or $app->loadConfig($app['config_path']);
+        is_null($this->app['config_path']) or $this->app->loadConfig($this->app['config_path']);
     }
 }

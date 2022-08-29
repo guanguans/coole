@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\View\Facades;
 
-use Coole\Foundation\Facades\Facade;
+use Coole\Foundation\Facade;
 
 /**
  * @method static \Twig\Environment render($name, array $context = [])

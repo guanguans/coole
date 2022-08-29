@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Invoker\Facades;
 
-use Coole\Foundation\Facades\Facade;
+use Coole\Foundation\Facade;
 
 /**
  * @method static mixed call($callable, array $parameters = [])

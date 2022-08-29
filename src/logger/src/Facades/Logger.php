@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Logger\Facades;
 
-use Coole\Foundation\Facades\Facade;
+use Coole\Foundation\Facade;
 
 /**
  * @method static \Monolog\Logger logger($level, $message, array $context = [])
