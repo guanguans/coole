@@ -83,17 +83,43 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 添加全局配置.
+     * 批量设置全局配置.
      */
-    public function addOptions(array $options): void
+    public function setOptions(array $options): void
     {
         $this->options = array_merge($this->options, $options);
 
-        foreach ($this->options as $key => $option) {
-            $this[$key] = $option;
+        foreach ($this->options as $option => $value) {
+            $this[$option] = $value;
         }
 
         $this['options'] = $this->options;
+    }
+
+    /**
+     * 设置全局配置.
+     */
+    public function setOption(string $option, $value): void
+    {
+        $this->setOptions([$option => $value]);
+    }
+
+    /**
+     * 合并配置.
+     */
+    public function mergeConfig(string $key, array $value): void
+    {
+        $this['config'][$key] = $value;
+    }
+
+    /**
+     * 添加配置.
+     *
+     * @return $this
+     */
+    public function addConfig(string $key, array $value): void
+    {
+        $this['config']->offsetExists($key) or $this['config'][$key] = $value;
     }
 
     /**
@@ -120,7 +146,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
      */
-    public function loadConfigsFrom(string $path, bool $force = true): void
+    public function loadConfigsFrom(string $path, bool $force = false): void
     {
         if (! file_exists($path)) {
             throw UnknownFileOrDirectoryException::create($path);
@@ -180,33 +206,19 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
 
-        $commands = $commandDiscoverer->getCommands() and $this['command']->add($commands);
+        $commands = $commandDiscoverer->getCommands() and $this['console.command.collection']->add($commands);
     }
 
     /**
-     * 设置全局配置.
-     */
-    public function setOptions(array $options): void
-    {
-        $this->addOptions($options);
-    }
-
-    /**
-     * 合并配置.
-     */
-    public function mergeConfig(string $key, array $value): void
-    {
-        $this['config'][$key] = $value;
-    }
-
-    /**
-     * 添加配置.
+     * 注册命令.
      *
-     * @return $this
+     * @param array<\Coole\Console\Command>|string $commands
      */
-    public function addConfig(string $key, array $value): void
+    public function commands(array|string $commands)
     {
-        $this['config']->offsetExists($key) or $this['config'][$key] = $value;
+        foreach ((array) $commands as $command) {
+            $this['console.command.collection']->add($this->make($command));
+        }
     }
 
     /**

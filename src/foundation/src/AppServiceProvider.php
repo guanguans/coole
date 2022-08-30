@@ -69,6 +69,7 @@ class AppServiceProvider extends ServiceProvider
 
         // 设置第三方全局配置
         $this->app->setOptions($this->app['config']['app']);
+        $this->app->setOption('debug', true);
 
         // 设置 timezone
         date_default_timezone_set($this->app['timezone']);

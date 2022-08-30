@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
+use Coole\Console\Commands\ServeCommand;
 use Coole\Foundation\ServiceProvider;
-use Illuminate\Support\Collection as Command;
 
 class ConsoleServiceProvider extends ServiceProvider
 {
@@ -22,7 +22,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigsFrom(__DIR__.'/../config', false);
+        $this->app->loadConfigsFrom(__DIR__.'/../config/console.php');
     }
 
     /**
@@ -30,24 +30,21 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Application::class, function ($app) {
-            return new Application($this->app);
-        });
+        $this->app->singleton(Application::class);
         $this->app->alias(Application::class, 'console');
+        $this->app->alias(Application::class, 'console.app');
 
-        $this->app->singleton('command', function ($app) {
-            return new Command();
-        });
+        $this->app->singleton(CommandCollection::class);
+        $this->app->alias(CommandCollection::class, 'console.command.collection');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function registered(): void
+    public function boot(): void
     {
-        $this->app->loadCommandsFrom(__DIR__.'/Commands', '\Coole\Console\Commands');
-
-        foreach ($this->app['config']['console']['command'] as $command) {
+        $this->app->commands(ServeCommand::class);
+        foreach ($this->app['config']['console']['commands'] as $command) {
             $this->app->loadCommandsFrom($command['dir'], $command['namespace'], $command['suffix']);
         }
     }

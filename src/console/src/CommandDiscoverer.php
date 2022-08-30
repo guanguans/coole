@@ -49,13 +49,17 @@ class CommandDiscoverer
      */
     public function getCommands(): array
     {
-        $files = Finder::create()->files()->in($this->dir)->name($this->suffix);
+        $files = Finder::create()
+            ->files()
+            ->in($this->dir)
+            ->ignoreVCS(true)
+            ->ignoreDotFiles(true)
+            ->name($this->suffix);
 
         $commands = [];
-
         foreach ($files as $file) {
             $class = '\\'.trim($this->namespace.'\\'.$file->getBasename('.php'), '\\');
-            $command = new $class();
+            $command = app($class);
             $command instanceof Command && $commands[] = $command;
         }
 

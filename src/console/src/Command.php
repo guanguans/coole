@@ -13,79 +13,40 @@ declare(strict_types=1);
 namespace Coole\Console;
 
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class Command extends SymfonyCommand
 {
     /**
      * 名称.
-     *
-     * @var string
      */
-    protected $name = '';
+    protected string $name;
 
     /**
      * 描述.
-     *
-     * @var string
      */
-    protected $description = '';
+    protected string $description;
 
     /**
      * 隐藏.
-     *
-     * @var bool
      */
-    protected $hidden = false;
-
-    /**
-     * 输入.
-     *
-     * @var InputInterface
-     */
-    protected $input;
-
-    /**
-     * 输出.
-     *
-     * @var OutputInterface
-     */
-    protected $output;
+    protected bool $hidden = false;
 
     /**
      * 参数.
-     *
-     * @var array
      */
-    protected $arguments = [];
+    protected array $arguments = [];
 
     /**
      * 选项.
-     *
-     * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     public function __construct()
     {
         parent::__construct($this->name);
-
         $this->setDescription($this->description);
-
         $this->setHidden($this->hidden);
-
         $this->specifyParameters();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function initialize(InputInterface $input, OutputInterface $output)
-    {
-        $this->input = $input;
-
-        $this->output = $output;
     }
 
     /**

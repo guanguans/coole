@@ -20,47 +20,78 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ServeCommand extends Command
 {
-    protected $name = 'serve';
+    protected string $name = 'serve';
 
-    protected $description = 'Serve the application on the PHP development server';
+    protected string $description = 'Serve the application on the PHP development server';
 
-    protected $options = [
-        ['host', null, InputOption::VALUE_OPTIONAL, 'The host address to serve the application on', '127.0.0.1'],
-        ['port', null, InputOption::VALUE_OPTIONAL, 'The port to serve the application on', 8000],
-        ['docroot', null, InputOption::VALUE_REQUIRED, 'The docroot to serve the application on', null],
-    ];
+    protected int $tries;
 
-    protected $tries = 10;
+    protected function configure()
+    {
+        $this
+            ->addOption(
+                'port',
+                'P',
+                InputOption::VALUE_OPTIONAL,
+                'The host address to serve the application on',
+                '127.0.0.1'
+            )
+            ->addOption(
+                'host',
+                'H',
+                InputOption::VALUE_OPTIONAL,
+                'The port to serve the application on',
+                8000
+            )
+            ->addOption(
+                'docroot',
+                'D',
+                InputOption::VALUE_REQUIRED,
+                'The docroot to serve the application on',
+            )
+            ->addOption(
+                'tries',
+                'T',
+                InputOption::VALUE_OPTIONAL,
+                'The tries to serve the application on',
+                10
+            );
+    }
+
+    public function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->tries = $input->getOption('tries');
+    }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        if (empty($this->input->getOption('docroot'))) {
+        if (empty($input->getOption('docroot'))) {
             throw new InvalidArgumentException('Please set option of docroot.');
         }
 
-        if (! file_exists($this->input->getOption('docroot'))) {
-            throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $this->input->getOption('docroot')));
+        if (! file_exists($input->getOption('docroot'))) {
+            throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $input->getOption('docroot')));
         }
 
-        $this->output->writeln("<info>Coole development server started:</info> <http://{$this->input->getOption('host')}:{$this->input->getOption('port')}>");
+        $output->writeln("<info>Coole development server started:</info> <http://{$input->getOption('host')}:{$input->getOption('port')}>");
 
-        passthru($this->serverCommand(), $status);
+        passthru($this->serverCommand($input), $status);
         if ($status && $this->tries > 0) {
             --$this->tries;
             $input->setOption('port', $input->getOption('port') + 1);
             $this->execute($input, $output);
         }
 
-        return parent::SUCCESS;
+        return self::SUCCESS;
     }
 
-    protected function serverCommand()
+    protected function serverCommand(InputInterface $input)
     {
         return sprintf('%s -S %s:%s -t %s',
             PHP_BINARY,
-            $this->input->getOption('host'),
-            $this->input->getOption('port'),
-            $this->input->getOption('docroot'),
+            $input->getOption('host'),
+            $input->getOption('port'),
+            $input->getOption('docroot'),
         );
     }
 }

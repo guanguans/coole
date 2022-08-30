@@ -29,9 +29,7 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Config::class, function ($app) {
-            return new Config();
-        });
+        $this->app->singleton(Config::class);
         $this->app->alias(Config::class, 'config');
     }
 

@@ -52,6 +52,7 @@ coole;
     public function __construct(App $app)
     {
         $this->app = $app;
+        $this->app->boot();
 
         parent::__construct('Coole Framework', $app->version());
     }
@@ -61,7 +62,7 @@ coole;
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
-        $this->addCommands($this->app['command']->flatten()->all());
+        $this->addCommands($this->app['console.command.collection']->flatten()->all());
 
         return parent::doRun($input, $output);
     }
