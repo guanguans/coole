@@ -47,6 +47,6 @@ class DB extends Facade
      */
     public static function getFacadeAccessor()
     {
-        return 'database';
+        return 'db';
     }
 }

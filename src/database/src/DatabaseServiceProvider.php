@@ -24,7 +24,7 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigsFrom(__DIR__.'/../config', false);
+        $this->app->loadConfigsFrom(__DIR__.'/../config');
     }
 
     /**
@@ -32,12 +32,9 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Manager::class, function ($app) {
-            return new Manager();
-        });
-
+        $this->app->singleton(Manager::class);
         $this->app->alias(Manager::class, 'database');
-        $this->app->alias(Manager::class, 'database');
+        $this->app->alias(Manager::class, 'db');
     }
 
     /**
@@ -48,10 +45,8 @@ class DatabaseServiceProvider extends ServiceProvider
         $this->app['database']->addConnection($this->app['config']['database']['connections'][$this->app['config']['database']['default']]);
         // Set the event dispatcher used by Eloquent models... (optional)
         $this->app['database']->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
-
         // Make this Capsule instance available globally via static methods... (optional)
         $this->app['database']->setAsGlobal();
-
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
         $this->app['database']->bootEloquent();
     }
