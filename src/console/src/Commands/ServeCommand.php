@@ -30,14 +30,14 @@ class ServeCommand extends Command
     {
         $this
             ->addOption(
-                'port',
+                'host',
                 'P',
                 InputOption::VALUE_OPTIONAL,
                 'The host address to serve the application on',
                 '127.0.0.1'
             )
             ->addOption(
-                'host',
+                'port',
                 'H',
                 InputOption::VALUE_OPTIONAL,
                 'The port to serve the application on',

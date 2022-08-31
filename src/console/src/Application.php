@@ -12,9 +12,11 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
+use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\App;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Throwable;
 
 /**
  * ``` php
@@ -52,19 +54,25 @@ coole;
     public function __construct(App $app)
     {
         $this->app = $app;
-        $this->app->boot();
 
         parent::__construct('Coole Framework', $app->version());
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function doRun(InputInterface $input, OutputInterface $output)
+    public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
-        $this->addCommands($this->app['console.command.collection']->flatten()->all());
+        try {
+            $this->app->boot();
 
-        return parent::doRun($input, $output);
+            $this->addCommands($this->app['console.command.collection']->flatten()->all());
+
+            return parent::run($input, $output);
+        } catch (Throwable $e) {
+            $this->reportException($e);
+
+            $this->renderException($output, $e);
+
+            return 1;
+        }
     }
 
     /**
@@ -73,5 +81,27 @@ coole;
     public function getHelp(): string
     {
         return parent::getHelp().PHP_EOL.static::LOGO;
+    }
+
+    /**
+     * Report the exception to the exception handler.
+     *
+     * @return void
+     */
+    protected function reportException(Throwable $e)
+    {
+        $this->app[ErrorHandlerInterface::class]->report($e);
+    }
+
+    /**
+     * Render the given exception.
+     *
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return void
+     */
+    protected function renderException($output, Throwable $e)
+    {
+        $this->app[ErrorHandlerInterface::class]->renderForConsole($output, $e);
     }
 }

@@ -33,12 +33,14 @@ if (! function_exists('app')) {
 
 if (! function_exists('config')) {
     /**
-     * 获取/设置指定的配置值.
+     * Get / set the specified configuration value.
+     *
+     * If an array is passed as the key, we will assume you want to set an array of values.
      *
      * @param array|string|null $key
      * @param mixed             $default
      *
-     * @return bool|\Coole\Foundation\App|mixed
+     * @return mixed|\Illuminate\Config\Repository
      */
     function config($key = null, $default = null)
     {
@@ -47,18 +49,10 @@ if (! function_exists('config')) {
         }
 
         if (is_array($key)) {
-            foreach ($key as $k => $v) {
-                app('config')[$k] = $v;
-            }
-
-            return true;
+            return app('config')->set($key);
         }
 
-        if (! is_null($default)) {
-            return $default;
-        }
-
-        return app('config')[$key];
+        return app('config')->get($key, $default);
     }
 }
 

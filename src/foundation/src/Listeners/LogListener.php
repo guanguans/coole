@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Listeners;
 
-use Coole\Foundation\Exceptions\Exception;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,6 +21,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Throwable;
 
 class LogListener implements EventSubscriberInterface
 {
@@ -33,7 +33,7 @@ class LogListener implements EventSubscriberInterface
     public function __construct(protected LoggerInterface $logger, ?callable $exceptionLogFilter = null)
     {
         if (null === $exceptionLogFilter) {
-            $exceptionLogFilter = function (Exception $e) {
+            $exceptionLogFilter = function (Throwable $e) {
                 if ($e instanceof HttpExceptionInterface && $e->getStatusCode() < 500) {
                     return LogLevel::ERROR;
                 }

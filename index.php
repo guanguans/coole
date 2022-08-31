@@ -14,10 +14,15 @@ use Coole\Foundation\App;
 use Coole\Routing\Facades\Router;
 use Symfony\Component\HttpFoundation\Request;
 
+defined('COOLE_START') or define('COOLE_START', microtime(true));
+defined('BASE_PATH') or define('BASE_PATH', __DIR__);
+
 require __DIR__.'/vendor/autoload.php';
 
 // 1. Create App.
 $app = new App();
+config(['app.debug' => true]);
+$app->setOption('debug', true);
 $app['debug'] = true;
 
 // 2. Add route with closure middleware.

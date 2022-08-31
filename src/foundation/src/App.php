@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\Foundation;
 
 use Coole\Console\CommandDiscoverer;
+use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
 use Coole\HttpKernel\Controller\Controller;
 use Coole\HttpKernel\Controller\HasControllerAble;
@@ -26,6 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
+use Throwable;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
@@ -241,17 +243,39 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             $request = Request::createFromGlobals();
         }
 
-        // 引导服务
-        $this->boot();
+        try {
+            // 引导服务
+            $this->boot();
 
-        // 通过中间件将请求转化为响应
-        $response = $this->sendRequestThroughPipeline($request);
+            // 通过中间件将请求转化为响应
+            $response = $this->sendRequestThroughPipeline($request);
+        } catch (Throwable $e) {
+            $this->reportException($e);
+
+            $response = $this->renderException($request, $e);
+        }
 
         // 发送响应
         $response->send();
 
         // 终止请求/响应生命周期
         $this->terminate($request, $response);
+    }
+
+    /**
+     * Report the exception to the exception handler.
+     */
+    protected function reportException(Throwable $e): void
+    {
+        $this->app[ErrorHandlerInterface::class]->report($e);
+    }
+
+    /**
+     * Render the exception to a response.
+     */
+    protected function renderException(Request $request, Throwable $e): Response
+    {
+        return $this->app[ErrorHandlerInterface::class]->render($request, $e);
     }
 
     /**

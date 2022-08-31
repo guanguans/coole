@@ -12,11 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
+use Coole\ErrorHandler\Whoops\WhoopsExceptionRenderer;
 use Coole\Foundation\ServiceProvider;
-use Symfony\Component\ErrorHandler\ErrorHandler;
-use Whoops\Handler\PlainTextHandler;
-use Whoops\Handler\PrettyPageHandler;
-use Whoops\Run;
 
 class ErrorHandlerServiceProvider extends ServiceProvider
 {
@@ -25,39 +22,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('whoops_error_page_handler', function ($app) {
-            if (PHP_SAPI === 'cli') {
-                return new PlainTextHandler();
-            }
-
-            return new PrettyPageHandler();
-        });
-
-        $this->app->singleton(Run::class, function ($app) {
-            $run = new Run();
-            $run->allowQuit(false);
-            $run->pushHandler($this->app['whoops_error_page_handler']);
-
-            return $run;
-        });
-        $this->app->alias(Run::class, 'whoops');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function registered(): void
-    {
-        $this->boot();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function boot(): void
-    {
-        ErrorHandler::register();
-
-        $this->app['debug'] and $this->app['whoops']->register();
+        $this->app->bind(ErrorHandlerInterface::class, ErrorHandler::class);
+        $this->app->bind(ExceptionRendererInterface::class, WhoopsExceptionRenderer::class);
     }
 }

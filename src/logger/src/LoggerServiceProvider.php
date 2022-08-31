@@ -19,6 +19,7 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\GroupHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
+use Psr\Log\LoggerInterface;
 
 class LoggerServiceProvider extends ServiceProvider
 {
@@ -27,7 +28,7 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigsFrom(__DIR__.'/../config', false);
+        $this->app->loadConfigsFrom(__DIR__.'/../config/logger.php');
     }
 
     /**
@@ -35,14 +36,15 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('monolog', function ($app) {
+        $this->app->bind(LoggerInterface::class, function ($app) {
             $log = new Logger($app['config']['logger']['name']);
             $handler = new GroupHandler($app['monolog.handlers']);
             $log->pushHandler($handler);
 
             return $log;
         });
-        $this->app->alias('monolog', 'logger');
+        $this->app->alias(LoggerInterface::class, 'logger');
+        $this->app->alias(LoggerInterface::class, 'monolog');
 
         $this->app->singleton(LineFormatter::class, function ($app) {
             return new LineFormatter(

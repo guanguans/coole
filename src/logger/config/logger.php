@@ -36,7 +36,7 @@ return [
     /*
      * 日志文件
      */
-    'log_file' => cenv('LOGGER_LOG_FILE', base_path('var/logs/app.logger')),
+    'log_file' => cenv('LOGGER_LOG_FILE', base_path('var/logs/app.log')),
 
     /*
      * 是否锁定日志文件
