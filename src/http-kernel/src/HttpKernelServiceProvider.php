@@ -41,7 +41,7 @@ class HttpKernelServiceProvider extends ServiceProvider
         $this->app->alias(ArgumentResolver::class, 'argument_resolver');
 
         $this->app->singleton(HttpKernel::class, function ($app) {
-            return new HttpKernel($app['event_dispatcher'], $app['controller_resolver'], $app['request_stack'], $app['argument_resolver']);
+            return new HttpKernel($app['event.dispatcher'], $app['controller_resolver'], $app['request_stack'], $app['argument_resolver']);
         });
         $this->app->alias(HttpKernel::class, 'http_kernel');
     }

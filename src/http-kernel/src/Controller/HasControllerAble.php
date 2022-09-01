@@ -176,7 +176,7 @@ trait HasControllerAble
      */
     public function addFinishHandler($listener, int $priority = 0): void
     {
-        app('event_dispatcher')->addListener(KernelEvents::TERMINATE, $listener, $priority);
+        app('event.dispatcher')->addListener(KernelEvents::TERMINATE, $listener, $priority);
     }
 
     /**

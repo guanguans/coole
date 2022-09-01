@@ -58,6 +58,6 @@ class RoutingServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app['event_dispatcher']->addSubscriber(new RouterListener($this->app['url_matcher'], $this->app['request_stack']));
+        $this->app['event.dispatcher']->addSubscriber(new RouterListener($this->app['url_matcher'], $this->app['request_stack']));
     }
 }

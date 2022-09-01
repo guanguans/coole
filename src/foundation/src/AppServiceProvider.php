@@ -97,8 +97,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['charset']));
-        $this->app['event_dispatcher']->addSubscriber(new StringResponseListener());
-        $this->app['event_dispatcher']->addSubscriber(new NullResponseListener());
+        $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['charset']));
+        $this->app['event.dispatcher']->addSubscriber(new StringResponseListener());
+        $this->app['event.dispatcher']->addSubscriber(new NullResponseListener());
     }
 }

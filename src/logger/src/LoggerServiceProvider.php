@@ -92,7 +92,7 @@ class LoggerServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->has('monolog.listener')) {
-            $this->app['event_dispatcher']->addSubscriber($this->app['monolog.listener']);
+            $this->app['event.dispatcher']->addSubscriber($this->app['monolog.listener']);
         }
 
         if ($this->app['debug']) {

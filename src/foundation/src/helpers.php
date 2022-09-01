@@ -126,18 +126,23 @@ if (! function_exists('event')) {
      */
     function event(Event $event, $listeners = null, $isDispatch = true)
     {
-        $dispatcher = app('event_dispatcher');
+        /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
+        $dispatcher = app('event.dispatcher');
 
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
         $listeners = array_unique(array_merge(
-            app('listener')->get(get_class($event)) ?? [],
+            app('event.listener.collection')->get(get_class($event)) ?? [],
             $listeners
         ));
 
         foreach ($listeners as $listener) {
+            if (is_callable($listener)) {
+                $dispatcher->addListener($event::getName(), $listener);
+                continue;
+            }
+
             is_string($listener) && $listener = app($listener);
-            $listener instanceof Closure && $dispatcher->addListener($event::getName(), $listener);
             $listener instanceof ListenerInterface && $dispatcher->addListener($event::getName(), [$listener, 'handle']);
             $listener instanceof EventSubscriberInterface && $dispatcher->addSubscriber($listener);
         }
