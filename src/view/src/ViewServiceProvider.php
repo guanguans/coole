@@ -33,17 +33,16 @@ class ViewServiceProvider extends ServiceProvider
     {
         $this->app->singleton(FilesystemLoader::class, function ($app) {
             $loader = new FilesystemLoader();
-
             foreach ((array) $app['config']['view']['path'] as $namespace => $path) {
                 is_string($namespace) ? $loader->setPaths($path, $namespace) : $loader->addPath($path);
             }
 
             return $loader;
         });
-        $this->app->alias(FilesystemLoader::class, 'twig_filesystem_loader');
+        $this->app->alias(FilesystemLoader::class, 'view.loader');
 
         $this->app->singleton(Environment::class, function ($app) {
-            return new Environment($app['twig_filesystem_loader'], $app['config']['view']['options']);
+            return new Environment($app['view.loader'], $app['config']['view']['options']);
         });
         $this->app->alias(Environment::class, 'view');
     }
