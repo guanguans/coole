@@ -23,17 +23,13 @@ trait HasControllerAble
 {
     /**
      * 中间件.
-     *
-     * @var array
      */
-    protected $middleware = [];
+    protected array $middleware = [];
 
     /**
      * 排除的中间件.
-     *
-     * @var array
      */
-    protected $excludedMiddleware = [];
+    protected array $excludedMiddleware = [];
 
     /**
      * {@inheritdoc}

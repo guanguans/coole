@@ -25,24 +25,21 @@ class HttpKernelServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(RequestStack::class, function ($app) {
-            return new RequestStack();
-        });
-        $this->app->alias(RequestStack::class, 'request_stack');
+        $this->app->singleton(RequestStack::class);
+        $this->app->alias(RequestStack::class, 'http.kernel.request.stack');
 
-        $this->app->singleton(ControllerResolver::class, function ($app) {
-            return new ControllerResolver(app('logger'));
-        });
-        $this->app->alias(ControllerResolver::class, 'controller_resolver');
+        $this->app->instance(ControllerResolver::class, new ControllerResolver(app('logger')));
+        $this->app->alias(ControllerResolver::class, 'http.kernel.controller.resolver');
 
-        $this->app->singleton(ArgumentResolver::class, function ($app) {
-            return new ArgumentResolver();
-        });
-        $this->app->alias(ArgumentResolver::class, 'argument_resolver');
+        $this->app->singleton(ArgumentResolver::class);
+        $this->app->alias(ArgumentResolver::class, 'http.kernel.argument.resolver');
 
-        $this->app->singleton(HttpKernel::class, function ($app) {
-            return new HttpKernel($app['event.dispatcher'], $app['controller_resolver'], $app['request_stack'], $app['argument_resolver']);
-        });
-        $this->app->alias(HttpKernel::class, 'http_kernel');
+        $this->app->instance(HttpKernel::class, new HttpKernel(
+            $this->app['event.dispatcher'],
+            $this->app['http.kernel.controller.resolver'],
+            $this->app['http.kernel.request.stack'],
+            $this->app['http.kernel.argument.resolver']
+        ));
+        $this->app->alias(HttpKernel::class, 'http.kernel');
     }
 }
