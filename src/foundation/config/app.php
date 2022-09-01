@@ -24,7 +24,7 @@ return [
     /*
      * Debug
      */
-    'debug' => cenv('APP_DEBUG', false),
+    'debug' => cenv('APP_DEBUG', true),
 
     /*
      * 时区

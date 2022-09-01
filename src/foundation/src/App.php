@@ -244,6 +244,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
 
         try {
+            $this->instance('request', $request);
+
             // 引导服务
             $this->boot();
 

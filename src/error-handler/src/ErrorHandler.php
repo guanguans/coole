@@ -477,11 +477,10 @@ class ErrorHandler implements ErrorHandlerInterface
     protected function renderExceptionContent(Throwable $e)
     {
         try {
-            config(['app.debug' => true]);
-
-            return config('app.debug') && app()->has(ExceptionRendererInterface::class)
-                        ? $this->renderExceptionWithCustomRenderer($e)
-                        : $this->renderExceptionWithSymfony($e, config('app.debug'));
+            return config('app.debug')
+                && app()->has(ExceptionRendererInterface::class)
+                ? $this->renderExceptionWithCustomRenderer($e)
+                : $this->renderExceptionWithSymfony($e, config('app.debug'));
         } catch (Throwable $e) {
             return $this->renderExceptionWithSymfony($e, config('app.debug'));
         }

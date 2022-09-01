@@ -21,9 +21,6 @@ require __DIR__.'/vendor/autoload.php';
 
 // 1. Create App.
 $app = new App();
-config(['app.debug' => true]);
-$app->setOption('debug', true);
-$app['debug'] = true;
 
 // 2. Add route with closure middleware.
 Router::get('/', function () {

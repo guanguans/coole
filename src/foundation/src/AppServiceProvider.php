@@ -74,6 +74,8 @@ class AppServiceProvider extends ServiceProvider
         // 设置 timezone
         date_default_timezone_set($this->app['timezone']);
 
+        mb_internal_encoding('UTF-8');
+
         // 设置核心全局中间件
         $this->app->setMiddleware($this->middleware);
 
