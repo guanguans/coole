@@ -26,10 +26,7 @@
     "autoload": {
         "psr-4": {
             "Coole\\Invoker\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "config": {
         "sort-packages": true
