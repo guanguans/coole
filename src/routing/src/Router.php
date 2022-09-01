@@ -16,31 +16,12 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Router
 {
-    /**
-     * 默认路由.
-     *
-     * @var \Coole\Routing\Route
-     */
-    protected $defaultRoute;
-
-    /**
-     * 路由集合.
-     *
-     * @var \Symfony\Component\Routing\RouteCollection
-     */
-    protected $routeCollection;
-
-    /**
-     * 路由组属性栈.
-     *
-     * @var array
-     */
     protected $groupStack = [];
 
-    public function __construct(Route $defaultRoute, RouteCollection $routeCollection)
-    {
-        $this->defaultRoute = $defaultRoute;
-        $this->routeCollection = $routeCollection;
+    public function __construct(
+        protected Route $defaultRoute,
+        protected RouteCollection $routeCollection
+    ) {
     }
 
     /**

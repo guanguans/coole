@@ -14,10 +14,11 @@ namespace Coole\Logger;
 
 use Coole\Foundation\Listeners\LogListener;
 use Coole\Foundation\ServiceProvider;
+use Illuminate\Container\Container;
 use Monolog\ErrorHandler;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\GroupHandler;
-use Monolog\Handler\StreamHandler;
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Handler\FormattableHandlerInterface;
+use Monolog\Handler\HandlerInterface;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
@@ -36,54 +37,38 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(LoggerInterface::class, function ($app) {
-            $log = new Logger($app['config']['logger']['name']);
-            $handler = new GroupHandler($app['monolog.handlers']);
-            $log->pushHandler($handler);
-
-            return $log;
-        });
-        $this->app->alias(LoggerInterface::class, 'logger');
-        $this->app->alias(LoggerInterface::class, 'monolog');
-
-        $this->app->singleton(LineFormatter::class, function ($app) {
-            return new LineFormatter(
-                $app['config']['logger']['formatter']['format'],
-                $app['config']['logger']['formatter']['date_format'],
-                $app['config']['logger']['formatter']['allow_inline_line_breaks'],
-                $app['config']['logger']['formatter']['ignore_empty_context_and_extra']
+        $this->app->bind(FormatterInterface::class, function (Container $app) {
+            return $app->make(
+                $app['config']['logger']['default_formatter'],
+                $app['config']['logger']['formatters'][$app['config']['logger']['default_formatter']]
             );
         });
+        $this->app->alias(FormatterInterface::class, 'logger.formatter');
 
-        $this->app->alias(LineFormatter::class, 'monolog.formatter');
-
-        $this->app->singleton(StreamHandler::class, function ($app) {
-            $handler = new StreamHandler(
-                $app['config']['logger']['log_file'],
-                $app['config']['logger']['level'],
-                $app['config']['logger']['bubble'],
-                $app['config']['logger']['file_permission'],
-                $app['config']['logger']['use_locking']
+        $this->app->bind(HandlerInterface::class, function ($app) {
+            $handler = $app->make(
+                $app['config']['logger']['default_handler'],
+                $app['config']['logger']['handlers'][$app['config']['logger']['default_handler']]
             );
-            $handler->setFormatter($app['monolog.formatter']);
+
+            if ($handler instanceof FormattableHandlerInterface) {
+                $handler->setFormatter($app['logger.formatter']);
+            }
 
             return $handler;
         });
-        $this->app->alias(StreamHandler::class, 'monolog.handler');
+        $this->app->alias(HandlerInterface::class, 'logger.handler');
 
-        $this->app->singleton('monolog.handlers', function ($app) {
-            $handlers = [];
-            if ($app['config']['logger']['log_file']) {
-                $handlers[] = $app['monolog.handler'];
-            }
+        $this->app->bind(LoggerInterface::class, function ($app) {
+            $logger = new Logger($app['config']['logger']['name']);
+            $logger->pushHandler($app['logger.handler']);
 
-            return $handlers;
+            return $logger;
         });
+        $this->app->alias(LoggerInterface::class, 'logger');
 
-        $this->app->singleton(LogListener::class, function ($app) {
-            return new LogListener($app['logger']);
-        });
-        $this->app->alias(LogListener::class, 'monolog.listener');
+        $this->app->singleton(LogListener::class);
+        $this->app->alias(LogListener::class, 'logger.listener');
     }
 
     /**
@@ -91,12 +76,12 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if ($this->app->has('monolog.listener')) {
-            $this->app['event.dispatcher']->addSubscriber($this->app['monolog.listener']);
+        if ($this->app->has('logger.listener')) {
+            $this->app['event.dispatcher']->addSubscriber($this->app['logger.listener']);
         }
 
         if ($this->app['debug']) {
-            ErrorHandler::register($this->app['monolog']);
+            ErrorHandler::register($this->app['logger']);
         }
     }
 }

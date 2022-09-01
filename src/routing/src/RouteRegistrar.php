@@ -15,20 +15,14 @@ namespace Coole\Routing;
 class RouteRegistrar
 {
     /**
-     * @var \Coole\Routing\Router
-     */
-    protected $router;
-
-    /**
      * 路由组属性.
      *
      * @var array
      */
     protected $attributes = [];
 
-    public function __construct(Router $router)
+    public function __construct(protected Router $router)
     {
-        $this->router = $router;
     }
 
     /**

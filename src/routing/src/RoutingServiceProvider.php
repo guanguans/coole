@@ -25,25 +25,22 @@ class RoutingServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(RouteCollection::class, function ($app) {
-            return new RouteCollection();
-        });
-        $this->app->alias(RouteCollection::class, 'route_collection');
+        $this->app->singleton(RouteCollection::class);
+        $this->app->alias(RouteCollection::class, 'routing.collection');
 
-        $this->app->singleton(RequestContext::class, function ($app) {
-            return new RequestContext();
-        });
-        $this->app->alias(RequestContext::class, 'request_context');
+        $this->app->singleton(RequestContext::class);
+        $this->app->alias(RequestContext::class, 'routing.request.context');
 
         $this->app->singleton(UrlMatcher::class, function ($app) {
-            return new UrlMatcher($app['route_collection'], $app['request_context']);
+            return new UrlMatcher($app['routing.collection'], $app['routing.request.context']);
         });
-        $this->app->alias(UrlMatcher::class, 'url_matcher');
+        $this->app->alias(UrlMatcher::class, 'routing.url.matcher');
 
         $this->app->singleton(Router::class, function ($app) {
-            return new Router(new Route(), $app['route_collection']);
+            return new Router(new Route(), $app['routing.collection']);
         });
         $this->app->alias(Router::class, 'router');
+        $this->app->alias(Router::class, 'routing.router');
     }
 
     /**
@@ -58,6 +55,6 @@ class RoutingServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app['event.dispatcher']->addSubscriber(new RouterListener($this->app['url_matcher'], $this->app['http.kernel.request.stack']));
+        $this->app['event.dispatcher']->addSubscriber(new RouterListener($this->app['routing.url.matcher'], $this->app['http.kernel.request.stack']));
     }
 }

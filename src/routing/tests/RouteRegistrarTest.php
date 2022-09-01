@@ -32,7 +32,7 @@ class RouteRegistrarTest extends TestCase
     protected function setUp(): void
     {
         $this->app = new App();
-        $this->routeRegistrar = new RouteRegistrar(new Router(new Route(), $this->app['route_collection']));
+        $this->routeRegistrar = new RouteRegistrar(new Router(new Route(), $this->app['routing.collection']));
     }
 
     public function testPrefix()

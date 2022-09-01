@@ -253,6 +253,7 @@ class ErrorHandler implements ErrorHandlerInterface
             array_merge(
                 $this->exceptionContext($e),
                 $this->context(),
+                $e->getTrace(),
                 ['exception' => $e]
             )
         );

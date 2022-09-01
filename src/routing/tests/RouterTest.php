@@ -33,7 +33,7 @@ class RouterTest extends TestCase
     protected function setUp(): void
     {
         $this->app = new App();
-        $this->router = new Router(new Route(), $this->app['route_collection']);
+        $this->router = new Router(new Route(), $this->app['routing.collection']);
     }
 
     public function testAny()
