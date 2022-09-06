@@ -92,6 +92,7 @@
         "pestphp/pest-plugin-mock": "^1.0",
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.0",
+        "rector/rector": "^0.14",
         "symplify/monorepo-builder": "^11.1",
         "vimeo/psalm": "^5.0"
     },
@@ -155,8 +156,8 @@
             "dev-main": "2.x-dev"
         },
         "hooks": {
-            "pre-commit": [],
-            "post-merge": []
+            "post-merge": [],
+            "pre-commit": []
         }
     },
     "scripts": {
@@ -187,6 +188,8 @@
         ],
         "psalm": "./vendor/bin/psalm",
         "psalm-baseline": "@psalm --update-baseline",
+        "rector": "./vendor/bin/rector --clear-cache --ansi -v",
+        "rector-dry-run": "@rector --dry-run",
         "release": "./vendor/bin/monorepo-builder release --ansi -vvv",
         "serve": "./bin/coole serve --docroot=./ --port=8008 --ansi -vvv",
         "style-fix": "./vendor/bin/php-cs-fixer fix --using-cache=no --config=.php-cs-fixer.php --ansi",

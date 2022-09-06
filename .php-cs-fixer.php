@@ -26,6 +26,7 @@ $finder = PhpCsFixer\Finder::create()
         __DIR__.'/index.php',
         __DIR__.'/LocalValetDriver.php',
         __DIR__.'/monorepo-builder.php',
+        __DIR__.'/rector.php',
         __DIR__.'/server.php',
     ])
     ->exclude([
