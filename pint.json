@@ -1,0 +1,41 @@
+{
+    "preset": "symfony",
+    "rules": {
+        "header_comment" : {
+            "header": "This file is part of Coole.\n\n@link     https://github.com/guanguans/coole\n@contact  guanguans <ityaozm@gmail.com>\n@license  https://github.com/guanguans/coole/blob/main/LICENSE",
+            "comment_type": "PHPDoc"
+        },
+        "array_syntax": {
+            "syntax": "short"
+        },
+        "ordered_imports": {
+            "sort_algorithm": "alpha"
+        },
+        "no_unused_imports": true,
+        "not_operator_with_successor_space": true,
+        "no_useless_else": true,
+        "no_useless_return": true,
+        "single_quote": true,
+        "class_attributes_separation": true,
+        "standardize_not_equals": true,
+        "declare_strict_types": true
+    },
+    "exclude": [
+        ".github/",
+        "build/",
+        "docs/",
+        "var/",
+        "vendor/",
+        "node_modules"
+    ],
+    "notName": [
+        "_ide_helper_actions.php",
+        "_ide_helper_models.php",
+        "_ide_helper.php",
+        ".phpstorm.meta.php",
+        "*.blade.php"
+    ],
+    "notPath": [
+        "path/to/excluded-file.php"
+    ]
+}
