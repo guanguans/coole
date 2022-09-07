@@ -19,6 +19,7 @@ use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
+use Rector\Core\ValueObject\PhpVersion;
 use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
@@ -34,7 +35,7 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->paths([
-        __DIR__.'/bin/coole',
+        __DIR__.'/bin/cooler',
         __DIR__.'/src',
         __DIR__.'/index.php',
         __DIR__.'/server.php',
@@ -55,26 +56,26 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_80,
-        SetList::CODE_QUALITY,
-        SetList::CODING_STYLE,
-        SetList::DEAD_CODE,
-        SetList::NAMING,
-        SetList::TYPE_DECLARATION,
-        SetList::TYPE_DECLARATION_STRICT,
-        SetList::EARLY_RETURN,
-        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+        // SetList::CODE_QUALITY,
+        // SetList::CODING_STYLE,
+        // SetList::DEAD_CODE,
+        // SetList::NAMING,
+        // SetList::TYPE_DECLARATION,
+        // SetList::TYPE_DECLARATION_STRICT,
+        // SetList::EARLY_RETURN,
+        // PHPUnitSetList::PHPUNIT_CODE_QUALITY,
     ]);
 
-    $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
+    $rectorConfig->disableParallel();
     $rectorConfig->importNames(true, false);
-    $rectorConfig->parallel();
-    $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
-    $rectorConfig->phpVersion(8);
     $rectorConfig->nestedChainMethodCallLimit(3);
+    $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
+    $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
+    // $rectorConfig->phpVersion(PhpVersion::PHP_80);
     // $rectorConfig->cacheClass(FileCacheStorage::class);
     // $rectorConfig->cacheDirectory(__DIR__.'/build/rector');
     // $rectorConfig->indent(' ', 4);
-    // $rectorConfig->disableParallel();
+    // $rectorConfig->parallel();
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,

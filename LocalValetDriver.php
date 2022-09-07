@@ -32,7 +32,7 @@ class LocalValetDriver extends BasicValetDriver
      */
     public function serves($sitePath, $siteName, $uri)
     {
-        return file_exists($sitePath.'/bin/coole') && $this->asRootPhpIndexFile($sitePath);
+        return file_exists($sitePath.'/bin/cooler') && $this->asRootPhpIndexFile($sitePath);
     }
 
     /**
