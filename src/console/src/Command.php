@@ -55,11 +55,11 @@ class Command extends SymfonyCommand
     protected function specifyParameters(): void
     {
         foreach ($this->getArguments() as $arguments) {
-            call_user_func_array([$this, 'addArgument'], $arguments);
+            $this->addArgument(...$arguments);
         }
 
         foreach ($this->getOptions() as $options) {
-            call_user_func_array([$this, 'addOption'], $options);
+            $this->addOption(...$options);
         }
     }
 

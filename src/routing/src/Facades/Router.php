@@ -44,7 +44,7 @@ class Router extends Facade
     /**
      * {@inheritdoc}
      */
-    public static function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'router';
     }

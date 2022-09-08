@@ -31,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(FilesystemLoader::class, function ($app) {
+        $this->app->singleton(FilesystemLoader::class, static function ($app) {
             $loader = new FilesystemLoader();
             foreach ((array) $app['config']['view']['path'] as $namespace => $path) {
                 is_string($namespace) ? $loader->setPaths($path, $namespace) : $loader->addPath($path);
@@ -43,7 +43,7 @@ class ViewServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             Environment::class,
-            fn ($app) => new Environment($app['view.loader'], $app['config']['view']['options'])
+            static fn ($app) => new Environment($app['view.loader'], $app['config']['view']['options'])
         );
         $this->app->alias(Environment::class, 'view');
     }

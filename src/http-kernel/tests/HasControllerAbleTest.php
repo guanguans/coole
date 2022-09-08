@@ -55,14 +55,16 @@ class HasControllerAbleTest extends TestCase
 
     public function testAddFinishHandler()
     {
-        $controller = $this->controller->addFinishHandler(function () {});
+        $controller = $this->controller->addFinishHandler(static function () {
+        });
 
         $this->assertInstanceOf(Controller::class, $controller);
     }
 
     public function testSetFinishHandler()
     {
-        $controller = $this->controller->setFinishHandler(function () {});
+        $controller = $this->controller->setFinishHandler(static function () {
+        });
 
         $this->assertInstanceOf(Controller::class, $controller);
     }

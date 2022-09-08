@@ -109,6 +109,7 @@ if (! function_exists('base_path')) {
         if (! defined('BASE_PATH')) {
             return null;
         }
+
         if (! is_null($path)) {
             return BASE_PATH.'/'.trim($path, '/');
         }
@@ -138,16 +139,16 @@ if (! function_exists('event')) {
 
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {
-                $dispatcher->addListener($event::getName(), $listener);
+                $dispatcher->addListener($event->getName(), $listener);
                 continue;
             }
 
-            is_string($listener) && $listener = app($listener);
-            $listener instanceof ListenerInterface && $dispatcher->addListener($event::getName(), [$listener, 'handle']);
-            $listener instanceof EventSubscriberInterface && $dispatcher->addSubscriber($listener);
+            is_string($listener) and $listener = app($listener);
+            $listener instanceof ListenerInterface and $dispatcher->addListener($event->getName(), [$listener, 'handle']);
+            $listener instanceof EventSubscriberInterface and $dispatcher->addSubscriber($listener);
         }
 
-        $isDispatch && $dispatcher->dispatch($event, $event::getName());
+        $isDispatch and $dispatcher->dispatch($event, $event->getName());
     }
 }
 

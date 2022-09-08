@@ -32,7 +32,7 @@ class Logger extends Facade
     /**
      * {@inheritdoc}
      */
-    public static function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'logger';
     }

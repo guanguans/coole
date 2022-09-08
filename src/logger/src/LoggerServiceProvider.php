@@ -37,18 +37,17 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(FormatterInterface::class, fn (Container $app) => $app->make(
+        $this->app->bind(FormatterInterface::class, static fn (Container $app) => $app->make(
             $app['config']['logger']['default_formatter'],
             $app['config']['logger']['formatters'][$app['config']['logger']['default_formatter']]
         ));
         $this->app->alias(FormatterInterface::class, 'logger.formatter');
 
-        $this->app->bind(HandlerInterface::class, function ($app) {
+        $this->app->bind(HandlerInterface::class, static function ($app) {
             $handler = $app->make(
                 $app['config']['logger']['default_handler'],
                 $app['config']['logger']['handlers'][$app['config']['logger']['default_handler']]
             );
-
             if ($handler instanceof FormattableHandlerInterface) {
                 $handler->setFormatter($app['logger.formatter']);
             }
@@ -57,7 +56,7 @@ class LoggerServiceProvider extends ServiceProvider
         });
         $this->app->alias(HandlerInterface::class, 'logger.handler');
 
-        $this->app->bind(LoggerInterface::class, function ($app) {
+        $this->app->bind(LoggerInterface::class, static function ($app) {
             $logger = new Logger($app['config']['logger']['name']);
             $logger->pushHandler($app['logger.handler']);
 

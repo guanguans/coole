@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\Event\Tests;
 
+use Mockery;
+
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -24,10 +26,10 @@ class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * This method is called after each test.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->finish();
-        \Mockery::close();
+        Mockery::close();
     }
 
     /**

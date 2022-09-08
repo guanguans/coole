@@ -33,7 +33,7 @@ class LogListener implements EventSubscriberInterface
     public function __construct(protected LoggerInterface $logger, ?callable $exceptionLogFilter = null)
     {
         if (null === $exceptionLogFilter) {
-            $exceptionLogFilter = function (Throwable $e) {
+            $exceptionLogFilter = static function (Throwable $e) {
                 if ($e instanceof HttpExceptionInterface && $e->getStatusCode() < 500) {
                     return LogLevel::ERROR;
                 }

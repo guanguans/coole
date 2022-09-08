@@ -32,53 +32,61 @@ class RouterTest extends TestCase
 
     public function testAny()
     {
-        $route = $this->router->any([], '/', function () {});
+        $route = $this->router->any([], '/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame([], $route->getMethods());
 
-        $route = $this->router->any(['GET', 'POST'], '/', function () {});
+        $route = $this->router->any(['GET', 'POST'], '/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['GET', 'POST'], $route->getMethods());
     }
 
     public function testPost()
     {
-        $route = $this->router->post('/', function () {});
+        $route = $this->router->post('/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['POST'], $route->getMethods());
     }
 
     public function testGet()
     {
-        $route = $this->router->get('/', function () {});
+        $route = $this->router->get('/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['GET', 'HEAD'], $route->getMethods());
     }
 
     public function testPut()
     {
-        $route = $this->router->put('/', function () {});
+        $route = $this->router->put('/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['PUT'], $route->getMethods());
     }
 
     public function testDelete()
     {
-        $route = $this->router->delete('/', function () {});
+        $route = $this->router->delete('/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['DELETE'], $route->getMethods());
     }
 
     public function testOptions()
     {
-        $route = $this->router->options('/', function () {});
+        $route = $this->router->options('/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['OPTIONS'], $route->getMethods());
     }
 
     public function testPatch()
     {
-        $route = $this->router->patch('/', function () {});
+        $route = $this->router->patch('/', static function () {
+        });
         $this->assertInstanceOf(Route::class, $route);
         $this->assertSame(['PATCH'], $route->getMethods());
     }
@@ -104,7 +112,7 @@ class RouterTest extends TestCase
         $router = $this->router->group([
             'prefix' => '/',
             'middleware' => ['middleware'],
-        ], function () {
+        ], static function () {
             echo 'group';
         });
 

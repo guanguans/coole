@@ -31,6 +31,8 @@ class Application extends \Symfony\Component\Console\Application
 {
     /**
      * logo.
+     *
+     * @var string
      */
     public const LOGO = <<<'coole'
 <fg=green;options=bold>
@@ -59,10 +61,10 @@ coole;
             $this->addCommands($this->app['console.command.collection']->flatten()->all());
 
             return parent::run($input, $output);
-        } catch (Throwable $e) {
-            $this->reportException($e);
+        } catch (Throwable $throwable) {
+            $this->reportException($throwable);
 
-            $this->renderException($output, $e);
+            $this->renderException($output, $throwable);
 
             return 1;
         }

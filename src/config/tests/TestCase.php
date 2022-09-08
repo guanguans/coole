@@ -24,7 +24,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * This method is called after each test.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->finish();
     }

@@ -23,8 +23,8 @@ require __DIR__.'/vendor/autoload.php';
 $app = new App();
 
 // 2. Add route with closure middleware.
-Router::get('/', fn () => 'This is the Coole framework.')
-    ->setMiddleware(function (Request $request, Closure $next) {
+Router::get('/', static fn () => 'This is the Coole framework.')
+    ->setMiddleware(static function (Request $request, Closure $next) {
         $response = $next($request);
         $response->headers->set('X-Coole-Version', App::version());
 

@@ -33,6 +33,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     use HasControllerAble;
 
+    /**
+     * @var string
+     */
     public const VERSION = '1.1.0';
 
     /**
@@ -251,10 +254,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
             // 通过中间件将请求转化为响应
             $response = $this->sendRequestThroughPipeline($request);
-        } catch (Throwable $e) {
-            $this->reportException($e);
+        } catch (Throwable $throwable) {
+            $this->reportException($throwable);
 
-            $response = $this->renderException($request, $e);
+            $response = $this->renderException($request, $throwable);
         }
 
         // 发送响应
@@ -346,9 +349,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $middlewares = $this->getCurrentRequestMiddleware($request);
 
-        $classMiddleware = array_filter($middlewares, fn ($middleware) => is_string($middleware));
+        $classMiddleware = array_filter($middlewares, static fn ($middleware) => is_string($middleware));
 
-        $objectMiddleware = array_filter($middlewares, fn ($middleware) => ! is_string($middleware));
+        $objectMiddleware = array_filter($middlewares, static fn ($middleware) => ! is_string($middleware));
 
         return array_merge(array_diff($classMiddleware, $this->getCurrentRequestExcludedMiddleware($request)), $objectMiddleware);
     }

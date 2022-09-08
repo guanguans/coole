@@ -41,7 +41,7 @@ class RouteRegistrarTest extends TestCase
 
     public function testGroup()
     {
-        $routeRegistrar = $this->routeRegistrar->group(function () {
+        $routeRegistrar = $this->routeRegistrar->group(static function () {
             echo 'group';
         });
         $this->assertInstanceOf(RouteRegistrar::class, $routeRegistrar);

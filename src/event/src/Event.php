@@ -16,17 +16,17 @@ use Symfony\Contracts\EventDispatcher\Event as SymfonyEvent;
 
 class Event extends SymfonyEvent
 {
-    public const NAME = null;
+    protected ?string $name = null;
 
     /**
      * 获取事件名称.
      */
-    public static function getName(): string
+    public function getName(): string
     {
-        if (static::NAME) {
-            return static::NAME;
+        if (! $this->name) {
+            $this->name = static::class;
         }
 
-        return static::class;
+        return $this->name;
     }
 }

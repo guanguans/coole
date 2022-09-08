@@ -58,7 +58,7 @@ class ServeCommand extends Command
             );
     }
 
-    public function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output)
     {
         $this->tries = $input->getOption('tries');
     }
@@ -73,7 +73,7 @@ class ServeCommand extends Command
             throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $input->getOption('docroot')));
         }
 
-        $output->writeln("<info>Coole development server started:</info> <http://{$input->getOption('host')}:{$input->getOption('port')}>");
+        $output->writeln(sprintf('<info>Coole development server started:</info> <http://%s:%s>', $input->getOption('host'), $input->getOption('port')));
 
         passthru($this->serverCommand($input), $status);
         if ($status && $this->tries > 0) {

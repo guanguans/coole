@@ -45,7 +45,7 @@ class DB extends Facade
     /**
      * {@inheritdoc}
      */
-    public static function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'db';
     }

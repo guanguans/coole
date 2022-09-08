@@ -25,7 +25,7 @@ class AppTest extends TestCase
 {
     private App $app;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->app = new App();
     }
@@ -104,7 +104,8 @@ class AppTest extends TestCase
     public function testGetRouteMiddleware()
     {
         $app = new App();
-        $app['router']->get('/', function () {})->setMiddleware(MiddlewareStub::class);
+        $app['router']->get('/', static function () {
+        })->setMiddleware(MiddlewareStub::class);
         $routeMiddleware = $app->getRouteMiddleware(Request::createFromGlobals());
         $this->assertIsArray($routeMiddleware);
         $this->assertSame(MiddlewareStub::class, end($routeMiddleware));
@@ -113,7 +114,8 @@ class AppTest extends TestCase
     public function testGetCurrentRequestShouldExecutedMiddleware()
     {
         $app = new App();
-        $app['router']->get('/', function () {})->setMiddleware(MiddlewareStub::class);
+        $app['router']->get('/', static function () {
+        })->setMiddleware(MiddlewareStub::class);
         $allMiddleware = $app->getCurrentRequestShouldExecutedMiddleware(Request::createFromGlobals());
         $this->assertIsArray($allMiddleware);
     }

@@ -160,7 +160,7 @@ class ErrorHandler implements ErrorHandlerInterface
     public function map(Closure|string $from, $to = null)
     {
         if (is_string($to)) {
-            $to = fn ($exception) => new $to('', 0, $exception);
+            $to = static fn ($exception) => new $to('', 0, $exception);
         }
 
         if (is_callable($from) && is_null($to)) {
@@ -234,7 +234,7 @@ class ErrorHandler implements ErrorHandlerInterface
             throw $e;
         }
 
-        $level = Arr::first($this->levels, fn ($level, $type) => $e instanceof $type, LogLevel::ERROR);
+        $level = Arr::first($this->levels, static fn ($level, $type) => $e instanceof $type, LogLevel::ERROR);
 
         $logger->log(
             $level,
@@ -267,7 +267,7 @@ class ErrorHandler implements ErrorHandlerInterface
     {
         $dontReport = array_merge($this->dontReport, $this->internalDontReport);
 
-        return ! is_null(Arr::first($dontReport, fn ($type) => $e instanceof $type));
+        return ! is_null(Arr::first($dontReport, static fn ($type) => $e instanceof $type));
     }
 
     /**
@@ -474,8 +474,8 @@ class ErrorHandler implements ErrorHandlerInterface
                 && app()->has(ExceptionRendererInterface::class)
                 ? $this->renderExceptionWithCustomRenderer($e)
                 : $this->renderExceptionWithSymfony($e, config('app.debug'));
-        } catch (Throwable $e) {
-            return $this->renderExceptionWithSymfony($e, config('app.debug'));
+        } catch (Throwable $throwable) {
+            return $this->renderExceptionWithSymfony($throwable, config('app.debug'));
         }
     }
 
@@ -543,7 +543,7 @@ class ErrorHandler implements ErrorHandlerInterface
             'exception' => $e::class,
             'file' => $e->getFile(),
             'line' => $e->getLine(),
-            'trace' => collect($e->getTrace())->map(fn ($trace) => Arr::except($trace, ['args']))->all(),
+            'trace' => collect($e->getTrace())->map(static fn ($trace) => Arr::except($trace, ['args']))->all(),
         ] : [
             'message' => $this->isHttpException($e) ? $e->getMessage() : 'Server Error',
         ];

@@ -10,6 +10,6 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-test('example', function () {
+test('example', static function () {
     expect(true)->toBeTrue();
 });
