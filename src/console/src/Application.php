@@ -30,11 +30,6 @@ use Throwable;
 class Application extends \Symfony\Component\Console\Application
 {
     /**
-     * @var \Coole\Foundation\App
-     */
-    protected $app;
-
-    /**
      * logo.
      */
     public const LOGO = <<<'coole'
@@ -51,10 +46,8 @@ class Application extends \Symfony\Component\Console\Application
 </>
 coole;
 
-    public function __construct(App $app)
+    public function __construct(protected App $app)
     {
-        $this->app = $app;
-
         parent::__construct('Coole Framework', $app->version());
     }
 

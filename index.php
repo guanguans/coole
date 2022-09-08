@@ -23,14 +23,13 @@ require __DIR__.'/vendor/autoload.php';
 $app = new App();
 
 // 2. Add route with closure middleware.
-Router::get('/', function () {
-    return 'This is the Coole framework.';
-})->setMiddleware(function (Request $request, Closure $next) {
-    $response = $next($request);
-    $response->headers->set('X-Coole-Version', App::version());
+Router::get('/', fn () => 'This is the Coole framework.')
+    ->setMiddleware(function (Request $request, Closure $next) {
+        $response = $next($request);
+        $response->headers->set('X-Coole-Version', App::version());
 
-    return $response;
-});
+        return $response;
+    });
 
 // 3. Run service.
 $app->run();

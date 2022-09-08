@@ -19,15 +19,9 @@ use Coole\Routing\RouteRegistrar;
 
 class RouteRegistrarTest extends TestCase
 {
-    /**
-     * @var \Coole\Foundation\App
-     */
-    private $app;
+    private App $app;
 
-    /**
-     * @var \Coole\Routing\RouteRegistrar
-     */
-    private $routeRegistrar;
+    private RouteRegistrar $routeRegistrar;
 
     protected function setUp(): void
     {

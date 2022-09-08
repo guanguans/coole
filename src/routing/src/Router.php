@@ -29,10 +29,8 @@ class Router
      *
      * @param string|string[] $methods
      * @param null            $to
-     *
-     * @return \Coole\Routing\Route
      */
-    public function match($methods, string $pattern, $to = null): Route
+    public function match(string|array $methods, string $pattern, $to = null): Route
     {
         $route = clone $this->defaultRoute;
 
@@ -54,10 +52,8 @@ class Router
      *
      * @param string|string[] $methods
      * @param null            $to
-     *
-     * @return \Coole\Routing\Route
      */
-    public function any($methods, string $pattern, $to = null): Route
+    public function any(string|array $methods, string $pattern, $to = null): Route
     {
         return $this->match($methods, $pattern, $to);
     }
@@ -66,8 +62,6 @@ class Router
      * 添加 get 求路由.
      *
      * @param null $to
-     *
-     * @return \Coole\Routing\Route
      */
     public function get(string $pattern, $to = null): Route
     {
@@ -78,8 +72,6 @@ class Router
      * 添加 post 请求路由.
      *
      * @param null $to
-     *
-     * @return \Coole\Routing\Route
      */
     public function post(string $pattern, $to = null): Route
     {
@@ -90,8 +82,6 @@ class Router
      * 添加 put 请求路由.
      *
      * @param null $to
-     *
-     * @return \Coole\Routing\Route
      */
     public function put(string $pattern, $to = null): Route
     {
@@ -102,8 +92,6 @@ class Router
      * 添加 delete 请求路由.
      *
      * @param null $to
-     *
-     * @return \Coole\Routing\Route
      */
     public function delete(string $pattern, $to = null): Route
     {
@@ -115,8 +103,6 @@ class Router
      *
      * @param $pattern
      * @param null $to
-     *
-     * @return \Coole\Routing\Route
      */
     public function options(string $pattern, $to = null): Route
     {
@@ -127,8 +113,6 @@ class Router
      * 添加 patch 请求路由.
      *
      * @param null $to
-     *
-     * @return \Coole\Routing\Route
      */
     public function patch(string $pattern, $to = null): Route
     {

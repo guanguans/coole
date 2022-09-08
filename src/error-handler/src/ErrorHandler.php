@@ -40,13 +40,6 @@ class ErrorHandler implements ErrorHandlerInterface
     use ReflectsClosures;
 
     /**
-     * The container implementation.
-     *
-     * @var \Coole\Foundation\App
-     */
-    protected $app;
-
-    /**
      * A list of the exception types that are not reported.
      *
      * @var string[]
@@ -109,10 +102,8 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return void
      */
-    public function __construct(App $app)
+    public function __construct(protected App $app)
     {
-        $this->app = $app;
-
         $this->register();
     }
 
@@ -160,14 +151,13 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Register a new exception mapping.
      *
-     * @param \Closure|string      $from
      * @param \Closure|string|null $to
      *
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
-    public function map($from, $to = null)
+    public function map(Closure|string $from, $to = null)
     {
         if (is_string($to)) {
             $to = fn ($exception) => new $to('', 0, $exception);
@@ -241,7 +231,7 @@ class ErrorHandler implements ErrorHandlerInterface
 
         try {
             $logger = $this->app->make(LoggerInterface::class);
-        } catch (Exception $ex) {
+        } catch (Exception) {
             throw $e;
         }
 
@@ -306,7 +296,7 @@ class ErrorHandler implements ErrorHandlerInterface
             return array_filter([
                 // 'ip' => '127.0.0.1',
             ]);
-        } catch (Throwable $e) {
+        } catch (Throwable) {
             return [];
         }
     }
@@ -424,6 +414,8 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     protected function shouldReturnJson($request, Throwable $e)
     {
+        $acceptable = [];
+
         return (
             $request->isXmlHttpRequest()
             && ! (true == $request->headers->get('X-PJAX'))
@@ -548,7 +540,7 @@ class ErrorHandler implements ErrorHandlerInterface
     {
         return config('app.debug') ? [
             'message' => $e->getMessage(),
-            'exception' => get_class($e),
+            'exception' => $e::class,
             'file' => $e->getFile(),
             'line' => $e->getLine(),
             'trace' => collect($e->getTrace())->map(fn ($trace) => Arr::except($trace, ['args']))->all(),

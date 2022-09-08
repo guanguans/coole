@@ -41,9 +41,10 @@ class ViewServiceProvider extends ServiceProvider
         });
         $this->app->alias(FilesystemLoader::class, 'view.loader');
 
-        $this->app->singleton(Environment::class, function ($app) {
-            return new Environment($app['view.loader'], $app['config']['view']['options']);
-        });
+        $this->app->singleton(
+            Environment::class,
+            fn ($app) => new Environment($app['view.loader'], $app['config']['view']['options'])
+        );
         $this->app->alias(Environment::class, 'view');
     }
 }

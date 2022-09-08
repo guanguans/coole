@@ -16,32 +16,20 @@ use Symfony\Component\Finder\Finder;
 
 class CommandDiscoverer
 {
-    /**
-     * 目录.
-     *
-     * @var string
-     */
-    protected $dir = '';
-
-    /**
-     * 命名空间.
-     *
-     * @var string
-     */
-    protected $namespace = '';
-
-    /**
-     * 后缀
-     *
-     * @var string
-     */
-    protected $suffix = '';
-
-    public function __construct(string $dir, string $namespace, string $suffix = '*Command.php')
-    {
-        $this->dir = $dir;
-        $this->namespace = $namespace;
-        $this->suffix = $suffix;
+    public function __construct(
+        /**
+         * 目录.
+         */
+        protected string $dir,
+        /**
+         * 命名空间.
+         */
+        protected string $namespace,
+        /**
+         * 后缀
+         */
+        protected string $suffix = '*Command.php'
+    ) {
     }
 
     /**

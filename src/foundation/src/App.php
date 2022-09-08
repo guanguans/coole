@@ -306,9 +306,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return (new Pipeline())
             ->send($request)
             ->through($this->makeMiddleware($this->getCurrentRequestShouldExecutedMiddleware($request)))
-            ->then(function ($request) {
-                return $this->handle($request);
-            });
+            ->then(fn ($request) => $this->handle($request));
     }
 
     /**
@@ -348,13 +346,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $middlewares = $this->getCurrentRequestMiddleware($request);
 
-        $classMiddleware = array_filter($middlewares, function ($middleware) {
-            return is_string($middleware);
-        });
+        $classMiddleware = array_filter($middlewares, fn ($middleware) => is_string($middleware));
 
-        $objectMiddleware = array_filter($middlewares, function ($middleware) {
-            return ! is_string($middleware);
-        });
+        $objectMiddleware = array_filter($middlewares, fn ($middleware) => ! is_string($middleware));
 
         return array_merge(array_diff($classMiddleware, $this->getCurrentRequestExcludedMiddleware($request)), $objectMiddleware);
     }

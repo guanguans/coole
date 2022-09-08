@@ -37,12 +37,10 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(FormatterInterface::class, function (Container $app) {
-            return $app->make(
-                $app['config']['logger']['default_formatter'],
-                $app['config']['logger']['formatters'][$app['config']['logger']['default_formatter']]
-            );
-        });
+        $this->app->bind(FormatterInterface::class, fn (Container $app) => $app->make(
+            $app['config']['logger']['default_formatter'],
+            $app['config']['logger']['formatters'][$app['config']['logger']['default_formatter']]
+        ));
         $this->app->alias(FormatterInterface::class, 'logger.formatter');
 
         $this->app->bind(HandlerInterface::class, function ($app) {

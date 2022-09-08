@@ -42,7 +42,7 @@ if (! function_exists('config')) {
      *
      * @return mixed|\Illuminate\Config\Repository
      */
-    function config($key = null, $default = null)
+    function config($key = null, mixed $default = null)
     {
         if (is_null($key)) {
             return app('config');
@@ -132,7 +132,7 @@ if (! function_exists('event')) {
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
         $listeners = array_unique(array_merge(
-            app('event.listener.collection')->get(get_class($event)) ?? [],
+            app('event.listener.collection')->get($event::class) ?? [],
             $listeners
         ));
 
@@ -155,15 +155,13 @@ if (! function_exists('call')) {
     /**
      * 调用回调.
      *
-     * @param callable|array|string $callable
-     *
      * @return mixed
      *
      * @throws \Invoker\Exception\InvocationException
      * @throws \Invoker\Exception\NotCallableException
      * @throws \Invoker\Exception\NotEnoughParametersException
      */
-    function call($callable, array $parameters = [])
+    function call(callable|string $callable, array $parameters = [])
     {
         return app('invoker')->call($callable, $parameters);
     }

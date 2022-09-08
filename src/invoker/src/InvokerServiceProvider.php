@@ -23,9 +23,7 @@ class InvokerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Invoker::class, function ($app) {
-            return new Invoker(new TypeHintContainerResolver($app), $app);
-        });
+        $this->app->singleton(Invoker::class, fn ($app) => new Invoker(new TypeHintContainerResolver($app), $app));
 
         $this->app->alias(Invoker::class, 'invoker');
     }

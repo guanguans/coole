@@ -78,7 +78,7 @@ class LogListener implements EventSubscriberInterface
             call_user_func($this->exceptionLogFilter, $event->getThrowable()),
             sprintf(
                 '%s: %s (uncaught exception) at %s line %s',
-                get_class($event->getThrowable()),
+                $event->getThrowable()::class,
                 $event->getThrowable()->getMessage(),
                 $event->getThrowable()->getFile(),
                 $event->getThrowable()->getLine()

@@ -13,14 +13,15 @@ declare(strict_types=1);
 namespace Coole\Event\Tests;
 
 use Coole\Event\Event;
+use Mockery;
 
 class EventTest extends TestCase
 {
     public function testGetName()
     {
-        $event = \Mockery::mock(Event::class)->makePartial();
+        $event = Mockery::mock(Event::class)->makePartial();
 
         $this->assertIsString($event->getName());
-        $this->assertSame(get_class($event), $event->getName());
+        $this->assertSame($event::class, $event->getName());
     }
 }

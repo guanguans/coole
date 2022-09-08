@@ -23,10 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AppTest extends TestCase
 {
-    /**
-     * @var \Coole\Foundation\App
-     */
-    private $app;
+    private App $app;
 
     public function setUp(): void
     {
@@ -179,6 +176,7 @@ class AppTest extends TestCase
 
     public function testLoadEnv()
     {
+        $loadEnv = null;
         $this->markTestSkipped(__METHOD__);
         $loadEnv = $this->app->loadEnvsFrom(__DIR__.'/Stub');
         $this->assertInstanceOf(App::class, $loadEnv);

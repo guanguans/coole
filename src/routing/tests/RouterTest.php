@@ -20,15 +20,9 @@ use Nyholm\NSA;
 
 class RouterTest extends TestCase
 {
-    /**
-     * @var \Coole\Foundation\App
-     */
-    private $app;
+    private App $app;
 
-    /**
-     * @var \Coole\Routing\Router
-     */
-    private $router;
+    private Router $router;
 
     protected function setUp(): void
     {

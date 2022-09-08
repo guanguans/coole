@@ -17,8 +17,6 @@ interface ListenerInterface
     /**
      * 事件处理.
      *
-     * @param \Coole\Event\Event $event
-     *
      * @return mixed
      */
     public function handle(Event $event);
