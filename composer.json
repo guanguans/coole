@@ -85,15 +85,20 @@
         "code-lts/doctum": "^5.5",
         "friendsofphp/php-cs-fixer": "^3.9",
         "infection/infection": "^0.26",
+        "jetbrains/phpstorm-attributes": "^1.0",
+        "johnkary/phpunit-speedtrap": "^4.0",
         "laravel/pint": "^1.1",
         "mockery/mockery": "^1.5",
         "nyholm/nsa": "^1.3",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-faker": "^1.0",
         "pestphp/pest-plugin-mock": "^1.0",
+        "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.0",
+        "povils/phpmnd": "^3.0",
         "rector/rector": "^0.14",
+        "roave/security-advisories": "dev-latest",
         "symplify/monorepo-builder": "^11.1",
         "vimeo/psalm": "^5.0"
     },
@@ -148,7 +153,8 @@
     "config": {
         "allow-plugins": {
             "infection/extension-installer": true,
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
@@ -179,6 +185,15 @@
             "@md-lint",
             "@mark-separate",
             "@test",
+            "@mark-separate",
+            "@phpmnd",
+            "@mark-separate",
+            "@psalm",
+            "@mark-separate",
+            "@phpstan",
+            "@mark-separate",
+            "@rector-dry-run",
+            "@mark-separate",
             "@mark-finish"
         ],
         "doctum": "./vendor/bin/doctum.php update doctum.php",
@@ -191,6 +206,7 @@
         "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/*.md ./docs/*/*.md ./docs/*/*/*.md ./src/*/*.md",
         "pest": "./vendor/bin/pest --coverage-text --cache-result-file=./build/.phpunit.result.cache",
         "pest-coverage": "./vendor/bin/pest --coverage-html=./build/coverage/ --coverage-clover=clover.xml --cache-result-file=./build/.phpunit.result.cache",
+        "phpmnd": "./vendor/bin/phpmnd ./src/ --exclude=vendor/ --ignore-numbers=2,-1 --ignore-funcs=round,sleep --extensions=default_parameter,-return,argument --progress --hint -vv",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G --ansi -vv",
         "phpstan-baseline": "@phpstan --generate-baseline=phpstan-baseline.neon",
         "pint": "./vendor/bin/pint -v",
