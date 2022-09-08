@@ -11,8 +11,11 @@ declare(strict_types=1);
  */
 
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
+use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
-use Rector\CodeQuality\Rector\If_\SimplifyIfReturnBoolRector;
+use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
+use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
+use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Enum\PreferenceSelfThis;
 use Rector\CodingStyle\Rector\ClassMethod\ReturnArrayClassMethodToYieldRector;
 use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
@@ -20,7 +23,6 @@ use Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
-use Rector\Php55\Rector\String_\StringClassNameToClassConstantRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
@@ -42,10 +44,13 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->skip([
-        SimplifyIfReturnBoolRector::class,
-        StringClassNameToClassConstantRector::class,
+        // rules
+        CallableThisArrayToAnonymousFunctionRector::class,
+        InlineIfToExplicitIfRector::class,
+        LogicalToBooleanRector::class,
+        SimplifyBoolIdenticalTrueRector::class,
 
-        // tests
+        // paths
         '**/Fixture*',
         '**/Fixture/*',
         '**/Source*',
@@ -56,7 +61,7 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_80,
-        // SetList::CODE_QUALITY,
+        SetList::CODE_QUALITY,
         // SetList::CODING_STYLE,
         // SetList::DEAD_CODE,
         // SetList::NAMING,

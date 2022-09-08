@@ -16,11 +16,11 @@ use Coole\HttpKernel\Controller\Controller;
 
 class ControllerStub extends Controller
 {
-    protected $middleware = [
+    protected array $middleware = [
         MiddlewareStub::class,
     ];
 
-    protected $excludedMiddleware = [
+    protected array $excludedMiddleware = [
         MiddlewareStub::class,
     ];
 

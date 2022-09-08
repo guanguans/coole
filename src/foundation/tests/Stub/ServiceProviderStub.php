@@ -12,12 +12,11 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Tests\Stub;
 
-use Coole\Foundation\ServiceProviderInterface;
-use Illuminate\Container\Container;
+use Coole\Foundation\ServiceProvider;
 
-class ServiceProviderStub implements ServiceProviderInterface
+class ServiceProviderStub extends ServiceProvider
 {
-    public function register(Container $container)
+    public function register(): void
     {
     }
 }

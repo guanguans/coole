@@ -218,8 +218,7 @@ class ErrorHandler implements ErrorHandlerInterface
             return;
         }
 
-        if (Reflector::isCallable($reportCallable = [$e, 'report']) &&
-            false !== $this->app->call($reportCallable)) {
+        if (Reflector::isCallable($reportCallable = [$e, 'report']) && false !== $this->app->call($reportCallable)) {
             return;
         }
 
@@ -414,14 +413,15 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     protected function shouldReturnJson($request, Throwable $e)
     {
-        $acceptable = [];
+        $acceptable = $request->getAcceptableContentTypes();
 
         return (
             $request->isXmlHttpRequest()
-            && ! (true == $request->headers->get('X-PJAX'))
-            && (0 === count($acceptable = $request->getAcceptableContentTypes()) || (
-                isset($acceptable[0]) && ('*/*' === $acceptable[0] || '*' === $acceptable[0])
-            ))
+            && true != $request->headers->get('X-PJAX')
+            && (
+                [] === $acceptable
+                || (isset($acceptable[0]) && ('*/*' === $acceptable[0] || '*' === $acceptable[0]))
+            )
         ) || (
             isset($acceptable[0])
             && Str::contains(strtolower($acceptable[0]), ['/json', '+json'])
