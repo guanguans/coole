@@ -23,6 +23,7 @@ use Rector\CodingStyle\ValueObject\ReturnArrayClassMethodToYield;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
+use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
@@ -49,6 +50,7 @@ return static function (RectorConfig $rectorConfig): void {
         InlineIfToExplicitIfRector::class,
         LogicalToBooleanRector::class,
         SimplifyBoolIdenticalTrueRector::class,
+        RemoveEmptyMethodCallRector::class,
 
         // paths
         '**/Fixture*',
@@ -63,7 +65,7 @@ return static function (RectorConfig $rectorConfig): void {
         LevelSetList::UP_TO_PHP_80,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
-        // SetList::DEAD_CODE,
+        SetList::DEAD_CODE,
         // SetList::NAMING,
         // SetList::TYPE_DECLARATION,
         // SetList::TYPE_DECLARATION_STRICT,
