@@ -79,7 +79,7 @@ abstract class Facade
     /**
      * @param $app
      */
-    public static function setFacadeApplication(App $app)
+    public static function setFacadeApplication(App $app): void
     {
         static::$app = $app;
     }

@@ -19,7 +19,7 @@ class Route extends SymfonyRoute
 {
     use HasControllerAble;
 
-    public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', $schemes = [], $methods = [], ?string $condition = '')
+    public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', string|array $schemes = [], string|array $methods = [], ?string $condition = '')
     {
         parent::__construct($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
     }

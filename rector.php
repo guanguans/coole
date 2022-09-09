@@ -24,6 +24,8 @@ use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
+use Rector\EarlyReturn\Rector\If_\ChangeAndIfToEarlyReturnRector;
+use Rector\EarlyReturn\Rector\Return_\ReturnBinaryOrToEarlyReturnRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
@@ -56,6 +58,8 @@ return static function (RectorConfig $rectorConfig): void {
         RemoveEmptyMethodCallRector::class,
         AddSeeTestAnnotationRector::class,
         NormalizeNamespaceByPSR4ComposerAutoloadRector::class,
+        ChangeAndIfToEarlyReturnRector::class,
+        ReturnBinaryOrToEarlyReturnRector::class,
 
         // paths
         '**/Fixture*',
@@ -79,8 +83,8 @@ return static function (RectorConfig $rectorConfig): void {
         // SetList::PRIVATIZATION,
         SetList::PSR_4,
         SetList::TYPE_DECLARATION,
-        // SetList::TYPE_DECLARATION_STRICT,
-        // SetList::EARLY_RETURN,
+        SetList::TYPE_DECLARATION_STRICT,
+        SetList::EARLY_RETURN,
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
         PHPUnitSetList::PHPUNIT80_DMS,

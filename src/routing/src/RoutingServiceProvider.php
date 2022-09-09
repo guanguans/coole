@@ -32,10 +32,10 @@ class RoutingServiceProvider extends ServiceProvider
         $this->app->singleton(RequestContext::class);
         $this->app->alias(RequestContext::class, 'routing.request.context');
 
-        $this->app->singleton(UrlMatcher::class, static fn (App $app) => new UrlMatcher($app['routing.collection'], $app['routing.request.context']));
+        $this->app->singleton(UrlMatcher::class, static fn (App $app): UrlMatcher => new UrlMatcher($app['routing.collection'], $app['routing.request.context']));
         $this->app->alias(UrlMatcher::class, 'routing.url.matcher');
 
-        $this->app->singleton(Router::class, static fn (App $app) => new Router(new Route(), $app['routing.collection']));
+        $this->app->singleton(Router::class, static fn (App $app): Router => new Router(new Route(), $app['routing.collection']));
         $this->app->alias(Router::class, 'router');
         $this->app->alias(Router::class, 'routing.router');
     }

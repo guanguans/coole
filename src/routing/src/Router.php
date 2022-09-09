@@ -53,7 +53,7 @@ class Router
      * @param string|string[] $methods
      * @param null            $to
      */
-    public function any(string|array $methods, string $pattern, $to = null): Route
+    public function any(string|array $methods, string $pattern, mixed $to = null): Route
     {
         return $this->match($methods, $pattern, $to);
     }
@@ -63,7 +63,7 @@ class Router
      *
      * @param null $to
      */
-    public function get(string $pattern, $to = null): Route
+    public function get(string $pattern, mixed $to = null): Route
     {
         return $this->match(['GET', 'HEAD'], $pattern, $to);
     }
@@ -73,7 +73,7 @@ class Router
      *
      * @param null $to
      */
-    public function post(string $pattern, $to = null): Route
+    public function post(string $pattern, mixed $to = null): Route
     {
         return $this->match('POST', $pattern, $to);
     }
@@ -83,7 +83,7 @@ class Router
      *
      * @param null $to
      */
-    public function put(string $pattern, $to = null): Route
+    public function put(string $pattern, mixed $to = null): Route
     {
         return $this->match('PUT', $pattern, $to);
     }
@@ -93,7 +93,7 @@ class Router
      *
      * @param null $to
      */
-    public function delete(string $pattern, $to = null): Route
+    public function delete(string $pattern, mixed $to = null): Route
     {
         return $this->match('DELETE', $pattern, $to);
     }
@@ -104,7 +104,7 @@ class Router
      * @param $pattern
      * @param null $to
      */
-    public function options(string $pattern, $to = null): Route
+    public function options(string $pattern, mixed $to = null): Route
     {
         return $this->match('OPTIONS', $pattern, $to);
     }
@@ -114,7 +114,7 @@ class Router
      *
      * @param null $to
      */
-    public function patch(string $pattern, $to = null): Route
+    public function patch(string $pattern, mixed $to = null): Route
     {
         return $this->match('PATCH', $pattern, $to);
     }

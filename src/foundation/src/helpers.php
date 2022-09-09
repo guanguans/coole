@@ -122,7 +122,7 @@ if (! function_exists('event')) {
      *
      * @param null $listeners
      */
-    function event(Event $event, $listeners = null, bool $isDispatch = true)
+    function event(Event $event, $listeners = null, bool $isDispatch = true): void
     {
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
         $dispatcher = app('event.dispatcher');
