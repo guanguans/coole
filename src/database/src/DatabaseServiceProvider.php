@@ -24,7 +24,7 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigsFrom(__DIR__.'/../config');
+        $this->app->loadConfigsFrom(__DIR__.'/../config/database.php');
     }
 
     /**
@@ -32,7 +32,7 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Manager::class);
+        $this->app->singleton(Manager::class, static fn (): Manager => new Manager());
         $this->app->alias(Manager::class, 'database');
         $this->app->alias(Manager::class, 'db');
     }

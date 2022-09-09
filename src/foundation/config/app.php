@@ -24,7 +24,7 @@ return [
     /*
      * Debug
      */
-    'debug' => cenv('APP_DEBUG', true),
+    'debug' => cenv('APP_DEBUG', false),
 
     /*
      * 时区
@@ -32,14 +32,21 @@ return [
     'timezone' => 'Asia/Shanghai',
 
     /*
+     * 字符集
+     */
+    'charset' => 'UTF-8',
+
+    /*
      * .env 文件目录
      */
-    'env_path' => base_path(),
+    // 'env_path' => base_path(),
+    'env_path' => null,
 
     /*
      * 配置文件目录
      */
-    'config_path' => base_path('config'),
+    // 'config_path' => base_path('config'),
+    'config_path' => null,
 
     /*
      * 第三方服务

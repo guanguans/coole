@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
+use Coole\Config\Config;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
@@ -62,16 +63,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     public function __construct(array $options = [])
     {
-        // 设置 app 共享实例
-        static::setInstance($this);
-
-        // 将 app 实例注册为在容器中共享的实例
-        $this->instance('app', $this);
-
-        // 设置核心全局配置
-        $this->setOptions($options);
-
-        // 注册 app 服务
+        $this->bindApp();
+        $this->bindConfig($options);
         $this->register(new AppServiceProvider($this));
     }
 
@@ -85,28 +78,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $serviceProvider->registering();
         $serviceProvider->register();
         $serviceProvider->registered();
-    }
-
-    /**
-     * 批量设置全局配置.
-     */
-    public function setOptions(array $options): void
-    {
-        $this->options = array_merge($this->options, $options);
-
-        foreach ($this->options as $option => $value) {
-            $this[$option] = $value;
-        }
-
-        $this['options'] = $this->options;
-    }
-
-    /**
-     * 设置全局配置.
-     */
-    public function setOption(string $option, $value): void
-    {
-        $this->setOptions([$option => $value]);
     }
 
     /**
@@ -459,5 +430,26 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
 
         return $this->make($parameters['_controller'][0]);
+    }
+
+    protected function bindApp(): void
+    {
+        static::setInstance($this);
+        $this->instance('app', $this);
+        $this->alias('app', Container::class);
+    }
+
+    protected function bindConfig(array $options): void
+    {
+        $this->instance(
+            Config::class,
+            new Config([
+                'app' => array_merge(require __DIR__.'/../config/app.php', $options),
+            ])
+        );
+        $this->alias(Config::class, 'config');
+
+        is_null($envPath = $this->app['config']['app']['env_path']) or $this->app->loadEnvsFrom($envPath);
+        is_null($configPath = $this->app['config']['app']['config_path']) or $this->loadConfigsFrom($configPath);
     }
 }

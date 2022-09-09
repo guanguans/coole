@@ -45,7 +45,7 @@ class RoutingServiceProvider extends ServiceProvider
      */
     public function registered(): void
     {
-        foreach ($this->app['route_paths'] as $file) {
+        foreach ($this->app['config']['app']['route_paths'] as $file) {
             $this->app->loadRoutesFrom($file);
         }
     }

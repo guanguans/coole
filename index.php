@@ -21,6 +21,7 @@ require __DIR__.'/vendor/autoload.php';
 
 // 1. Create App.
 $app = new App();
+$app['config']['app.debug'] = true;
 
 // 2. Add route with closure middleware.
 Router::get('/', static fn () => 'This is the Coole framework.')

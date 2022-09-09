@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
-use Coole\Config\ConfigServiceProvider;
 use Coole\Console\ConsoleServiceProvider;
 use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
@@ -61,20 +60,11 @@ class AppServiceProvider extends ServiceProvider
         // 设置门面的 app 共享实例
         Facade::setFacadeApplication($this->app);
 
-        // 注册 config 服务
-        $this->app->register(new ConfigServiceProvider($this->app));
-
-        // 设置配置
-        $this->app->loadConfigsFrom(__DIR__.'/../config/app.php');
-
-        // 设置第三方全局配置
-        $this->app->setOptions($this->app['config']['app']);
-        $this->app->setOption('debug', true);
-
         // 设置 timezone
-        date_default_timezone_set($this->app['timezone']);
+        date_default_timezone_set($this->app['config']['app']['timezone']);
 
-        mb_internal_encoding('UTF-8');
+        // 设置 编码
+        mb_internal_encoding($this->app['config']['app']['charset']);
 
         // 设置核心全局中间件
         $this->app->setMiddleware($this->middleware);
@@ -97,7 +87,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['charset']));
+        $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app']['charset']));
         $this->app['event.dispatcher']->addSubscriber(new StringResponseListener());
         $this->app['event.dispatcher']->addSubscriber(new NullResponseListener());
     }

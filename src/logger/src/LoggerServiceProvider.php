@@ -77,7 +77,7 @@ class LoggerServiceProvider extends ServiceProvider
             $this->app['event.dispatcher']->addSubscriber($this->app['logger.listener']);
         }
 
-        if ($this->app['debug']) {
+        if ($this->app['config']['app']['debug']) {
             ErrorHandler::register($this->app['logger']);
         }
     }
