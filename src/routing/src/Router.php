@@ -16,7 +16,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 class Router
 {
-    protected $groupStack = [];
+    protected array $groupStack = [];
 
     public function __construct(
         protected Route $defaultRoute,
@@ -30,7 +30,7 @@ class Router
      * @param string|string[] $methods
      * @param null            $to
      */
-    public function match(string|array $methods, string $pattern, $to = null): Route
+    public function match(string|array $methods, string $pattern, mixed $to = null): Route
     {
         $route = clone $this->defaultRoute;
 
@@ -131,6 +131,8 @@ class Router
 
     /**
      * 获取路由组中间件.
+     *
+     * @return mixed[]
      */
     protected function getGroupMiddleware(): array
     {
@@ -139,10 +141,8 @@ class Router
 
     /**
      * 更新路由组栈.
-     *
-     * @return bool
      */
-    protected function updateGroupStack(array $attributes)
+    protected function updateGroupStack(array $attributes): bool
     {
         $lastAttribute = end($this->groupStack);
 

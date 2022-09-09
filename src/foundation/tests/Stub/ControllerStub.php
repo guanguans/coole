@@ -24,7 +24,7 @@ class ControllerStub extends Controller
         MiddlewareStub::class,
     ];
 
-    public function hello()
+    public function hello(): void
     {
     }
 }

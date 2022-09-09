@@ -30,7 +30,7 @@ class AppTest extends TestCase
         $this->app = new App();
     }
 
-    public function testConstruct()
+    public function testConstruct(): void
     {
         $app = new App($options = [
             'debug' => true,
@@ -42,12 +42,12 @@ class AppTest extends TestCase
         $this->assertSame($app, $app::getInstance());
     }
 
-    public function testVersion()
+    public function testVersion(): void
     {
         $this->assertIsString($this->app::version());
     }
 
-    public function testMergeConfig()
+    public function testMergeConfig(): void
     {
         $app = new App();
         $app->addConfig([
@@ -62,7 +62,7 @@ class AppTest extends TestCase
         $this->assertSame($app['config']['key']->toArray(), $val2);
     }
 
-    public function testAddConfig()
+    public function testAddConfig(): void
     {
         $app = new App();
         $app->addConfig([
@@ -77,7 +77,7 @@ class AppTest extends TestCase
         $this->assertSame($app['config']['key']->toArray(), $val1);
     }
 
-    public function testAddOption()
+    public function testAddOption(): void
     {
         $app = new App();
 
@@ -90,7 +90,7 @@ class AppTest extends TestCase
         $this->assertSame($app['charset'], $options['charset']);
     }
 
-    public function testAddMiddleware()
+    public function testAddMiddleware(): void
     {
         $app = new App();
 
@@ -101,26 +101,26 @@ class AppTest extends TestCase
         $this->assertSame(end($middleware), MiddlewareStub::class);
     }
 
-    public function testGetRouteMiddleware()
+    public function testGetRouteMiddleware(): void
     {
         $app = new App();
-        $app['router']->get('/', static function () {
+        $app['router']->get('/', static function (): void {
         })->setMiddleware(MiddlewareStub::class);
         $routeMiddleware = $app->getRouteMiddleware(Request::createFromGlobals());
         $this->assertIsArray($routeMiddleware);
         $this->assertSame(MiddlewareStub::class, end($routeMiddleware));
     }
 
-    public function testGetCurrentRequestShouldExecutedMiddleware()
+    public function testGetCurrentRequestShouldExecutedMiddleware(): void
     {
         $app = new App();
-        $app['router']->get('/', static function () {
+        $app['router']->get('/', static function (): void {
         })->setMiddleware(MiddlewareStub::class);
         $allMiddleware = $app->getCurrentRequestShouldExecutedMiddleware(Request::createFromGlobals());
         $this->assertIsArray($allMiddleware);
     }
 
-    public function testGetCurrentController()
+    public function testGetCurrentController(): void
     {
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
@@ -128,7 +128,7 @@ class AppTest extends TestCase
         $this->assertInstanceOf(ControllerStub::class, $controller);
     }
 
-    public function testGetControllerMiddleware()
+    public function testGetControllerMiddleware(): void
     {
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
@@ -137,7 +137,7 @@ class AppTest extends TestCase
         $this->assertSame(MiddlewareStub::class, end($controlleMiddleware));
     }
 
-    public function testGetControllerExcludedMiddleware()
+    public function testGetControllerExcludedMiddleware(): void
     {
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
@@ -146,7 +146,7 @@ class AppTest extends TestCase
         $this->assertSame(MiddlewareStub::class, end($controlleMiddleware));
     }
 
-    public function testMakeMiddleware()
+    public function testMakeMiddleware(): void
     {
         $middlewares = $this->app->makeMiddleware(MiddlewareStub::class);
 
@@ -157,13 +157,13 @@ class AppTest extends TestCase
         }
     }
 
-    public function testRegister()
+    public function testRegister(): void
     {
         $app = $this->app->register(new ServiceProviderStub());
         $this->assertIsObject($app);
     }
 
-    public function testBoot()
+    public function testBoot(): void
     {
         $appStub = new AppStub();
 
@@ -176,7 +176,7 @@ class AppTest extends TestCase
         $this->assertNull($appStub->boot());
     }
 
-    public function testLoadEnv()
+    public function testLoadEnv(): void
     {
         $loadEnv = null;
         $this->markTestSkipped(__METHOD__);
@@ -184,7 +184,7 @@ class AppTest extends TestCase
         $this->assertInstanceOf(App::class, $loadEnv);
     }
 
-    public function testLoadConfig()
+    public function testLoadConfig(): void
     {
         $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config');
         $this->assertInstanceOf(App::class, $loadConfig);
@@ -193,13 +193,13 @@ class AppTest extends TestCase
         $this->assertInstanceOf(App::class, $loadConfig);
     }
 
-    public function testLoadConfigException()
+    public function testLoadConfigException(): void
     {
         $this->expectException(UnknownFileOrDirectoryException::class);
         $this->app->loadConfigsFrom(__DIR__.'/Stub/conf');
     }
 
-    public function testLoadRoute()
+    public function testLoadRoute(): void
     {
         $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config');
         $this->assertInstanceOf(App::class, $loadConfig);
@@ -208,7 +208,7 @@ class AppTest extends TestCase
         $this->assertInstanceOf(App::class, $loadConfig);
     }
 
-    public function testLoadRouteException()
+    public function testLoadRouteException(): void
     {
         $this->expectException(UnknownFileOrDirectoryException::class);
         $this->app->loadRoutesFrom(__DIR__.'/Stub/conf');

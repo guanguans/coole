@@ -14,7 +14,7 @@ namespace Coole\Database\Tests;
 
 class DatabaseServiceProviderTest extends TestCase
 {
-    public function testTrue()
+    public function testTrue(): void
     {
         $this->assertTrue(true);
     }

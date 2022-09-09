@@ -22,76 +22,76 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class HasControllerAbleTest extends TestCase
 {
-    private $controller;
+    private Controller $controller;
 
     protected function setUp(): void
     {
         $this->controller = new Controller();
     }
 
-    public function testAddMiddleware()
+    public function testAddMiddleware(): void
     {
         $this->controller->addMiddleware($middleware = [CheckResponseForModifications::class]);
         $this->assertSame($middleware, $this->controller->getMiddleware());
     }
 
-    public function testAddExcludedMiddleware()
+    public function testAddExcludedMiddleware(): void
     {
         $this->controller->addExcludedMiddleware($middleware = [CheckResponseForModifications::class]);
         $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
     }
 
-    public function testSetExcludedMiddleware()
+    public function testSetExcludedMiddleware(): void
     {
         $this->controller->setExcludedMiddleware($middleware = [CheckResponseForModifications::class]);
         $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
     }
 
-    public function testWithoutMiddleware()
+    public function testWithoutMiddleware(): void
     {
         $this->controller->withoutMiddleware($middleware = [CheckResponseForModifications::class]);
         $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
     }
 
-    public function testAddFinishHandler()
+    public function testAddFinishHandler(): void
     {
-        $controller = $this->controller->addFinishHandler(static function () {
+        $controller = $this->controller->addFinishHandler(static function (): void {
         });
 
         $this->assertInstanceOf(Controller::class, $controller);
     }
 
-    public function testSetFinishHandler()
+    public function testSetFinishHandler(): void
     {
-        $controller = $this->controller->setFinishHandler(static function () {
+        $controller = $this->controller->setFinishHandler(static function (): void {
         });
 
         $this->assertInstanceOf(Controller::class, $controller);
     }
 
-    public function testJson()
+    public function testJson(): void
     {
         $this->assertInstanceOf(JsonResponse::class, $this->controller->json());
     }
 
-    public function testSendFile()
+    public function testSendFile(): void
     {
         $this->assertInstanceOf(BinaryFileResponse::class, $this->controller->sendFile(__FILE__));
     }
 
-    public function testStream()
+    public function testStream(): void
     {
         $this->assertInstanceOf(StreamedResponse::class, $this->controller->stream());
     }
 
-    public function testAbort()
+    public function testAbort(): void
     {
         $this->expectException(HttpException::class);
         $this->expectExceptionMessage('服务器错误');
         $this->controller->abort(500, '服务器错误');
     }
 
-    public function testRedirect()
+    public function testRedirect(): void
     {
         $this->assertInstanceOf(RedirectResponse::class, $this->controller->redirect('https::www.baidu.com'));
     }

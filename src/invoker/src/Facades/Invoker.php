@@ -21,7 +21,7 @@ use Coole\Foundation\Facade;
  */
 class Invoker extends Facade
 {
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'invoker';
     }

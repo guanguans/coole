@@ -14,7 +14,7 @@ namespace Coole\Logger\Tests;
 
 class LoggerServiceProviderTest extends TestCase
 {
-    public function testTrue()
+    public function testTrue(): void
     {
         $this->assertTrue(true);
     }

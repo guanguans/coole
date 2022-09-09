@@ -56,7 +56,7 @@ class LoggerServiceProvider extends ServiceProvider
         });
         $this->app->alias(HandlerInterface::class, 'logger.handler');
 
-        $this->app->bind(LoggerInterface::class, static function (App $app) {
+        $this->app->bind(LoggerInterface::class, static function (App $app): Logger {
             $logger = new Logger($app['config']['logger']['name']);
             $logger->pushHandler($app['logger.handler']);
 

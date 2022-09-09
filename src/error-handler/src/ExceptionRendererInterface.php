@@ -12,14 +12,14 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
+use Throwable;
+
 interface ExceptionRendererInterface
 {
     /**
      * Renders the given exception as HTML.
      *
-     * @param \Throwable $throwable
-     *
      * @return string
      */
-    public function render($throwable);
+    public function render(Throwable $throwable);
 }

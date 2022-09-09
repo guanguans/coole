@@ -14,7 +14,7 @@ namespace Coole\Foundation\Tests\Stub;
 
 class InvalidControllerStub
 {
-    public function hello()
+    public function hello(): void
     {
     }
 }

@@ -32,7 +32,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(FilesystemLoader::class, static function (App $app) {
+        $this->app->singleton(FilesystemLoader::class, static function (App $app): FilesystemLoader {
             $filesystemLoader = new FilesystemLoader();
             foreach ((array) $app['config']['view']['path'] as $namespace => $path) {
                 is_string($namespace) ? $filesystemLoader->setPaths($path, $namespace) : $filesystemLoader->addPath($path);

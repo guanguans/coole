@@ -101,10 +101,8 @@ if (! function_exists('cenv')) {
 if (! function_exists('base_path')) {
     /**
      * 获取 base path.
-     *
-     * @return string|null
      */
-    function base_path(string $path = null)
+    function base_path(string $path = null): ?string
     {
         if (! defined('BASE_PATH')) {
             return null;
@@ -123,9 +121,8 @@ if (! function_exists('event')) {
      * 调度事件.
      *
      * @param null $listeners
-     * @param bool $isDispatch
      */
-    function event(Event $event, $listeners = null, $isDispatch = true)
+    function event(Event $event, $listeners = null, bool $isDispatch = true)
     {
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
         $dispatcher = app('event.dispatcher');

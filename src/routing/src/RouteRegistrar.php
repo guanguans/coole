@@ -56,7 +56,7 @@ class RouteRegistrar
      *
      * @return $this
      */
-    public function group(callable $callback)
+    public function group(callable $callback): static
     {
         $this->router->group($this->attributes, $callback);
 

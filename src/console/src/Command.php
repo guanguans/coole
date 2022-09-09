@@ -65,6 +65,8 @@ class Command extends SymfonyCommand
 
     /**
      * 获取参数.
+     *
+     * @return mixed[]
      */
     public function getArguments(): array
     {
@@ -73,6 +75,8 @@ class Command extends SymfonyCommand
 
     /**
      * 获取选项.
+     *
+     * @return mixed[]
      */
     public function getOptions(): array
     {

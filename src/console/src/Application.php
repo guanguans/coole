@@ -80,22 +80,16 @@ coole;
 
     /**
      * Report the exception to the exception handler.
-     *
-     * @return void
      */
-    protected function reportException(Throwable $throwable)
+    protected function reportException(Throwable $throwable): void
     {
         $this->app[ErrorHandlerInterface::class]->report($throwable);
     }
 
     /**
      * Render the given exception.
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return void
      */
-    protected function renderException($output, Throwable $throwable)
+    protected function renderException(OutputInterface $output, Throwable $throwable): void
     {
         $this->app[ErrorHandlerInterface::class]->renderForConsole($output, $throwable);
     }

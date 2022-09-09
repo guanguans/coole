@@ -61,10 +61,8 @@ class ReportableHandler
 
     /**
      * Determine if the callback handles the given exception.
-     *
-     * @return bool
      */
-    public function handles(Throwable $throwable)
+    public function handles(Throwable $throwable): bool
     {
         foreach ($this->firstClosureParameterTypes($this->callback) as $type) {
             if (is_a($throwable, $type)) {
@@ -80,7 +78,7 @@ class ReportableHandler
      *
      * @return $this
      */
-    public function stop()
+    public function stop(): static
     {
         $this->shouldStop = true;
 

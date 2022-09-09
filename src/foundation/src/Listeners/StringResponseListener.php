@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class StringResponseListener implements EventSubscriberInterface
 {
-    public function onKernelView(ViewEvent $viewEvent)
+    public function onKernelView(ViewEvent $viewEvent): void
     {
         $response = $viewEvent->getControllerResult();
 
@@ -36,7 +36,7 @@ class StringResponseListener implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             KernelEvents::VIEW => ['onKernelView', -10],

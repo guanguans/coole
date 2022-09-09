@@ -26,7 +26,7 @@ class ServeCommand extends Command
 
     protected int $tries;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->addOption(
@@ -58,12 +58,12 @@ class ServeCommand extends Command
             );
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->tries = $input->getOption('tries');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (empty($input->getOption('docroot'))) {
             throw new InvalidArgumentException('Please set option of docroot.');
@@ -85,7 +85,7 @@ class ServeCommand extends Command
         return self::SUCCESS;
     }
 
-    protected function serverCommand(InputInterface $input)
+    protected function serverCommand(InputInterface $input): string
     {
         return sprintf('%s -S %s:%s -t %s',
             PHP_BINARY,

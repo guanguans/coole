@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Throwable;
 
 interface ErrorHandlerInterface
@@ -35,22 +37,18 @@ interface ErrorHandlerInterface
     /**
      * Render an exception into an HTTP response.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $throwable);
+    public function render(Request $request, Throwable $throwable);
 
     /**
      * Render an exception to the console.
-     *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return void
      *
      * @internal this method is not meant to be used or overwritten outside the framework
      */
-    public function renderForConsole($output, Throwable $throwable);
+    public function renderForConsole(OutputInterface $output, Throwable $throwable);
 }

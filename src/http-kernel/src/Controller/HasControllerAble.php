@@ -43,9 +43,8 @@ trait HasControllerAble
      * 重定 url.
      *
      * @param $url
-     * @param int $status
      */
-    public function redirect($url, $status = 302, array $headers = []): RedirectResponse
+    public function redirect($url, int $status = 302, array $headers = []): RedirectResponse
     {
         return new RedirectResponse($url, $status, $headers);
     }
@@ -54,9 +53,8 @@ trait HasControllerAble
      * 抛出 http 异常.
      *
      * @param $statusCode
-     * @param string $message
      */
-    public function abort($statusCode, $message = '', array $headers = [])
+    public function abort($statusCode, string $message = '', array $headers = [])
     {
         throw new HttpException($statusCode, $message, null, $headers);
     }
@@ -65,9 +63,8 @@ trait HasControllerAble
      * 返回流响应.
      *
      * @param null $callback
-     * @param int  $status
      */
-    public function stream($callback = null, $status = 200, array $headers = []): StreamedResponse
+    public function stream($callback = null, int $status = 200, array $headers = []): StreamedResponse
     {
         return new StreamedResponse($callback, $status, $headers);
     }
@@ -75,10 +72,9 @@ trait HasControllerAble
     /**
      * 返回 json 响应.
      *
-     * @param array $data
-     * @param int   $status
+     * @param mixed[] $data
      */
-    public function json($data = [], $status = 200, array $headers = []): JsonResponse
+    public function json(array $data = [], int $status = 200, array $headers = []): JsonResponse
     {
         return new JsonResponse($data, $status, $headers);
     }
@@ -87,16 +83,17 @@ trait HasControllerAble
      * 返回二进制文件响应.
      *
      * @param $file
-     * @param int  $status
      * @param null $contentDisposition
      */
-    public function sendFile($file, $status = 200, array $headers = [], $contentDisposition = null): BinaryFileResponse
+    public function sendFile($file, int $status = 200, array $headers = [], $contentDisposition = null): BinaryFileResponse
     {
         return new BinaryFileResponse($file, $status, $headers, true, $contentDisposition);
     }
 
     /**
      * 获取中间件.
+     *
+     * @return mixed[]
      */
     public function getMiddleware(): array
     {
@@ -125,6 +122,8 @@ trait HasControllerAble
 
     /**
      * 获取排除的中间件.
+     *
+     * @return mixed[]
      */
     public function getExcludedMiddleware(): array
     {
@@ -167,10 +166,8 @@ trait HasControllerAble
      * 添加一个 `KernelEvents::TERMINATE` 事件监听处理器.
      *
      * 用来处理耗时逻辑业务
-     *
-     * @param callable $listener
      */
-    public function addFinishHandler($listener, int $priority = 0): void
+    public function addFinishHandler(callable $listener, int $priority = 0): void
     {
         app('event.dispatcher')->addListener(KernelEvents::TERMINATE, $listener, $priority);
     }
@@ -179,10 +176,8 @@ trait HasControllerAble
      * 设置一个 `KernelEvents::TERMINATE` 事件监听处理器.
      *
      * 用来处理耗时逻辑业务
-     *
-     * @param callable $listener
      */
-    public function setFinishHandler($listener, int $priority = 0): void
+    public function setFinishHandler(callable $listener, int $priority = 0): void
     {
         $this->addFinishHandler($listener, $priority);
     }

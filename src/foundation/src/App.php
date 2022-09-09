@@ -173,7 +173,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
     }
 
-    public function mergeConfigFrom(string $path, string $key)
+    public function mergeConfigFrom(string $path, string $key): void
     {
         $config = $this->app->make('config');
 
@@ -219,7 +219,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @param array<\Coole\Console\Command>|string $commands
      */
-    public function commands(array|string $commands)
+    public function commands(array|string $commands): void
     {
         foreach ((array) $commands as $command) {
             $this['console.command.collection']->add($this->make($command));
@@ -332,6 +332,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      * 批量实例化中间件.
      *
      * @param string[]|object[]|Closure[]|string $middlewares
+     *
+     * @return mixed[]
      */
     public function makeMiddleware(string|array $middlewares): array
     {
@@ -344,6 +346,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取当前请求应该被执行的中间件.
+     *
+     * @return mixed[]
      */
     public function getCurrentRequestShouldExecutedMiddleware(Request $request): array
     {
@@ -358,6 +362,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取当前请求排除中间件.
+     *
+     * @return mixed[]
      */
     public function getCurrentRequestExcludedMiddleware(Request $request): array
     {
@@ -370,6 +376,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取当前请求中间件.
+     *
+     * @return mixed[]
      */
     public function getCurrentRequestMiddleware(Request $request): array
     {
@@ -382,6 +390,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取控制器排除中间件.
+     *
+     * @return mixed[]
      */
     public function getControllerExcludedMiddleware(Request $request): array
     {
@@ -395,6 +405,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取路由排除中间件.
+     *
+     * @return mixed[]
      */
     public function getRouteExcludedMiddleware(Request $request): array
     {
@@ -403,6 +415,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取控制器中间件.
+     *
+     * @return mixed[]
      */
     public function getControllerMiddleware(Request $request): array
     {
@@ -416,6 +430,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 获取路由中间件.
+     *
+     * @return mixed[]
      */
     public function getRouteMiddleware(Request $request): array
     {

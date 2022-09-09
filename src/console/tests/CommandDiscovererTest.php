@@ -23,21 +23,21 @@ class CommandDiscovererTest extends TestCase
         $this->commandDiscoverer = new CommandDiscoverer(__DIR__, 'Coole\Console\Tests');
     }
 
-    public function testSetDir()
+    public function testSetDir(): void
     {
         $dir = __DIR__.'/../';
         $this->assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setDir($dir));
         $this->assertSame($this->commandDiscoverer->getDir(), $dir);
     }
 
-    public function testSetNamespace()
+    public function testSetNamespace(): void
     {
         $nameSpace = 'Coole\Console';
         $this->assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setNamespace($nameSpace));
         $this->assertSame($this->commandDiscoverer->getNamespace(), $nameSpace);
     }
 
-    public function testSetSuffix()
+    public function testSetSuffix(): void
     {
         $suffix = '.go';
         $this->assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setSuffix($suffix));

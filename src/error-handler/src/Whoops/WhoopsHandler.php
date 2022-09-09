@@ -20,12 +20,10 @@ class WhoopsHandler
 {
     /**
      * Create a new Whoops handler for debug mode.
-     *
-     * @return \Whoops\Handler\PrettyPageHandler
      */
-    public function forDebug()
+    public function forDebug(): PrettyPageHandler
     {
-        return tap(new PrettyPageHandler(), function ($handler) {
+        return tap(new PrettyPageHandler(), function ($handler): void {
             $handler->handleUnconditionally(true);
 
             $this->registerApplicationPaths($handler)
@@ -37,13 +35,11 @@ class WhoopsHandler
     /**
      * Register the application paths with the handler.
      *
-     * @param \Whoops\Handler\PrettyPageHandler $handler
-     *
      * @return $this
      */
-    protected function registerApplicationPaths($handler)
+    protected function registerApplicationPaths(PrettyPageHandler $prettyPageHandler): static
     {
-        $handler->setApplicationPaths(
+        $prettyPageHandler->setApplicationPaths(
             array_flip($this->directoriesExceptVendor())
         );
 
@@ -53,9 +49,9 @@ class WhoopsHandler
     /**
      * Get the application paths except for the "vendor" directory.
      *
-     * @return array
+     * @return mixed[]
      */
-    protected function directoriesExceptVendor()
+    protected function directoriesExceptVendor(): array
     {
         return Arr::except(
             array_flip($this->directories(base_path())),
@@ -66,11 +62,9 @@ class WhoopsHandler
     /**
      * Get all of the directories within a given directory.
      *
-     * @param string $directory
-     *
-     * @return array
+     * @return string[]
      */
-    public function directories($directory)
+    public function directories(string $directory): array
     {
         $directories = [];
 
@@ -84,15 +78,13 @@ class WhoopsHandler
     /**
      * Register the blacklist with the handler.
      *
-     * @param \Whoops\Handler\PrettyPageHandler $handler
-     *
      * @return $this
      */
-    protected function registerBlacklist($handler)
+    protected function registerBlacklist(PrettyPageHandler $prettyPageHandler): static
     {
         foreach (config('app.debug_blacklist', config('app.debug_hide', [])) as $key => $secrets) {
             foreach ($secrets as $secret) {
-                $handler->blacklist($key, $secret);
+                $prettyPageHandler->blacklist($key, $secret);
             }
         }
 
@@ -102,14 +94,12 @@ class WhoopsHandler
     /**
      * Register the editor with the handler.
      *
-     * @param \Whoops\Handler\PrettyPageHandler $handler
-     *
      * @return $this
      */
-    protected function registerEditor($handler)
+    protected function registerEditor(PrettyPageHandler $prettyPageHandler): static
     {
         if (config('app.editor', false)) {
-            $handler->setEditor(config('app.editor'));
+            $prettyPageHandler->setEditor(config('app.editor'));
         }
 
         return $this;

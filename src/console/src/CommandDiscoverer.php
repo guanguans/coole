@@ -34,6 +34,8 @@ class CommandDiscoverer
 
     /**
      * 获取命令.
+     *
+     * @return \Coole\Console\Command[]
      */
     public function getCommands(): array
     {

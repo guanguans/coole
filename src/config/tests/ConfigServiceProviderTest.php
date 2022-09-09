@@ -14,7 +14,7 @@ namespace Coole\Config\Tests;
 
 class ConfigServiceProviderTest extends TestCase
 {
-    public function testTrue()
+    public function testTrue(): void
     {
         $this->assertTrue(true);
     }

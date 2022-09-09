@@ -16,12 +16,12 @@ use Coole\Foundation\App;
 
 class AppStub extends App
 {
-    public function getBooted()
+    public function getBooted(): bool
     {
         return $this->booted;
     }
 
-    public function setBooted($value)
+    public function setBooted(bool $value): static
     {
         $this->booted = $value;
 

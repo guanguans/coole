@@ -29,19 +29,19 @@ class RouteRegistrarTest extends TestCase
         $this->routeRegistrar = new RouteRegistrar(new Router(new Route(), $this->app['routing.collection']));
     }
 
-    public function testPrefix()
+    public function testPrefix(): void
     {
         $this->assertInstanceOf(RouteRegistrar::class, $this->routeRegistrar->prefix('api'));
     }
 
-    public function testMiddleware()
+    public function testMiddleware(): void
     {
         $this->assertInstanceOf(RouteRegistrar::class, $this->routeRegistrar->middleware('middleware'));
     }
 
-    public function testGroup()
+    public function testGroup(): void
     {
-        $routeRegistrar = $this->routeRegistrar->group(static function () {
+        $routeRegistrar = $this->routeRegistrar->group(static function (): void {
             echo 'group';
         });
         $this->assertInstanceOf(RouteRegistrar::class, $routeRegistrar);

@@ -27,6 +27,7 @@ use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
 use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
 use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
+use Rector\PSR4\Rector\FileWithoutNamespace\NormalizeNamespaceByPSR4ComposerAutoloadRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -54,6 +55,7 @@ return static function (RectorConfig $rectorConfig): void {
         SimplifyBoolIdenticalTrueRector::class,
         RemoveEmptyMethodCallRector::class,
         AddSeeTestAnnotationRector::class,
+        NormalizeNamespaceByPSR4ComposerAutoloadRector::class,
 
         // paths
         '**/Fixture*',
@@ -75,8 +77,8 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::MYSQL_TO_MYSQLI,
         SetList::NAMING,
         // SetList::PRIVATIZATION,
-        // SetList::PSR_4,
-        // SetList::TYPE_DECLARATION,
+        SetList::PSR_4,
+        SetList::TYPE_DECLARATION,
         // SetList::TYPE_DECLARATION_STRICT,
         // SetList::EARLY_RETURN,
 

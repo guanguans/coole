@@ -29,6 +29,7 @@ use Psr\Log\LogLevel;
 use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -109,25 +110,21 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
     }
 
     /**
      * Register a reportable callback.
-     *
-     * @return \Coole\ErrorHandler\ReportableHandler
      */
-    public function reportable(callable $reportUsing)
+    public function reportable(callable $reportUsing): ReportableHandler
     {
         if (! $reportUsing instanceof Closure) {
             $reportUsing = Closure::fromCallable($reportUsing);
         }
 
-        return tap(new ReportableHandler($reportUsing), function ($callback) {
+        return tap(new ReportableHandler($reportUsing), function ($callback): void {
             $this->reportCallbacks[] = $callback;
         });
     }
@@ -137,7 +134,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return $this
      */
-    public function renderable(callable $renderUsing)
+    public function renderable(callable $renderUsing): static
     {
         if (! $renderUsing instanceof Closure) {
             $renderUsing = Closure::fromCallable($renderUsing);
@@ -157,7 +154,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function map(Closure|string $from, $to = null)
+    public function map(Closure|string $from, $to = null): static
     {
         if (is_string($to)) {
             $to = static fn ($exception) => new $to('', 0, $exception);
@@ -181,7 +178,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return $this
      */
-    public function ignore(string $class)
+    public function ignore(string $class): static
     {
         $this->dontReport[] = $class;
 
@@ -196,7 +193,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return $this
      */
-    public function level($type, $level)
+    public function level(string $type, $level): static
     {
         $this->levels[$type] = $level;
 
@@ -206,11 +203,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Report or log an exception.
      *
-     * @return void
-     *
      * @throws \Throwable
      */
-    public function report(Throwable $throwable)
+    public function report(Throwable $throwable): void
     {
         $throwable = $this->mapException($throwable);
 
@@ -250,20 +245,16 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Determine if the exception should be reported.
-     *
-     * @return bool
      */
-    public function shouldReport(Throwable $throwable)
+    public function shouldReport(Throwable $throwable): bool
     {
         return ! $this->shouldntReport($throwable);
     }
 
     /**
      * Determine if the exception is in the "do not report" list.
-     *
-     * @return bool
      */
-    protected function shouldntReport(Throwable $throwable)
+    protected function shouldntReport(Throwable $throwable): bool
     {
         $dontReport = array_merge($this->dontReport, $this->internalDontReport);
 
@@ -273,9 +264,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Get the default exception context variables for logging.
      *
-     * @return array
+     * @return mixed[]
      */
-    protected function exceptionContext(Throwable $throwable)
+    protected function exceptionContext(Throwable $throwable): array
     {
         if (method_exists($throwable, 'context')) {
             return $throwable->context();
@@ -287,9 +278,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Get the default context variables for logging.
      *
-     * @return array
+     * @return mixed[]
      */
-    protected function context()
+    protected function context(): array
     {
         try {
             return array_filter([
@@ -332,10 +323,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Prepare exception for rendering.
-     *
-     * @return \Throwable
      */
-    protected function prepareException(Throwable $throwable)
+    protected function prepareException(Throwable $throwable): Throwable
     {
         return match (true) {
             $throwable instanceof ModelNotFoundException => new NotFoundHttpException($throwable->getMessage(), $throwable),
@@ -369,13 +358,11 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Try to render a response from request and exception via render callbacks.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return mixed
      *
      * @throws \ReflectionException
      */
-    protected function renderViaCallbacks($request, Throwable $throwable)
+    protected function renderViaCallbacks(Request $request, Throwable $throwable)
     {
         foreach ($this->renderCallbacks as $renderCallback) {
             foreach ($this->firstClosureParameterTypes($renderCallback) as $type) {
@@ -392,12 +379,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Render a default exception response if any.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderExceptionResponse($request, Throwable $throwable)
+    protected function renderExceptionResponse(Request $request, Throwable $throwable): JsonResponse|Response
     {
         return $this->shouldReturnJson($request, $throwable)
                     ? $this->prepareJsonResponse($request, $throwable)
@@ -406,12 +389,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Determine if the exception handler response should be JSON.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return bool
      */
-    protected function shouldReturnJson($request, Throwable $throwable)
+    protected function shouldReturnJson(Request $request, Throwable $throwable): bool
     {
         $acceptable = $request->getAcceptableContentTypes();
 
@@ -430,12 +409,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Prepare a response for the given exception.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function prepareResponse($request, Throwable $throwable)
+    protected function prepareResponse(Request $request, Throwable $throwable): Response
     {
         if (! $this->isHttpException($throwable) && config('app.debug')) {
             return $this->convertExceptionToResponse($throwable);
@@ -450,10 +425,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Create a Symfony response for the given exception.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function convertExceptionToResponse(Throwable $throwable)
+    protected function convertExceptionToResponse(Throwable $throwable): Response
     {
         return new Response(
             $this->renderExceptionContent($throwable),
@@ -464,10 +437,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get the response content for the given exception.
-     *
-     * @return string
      */
-    protected function renderExceptionContent(Throwable $e)
+    protected function renderExceptionContent(Throwable $e): string
     {
         try {
             return config('app.debug')
@@ -481,22 +452,16 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Render an exception to a string using the registered `ExceptionRenderer`.
-     *
-     * @return string
      */
-    protected function renderExceptionWithCustomRenderer(Throwable $throwable)
+    protected function renderExceptionWithCustomRenderer(Throwable $throwable): string
     {
         return app(ExceptionRendererInterface::class)->render($throwable);
     }
 
     /**
      * Render an exception to a string using Symfony.
-     *
-     * @param bool $debug
-     *
-     * @return string
      */
-    protected function renderExceptionWithSymfony(Throwable $throwable, $debug)
+    protected function renderExceptionWithSymfony(Throwable $throwable, bool $debug): string
     {
         $htmlErrorRenderer = new HtmlErrorRenderer($debug);
 
@@ -505,22 +470,16 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Render the given HttpException.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderHttpException(HttpExceptionInterface $httpException)
+    protected function renderHttpException(HttpExceptionInterface $httpException): Response
     {
         return $this->convertExceptionToResponse($httpException);
     }
 
     /**
      * Prepare a JSON response for the given exception.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    protected function prepareJsonResponse($request, Throwable $throwable)
+    protected function prepareJsonResponse(Request $request, Throwable $throwable): JsonResponse
     {
         $jsonResponse = new JsonResponse(
             $this->convertExceptionToArray($throwable),
@@ -534,9 +493,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Convert the given exception to an array.
      *
-     * @return array
+     * @return array<string|class-string<\exception>, mixed>
      */
-    protected function convertExceptionToArray(Throwable $throwable)
+    protected function convertExceptionToArray(Throwable $throwable): array
     {
         return config('app.debug') ? [
             'message' => $throwable->getMessage(),
@@ -554,21 +513,17 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @return void
-     *
      * @internal this method is not meant to be used or overwritten outside the framework
      */
-    public function renderForConsole($output, Throwable $throwable)
+    public function renderForConsole($output, Throwable $throwable): void
     {
         $this->app['console']->renderThrowable($throwable, $output);
     }
 
     /**
      * Determine if the given exception is an HTTP exception.
-     *
-     * @return bool
      */
-    protected function isHttpException(Throwable $throwable)
+    protected function isHttpException(Throwable $throwable): bool
     {
         return $throwable instanceof HttpExceptionInterface;
     }
