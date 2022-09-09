@@ -85,8 +85,8 @@ abstract class Manager
     /**
      * Create a new driver instance.
      *
-     *
      * @return mixed
+     *
      * @throws \InvalidArgumentException
      */
     protected function createDriver(string $driver)
@@ -110,7 +110,6 @@ abstract class Manager
     /**
      * Call a custom driver creator.
      *
-     *
      * @return mixed
      */
     protected function callCustomCreator(string $driver)
@@ -120,7 +119,6 @@ abstract class Manager
 
     /**
      * Register a custom driver creator Closure.
-     *
      *
      * @return $this
      */

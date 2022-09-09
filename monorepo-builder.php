@@ -25,8 +25,8 @@ use Symplify\MonorepoBuilder\ValueObject\Option;
  *
  * @see https://github.com/symplify/symplify/issues/2061
  */
-\register_shutdown_function(static function () {
-    $dest = \json_decode(\file_get_contents(__DIR__.'/composer.json'), true);
+\register_shutdown_function(static function (): void {
+    $dest = \json_decode(\file_get_contents(__DIR__.'/composer.json'), true, 512, JSON_THROW_ON_ERROR);
 
     $result = [
         'name' => 'guanguans/coole',

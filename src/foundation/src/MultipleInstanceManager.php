@@ -35,7 +35,6 @@ abstract class MultipleInstanceManager
     /**
      * Create a new manager instance.
      *
-     *
      * @return void
      */
     public function __construct(protected App $app)
@@ -49,14 +48,11 @@ abstract class MultipleInstanceManager
 
     /**
      * Set the default instance name.
-     *
-     *
      */
     abstract public function setDefaultInstance(string $name): void;
 
     /**
      * Get the instance specific configuration.
-     *
      *
      * @return mixed[]
      */
@@ -79,7 +75,6 @@ abstract class MultipleInstanceManager
     /**
      * Attempt to get an instance from the local cache.
      *
-     *
      * @return mixed
      */
     protected function get(string $name)
@@ -90,8 +85,8 @@ abstract class MultipleInstanceManager
     /**
      * Resolve the given instance.
      *
-     *
      * @return mixed
+     *
      * @throws \InvalidArgumentException
      */
     protected function resolve(string $name)
@@ -163,7 +158,6 @@ abstract class MultipleInstanceManager
 
     /**
      * Register a custom instance creator Closure.
-     *
      *
      * @return $this
      */

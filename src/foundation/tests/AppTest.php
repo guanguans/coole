@@ -39,7 +39,7 @@ class AppTest extends TestCase
 
         $this->assertSame($app['debug'], $options['debug']);
         $this->assertSame($app['charset'], $options['charset']);
-        $this->assertSame($app, $app::getInstance());
+        $this->assertSame($app, (new $app())->getInstance());
     }
 
     public function testVersion(): void

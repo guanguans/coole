@@ -1,5 +1,7 @@
 <?php
 
+use PhpCsFixer\Finder;
+use PhpCsFixer\Config;
 /**
  * This file is part of Coole.
  *
@@ -16,7 +18,7 @@ This file is part of Coole.
 @license  https://github.com/guanguans/coole/blob/main/LICENSE
 EOF;
 
-$finder = PhpCsFixer\Finder::create()
+$finder = Finder::create()
     ->in([
         __DIR__ . '/src',
     ])
@@ -41,7 +43,7 @@ $finder = PhpCsFixer\Finder::create()
     ->ignoreDotFiles(true)
     ->ignoreVCS(true);
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setRules([
         // '@PSR12' => true,
         '@Symfony' => true,

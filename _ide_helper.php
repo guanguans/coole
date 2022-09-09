@@ -10,8 +10,8 @@
 
 namespace {
     class App extends  \Coole\Foundation\Facades\App{}
-    class DB extends \Coole\DB\Facades\DB{}
-    class Log extends \Coole\Log\Facades\Log{}
+    class DB extends \Coole\Database\Facades\DB{}
+    class Logger extends \Coole\Logger\Facades\Logger{}
     class Router extends \Coole\Routing\Facades\Router{}
     class View extends \Coole\View\Facades\View{}
 }

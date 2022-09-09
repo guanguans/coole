@@ -10,6 +10,15 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
+use PHPUnit\Framework\TestCase;
+/*
+ * This file is part of Coole.
+ *
+ * @link     https://github.com/guanguans/coole
+ * @contact  guanguans <ityaozm@gmail.com>
+ * @license  https://github.com/guanguans/coole/blob/main/LICENSE
+ */
+
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
@@ -35,17 +44,21 @@ use Rector\Set\ValueObject\SetList;
 
 return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->bootstrapFiles([
-        __DIR__.'/vendor/autoload.php',
+        // __DIR__.'/vendor/autoload.php',
     ]);
 
     $rectorConfig->autoloadPaths([
-        __DIR__.'/src/foundation/src/helpers.php',
+        // __DIR__.'/vendor/autoload.php',
     ]);
 
     $rectorConfig->paths([
         __DIR__.'/bin/cooler',
         __DIR__.'/src',
+        __DIR__.'/.php-cs-fixer.php',
+        __DIR__.'/doctum.php',
         __DIR__.'/index.php',
+        __DIR__.'/monorepo-builder.php',
+        __DIR__.'/rector.php',
         __DIR__.'/server.php',
     ]);
 
@@ -98,8 +111,8 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->disableParallel();
     $rectorConfig->importNames(true, false);
     $rectorConfig->nestedChainMethodCallLimit(3);
-    $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
     $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
+    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
     // $rectorConfig->phpVersion(PhpVersion::PHP_80);
     // $rectorConfig->cacheClass(FileCacheStorage::class);
     // $rectorConfig->cacheDirectory(__DIR__.'/build/rector');
@@ -111,11 +124,11 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->ruleWithConfiguration(PreferThisOrSelfMethodCallRector::class, [
-            'PHPUnit\Framework\TestCase' => PreferenceSelfThis::PREFER_THIS,
+            TestCase::class => PreferenceSelfThis::PREFER_THIS,
         ]
     );
 
     $rectorConfig->ruleWithConfiguration(ReturnArrayClassMethodToYieldRector::class, [
-        new ReturnArrayClassMethodToYield('PHPUnit\Framework\TestCase', '*provide*'),
+        new ReturnArrayClassMethodToYield(TestCase::class, '*provide*'),
     ]);
 };
