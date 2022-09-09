@@ -163,3 +163,59 @@ if (! function_exists('call')) {
         return app('invoker')->call($callable, $parameters);
     }
 }
+
+if (! function_exists('class_basename')) {
+    /**
+     * Get the class "basename" of the given object / class.
+     */
+    function class_basename(string|object $class): string
+    {
+        $class = is_object($class) ? $class::class : $class;
+
+        return basename(str_replace('\\', '/', $class));
+    }
+}
+
+if (! function_exists('retry')) {
+    /**
+     * Retry an operation a given number of times.
+     *
+     * @param callable|null $when
+     *
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    function retry(int|array $times, callable $callback, int|Closure $sleepMilliseconds = 0, $when = null)
+    {
+        $attempts = 0;
+
+        $backoff = [];
+
+        if (is_array($times)) {
+            $backoff = $times;
+
+            $times = count($times) + 1;
+        }
+
+        beginning:
+        ++$attempts;
+        --$times;
+
+        try {
+            return $callback($attempts);
+        } catch (Exception $exception) {
+            if ($times < 1 || ($when && ! $when($exception))) {
+                throw $exception;
+            }
+
+            $sleepMilliseconds = $backoff[$attempts - 1] ?? $sleepMilliseconds;
+
+            if ($sleepMilliseconds) {
+                usleep(value($sleepMilliseconds, $attempts, $exception) * 1000);
+            }
+
+            goto beginning;
+        }
+    }
+}
