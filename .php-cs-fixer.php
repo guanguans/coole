@@ -59,9 +59,9 @@ return (new PhpCsFixer\Config())
         'class_attributes_separation' => true,
         'standardize_not_equals' => true,
         'declare_strict_types' => true,
-        // 'trailing_comma_in_multiline' => true,
-        // 'php_unit_construct' => true,
-        // 'php_unit_strict' => true,
+        'trailing_comma_in_multiline' => true,
+        'php_unit_construct' => true,
+        'php_unit_strict' => true,
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);

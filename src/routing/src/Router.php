@@ -28,7 +28,6 @@ class Router
      * 添加任意请求路由.
      *
      * @param string|string[] $methods
-     * @param null            $to
      */
     public function match(string|array $methods, string $pattern, mixed $to = null): Route
     {
@@ -51,7 +50,6 @@ class Router
      * 添加任意请求路由.
      *
      * @param string|string[] $methods
-     * @param null            $to
      */
     public function any(string|array $methods, string $pattern, mixed $to = null): Route
     {
