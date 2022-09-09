@@ -81,6 +81,7 @@ return static function (RectorConfig $rectorConfig): void {
         '**/Source/*',
         '**/Expected/*',
         '**/Expected*',
+        __DIR__.'/src/foundation/tests/AppTest.php',
     ]);
 
     $rectorConfig->sets([
@@ -89,9 +90,9 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
-        SetList::GMAGICK_TO_IMAGICK,
-        SetList::MONOLOG_20,
-        SetList::MYSQL_TO_MYSQLI,
+        // SetList::GMAGICK_TO_IMAGICK,
+        // SetList::MONOLOG_20,
+        // SetList::MYSQL_TO_MYSQLI,
         SetList::NAMING,
         // SetList::PRIVATIZATION,
         SetList::PSR_4,
@@ -100,7 +101,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::EARLY_RETURN,
 
         PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
-        PHPUnitSetList::PHPUNIT80_DMS,
+        // PHPUnitSetList::PHPUNIT80_DMS,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
         PHPUnitSetList::PHPUNIT_EXCEPTION,
         PHPUnitSetList::REMOVE_MOCKS,
@@ -127,8 +128,4 @@ return static function (RectorConfig $rectorConfig): void {
             TestCase::class => PreferenceSelfThis::PREFER_THIS,
         ]
     );
-
-    $rectorConfig->ruleWithConfiguration(ReturnArrayClassMethodToYieldRector::class, [
-        new ReturnArrayClassMethodToYield(TestCase::class, '*provide*'),
-    ]);
 };
