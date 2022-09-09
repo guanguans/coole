@@ -210,20 +210,20 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \Throwable
      */
-    public function report(Throwable $e)
+    public function report(Throwable $throwable)
     {
-        $e = $this->mapException($e);
+        $throwable = $this->mapException($throwable);
 
-        if ($this->shouldntReport($e)) {
+        if ($this->shouldntReport($throwable)) {
             return;
         }
 
-        if (Reflector::isCallable($reportCallable = [$e, 'report']) && false !== $this->app->call($reportCallable)) {
+        if (Reflector::isCallable($reportCallable = [$throwable, 'report']) && false !== $this->app->call($reportCallable)) {
             return;
         }
 
         foreach ($this->reportCallbacks as $reportCallback) {
-            if ($reportCallback->handles($e) && false === $reportCallback($e)) {
+            if ($reportCallback->handles($throwable) && false === $reportCallback($throwable)) {
                 return;
             }
         }
@@ -231,19 +231,19 @@ class ErrorHandler implements ErrorHandlerInterface
         try {
             $logger = $this->app->make(LoggerInterface::class);
         } catch (Exception) {
-            throw $e;
+            throw $throwable;
         }
 
-        $level = Arr::first($this->levels, static fn ($level, $type) => $e instanceof $type, LogLevel::ERROR);
+        $level = Arr::first($this->levels, static fn ($level, $type) => $throwable instanceof $type, LogLevel::ERROR);
 
         $logger->log(
             $level,
-            $e->getMessage(),
+            $throwable->getMessage(),
             array_merge(
-                $this->exceptionContext($e),
+                $this->exceptionContext($throwable),
                 $this->context(),
-                $e->getTrace(),
-                ['exception' => $e]
+                $throwable->getTrace(),
+                ['exception' => $throwable]
             )
         );
     }
@@ -253,9 +253,9 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return bool
      */
-    public function shouldReport(Throwable $e)
+    public function shouldReport(Throwable $throwable)
     {
-        return ! $this->shouldntReport($e);
+        return ! $this->shouldntReport($throwable);
     }
 
     /**
@@ -263,11 +263,11 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return bool
      */
-    protected function shouldntReport(Throwable $e)
+    protected function shouldntReport(Throwable $throwable)
     {
         $dontReport = array_merge($this->dontReport, $this->internalDontReport);
 
-        return ! is_null(Arr::first($dontReport, static fn ($type) => $e instanceof $type));
+        return ! is_null(Arr::first($dontReport, static fn ($type) => $throwable instanceof $type));
     }
 
     /**
@@ -275,10 +275,10 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return array
      */
-    protected function exceptionContext(Throwable $e)
+    protected function exceptionContext(Throwable $throwable)
     {
-        if (method_exists($e, 'context')) {
-            return $e->context();
+        if (method_exists($throwable, 'context')) {
+            return $throwable->context();
         }
 
         return [];
@@ -309,24 +309,24 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $e)
+    public function render($request, Throwable $throwable)
     {
-        if (method_exists($e, 'render') && $response = $e->render($request)) {
+        if (method_exists($throwable, 'render') && $response = $throwable->render($request)) {
             return $response;
         }
 
-        if ($e instanceof Responsable) {
-            return $e->toResponse($request);
+        if ($throwable instanceof Responsable) {
+            return $throwable->toResponse($request);
         }
 
-        $e = $this->prepareException($this->mapException($e));
+        $throwable = $this->prepareException($this->mapException($throwable));
 
-        if ($response = $this->renderViaCallbacks($request, $e)) {
+        if ($response = $this->renderViaCallbacks($request, $throwable)) {
             return $response;
         }
 
         return match (true) {
-            default => $this->renderExceptionResponse($request, $e),
+            default => $this->renderExceptionResponse($request, $throwable),
         };
     }
 
@@ -335,13 +335,13 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Throwable
      */
-    protected function prepareException(Throwable $e)
+    protected function prepareException(Throwable $throwable)
     {
         return match (true) {
-            $e instanceof ModelNotFoundException => new NotFoundHttpException($e->getMessage(), $e),
-            $e instanceof SuspiciousOperationException => new NotFoundHttpException('Bad hostname provided.', $e),
-            $e instanceof RecordsNotFoundException => new NotFoundHttpException('Not found.', $e),
-            default => $e,
+            $throwable instanceof ModelNotFoundException => new NotFoundHttpException($throwable->getMessage(), $throwable),
+            $throwable instanceof SuspiciousOperationException => new NotFoundHttpException('Bad hostname provided.', $throwable),
+            $throwable instanceof RecordsNotFoundException => new NotFoundHttpException('Not found.', $throwable),
+            default => $throwable,
         };
     }
 
@@ -350,20 +350,20 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Throwable
      */
-    protected function mapException(Throwable $e)
+    protected function mapException(Throwable $throwable)
     {
-        if (method_exists($e, 'getInnerException') &&
-            ($inner = $e->getInnerException()) instanceof Throwable) {
+        if (method_exists($throwable, 'getInnerException') &&
+            ($inner = $throwable->getInnerException()) instanceof Throwable) {
             return $inner;
         }
 
         foreach ($this->exceptionMap as $class => $mapper) {
-            if (is_a($e, $class)) {
-                return $mapper($e);
+            if (is_a($throwable, $class)) {
+                return $mapper($throwable);
             }
         }
 
-        return $e;
+        return $throwable;
     }
 
     /**
@@ -375,12 +375,12 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \ReflectionException
      */
-    protected function renderViaCallbacks($request, Throwable $e)
+    protected function renderViaCallbacks($request, Throwable $throwable)
     {
         foreach ($this->renderCallbacks as $renderCallback) {
             foreach ($this->firstClosureParameterTypes($renderCallback) as $type) {
-                if (is_a($e, $type)) {
-                    $response = $renderCallback($e, $request);
+                if (is_a($throwable, $type)) {
+                    $response = $renderCallback($throwable, $request);
 
                     if (! is_null($response)) {
                         return $response;
@@ -397,11 +397,11 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderExceptionResponse($request, Throwable $e)
+    protected function renderExceptionResponse($request, Throwable $throwable)
     {
-        return $this->shouldReturnJson($request, $e)
-                    ? $this->prepareJsonResponse($request, $e)
-                    : $this->prepareResponse($request, $e);
+        return $this->shouldReturnJson($request, $throwable)
+                    ? $this->prepareJsonResponse($request, $throwable)
+                    : $this->prepareResponse($request, $throwable);
     }
 
     /**
@@ -411,7 +411,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return bool
      */
-    protected function shouldReturnJson($request, Throwable $e)
+    protected function shouldReturnJson($request, Throwable $throwable)
     {
         $acceptable = $request->getAcceptableContentTypes();
 
@@ -435,17 +435,17 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function prepareResponse($request, Throwable $e)
+    protected function prepareResponse($request, Throwable $throwable)
     {
-        if (! $this->isHttpException($e) && config('app.debug')) {
-            return $this->convertExceptionToResponse($e);
+        if (! $this->isHttpException($throwable) && config('app.debug')) {
+            return $this->convertExceptionToResponse($throwable);
         }
 
-        if (! $this->isHttpException($e)) {
-            $e = new HttpException(500, $e->getMessage());
+        if (! $this->isHttpException($throwable)) {
+            $throwable = new HttpException(500, $throwable->getMessage());
         }
 
-        return $this->renderHttpException($e);
+        return $this->renderHttpException($throwable);
     }
 
     /**
@@ -453,12 +453,12 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function convertExceptionToResponse(Throwable $e)
+    protected function convertExceptionToResponse(Throwable $throwable)
     {
         return new Response(
-            $this->renderExceptionContent($e),
-            $this->isHttpException($e) ? $e->getStatusCode() : 500,
-            $this->isHttpException($e) ? $e->getHeaders() : []
+            $this->renderExceptionContent($throwable),
+            $this->isHttpException($throwable) ? $throwable->getStatusCode() : 500,
+            $this->isHttpException($throwable) ? $throwable->getHeaders() : []
         );
     }
 
@@ -484,9 +484,9 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return string
      */
-    protected function renderExceptionWithCustomRenderer(Throwable $e)
+    protected function renderExceptionWithCustomRenderer(Throwable $throwable)
     {
-        return app(ExceptionRendererInterface::class)->render($e);
+        return app(ExceptionRendererInterface::class)->render($throwable);
     }
 
     /**
@@ -496,11 +496,11 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return string
      */
-    protected function renderExceptionWithSymfony(Throwable $e, $debug)
+    protected function renderExceptionWithSymfony(Throwable $throwable, $debug)
     {
-        $renderer = new HtmlErrorRenderer($debug);
+        $htmlErrorRenderer = new HtmlErrorRenderer($debug);
 
-        return $renderer->render($e)->getAsString();
+        return $htmlErrorRenderer->render($throwable)->getAsString();
     }
 
     /**
@@ -508,9 +508,9 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function renderHttpException(HttpExceptionInterface $e)
+    protected function renderHttpException(HttpExceptionInterface $httpException)
     {
-        return $this->convertExceptionToResponse($e);
+        return $this->convertExceptionToResponse($httpException);
     }
 
     /**
@@ -520,12 +520,12 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    protected function prepareJsonResponse($request, Throwable $e)
+    protected function prepareJsonResponse($request, Throwable $throwable)
     {
         $jsonResponse = new JsonResponse(
-            $this->convertExceptionToArray($e),
-            $this->isHttpException($e) ? $e->getStatusCode() : 500,
-            $this->isHttpException($e) ? $e->getHeaders() : []
+            $this->convertExceptionToArray($throwable),
+            $this->isHttpException($throwable) ? $throwable->getStatusCode() : 500,
+            $this->isHttpException($throwable) ? $throwable->getHeaders() : []
         );
 
         return $jsonResponse->setEncodingOptions(JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
@@ -536,16 +536,16 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return array
      */
-    protected function convertExceptionToArray(Throwable $e)
+    protected function convertExceptionToArray(Throwable $throwable)
     {
         return config('app.debug') ? [
-            'message' => $e->getMessage(),
-            'exception' => $e::class,
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-            'trace' => collect($e->getTrace())->map(static fn ($trace) => Arr::except($trace, ['args']))->all(),
+            'message' => $throwable->getMessage(),
+            'exception' => $throwable::class,
+            'file' => $throwable->getFile(),
+            'line' => $throwable->getLine(),
+            'trace' => collect($throwable->getTrace())->map(static fn ($trace) => Arr::except($trace, ['args']))->all(),
         ] : [
-            'message' => $this->isHttpException($e) ? $e->getMessage() : 'Server Error',
+            'message' => $this->isHttpException($throwable) ? $throwable->getMessage() : 'Server Error',
         ];
     }
 
@@ -558,9 +558,9 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @internal this method is not meant to be used or overwritten outside the framework
      */
-    public function renderForConsole($output, Throwable $e)
+    public function renderForConsole($output, Throwable $throwable)
     {
-        $this->app['console']->renderThrowable($e, $output);
+        $this->app['console']->renderThrowable($throwable, $output);
     }
 
     /**
@@ -568,8 +568,8 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return bool
      */
-    protected function isHttpException(Throwable $e)
+    protected function isHttpException(Throwable $throwable)
     {
-        return $e instanceof HttpExceptionInterface;
+        return $throwable instanceof HttpExceptionInterface;
     }
 }

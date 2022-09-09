@@ -28,7 +28,7 @@ class HttpKernelServiceProvider extends ServiceProvider
         $this->app->singleton(RequestStack::class);
         $this->app->alias(RequestStack::class, 'http.kernel.request.stack');
 
-        $this->app->instance(ControllerResolver::class, new ControllerResolver(app('logger')));
+        $this->app->instance(ControllerResolver::class, new ControllerResolver($this->app->make('logger')));
         $this->app->alias(ControllerResolver::class, 'http.kernel.controller.resolver');
 
         $this->app->singleton(ArgumentResolver::class);

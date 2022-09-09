@@ -19,9 +19,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class StringResponseListener implements EventSubscriberInterface
 {
-    public function onKernelView(ViewEvent $event)
+    public function onKernelView(ViewEvent $viewEvent)
     {
-        $response = $event->getControllerResult();
+        $response = $viewEvent->getControllerResult();
 
         if (! (
             null === $response
@@ -29,7 +29,7 @@ class StringResponseListener implements EventSubscriberInterface
             || $response instanceof Response
             || (is_object($response) && ! method_exists($response, '__toString'))
         )) {
-            $event->setResponse(new Response((string) $response));
+            $viewEvent->setResponse(new Response((string) $response));
         }
     }
 

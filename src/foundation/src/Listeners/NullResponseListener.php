@@ -19,12 +19,12 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class NullResponseListener implements EventSubscriberInterface
 {
-    public function onKernelView(ViewEvent $event): void
+    public function onKernelView(ViewEvent $viewEvent): void
     {
-        $response = $event->getControllerResult();
+        $response = $viewEvent->getControllerResult();
 
         if (null === $response) {
-            $event->setResponse(new Response());
+            $viewEvent->setResponse(new Response());
         }
     }
 

@@ -19,9 +19,9 @@ class EventTest extends TestCase
 {
     public function testGetName()
     {
-        $event = Mockery::mock(Event::class)->makePartial();
+        $mock = Mockery::mock(Event::class)->makePartial();
 
-        $this->assertIsString($event->getName());
-        $this->assertSame($event::class, $event->getName());
+        $this->assertIsString($mock->getName());
+        $this->assertSame($mock::class, $mock->getName());
     }
 }

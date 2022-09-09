@@ -74,8 +74,8 @@ class WhoopsHandler
     {
         $directories = [];
 
-        foreach (Finder::create()->in($directory)->directories()->depth(0)->sortByName() as $dir) {
-            $directories[] = $dir->getPathname();
+        foreach (Finder::create()->in($directory)->directories()->depth(0)->sortByName() as $finder) {
+            $directories[] = $finder->getPathname();
         }
 
         return $directories;

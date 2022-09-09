@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Invoker;
 
+use Coole\Foundation\App;
 use Coole\Foundation\ServiceProvider;
 use Invoker\Invoker;
 use Invoker\ParameterResolver\Container\TypeHintContainerResolver;
@@ -23,7 +24,7 @@ class InvokerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(Invoker::class, static fn ($app) => new Invoker(new TypeHintContainerResolver($app), $app));
+        $this->app->singleton(Invoker::class, static fn (App $app) => new Invoker(new TypeHintContainerResolver($app), $app));
 
         $this->app->alias(Invoker::class, 'invoker');
     }

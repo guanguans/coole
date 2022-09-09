@@ -165,15 +165,15 @@ class AppTest extends TestCase
 
     public function testBoot()
     {
-        $app = new AppStub();
+        $appStub = new AppStub();
 
-        $this->assertFalse($app->getBooted());
-        $app->boot();
-        $this->assertTrue($app->getBooted());
+        $this->assertFalse($appStub->getBooted());
+        $appStub->boot();
+        $this->assertTrue($appStub->getBooted());
 
-        $app->setBooted(true);
+        $appStub->setBooted(true);
 
-        $this->assertNull($app->boot());
+        $this->assertNull($appStub->boot());
     }
 
     public function testLoadEnv()

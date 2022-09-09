@@ -24,6 +24,8 @@ use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
 use Rector\Core\ValueObject\PhpVersion;
 use Rector\DeadCode\Rector\MethodCall\RemoveEmptyMethodCallRector;
+use Rector\PHPUnit\Rector\Class_\AddSeeTestAnnotationRector;
+use Rector\PHPUnit\Set\PHPUnitLevelSetList;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\Set\ValueObject\SetList;
@@ -51,6 +53,7 @@ return static function (RectorConfig $rectorConfig): void {
         LogicalToBooleanRector::class,
         SimplifyBoolIdenticalTrueRector::class,
         RemoveEmptyMethodCallRector::class,
+        AddSeeTestAnnotationRector::class,
 
         // paths
         '**/Fixture*',
@@ -63,14 +66,27 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->sets([
         LevelSetList::UP_TO_PHP_80,
+        SetList::ACTION_INJECTION_TO_CONSTRUCTOR_INJECTION,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
         SetList::DEAD_CODE,
-        // SetList::NAMING,
+        SetList::GMAGICK_TO_IMAGICK,
+        SetList::MONOLOG_20,
+        SetList::MYSQL_TO_MYSQLI,
+        SetList::NAMING,
+        // SetList::PRIVATIZATION,
+        // SetList::PSR_4,
         // SetList::TYPE_DECLARATION,
         // SetList::TYPE_DECLARATION_STRICT,
         // SetList::EARLY_RETURN,
-        // PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+
+        PHPUnitLevelSetList::UP_TO_PHPUNIT_90,
+        PHPUnitSetList::PHPUNIT80_DMS,
+        PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+        PHPUnitSetList::PHPUNIT_EXCEPTION,
+        PHPUnitSetList::REMOVE_MOCKS,
+        PHPUnitSetList::PHPUNIT_SPECIFIC_METHOD,
+        PHPUnitSetList::PHPUNIT_YIELD_DATA_PROVIDER,
     ]);
 
     $rectorConfig->disableParallel();

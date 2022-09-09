@@ -78,13 +78,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 注册服务.
      */
-    public function register(ServiceProvider $provider): void
+    public function register(ServiceProvider $serviceProvider): void
     {
-        $this->providers[] = $provider;
+        $this->providers[] = $serviceProvider;
 
-        $provider->registering();
-        $provider->register();
-        $provider->registered();
+        $serviceProvider->registering();
+        $serviceProvider->register();
+        $serviceProvider->registered();
     }
 
     /**
@@ -270,17 +270,17 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * Report the exception to the exception handler.
      */
-    protected function reportException(Throwable $e): void
+    protected function reportException(Throwable $throwable): void
     {
-        $this->app[ErrorHandlerInterface::class]->report($e);
+        $this->app[ErrorHandlerInterface::class]->report($throwable);
     }
 
     /**
      * Render the exception to a response.
      */
-    protected function renderException(Request $request, Throwable $e): Response
+    protected function renderException(Request $request, Throwable $throwable): Response
     {
-        return $this->app[ErrorHandlerInterface::class]->render($request, $e);
+        return $this->app[ErrorHandlerInterface::class]->render($request, $throwable);
     }
 
     /**

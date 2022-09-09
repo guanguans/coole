@@ -23,14 +23,14 @@ interface ErrorHandlerInterface
      *
      * @throws \Throwable
      */
-    public function report(Throwable $e);
+    public function report(Throwable $throwable);
 
     /**
      * Determine if the exception should be reported.
      *
      * @return bool
      */
-    public function shouldReport(Throwable $e);
+    public function shouldReport(Throwable $throwable);
 
     /**
      * Render an exception into an HTTP response.
@@ -41,7 +41,7 @@ interface ErrorHandlerInterface
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $e);
+    public function render($request, Throwable $throwable);
 
     /**
      * Render an exception to the console.
@@ -52,5 +52,5 @@ interface ErrorHandlerInterface
      *
      * @internal this method is not meant to be used or overwritten outside the framework
      */
-    public function renderForConsole($output, Throwable $e);
+    public function renderForConsole($output, Throwable $throwable);
 }

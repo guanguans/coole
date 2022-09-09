@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Coole\Logger;
 
+use Coole\Foundation\App;
 use Coole\Foundation\Listeners\LogListener;
 use Coole\Foundation\ServiceProvider;
-use Illuminate\Container\Container;
 use Monolog\ErrorHandler;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Handler\FormattableHandlerInterface;
@@ -37,13 +37,13 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(FormatterInterface::class, static fn (Container $app) => $app->make(
+        $this->app->bind(FormatterInterface::class, static fn (App $app) => $app->make(
             $app['config']['logger']['default_formatter'],
             $app['config']['logger']['formatters'][$app['config']['logger']['default_formatter']]
         ));
         $this->app->alias(FormatterInterface::class, 'logger.formatter');
 
-        $this->app->bind(HandlerInterface::class, static function ($app) {
+        $this->app->bind(HandlerInterface::class, static function (App $app) {
             $handler = $app->make(
                 $app['config']['logger']['default_handler'],
                 $app['config']['logger']['handlers'][$app['config']['logger']['default_handler']]
@@ -56,7 +56,7 @@ class LoggerServiceProvider extends ServiceProvider
         });
         $this->app->alias(HandlerInterface::class, 'logger.handler');
 
-        $this->app->bind(LoggerInterface::class, static function ($app) {
+        $this->app->bind(LoggerInterface::class, static function (App $app) {
             $logger = new Logger($app['config']['logger']['name']);
             $logger->pushHandler($app['logger.handler']);
 

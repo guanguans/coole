@@ -83,9 +83,9 @@ coole;
      *
      * @return void
      */
-    protected function reportException(Throwable $e)
+    protected function reportException(Throwable $throwable)
     {
-        $this->app[ErrorHandlerInterface::class]->report($e);
+        $this->app[ErrorHandlerInterface::class]->report($throwable);
     }
 
     /**
@@ -95,8 +95,8 @@ coole;
      *
      * @return void
      */
-    protected function renderException($output, Throwable $e)
+    protected function renderException($output, Throwable $throwable)
     {
-        $this->app[ErrorHandlerInterface::class]->renderForConsole($output, $e);
+        $this->app[ErrorHandlerInterface::class]->renderForConsole($output, $throwable);
     }
 }
