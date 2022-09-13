@@ -26,6 +26,9 @@ use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
 use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Enum\PreferenceSelfThis;
+use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
+use Rector\CodingStyle\Rector\Encapsed\EncapsedStringsToSprintfRector;
+use Rector\CodingStyle\Rector\Encapsed\WrapEncapsedVariableInCurlyBracesRector;
 use Rector\CodingStyle\Rector\MethodCall\PreferThisOrSelfMethodCallRector;
 use Rector\Config\RectorConfig;
 use Rector\Core\Configuration\Option;
@@ -71,6 +74,15 @@ return static function (RectorConfig $rectorConfig): void {
         NormalizeNamespaceByPSR4ComposerAutoloadRector::class,
         ChangeAndIfToEarlyReturnRector::class,
         ReturnBinaryOrToEarlyReturnRector::class,
+        EncapsedStringsToSprintfRector::class,
+        WrapEncapsedVariableInCurlyBracesRector::class,
+
+        // optional rules
+        // AddDefaultValueForUndefinedVariableRector::class,
+        // RemoveUnusedVariableAssignRector::class,
+        // UnSpreadOperatorRector::class,
+        // ConsistentPregDelimiterRector::class,
+        // StaticClosureRector::class,
 
         // paths
         '**/Fixture*',
@@ -111,12 +123,13 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->importNames(true, false);
     $rectorConfig->nestedChainMethodCallLimit(3);
     $rectorConfig->phpstanConfig(__DIR__.'/phpstan.neon');
-    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
-    // $rectorConfig->phpVersion(PhpVersion::PHP_80);
+    // $rectorConfig->fileExtensions(['php']);
     // $rectorConfig->cacheClass(FileCacheStorage::class);
     // $rectorConfig->cacheDirectory(__DIR__.'/build/rector');
-    // $rectorConfig->indent(' ', 4);
+    // $rectorConfig->parameters()->set(Option::APPLY_AUTO_IMPORT_NAMES_ON_CHANGED_FILES_ONLY, true);
+    // $rectorConfig->phpVersion(PhpVersion::PHP_80);
     // $rectorConfig->parallel();
+    // $rectorConfig->indent(' ', 4);
 
     $rectorConfig->rules([
         InlineConstructorDefaultToPropertyRector::class,
