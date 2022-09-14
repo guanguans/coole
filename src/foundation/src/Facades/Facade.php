@@ -55,10 +55,8 @@ abstract class Facade
 
     /**
      * Convert the facade into a Mockery spy.
-     *
-     * @return \Mockery\MockInterface
      */
-    public static function spy()
+    public static function spy(): LegacyMockInterface|MockInterface|null
     {
         if (! static::isMock()) {
             $class = static::getMockableClass();
@@ -146,10 +144,8 @@ abstract class Facade
 
     /**
      * Get the mockable class for the bound instance.
-     *
-     * @return string|null
      */
-    protected static function getMockableClass()
+    protected static function getMockableClass(): ?string
     {
         if ($root = static::getFacadeRoot()) {
             return $root::class;
@@ -170,10 +166,8 @@ abstract class Facade
 
     /**
      * Get the root object behind the facade.
-     *
-     * @return mixed
      */
-    public static function getFacadeRoot()
+    public static function getFacadeRoot(): mixed
     {
         return static::resolveFacadeInstance(static::getFacadeAccessor());
     }
@@ -190,10 +184,8 @@ abstract class Facade
 
     /**
      * Resolve the facade root instance from the container.
-     *
-     * @return mixed
      */
-    protected static function resolveFacadeInstance(string $name)
+    protected static function resolveFacadeInstance(string $name): mixed
     {
         if (isset(static::$resolvedInstance[$name])) {
             return static::$resolvedInstance[$name];
@@ -246,11 +238,9 @@ abstract class Facade
      * @param string $method
      * @param array  $args
      *
-     * @return mixed
-     *
      * @throws \RuntimeException
      */
-    public static function __callStatic($method, $args)
+    public static function __callStatic($method, $args): mixed
     {
         $instance = static::getFacadeRoot();
 

@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * 核心服务
      *
-     * @var string[]
+     * @var array<string>
      */
     protected $providers = [
         ConfigServiceProvider::class,
@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
     /**
      * 全局中间件.
      *
-     * @var string[]
+     * @var array<string>
      */
     protected $middleware = [
         CheckResponseForModifications::class,
@@ -62,17 +62,11 @@ class AppServiceProvider extends ServiceProvider
         // 设置门面的 app 共享实例
         Facade::setFacadeApplication($this->app);
 
-        // 设置 timezone
-        date_default_timezone_set($this->app['config']['app']['timezone']);
+        // 设置时区
+        date_default_timezone_set($this->app['config']['app.timezone']);
 
-        // 设置 编码
-        mb_internal_encoding($this->app['config']['app']['charset']);
-
-        // 设置核心全局中间件
-        $this->app->setMiddleware($this->middleware);
-
-        // 设置第三方全局中间件
-        $this->app->setMiddleware($this->app['config']['app']['middleware']);
+        // 设置编码
+        mb_internal_encoding($this->app['config']['app.charset']);
     }
 
     /**
@@ -84,12 +78,27 @@ class AppServiceProvider extends ServiceProvider
         $this->app->registerProviders($this->providers);
 
         // 注册第三方服务
-        $this->app->registerProviders($this->app['config']['app']['providers']);
+        $this->app->registerProviders($this->app['config']['app.providers']);
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function booting(): void
+    {
+        // 设置核心全局中间件
+        $this->app->setMiddleware($this->middleware);
+
+        // 设置第三方全局中间件
+        $this->app->setMiddleware($this->app['config']['app.middleware']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function boot(): void
     {
-        $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app']['charset']));
+        $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
         $this->app['event.dispatcher']->addSubscriber(new StringResponseListener());
     }
 }

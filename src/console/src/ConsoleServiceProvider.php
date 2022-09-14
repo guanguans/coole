@@ -32,7 +32,6 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->singleton(Application::class);
         $this->app->alias(Application::class, 'console');
-        $this->app->alias(Application::class, 'console.app');
 
         $this->app->singleton(CommandCollection::class);
         $this->app->alias(CommandCollection::class, 'console.command.collection');
@@ -44,8 +43,9 @@ class ConsoleServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app->commands(ServeCommand::class);
+
         foreach ($this->app['config']['console']['commands'] as $command) {
-            $this->app->loadCommandFrom($command['dir'], $command['namespace'], $command['suffix']);
+            $this->app->loadCommandFrom($command['dir'], $command['namespace']);
         }
     }
 }

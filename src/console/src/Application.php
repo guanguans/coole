@@ -58,7 +58,7 @@ coole;
         try {
             $this->app->boot();
 
-            $this->addCommands($this->app['console.command.collection']->flatten()->all());
+            $this->addCommands($this->app['console.command.collection']->all());
 
             return parent::run($input, $output);
         } catch (Throwable $throwable) {

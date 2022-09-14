@@ -17,25 +17,15 @@ use Symfony\Component\Finder\Finder;
 class CommandDiscoverer
 {
     public function __construct(
-        /**
-         * 目录.
-         */
         protected string $dir,
-        /**
-         * 命名空间.
-         */
         protected string $namespace,
-        /**
-         * 后缀
-         */
-        protected string $suffix = '*Command.php'
     ) {
     }
 
     /**
      * 获取命令.
      *
-     * @return \Coole\Console\Command[]
+     * @return array<\Coole\Console\Command>
      */
     public function getCommands(): array
     {
@@ -44,7 +34,7 @@ class CommandDiscoverer
             ->in($this->dir)
             ->ignoreVCS(true)
             ->ignoreDotFiles(true)
-            ->name($this->suffix);
+            ->name('*.php');
 
         $commands = [];
         foreach ($finder as $file) {
@@ -92,26 +82,6 @@ class CommandDiscoverer
     public function setNamespace(string $namespace): self
     {
         $this->namespace = $namespace;
-
-        return $this;
-    }
-
-    /**
-     * 获取后缀
-     */
-    public function getSuffix(): string
-    {
-        return $this->suffix;
-    }
-
-    /**
-     * 设置后缀
-     *
-     * @return $this
-     */
-    public function setSuffix(string $suffix): self
-    {
-        $this->suffix = $suffix;
 
         return $this;
     }

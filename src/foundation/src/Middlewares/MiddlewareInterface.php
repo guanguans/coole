@@ -14,11 +14,9 @@ namespace Coole\Foundation\Middlewares;
 
 use Closure;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 interface MiddlewareInterface
 {
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function handle(Request $request, Closure $next);
+    public function handle(Request $request, Closure $next): Response;
 }

@@ -40,17 +40,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public const VERSION = '1.1.0';
 
     /**
-     * 核心配置.
-     */
-    protected array $options = [
-        'debug' => false,
-        'charset' => 'UTF-8',
-        'config_path' => null,
-        'env_path' => null,
-    ];
-
-    /**
-     * 核心服务.
+     * 已经注册的服务.
      *
      * @var array<ServiceProvider>
      */
@@ -100,8 +90,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 添加配置.
-     *
-     * @return $this
      */
     public function addConfig(string $key, array $value): void
     {
@@ -119,7 +107,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 加载 env.
      *
-     * @param string|string[] $paths
+     * @param string|array<string> $paths
      */
     public function loadEnvFrom(string|array $paths): void
     {
@@ -139,24 +127,32 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
 
         if (is_file($path)) {
-            $configFiles = [new SplFileInfo($path)];
+            $splFileInfos = [new SplFileInfo($path)];
         }
 
         if (is_dir($path)) {
-            $configFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
+            $splFileInfos = Finder::create()->depth(0)->files()->in($path)->name('*.php');
         }
 
-        foreach ($configFiles as $configFile) {
-            $key = $configFile->getBasename('.php');
-            $value = require $configFile->getPathname();
+        foreach ($splFileInfos as $splFileInfo) {
+            $key = $splFileInfo->getBasename('.php');
+            $value = require $splFileInfo->getPathname();
 
             $force ? $this->mergeConfig($key, $value) : $this->addConfig($key, $value);
         }
     }
 
-    public function mergeConfigFrom(string $path, string $key): void
+    /**
+     * 从指定路径合并配置.
+     */
+    public function mergeConfigFrom(string $path, ?string $key = null): void
     {
-        $config = $this->app->make('config');
+        /** @var \Coole\Config\Config $config */
+        $config = $this->app['config'];
+
+        if (is_null($key)) {
+            $key = (new SplFileInfo($path))->getBasename('.php');
+        }
 
         $config->set($key, array_merge(
             require $path, $config->get($key, [])
@@ -165,6 +161,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 加载路由.
+     *
+     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
      */
     public function loadRouteFrom(string $path): void
     {
@@ -188,17 +186,19 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 加载命令.
      */
-    public function loadCommandFrom(string $dir, string $namespace, string $suffix = '*Command.php'): void
+    public function loadCommandFrom(string $dir, string $namespace): void
     {
-        $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
+        $commandDiscoverer = new CommandDiscoverer($dir, $namespace);
 
-        $commands = $commandDiscoverer->getCommands() and $this['console.command.collection']->add($commands);
+        $this['console.command.collection']->push(...$commandDiscoverer->getCommands());
     }
 
     /**
      * 注册命令.
      *
-     * @param array<\Coole\Console\Command>|string $commands
+     * @param array<string>|string $commands
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function commands(array|string $commands): void
     {
@@ -209,6 +209,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 批量注册服务.
+     *
+     * @param array<string> $providers
      */
     public function registerProviders(array $providers): void
     {
@@ -220,7 +222,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 启动运行服务.
      */
-    public function run(Request $request = null): void
+    public function run(?Request $request = null): void
     {
         if (null === $request) {
             // 创建请求对象
@@ -460,7 +462,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         );
         $this->alias(Config::class, 'config');
 
-        is_null($envPath = $this->app['config']['app']['env_path']) or $this->loadEnvFrom($envPath);
-        is_null($configPath = $this->app['config']['app']['config_path']) or $this->loadConfigFrom($configPath);
+        is_null($envPath = $this->app['config']['app.env_path']) or $this->loadEnvFrom($envPath);
+        is_null($configPath = $this->app['config']['app.config_path']) or $this->loadConfigFrom($configPath, true);
     }
 }

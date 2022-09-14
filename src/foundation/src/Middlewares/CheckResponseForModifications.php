@@ -21,7 +21,7 @@ class CheckResponseForModifications implements MiddlewareInterface
     /**
      * {@inheritdoc}
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);
         if ($response instanceof Response) {
