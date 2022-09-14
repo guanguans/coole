@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\Foundation\Facades;
 
 use Closure;
+use Coole\Foundation\App;
 use Mockery;
 use Mockery\Expectation;
 use Mockery\LegacyMockInterface;
@@ -24,7 +25,7 @@ abstract class Facade
     /**
      * The application instance being facaded.
      */
-    protected static \Coole\Foundation\App $app;
+    protected static App $app;
 
     /**
      * The resolved object instances.
@@ -226,7 +227,7 @@ abstract class Facade
     /**
      * Get the application instance behind the facade.
      */
-    public static function getFacadeApplication(): \Coole\Foundation\App
+    public static function getFacadeApplication(): App
     {
         return static::$app;
     }
@@ -234,7 +235,7 @@ abstract class Facade
     /**
      * Set the application instance.
      */
-    public static function setFacadeApplication(\Coole\Foundation\App $app): void
+    public static function setFacadeApplication(App $app): void
     {
         static::$app = $app;
     }

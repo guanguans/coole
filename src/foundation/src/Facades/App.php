@@ -65,7 +65,7 @@ class App extends Facade
     /**
      * {@inheritdoc}
      */
-    public static function getFacadeAccessor(): string
+    protected static function getFacadeAccessor(): string
     {
         return 'app';
     }
