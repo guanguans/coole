@@ -22,7 +22,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigsFrom(__DIR__.'/../config/console.php');
+        $this->app->loadConfigFrom(__DIR__.'/../config/console.php');
     }
 
     /**
@@ -45,7 +45,7 @@ class ConsoleServiceProvider extends ServiceProvider
     {
         $this->app->commands(ServeCommand::class);
         foreach ($this->app['config']['console']['commands'] as $command) {
-            $this->app->loadCommandsFrom($command['dir'], $command['namespace'], $command['suffix']);
+            $this->app->loadCommandFrom($command['dir'], $command['namespace'], $command['suffix']);
         }
     }
 }

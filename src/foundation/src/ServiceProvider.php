@@ -14,6 +14,10 @@ namespace Coole\Foundation;
 
 abstract class ServiceProvider
 {
+    protected array $bindings = [];
+
+    protected array $singletons = [];
+
     public function __construct(protected App $app)
     {
     }
@@ -61,5 +65,15 @@ abstract class ServiceProvider
      */
     public function booted(): void
     {
+    }
+
+    public function getBindings(): array
+    {
+        return $this->bindings;
+    }
+
+    public function getSingletons(): array
+    {
+        return $this->singletons;
     }
 }

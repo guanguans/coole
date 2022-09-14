@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Routing\Facades;
 
-use Coole\Foundation\Facade;
+use Coole\Foundation\Facades\Facade;
 
 /**
  * @method static \Coole\Routing\Route          any(string|string[] $methods, string $pattern, array|string|callable|null $to = null)

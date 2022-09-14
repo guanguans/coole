@@ -29,7 +29,7 @@ class LoggerServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigsFrom(__DIR__.'/../config/logger.php');
+        $this->app->loadConfigFrom(__DIR__.'/../config/logger.php');
     }
 
     /**

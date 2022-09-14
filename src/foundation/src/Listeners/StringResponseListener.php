@@ -22,10 +22,8 @@ class StringResponseListener implements EventSubscriberInterface
     public function onKernelView(ViewEvent $viewEvent): void
     {
         $response = $viewEvent->getControllerResult();
-
         if (! (
-            null === $response
-            || is_array($response)
+            is_array($response)
             || $response instanceof Response
             || (is_object($response) && ! method_exists($response, '__toString'))
         )) {

@@ -187,7 +187,7 @@ class AppTest extends TestCase
     public function testLoadConfigException(): void
     {
         $this->expectException(UnknownFileOrDirectoryException::class);
-        $this->app->loadConfigsFrom(__DIR__.'/Stub/conf');
+        $this->app->loadConfigFrom(__DIR__.'/Stub/conf');
     }
 
     public function testLoadRoute(): void
@@ -202,6 +202,6 @@ class AppTest extends TestCase
     public function testLoadRouteException(): void
     {
         $this->expectException(UnknownFileOrDirectoryException::class);
-        $this->app->loadRoutesFrom(__DIR__.'/Stub/conf');
+        $this->app->loadRouteFrom(__DIR__.'/Stub/conf');
     }
 }

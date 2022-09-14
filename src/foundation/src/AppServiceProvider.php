@@ -12,11 +12,12 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
+use Coole\Config\ConfigServiceProvider;
 use Coole\Console\ConsoleServiceProvider;
 use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Coole\Event\EventServiceProvider;
-use Coole\Foundation\Listeners\NullResponseListener;
+use Coole\Foundation\Facades\Facade;
 use Coole\Foundation\Listeners\StringResponseListener;
 use Coole\Foundation\Middlewares\CheckResponseForModifications;
 use Coole\HttpKernel\HttpKernelServiceProvider;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
      * @var string[]
      */
     protected $providers = [
+        ConfigServiceProvider::class,
         ErrorHandlerServiceProvider::class,
         LoggerServiceProvider::class,
         EventServiceProvider::class,
@@ -89,6 +91,5 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app']['charset']));
         $this->app['event.dispatcher']->addSubscriber(new StringResponseListener());
-        $this->app['event.dispatcher']->addSubscriber(new NullResponseListener());
     }
 }

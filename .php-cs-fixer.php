@@ -1,7 +1,7 @@
 <?php
 
-use PhpCsFixer\Finder;
-use PhpCsFixer\Config;
+declare(strict_types=1);
+
 /**
  * This file is part of Coole.
  *
@@ -9,6 +9,9 @@ use PhpCsFixer\Config;
  * @contact  guanguans <ityaozm@gmail.com>
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
+
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
 $header = <<<EOF
 This file is part of Coole.
@@ -20,10 +23,10 @@ EOF;
 
 $finder = Finder::create()
     ->in([
-        __DIR__ . '/src',
+        __DIR__.'/src',
     ])
     ->append([
-        __DIR__.'.php-cs-fixer.php',
+        __DIR__.'/.php-cs-fixer.php',
         __DIR__.'/doctum.php',
         __DIR__.'/index.php',
         __DIR__.'/LocalValetDriver.php',
@@ -49,7 +52,7 @@ return (new Config())
         '@Symfony' => true,
         'header_comment' => [
             'header' => $header,
-            'comment_type' => 'PHPDoc'
+            'comment_type' => 'PHPDoc',
         ],
         'array_syntax' => ['syntax' => 'short'],
         'ordered_imports' => ['sort_algorithm' => 'alpha'],

@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation;
+namespace Coole\Foundation\Facades;
 
 use Closure;
 use Mockery;
@@ -24,7 +24,7 @@ abstract class Facade
     /**
      * The application instance being facaded.
      */
-    protected static App $app;
+    protected static \Coole\Foundation\App $app;
 
     /**
      * The resolved object instances.
@@ -226,7 +226,7 @@ abstract class Facade
     /**
      * Get the application instance behind the facade.
      */
-    public static function getFacadeApplication(): App
+    public static function getFacadeApplication(): \Coole\Foundation\App
     {
         return static::$app;
     }
@@ -234,7 +234,7 @@ abstract class Facade
     /**
      * Set the application instance.
      */
-    public static function setFacadeApplication(App $app): void
+    public static function setFacadeApplication(\Coole\Foundation\App $app): void
     {
         static::$app = $app;
     }

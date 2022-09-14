@@ -66,6 +66,6 @@ return [
      * 路由目录
      */
     'route_paths' => [
-        // base_path('config/route'),
+        // base_path('routes'),
     ],
 ];

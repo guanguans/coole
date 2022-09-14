@@ -78,6 +78,16 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $serviceProvider->registering();
         $serviceProvider->register();
         $serviceProvider->registered();
+
+        foreach ($serviceProvider->getBindings() as $key => $value) {
+            $this->bind($key, $value);
+        }
+
+        foreach ($serviceProvider->getSingletons() as $key => $value) {
+            $key = is_int($key) ? $value : $key;
+
+            $this->singleton($key, $value);
+        }
     }
 
     /**
@@ -111,7 +121,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @param string|string[] $paths
      */
-    public function loadEnvsFrom(string|array $paths): void
+    public function loadEnvFrom(string|array $paths): void
     {
         $dotenv = Dotenv::createUnsafeMutable($paths);
         $dotenv->load();
@@ -122,7 +132,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
      */
-    public function loadConfigsFrom(string $path, bool $force = false): void
+    public function loadConfigFrom(string $path, bool $force = false): void
     {
         if (! file_exists($path)) {
             throw UnknownFileOrDirectoryException::create($path);
@@ -156,7 +166,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 加载路由.
      */
-    public function loadRoutesFrom(string $path): void
+    public function loadRouteFrom(string $path): void
     {
         if (! file_exists($path)) {
             throw UnknownFileOrDirectoryException::create($path);
@@ -178,7 +188,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 加载命令.
      */
-    public function loadCommandsFrom(string $dir, string $namespace, string $suffix = '*Command.php'): void
+    public function loadCommandFrom(string $dir, string $namespace, string $suffix = '*Command.php'): void
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace, $suffix);
 
@@ -243,7 +253,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     protected function reportException(Throwable $throwable): void
     {
-        $this->app[ErrorHandlerInterface::class]->report($throwable);
+        $this[ErrorHandlerInterface::class]->report($throwable);
     }
 
     /**
@@ -251,7 +261,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     protected function renderException(Request $request, Throwable $throwable): Response
     {
-        return $this->app[ErrorHandlerInterface::class]->render($request, $throwable);
+        return $this[ErrorHandlerInterface::class]->render($request, $throwable);
     }
 
     /**
@@ -436,6 +446,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         static::setInstance($this);
         $this->instance('app', $this);
+        $this->alias('app', self::class);
         $this->alias('app', Container::class);
     }
 
@@ -449,7 +460,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         );
         $this->alias(Config::class, 'config');
 
-        is_null($envPath = $this->app['config']['app']['env_path']) or $this->app->loadEnvsFrom($envPath);
-        is_null($configPath = $this->app['config']['app']['config_path']) or $this->loadConfigsFrom($configPath);
+        is_null($envPath = $this->app['config']['app']['env_path']) or $this->loadEnvFrom($envPath);
+        is_null($configPath = $this->app['config']['app']['config_path']) or $this->loadConfigFrom($configPath);
     }
 }

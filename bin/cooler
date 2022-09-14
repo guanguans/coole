@@ -19,5 +19,6 @@ defined('BASE_PATH') or define('BASE_PATH', dirname(__DIR__));
 require BASE_PATH.'/vendor/autoload.php';
 
 $app = new App();
+$app['config']['app.debug'] = true;
 
 $app->make('console')->run();

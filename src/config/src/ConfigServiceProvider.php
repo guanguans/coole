@@ -21,16 +21,7 @@ class ConfigServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singletonIf(Config::class, new Config());
+        $this->app->singletonIf(Config::class);
         $this->app->alias(Config::class, 'config');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function registered(): void
-    {
-        // is_null($envPath = $this->app['config']['app']['env_path']) or $this->app->loadEnvsFrom($envPath);
-        // is_null($configPath = $this->app['config']['app']['config_path']) or $this->app->loadConfigsFrom($configPath);
     }
 }
