@@ -236,7 +236,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function runningInConsole(): bool
     {
-        return cenv('APP_RUNNING_IN_CONSOLE') ?? (\PHP_SAPI === 'cli' || \PHP_SAPI === 'phpdbg');
+        return (bool) (cenv('APP_RUNNING_IN_CONSOLE') ?: (\PHP_SAPI === 'cli' || \PHP_SAPI === 'phpdbg'));
     }
 
     /**
@@ -319,7 +319,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return (new Pipeline())
             ->send($request)
             ->through($this->makeMiddleware($this->getCurrentRequestShouldExecutedMiddleware($request)))
-            ->then(function ($request) {
+            ->then(function ($request): Response {
                 $this->instance(Request::class, $request);
 
                 return $this->handle($request);

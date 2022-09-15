@@ -20,6 +20,9 @@ use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use RuntimeException;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 abstract class Facade
 {
     /**

@@ -16,26 +16,27 @@ use Closure;
 use InvalidArgumentException;
 use RuntimeException;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 abstract class MultipleInstanceManager
 {
     /**
      * The array of resolved instances.
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $instances = [];
+    protected array $instances = [];
 
     /**
      * The registered custom instance creators.
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $customCreators = [];
+    protected array $customCreators = [];
 
     /**
      * Create a new manager instance.
-     *
-     * @return void
      */
     public function __construct(protected App $app)
     {
@@ -60,12 +61,8 @@ abstract class MultipleInstanceManager
 
     /**
      * Get an instance instance by name.
-     *
-     * @param string|null $name
-     *
-     * @return mixed
      */
-    public function instance($name = null)
+    public function instance(?string $name = null): mixed
     {
         $name = $name ?: $this->getDefaultInstance();
 
@@ -74,10 +71,8 @@ abstract class MultipleInstanceManager
 
     /**
      * Attempt to get an instance from the local cache.
-     *
-     * @return mixed
      */
-    protected function get(string $name)
+    protected function get(string $name): mixed
     {
         return $this->instances[$name] ?? $this->resolve($name);
     }
@@ -85,11 +80,9 @@ abstract class MultipleInstanceManager
     /**
      * Resolve the given instance.
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
      */
-    protected function resolve(string $name)
+    protected function resolve(string $name): mixed
     {
         $config = $this->getInstanceConfig($name);
 
@@ -116,10 +109,8 @@ abstract class MultipleInstanceManager
 
     /**
      * Call a custom instance creator.
-     *
-     * @return mixed
      */
-    protected function callCustomCreator(array $config)
+    protected function callCustomCreator(array $config): mixed
     {
         return $this->customCreators[$config['driver']]($this->app, $config);
     }
@@ -127,11 +118,11 @@ abstract class MultipleInstanceManager
     /**
      * Unset the given instances.
      *
-     * @param array|string|null $name
+     * @param array<string>|string|null $name
      *
      * @return $this
      */
-    public function forgetInstance($name = null): static
+    public function forgetInstance(null|string|array $name = null): static
     {
         $name ??= $this->getDefaultInstance();
 
@@ -146,10 +137,8 @@ abstract class MultipleInstanceManager
 
     /**
      * Disconnect the given instance and remove from local cache.
-     *
-     * @param string|null $name
      */
-    public function purge($name = null): void
+    public function purge(?string $name = null): void
     {
         $name ??= $this->getDefaultInstance();
 

@@ -24,6 +24,7 @@ use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
 use Rector\CodeQuality\Rector\Expression\InlineIfToExplicitIfRector;
 use Rector\CodeQuality\Rector\Identical\SimplifyBoolIdenticalTrueRector;
+use Rector\CodeQuality\Rector\If_\ExplicitBoolCompareRector;
 use Rector\CodeQuality\Rector\LogicalAnd\LogicalToBooleanRector;
 use Rector\CodingStyle\Enum\PreferenceSelfThis;
 use Rector\CodingStyle\Rector\Closure\StaticClosureRector;
@@ -76,6 +77,7 @@ return static function (RectorConfig $rectorConfig): void {
         ReturnBinaryOrToEarlyReturnRector::class,
         EncapsedStringsToSprintfRector::class,
         WrapEncapsedVariableInCurlyBracesRector::class,
+        ExplicitBoolCompareRector::class,
 
         // optional rules
         // AddDefaultValueForUndefinedVariableRector::class,

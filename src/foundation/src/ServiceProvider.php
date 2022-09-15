@@ -30,10 +30,7 @@ abstract class ServiceProvider
     }
 
     /**
-     * Registers services on the given container.
-     * This method should only be used to configure services and parameters.
-     * It should not get services.
-     * 在给定的容器上注册服务。此方法仅应用于配置服务和参数。它不应获得服务。
+     * 注册服务.
      */
     public function register(): void
     {

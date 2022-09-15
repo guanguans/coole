@@ -13,41 +13,41 @@ declare(strict_types=1);
 namespace Coole\Foundation;
 
 use Closure;
+use Coole\Config\Config;
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 abstract class Manager
 {
     /**
      * The configuration repository instance.
-     *
-     * @var \Coole\Config\Config
      */
-    protected $config;
+    protected Config $config;
 
     /**
      * The registered custom driver creators.
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $customCreators = [];
+    protected array $customCreators = [];
 
     /**
      * The array of created "drivers".
      *
-     * @var array
+     * @var array<string, mixed>
      */
-    protected $drivers = [];
+    protected array $drivers = [];
 
     /**
      * Create a new manager instance.
-     *
-     * @return void
      */
     public function __construct(protected Container $container)
     {
-        $this->config = $container->make('config');
+        $this->config = $container['config'];
     }
 
     /**
@@ -58,13 +58,9 @@ abstract class Manager
     /**
      * Get a driver instance.
      *
-     * @param string|null $driver
-     *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
      */
-    public function driver($driver = null)
+    public function driver(?string $driver = null): mixed
     {
         $driver = $driver ?: $this->getDefaultDriver();
 
@@ -85,11 +81,9 @@ abstract class Manager
     /**
      * Create a new driver instance.
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
      */
-    protected function createDriver(string $driver)
+    protected function createDriver(string $driver): mixed
     {
         // First, we will determine if a custom driver creator exists for the given driver and
         // if it does not we will check for a creator method for the driver. Custom creator
@@ -109,10 +103,8 @@ abstract class Manager
 
     /**
      * Call a custom driver creator.
-     *
-     * @return mixed
      */
-    protected function callCustomCreator(string $driver)
+    protected function callCustomCreator(string $driver): mixed
     {
         return $this->customCreators[$driver]($this->container);
     }
@@ -132,7 +124,7 @@ abstract class Manager
     /**
      * Get all of the created "drivers".
      *
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function getDrivers(): array
     {

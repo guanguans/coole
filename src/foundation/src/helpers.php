@@ -56,7 +56,7 @@ if (! function_exists('config')) {
 
 if (! function_exists('cenv')) {
     /**
-     * 获取环境变量的值
+     * 获取环境变量的值.
      */
     function cenv(?string $key = null, mixed $default = null): null|array|bool|string
     {
@@ -94,19 +94,15 @@ if (! function_exists('cenv')) {
 
 if (! function_exists('base_path')) {
     /**
-     * 获取 base path.
+     * 获取基本路径.
      */
-    function base_path(string $path = null): ?string
+    function base_path(string $path = ''): string
     {
         if (! defined('BASE_PATH')) {
-            return null;
+            throw new RuntimeException('Undefined constant: BASE_PATH.');
         }
 
-        if (! is_null($path)) {
-            return BASE_PATH.'/'.trim($path, '/');
-        }
-
-        return BASE_PATH;
+        return BASE_PATH.($path ? DIRECTORY_SEPARATOR.$path : '');
     }
 }
 
@@ -114,7 +110,10 @@ if (! function_exists('event')) {
     /**
      * 调度事件.
      *
-     * @param null $listeners
+     * @param callable|string|array|ListenerInterface|EventSubscriberInterface|null $listeners
+     *
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
      */
     function event(Event $event, $listeners = null, bool $isDispatch = true): void
     {
@@ -147,21 +146,19 @@ if (! function_exists('call')) {
     /**
      * 调用回调.
      *
-     * @return mixed
+     * @param array<string, mixed> $parameters
      *
-     * @throws \Invoker\Exception\InvocationException
-     * @throws \Invoker\Exception\NotCallableException
-     * @throws \Invoker\Exception\NotEnoughParametersException
+     * @throws \InvalidArgumentException
      */
-    function call(callable|string $callable, array $parameters = [])
+    function call(callable|string $callback, array $parameters = [], ?string $defaultMethod = null): mixed
     {
-        return app('invoker')->call($callable, $parameters);
+        return app()->call($callback, $parameters, $defaultMethod);
     }
 }
 
 if (! function_exists('class_basename')) {
     /**
-     * Get the class "basename" of the given object / class.
+     * 获取给定对象或者类的 "basename".
      */
     function class_basename(string|object $class): string
     {
@@ -173,15 +170,11 @@ if (! function_exists('class_basename')) {
 
 if (! function_exists('retry')) {
     /**
-     * Retry an operation a given number of times.
-     *
-     * @param callable|null $when
-     *
-     * @return mixed
+     * 以给定的次数重试一个操作.
      *
      * @throws \Exception
      */
-    function retry(int|array $times, callable $callback, int|Closure $sleepMilliseconds = 0, $when = null)
+    function retry(int|array $times, callable $callback, int|Closure $sleepMilliseconds = 0, ?Closure $when = null): mixed
     {
         $attempts = 0;
 
@@ -212,5 +205,15 @@ if (! function_exists('retry')) {
 
             goto beginning;
         }
+    }
+}
+
+if (! function_exists('value')) {
+    /**
+     * 返回给定值的默认值。
+     */
+    function value(mixed $value, mixed ...$args): mixed
+    {
+        return $value instanceof Closure ? $value(...$args) : $value;
     }
 }
