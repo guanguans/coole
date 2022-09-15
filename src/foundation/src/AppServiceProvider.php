@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
      * @var array<string>
      */
     protected $providers = [
-        ConfigServiceProvider::class,
+        // ConfigServiceProvider::class,
         ErrorHandlerServiceProvider::class,
         LoggerServiceProvider::class,
         EventServiceProvider::class,

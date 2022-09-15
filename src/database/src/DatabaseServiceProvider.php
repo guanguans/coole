@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\Database;
 
 use Coole\Foundation\ServiceProvider;
-use Illuminate\Container\Container as IlluminateContainer;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
 
@@ -42,9 +41,11 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app['database']->addConnection($this->app['config']['database']['connections'][$this->app['config']['database']['default']]);
+        $this->app['database']->addConnection(
+            $this->app['config']['database']['connections'][$this->app['config']['database']['default']]
+        );
         // Set the event dispatcher used by Eloquent models... (optional)
-        $this->app['database']->setEventDispatcher(new Dispatcher(new IlluminateContainer()));
+        $this->app['database']->setEventDispatcher($this->app->make(Dispatcher::class));
         // Make this Capsule instance available globally via static methods... (optional)
         $this->app['database']->setAsGlobal();
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())

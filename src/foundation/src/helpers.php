@@ -17,11 +17,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 if (! function_exists('app')) {
     /**
-     * 获取 app 共享实例.
+     * 获取应用共享实例.
      *
      * @return \Coole\Foundation\App|mixed
      */
-    function app(?string $abstract = null, array $parameters = [])
+    function app(?string $abstract = null, array $parameters = []): mixed
     {
         if (is_null($abstract)) {
             return App::getInstance();
@@ -33,37 +33,32 @@ if (! function_exists('app')) {
 
 if (! function_exists('config')) {
     /**
-     * Get / set the specified configuration value.
+     * 获取/设置指定的配置值.
      *
-     * If an array is passed as the key, we will assume you want to set an array of values.
-     *
-     * @param array|string|null $key
-     *
-     * @return mixed|\Illuminate\Config\Repository
+     * @return \Coole\Config\Config|mixed|null
      */
-    function config($key = null, mixed $default = null)
+    function config(string|array|null $key = null, mixed $default = null): mixed
     {
+        /** @var \Coole\Config\Config $config */
+        $config = app('config');
+
         if (is_null($key)) {
-            return app('config');
+            return $config;
         }
 
         if (is_array($key)) {
-            return app('config')->set($key);
+            return $config->set($key);
         }
 
-        return app('config')->get($key, $default);
+        return $config->get($key, $default);
     }
 }
 
 if (! function_exists('cenv')) {
     /**
      * 获取环境变量的值
-     *
-     * @param null $default
-     *
-     * @return array|bool|false|mixed|string|null
      */
-    function cenv(?string $key = null, $default = null)
+    function cenv(?string $key = null, mixed $default = null): null|array|bool|string
     {
         if (is_null($key)) {
             return getenv();

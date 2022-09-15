@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\Foundation;
 
 use Coole\Config\Config;
+use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
@@ -85,7 +86,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function mergeConfig(string $key, array $value): void
     {
-        $this['config'][$key] = $value;
+        /** @var \Coole\Config\Config $config */
+        $config = $this->app['config'];
+
+        $config->set($key, array_merge($config->get($key, []), $value));
     }
 
     /**
@@ -93,7 +97,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function addConfig(string $key, array $value): void
     {
-        $this['config']->offsetExists($key) or $this['config'][$key] = $value;
+        $this['config']->has($key) or $this['config'][$key] = $value;
     }
 
     /**
@@ -137,7 +141,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         foreach ($splFileInfos as $splFileInfo) {
             $key = $splFileInfo->getBasename('.php');
             $value = require $splFileInfo->getPathname();
-
             $force ? $this->mergeConfig($key, $value) : $this->addConfig($key, $value);
         }
     }
@@ -196,13 +199,22 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 注册命令.
      *
-     * @param array<string>|string $commands
+     * @param string|\Coole\Console\Command|array<\Coole\Console\Command>|array<string> $commands
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function commands(array|string $commands): void
+    public function commands(string|Command|array $commands): void
     {
-        foreach ((array) $commands as $command) {
+        if (! is_array($commands)) {
+            $commands = [$commands];
+        }
+
+        foreach ($commands as $command) {
+            if ($command instanceof Command) {
+                $this['console.command.collection']->add($command);
+                continue;
+            }
+
             $this['console.command.collection']->add($this->make($command));
         }
     }
@@ -220,26 +232,29 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
+     * 确定应用程序是否在控制台中运行.
+     */
+    public function runningInConsole(): bool
+    {
+        return cenv('APP_RUNNING_IN_CONSOLE') ?? (\PHP_SAPI === 'cli' || \PHP_SAPI === 'phpdbg');
+    }
+
+    /**
      * 启动运行服务.
      */
     public function run(?Request $request = null): void
     {
-        if (null === $request) {
-            // 创建请求对象
-            $request = Request::createFromGlobals();
-        }
-
         try {
-            $this->instance('request', $request);
-
-            // 引导服务
-            $this->boot();
+            // 创建请求对象
+            $request or $request = Request::createFromGlobals();
 
             // 通过中间件将请求转化为响应
             $response = $this->sendRequestThroughPipeline($request);
         } catch (Throwable $throwable) {
+            // 报告异常
             $this->reportException($throwable);
 
+            // 渲染异常
             $response = $this->renderException($request, $throwable);
         }
 
@@ -251,7 +266,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * Report the exception to the exception handler.
+     * 报告异常.
      */
     protected function reportException(Throwable $throwable): void
     {
@@ -259,11 +274,16 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * Render the exception to a response.
+     * 渲染异常.
      */
     protected function renderException(Request $request, Throwable $throwable): Response
     {
         return $this[ErrorHandlerInterface::class]->render($request, $throwable);
+    }
+
+    public function isBooted(): bool
+    {
+        return $this->booted;
     }
 
     /**
@@ -289,10 +309,21 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function sendRequestThroughPipeline(Request $request): Response
     {
+        // 绑定请求
+        $this->instance(Request::class, $request);
+        $this->alias(Request::class, 'request');
+
+        // 引导服务
+        $this->boot();
+
         return (new Pipeline())
             ->send($request)
             ->through($this->makeMiddleware($this->getCurrentRequestShouldExecutedMiddleware($request)))
-            ->then(fn ($request) => $this->handle($request));
+            ->then(function ($request) {
+                $this->instance(Request::class, $request);
+
+                return $this->handle($request);
+            });
     }
 
     /**
@@ -314,9 +345,11 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 批量实例化中间件.
      *
-     * @param string[]|object[]|Closure[]|string $middlewares
+     * @param string|array<string> $middlewares
      *
-     * @return mixed[]
+     * @return array<\Coole\Foundation\Middlewares\MiddlewareInterface>
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function makeMiddleware(string|array $middlewares): array
     {
@@ -330,7 +363,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取当前请求应该被执行的中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getCurrentRequestShouldExecutedMiddleware(Request $request): array
     {
@@ -338,15 +371,18 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         $classMiddleware = array_filter($middlewares, static fn ($middleware) => is_string($middleware));
 
-        $objectMiddleware = array_filter($middlewares, static fn ($middleware) => ! is_string($middleware));
+        $objectMiddleware = array_filter($middlewares, static fn ($middleware) => is_object($middleware));
 
-        return array_merge(array_diff($classMiddleware, $this->getCurrentRequestExcludedMiddleware($request)), $objectMiddleware);
+        return array_merge(
+            array_diff($classMiddleware, $this->getCurrentRequestExcludedMiddleware($request)),
+            $objectMiddleware
+        );
     }
 
     /**
      * 获取当前请求排除中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getCurrentRequestExcludedMiddleware(Request $request): array
     {
@@ -360,7 +396,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取当前请求中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getCurrentRequestMiddleware(Request $request): array
     {
@@ -374,7 +410,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取控制器排除中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getControllerExcludedMiddleware(Request $request): array
     {
@@ -389,7 +425,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取路由排除中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getRouteExcludedMiddleware(Request $request): array
     {
@@ -399,7 +435,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取控制器中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getControllerMiddleware(Request $request): array
     {
@@ -414,7 +450,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取路由中间件.
      *
-     * @return mixed[]
+     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
      */
     public function getRouteMiddleware(Request $request): array
     {
@@ -444,14 +480,22 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         return $this->make($parameters['_controller'][0]);
     }
 
+    /**
+     * 绑定应用.
+     */
     protected function bindApp(): void
     {
         static::setInstance($this);
         $this->instance('app', $this);
-        $this->alias('app', self::class);
-        $this->alias('app', Container::class);
+        $this->instance(self::class, $this);
+        $this->instance(Container::class, $this);
     }
 
+    /**
+     * 绑定配置.
+     *
+     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
+     */
     protected function bindConfig(array $options): void
     {
         $this->instance(
