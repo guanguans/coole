@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\Foundation;
 
 use Closure;
-use Coole\Config\Config;
 use Illuminate\Container\Container;
 use Illuminate\Support\Str;
 use InvalidArgumentException;

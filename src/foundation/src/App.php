@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
-use Coole\Config\Config;
 use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
@@ -86,7 +85,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function mergeConfig(string $key, array $value): void
     {
-        /** @var \Coole\Config\Config $config */
+        /** @var \Coole\Foundation\Config $config */
         $config = $this->app['config'];
 
         $config->set($key, array_merge($config->get($key, []), $value));
@@ -150,7 +149,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function mergeConfigFrom(string $path, ?string $key = null): void
     {
-        /** @var \Coole\Config\Config $config */
+        /** @var \Coole\Foundation\Config $config */
         $config = $this->app['config'];
 
         if (is_null($key)) {

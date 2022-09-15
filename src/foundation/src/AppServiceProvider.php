@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
-use Coole\Config\ConfigServiceProvider;
 use Coole\Console\ConsoleServiceProvider;
 use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
@@ -34,7 +33,6 @@ class AppServiceProvider extends ServiceProvider
      * @var array<string>
      */
     protected $providers = [
-        // ConfigServiceProvider::class,
         ErrorHandlerServiceProvider::class,
         LoggerServiceProvider::class,
         EventServiceProvider::class,

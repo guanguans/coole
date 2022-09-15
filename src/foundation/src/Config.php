@@ -10,6 +10,10 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-test('example', static function (): void {
-    expect(true)->toBeTrue();
-});
+namespace Coole\Foundation;
+
+use Illuminate\Config\Repository;
+
+class Config extends Repository
+{
+}

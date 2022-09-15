@@ -35,11 +35,11 @@ if (! function_exists('config')) {
     /**
      * 获取/设置指定的配置值.
      *
-     * @return \Coole\Config\Config|mixed|null
+     * @return \Coole\Foundation\Config|mixed|null
      */
     function config(string|array|null $key = null, mixed $default = null): mixed
     {
-        /** @var \Coole\Config\Config $config */
+        /** @var \Coole\Foundation\Config $config */
         $config = app('config');
 
         if (is_null($key)) {
