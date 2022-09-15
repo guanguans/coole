@@ -22,23 +22,21 @@ class ServeCommand extends Command
 {
     protected string $name = 'serve';
 
-    protected string $description = 'Serve the application on the PHP development server';
-
-    protected int $tries;
+    protected string $description = 'Serve the application on the PHP development server.';
 
     protected function configure(): void
     {
         $this
             ->addOption(
                 'host',
-                'P',
+                'H',
                 InputOption::VALUE_OPTIONAL,
                 'The host address to serve the application on',
                 '127.0.0.1'
             )
             ->addOption(
                 'port',
-                'H',
+                'P',
                 InputOption::VALUE_OPTIONAL,
                 'The port to serve the application on',
                 8000
@@ -58,11 +56,6 @@ class ServeCommand extends Command
             );
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output): void
-    {
-        $this->tries = $input->getOption('tries');
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (empty($input->getOption('docroot'))) {
@@ -73,11 +66,14 @@ class ServeCommand extends Command
             throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $input->getOption('docroot')));
         }
 
-        $output->writeln(sprintf('<info>Coole development server started:</info> <http://%s:%s>', $input->getOption('host'), $input->getOption('port')));
+        $tries = $input->getOption('tries');
+
+        $this->output->info('Press Ctrl+C to stop the server.');
 
         passthru($this->serverCommand($input), $status);
-        if ($status && $this->tries > 0) {
-            --$this->tries;
+
+        if ($status && $tries > 0) {
+            --$tries;
             $input->setOption('port', $input->getOption('port') + 1);
             $this->execute($input, $output);
         }

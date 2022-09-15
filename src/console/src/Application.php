@@ -79,7 +79,7 @@ coole;
     }
 
     /**
-     * Report the exception to the exception handler.
+     * 报告异常.
      */
     protected function reportException(Throwable $throwable): void
     {
@@ -87,7 +87,7 @@ coole;
     }
 
     /**
-     * Render the given exception.
+     * 渲染异常.
      */
     protected function renderException(OutputInterface $output, Throwable $throwable): void
     {

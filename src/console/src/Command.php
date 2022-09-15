@@ -12,10 +12,17 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
+use Coole\Console\Concerns\InteractsWithIO;
+use Coole\Foundation\App;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class Command extends SymfonyCommand
 {
+    use InteractsWithIO;
+
     /**
      * 名称.
      */
@@ -33,20 +40,45 @@ class Command extends SymfonyCommand
 
     /**
      * 参数.
+     *
+     * @var array<array<mixed>>
      */
     protected array $arguments = [];
 
     /**
      * 选项.
+     *
+     * @var array<array<mixed>>
      */
     protected array $options = [];
 
-    public function __construct()
+    /**
+     * 输入.
+     */
+    protected InputInterface $input;
+
+    /**
+     * 输出.
+     */
+    protected SymfonyStyle $output;
+
+    public function __construct(protected App $app)
     {
         parent::__construct($this->name);
         $this->setDescription($this->description);
         $this->setHidden($this->hidden);
         $this->specifyParameters();
+    }
+
+    public function run(InputInterface $input, OutputInterface $output): int
+    {
+        $this->output = $this->app->make(
+            SymfonyStyle::class, ['input' => $input, 'output' => $output]
+        );
+
+        return parent::run(
+            $this->input = $input, $this->output
+        );
     }
 
     /**
@@ -66,7 +98,7 @@ class Command extends SymfonyCommand
     /**
      * 获取参数.
      *
-     * @return mixed[]
+     * @return array<array<mixed>>
      */
     public function getArguments(): array
     {
@@ -76,7 +108,7 @@ class Command extends SymfonyCommand
     /**
      * 获取选项.
      *
-     * @return mixed[]
+     * @return array<array<mixed>>
      */
     public function getOptions(): array
     {
