@@ -92,24 +92,31 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $serviceProvider->register();
         $serviceProvider->registered();
 
-        foreach ($serviceProvider->getBindings() as $key => $value) {
-            $this->bind($key, $value);
+        foreach ($serviceProvider->getBindings() as $abstract => $concrete) {
+            $this->bind($abstract, $concrete);
         }
 
-        foreach ($serviceProvider->getSingletons() as $key => $value) {
-            $key = is_int($key) ? $value : $key;
+        foreach ($serviceProvider->getSingletons() as $abstract => $concrete) {
+            $abstract = is_int($abstract) ? $concrete : $abstract;
 
-            $this->singleton($key, $value);
+            $this->singleton($abstract, $concrete);
         }
 
-        foreach ($serviceProvider->getAliases() as $key => $alias) {
-            foreach ((array) $alias as $as) {
-                $this->alias($key, $as);
+        foreach ($serviceProvider->getAliases() as $abstract => $aliases) {
+            foreach ((array) $aliases as $alias) {
+                $this->alias($abstract, $alias);
             }
         }
 
-        foreach ($serviceProvider->getClassAliases() as $classAlias) {
-            class_alias($classAlias, class_basename($classAlias));
+        foreach ($serviceProvider->getClassAliases() as $original => $aliases) {
+            if (is_int($original)) {
+                class_alias($aliases, class_basename($aliases));
+                continue;
+            }
+
+            foreach ((array) $aliases as $alias) {
+                class_alias($original, $alias);
+            }
         }
     }
 
