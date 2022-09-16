@@ -10,14 +10,14 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\HttpKernel\Controller;
+namespace Coole\HttpKernel;
 
 use Symfony\Component\HttpKernel\Controller\ControllerResolver as SymfonyControllerResolver;
 
 class ControllerResolver extends SymfonyControllerResolver
 {
     /**
-     * {@inheritDoc}
+     * @param ControllerInterface::class $class
      */
     protected function instantiateController(string $class): ControllerInterface
     {

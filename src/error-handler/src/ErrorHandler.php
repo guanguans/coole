@@ -290,13 +290,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Render an exception into an HTTP response.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Throwable
      */
-    public function render($request, Throwable $throwable)
+    public function render(Request $request, Throwable $throwable): Response
     {
         if (method_exists($throwable, 'render') && $response = $throwable->render($request)) {
             return $response;
@@ -352,9 +348,11 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Try to render a response from request and exception via render callbacks.
      *
+     * @return void|Response
+     *
      * @throws \ReflectionException
      */
-    protected function renderViaCallbacks(Request $request, Throwable $throwable): mixed
+    protected function renderViaCallbacks(Request $request, Throwable $throwable)
     {
         foreach ($this->renderCallbacks as $renderCallback) {
             foreach ($this->firstClosureParameterTypes($renderCallback) as $type) {

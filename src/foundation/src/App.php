@@ -16,8 +16,8 @@ use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
-use Coole\HttpKernel\Controller\Controller;
-use Coole\HttpKernel\Controller\HasControllerAble;
+use Coole\HttpKernel\Concerns\HasController;
+use Coole\HttpKernel\Controller;
 use Coole\Routing\Route;
 use Dotenv\Dotenv;
 use Illuminate\Container\Container;
@@ -33,7 +33,7 @@ use Throwable;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
-    use HasControllerAble;
+    use HasController;
     use Macroable;
 
     /**
@@ -87,10 +87,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $this->providers[] = $serviceProvider;
 
-        $serviceProvider->registering();
-        $serviceProvider->register();
-        $serviceProvider->registered();
-
         foreach ($serviceProvider->getBindings() as $key => $value) {
             $this->bind($key, $value);
         }
@@ -100,6 +96,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
             $this->singleton($key, $value);
         }
+
+        $serviceProvider->registering();
+        $serviceProvider->register();
+        $serviceProvider->registered();
     }
 
     /**
@@ -328,7 +328,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true): Response
     {
-        return $this['http.kernel']->handle($request, $type, $catch);
+        return $this['http_kernel']->handle($request, $type, $catch);
     }
 
     /**
@@ -336,7 +336,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function terminate(Request $request, Response $response): void
     {
-        $this['http.kernel']->terminate($request, $response);
+        $this['http_kernel']->terminate($request, $response);
     }
 
     /**

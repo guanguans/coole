@@ -14,9 +14,14 @@ namespace Coole\Event;
 
 use Coole\Foundation\ServiceProvider;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EventServiceProvider extends ServiceProvider
 {
+    protected array $bindings = [
+        // EventDispatcherInterface::class => EventDispatcher::class,
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -24,7 +29,6 @@ class EventServiceProvider extends ServiceProvider
     {
         $this->app->singleton(EventDispatcher::class);
         $this->app->alias(EventDispatcher::class, 'event.dispatcher');
-
         $this->app->singleton(ListenerCollection::class);
         $this->app->alias(ListenerCollection::class, 'event.listener_collection');
     }

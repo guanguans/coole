@@ -10,8 +10,10 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\HttpKernel\Controller;
+namespace Coole\HttpKernel\Concerns;
 
+use Coole\Foundation\Middlewares\MiddlewareInterface;
+use SplFileInfo;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -19,60 +21,58 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-trait HasControllerAble
+trait HasController
 {
     /**
      * 中间件.
+     *
+     * @var array<string>
      */
     protected array $middleware = [];
 
     /**
      * 排除的中间件.
+     *
+     * @var array<string>
      */
     protected array $excludedMiddleware = [];
 
     /**
      * {@inheritdoc}
      */
-    public function render($name, $context = []): string
+    public function render($name, array $context = []): string
     {
         return app('view')->render($name, $context);
     }
 
     /**
      * 重定 url.
-     *
-     * @param $url
      */
-    public function redirect($url, int $status = 302, array $headers = []): RedirectResponse
+    public function redirect(string $url, int $status = 302, array $headers = []): RedirectResponse
     {
         return new RedirectResponse($url, $status, $headers);
     }
 
     /**
-     * 抛出 http 异常.
+     * 抛出 Http 异常.
      *
-     * @param $statusCode
+     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
      */
-    public function abort($statusCode, string $message = '', array $headers = [])
+    public function abort(int $statusCode, string $message = '', array $headers = []): void
     {
         throw new HttpException($statusCode, $message, null, $headers);
     }
 
     /**
      * 返回流响应.
-     *
-     * @param null $callback
      */
-    public function stream($callback = null, int $status = 200, array $headers = []): StreamedResponse
+    public function stream(callable $callback = null, int $status = 200, array $headers = []): StreamedResponse
     {
         return new StreamedResponse($callback, $status, $headers);
     }
 
     /**
-     * 返回 json 响应.
-     *
-     * @param mixed[] $data
+     * 返回 Json 响应.
      */
     public function json(array $data = [], int $status = 200, array $headers = []): JsonResponse
     {
@@ -81,11 +81,8 @@ trait HasControllerAble
 
     /**
      * 返回二进制文件响应.
-     *
-     * @param $file
-     * @param null $contentDisposition
      */
-    public function sendFile($file, int $status = 200, array $headers = [], $contentDisposition = null): BinaryFileResponse
+    public function sendFile(SplFileInfo|string $file, int $status = 200, array $headers = [], string $contentDisposition = null): BinaryFileResponse
     {
         return new BinaryFileResponse($file, $status, $headers, true, $contentDisposition);
     }
@@ -93,7 +90,7 @@ trait HasControllerAble
     /**
      * 获取中间件.
      *
-     * @return mixed[]
+     * @return array<string>
      */
     public function getMiddleware(): array
     {
@@ -103,9 +100,9 @@ trait HasControllerAble
     /**
      * 设置中间件.
      *
-     * @param $middleware
+     * @param string|array<string> $middleware
      */
-    public function setMiddleware($middleware): void
+    public function setMiddleware(string|array|callable|MiddlewareInterface $middleware): void
     {
         $this->addMiddleware($middleware);
     }
@@ -113,9 +110,9 @@ trait HasControllerAble
     /**
      * 添加中间件.
      *
-     * @param $middleware
+     * @param string|callable|MiddlewareInterface|array<string|callable|MiddlewareInterface> $middleware
      */
-    public function addMiddleware($middleware): void
+    public function addMiddleware(string|array|callable|MiddlewareInterface $middleware): void
     {
         $this->middleware = array_unique(array_merge($this->middleware, (array) $middleware));
     }
@@ -123,7 +120,7 @@ trait HasControllerAble
     /**
      * 获取排除的中间件.
      *
-     * @return mixed[]
+     * @return string|callable|MiddlewareInterface|array<string|callable|MiddlewareInterface>
      */
     public function getExcludedMiddleware(): array
     {
@@ -133,9 +130,9 @@ trait HasControllerAble
     /**
      * 排除中间件.
      *
-     * @param $excludedMiddleware
+     * @param string|array<string> $middleware
      */
-    public function withoutMiddleware($excludedMiddleware): void
+    public function withoutMiddleware(string|array $excludedMiddleware): void
     {
         $this->addExcludedMiddleware($excludedMiddleware);
     }
@@ -143,9 +140,9 @@ trait HasControllerAble
     /**
      * 设置排除的中间件.
      *
-     * @param $excludedMiddleware
+     * @param string|array<string> $middleware
      */
-    public function setExcludedMiddleware($excludedMiddleware): void
+    public function setExcludedMiddleware(string|array $excludedMiddleware): void
     {
         $this->addExcludedMiddleware($excludedMiddleware);
     }
@@ -153,11 +150,9 @@ trait HasControllerAble
     /**
      * 添加排除的中间件.
      *
-     * @param $excludedMiddleware
-     *
-     * @return $this
+     * @param string|array<string> $middleware
      */
-    public function addExcludedMiddleware($excludedMiddleware): void
+    public function addExcludedMiddleware(string|array $excludedMiddleware): void
     {
         $this->excludedMiddleware = array_unique(array_merge($this->excludedMiddleware, (array) $excludedMiddleware));
     }

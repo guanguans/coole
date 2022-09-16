@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Tests\Stub;
 
-use Coole\HttpKernel\Controller\Controller;
+use Coole\HttpKernel\Controller;
 
 class ControllerStub extends Controller
 {

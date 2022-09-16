@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Coole\HttpKernel\Tests;
 
 use Coole\Foundation\Middlewares\CheckResponseForModifications;
-use Coole\HttpKernel\Controller\Controller;
+use Coole\HttpKernel\Controller;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;

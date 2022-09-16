@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace Coole\Routing;
 
-use Coole\HttpKernel\Controller\HasControllerAble;
+use Coole\HttpKernel\Concerns\HasController;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
 class Route extends SymfonyRoute
 {
-    use HasControllerAble;
+    use HasController;
 
     public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', string|array $schemes = [], string|array $methods = [], ?string $condition = '')
     {

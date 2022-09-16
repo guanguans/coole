@@ -10,14 +10,11 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\HttpKernel\Controller;
+namespace Coole\HttpKernel;
 
-interface ControllerInterface
+use Coole\HttpKernel\Concerns\HasController;
+
+class Controller implements ControllerInterface
 {
-    /**
-     * 渲染模板
-     *
-     * @param $name
-     */
-    public function render($name, array $context = []): string;
+    use HasController;
 }

@@ -10,9 +10,14 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\HttpKernel\Controller;
+namespace Coole\HttpKernel;
 
-class Controller implements ControllerInterface
+interface ControllerInterface
 {
-    use HasControllerAble;
+    /**
+     * 渲染模板
+     *
+     * @param string|\Twig\TemplateWrapper $name
+     */
+    public function render($name, array $context = []): string;
 }

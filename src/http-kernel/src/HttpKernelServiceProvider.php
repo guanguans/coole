@@ -13,33 +13,33 @@ declare(strict_types=1);
 namespace Coole\HttpKernel;
 
 use Coole\Foundation\ServiceProvider;
-use Coole\HttpKernel\Controller\ControllerResolver;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
+use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class HttpKernelServiceProvider extends ServiceProvider
 {
+    protected array $bindings = [
+        ControllerResolverInterface::class => ControllerResolver::class,
+        ArgumentResolverInterface::class => ArgumentResolver::class,
+        EventDispatcherInterface::class => EventDispatcher::class,
+    ];
+
+    protected array $singletons = [
+        RequestStack::class,
+        HttpKernel::class,
+    ];
+
     /**
      * {@inheritdoc}
      */
     public function register(): void
     {
-        $this->app->singleton(RequestStack::class);
-        $this->app->alias(RequestStack::class, 'http.kernel.request.stack');
-
-        $this->app->instance(ControllerResolver::class, new ControllerResolver($this->app->make('logger')));
-        $this->app->alias(ControllerResolver::class, 'http.kernel.controller.resolver');
-
-        $this->app->singleton(ArgumentResolver::class);
-        $this->app->alias(ArgumentResolver::class, 'http.kernel.argument.resolver');
-
-        $this->app->instance(HttpKernel::class, new HttpKernel(
-            $this->app['event.dispatcher'],
-            $this->app['http.kernel.controller.resolver'],
-            $this->app['http.kernel.request.stack'],
-            $this->app['http.kernel.argument.resolver']
-        ));
-        $this->app->alias(HttpKernel::class, 'http.kernel');
+        $this->app->alias(RequestStack::class, 'http_kernel.request_stack');
+        $this->app->alias(HttpKernel::class, 'http_kernel');
     }
 }
