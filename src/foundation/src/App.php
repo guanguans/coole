@@ -87,6 +87,10 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $this->providers[] = $serviceProvider;
 
+        $serviceProvider->registering();
+        $serviceProvider->register();
+        $serviceProvider->registered();
+
         foreach ($serviceProvider->getBindings() as $key => $value) {
             $this->bind($key, $value);
         }
@@ -106,10 +110,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         foreach ($serviceProvider->getClassAliases() as $classAlias) {
             class_alias($classAlias, class_basename($classAlias));
         }
-
-        $serviceProvider->registering();
-        $serviceProvider->register();
-        $serviceProvider->registered();
     }
 
     /**
