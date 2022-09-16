@@ -14,6 +14,7 @@ namespace Coole\Console;
 
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\App;
+use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
@@ -27,7 +28,7 @@ use Throwable;
  * exit($status);
  * ```
  */
-class Application extends \Symfony\Component\Console\Application
+class Application extends SymfonyApplication
 {
     /**
      * logo.

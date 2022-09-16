@@ -22,6 +22,13 @@ class DatabaseServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $aliases = [
+        Manager::class => ['database.manager', 'db'],
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     protected array $classAliases = [
         DB::class,
     ];
@@ -40,8 +47,6 @@ class DatabaseServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(Manager::class, static fn (): Manager => new Manager());
-        $this->app->alias(Manager::class, 'database');
-        $this->app->alias(Manager::class, 'db');
     }
 
     /**
@@ -49,14 +54,14 @@ class DatabaseServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app['database']->addConnection(
-            $this->app['config']['database']['connections'][$this->app['config']['database']['default']]
+        $this->app['db']->addConnection(
+            $this->app['config']['database.connections'][$this->app['config']['database.default']]
         );
         // Set the event dispatcher used by Eloquent models... (optional)
-        $this->app['database']->setEventDispatcher($this->app->make(Dispatcher::class));
+        $this->app['db']->setEventDispatcher($this->app->make(Dispatcher::class));
         // Make this Capsule instance available globally via static methods... (optional)
-        $this->app['database']->setAsGlobal();
+        $this->app['db']->setAsGlobal();
         // Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
-        $this->app['database']->bootEloquent();
+        $this->app['db']->bootEloquent();
     }
 }

@@ -23,6 +23,7 @@ use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Traits\Macroable;
+use Psr\Container\ContainerInterface;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -496,6 +497,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->instance('app', $this);
         $this->instance(self::class, $this);
         $this->instance(Container::class, $this);
+        $this->bind(ContainerInterface::class, fn () => $this);
     }
 
     /**

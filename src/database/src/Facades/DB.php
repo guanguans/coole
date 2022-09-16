@@ -47,6 +47,9 @@ use Coole\Foundation\Facades\Facade;
  * @method static void                                     rollBack(int $toLevel = null)
  * @method static void                                     setDefaultConnection(string $name)
  *
+ * @mixin  \Illuminate\Database\DatabaseManager
+ * @mixin  \Illuminate\Database\Connection
+ *
  * @see \Illuminate\Database\DatabaseManager
  * @see \Illuminate\Database\Connection
  */
