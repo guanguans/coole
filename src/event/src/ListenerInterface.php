@@ -16,8 +16,6 @@ interface ListenerInterface
 {
     /**
      * 事件处理.
-     *
-     * @return mixed
      */
-    public function handle(Event $event);
+    public function handle(Event $event): mixed;
 }

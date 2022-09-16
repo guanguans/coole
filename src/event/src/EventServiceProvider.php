@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
         $this->app->alias(EventDispatcher::class, 'event.dispatcher');
 
         $this->app->singleton(ListenerCollection::class);
-        $this->app->alias(ListenerCollection::class, 'event.listener.collection');
+        $this->app->alias(ListenerCollection::class, 'event.listener_collection');
     }
 
     /**
@@ -34,6 +34,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function registered(): void
     {
-        $this->app['event.listener.collection'] = $this->app['event.listener.collection']->merge($this->app['config']['event']['event.listener.collection'] ?? []);
+        $this->app['event.listener_collection']->merge($this->app['config']->get('event.listener_collection', []));
     }
 }

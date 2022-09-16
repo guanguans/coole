@@ -123,7 +123,7 @@ if (! function_exists('event')) {
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
         $listeners = array_unique(array_merge(
-            app('event.listener.collection')->get($event::class) ?? [],
+            app('event.listener_collection')->get($event::class) ?? [],
             $listeners
         ));
 
