@@ -59,6 +59,26 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
+     * 获取版本号.
+     */
+    public static function version(): string
+    {
+        return static::VERSION;
+    }
+
+    /**
+     * 批量注册服务.
+     *
+     * @param array<string> $providers
+     */
+    public function registerProviders(array $providers): void
+    {
+        foreach ($providers as $provider) {
+            $this->register(new $provider($this));
+        }
+    }
+
+    /**
      * 注册服务.
      */
     public function register(ServiceProvider $serviceProvider): void
@@ -81,107 +101,20 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 合并配置.
+     * 引导应用程序.
      */
-    public function mergeConfig(string $key, array $value): void
+    public function boot(): void
     {
-        /** @var \Coole\Foundation\Config $config */
-        $config = $this->app['config'];
-
-        $config->set($key, array_merge($config->get($key, []), $value));
-    }
-
-    /**
-     * 添加配置.
-     */
-    public function addConfig(string $key, array $value): void
-    {
-        $this['config']->has($key) or $this['config'][$key] = $value;
-    }
-
-    /**
-     * 获取版本号.
-     */
-    public static function version(): string
-    {
-        return static::VERSION;
-    }
-
-    /**
-     * 加载 env.
-     *
-     * @param string|array<string> $paths
-     */
-    public function loadEnvFrom(string|array $paths): void
-    {
-        $dotenv = Dotenv::createUnsafeMutable($paths);
-        $dotenv->load();
-    }
-
-    /**
-     * 加载配置.
-     *
-     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
-     */
-    public function loadConfigFrom(string $path, bool $force = false): void
-    {
-        if (! file_exists($path)) {
-            throw UnknownFileOrDirectoryException::create($path);
+        if ($this->booted) {
+            return;
         }
 
-        if (is_file($path)) {
-            $splFileInfos = [new SplFileInfo($path)];
-        }
+        $this->booted = true;
 
-        if (is_dir($path)) {
-            $splFileInfos = Finder::create()->depth(0)->files()->in($path)->name('*.php');
-        }
-
-        foreach ($splFileInfos as $splFileInfo) {
-            $key = $splFileInfo->getBasename('.php');
-            $value = require $splFileInfo->getPathname();
-            $force ? $this->mergeConfig($key, $value) : $this->addConfig($key, $value);
-        }
-    }
-
-    /**
-     * 从指定路径合并配置.
-     */
-    public function mergeConfigFrom(string $path, ?string $key = null): void
-    {
-        /** @var \Coole\Foundation\Config $config */
-        $config = $this->app['config'];
-
-        if (is_null($key)) {
-            $key = (new SplFileInfo($path))->getBasename('.php');
-        }
-
-        $config->set($key, array_merge(
-            require $path, $config->get($key, [])
-        ));
-    }
-
-    /**
-     * 加载路由.
-     *
-     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
-     */
-    public function loadRouteFrom(string $path): void
-    {
-        if (! file_exists($path)) {
-            throw UnknownFileOrDirectoryException::create($path);
-        }
-
-        if (is_file($path)) {
-            $routeFiles = [$path];
-        }
-
-        if (is_dir($path)) {
-            $routeFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
-        }
-
-        foreach ($routeFiles as $routeFile) {
-            require_once $routeFile;
+        foreach ($this->providers as $provider) {
+            $provider->booting();
+            $provider->boot();
+            $provider->booted();
         }
     }
 
@@ -219,14 +152,95 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 批量注册服务.
-     *
-     * @param array<string> $providers
+     * 合并配置.
      */
-    public function registerProviders(array $providers): void
+    public function mergeConfig(array $value, string $key): void
     {
-        foreach ($providers as $provider) {
-            $this->register(new $provider($this));
+        /** @var \Coole\Foundation\Config $config */
+        $config = $this->app['config'];
+
+        $values = [$value, $config->get($key, [])];
+
+        'app' === $key and $values = array_reverse($values);
+
+        $config->set($key, array_merge(...$values));
+    }
+
+    /**
+     * 从指定路径合并配置.
+     */
+    public function mergeConfigFrom(string $path, ?string $key = null): void
+    {
+        /** @var \Coole\Foundation\Config $config */
+        $config = $this->app['config'];
+
+        if (is_null($key)) {
+            $key = (new SplFileInfo($path))->getBasename('.php');
+        }
+
+        $values = [require $path, $config->get($key, [])];
+
+        'app' === $key and $values = array_reverse($values);
+
+        $config->set($key, array_merge(...$values));
+    }
+
+    /**
+     * 加载配置.
+     *
+     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
+     */
+    public function loadConfigFrom(string $path): void
+    {
+        if (! file_exists($path)) {
+            throw UnknownFileOrDirectoryException::create($path);
+        }
+
+        if (is_file($path)) {
+            $configFiles = [new SplFileInfo($path)];
+        }
+
+        if (is_dir($path)) {
+            $configFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
+        }
+
+        foreach ($configFiles as $configFile) {
+            $this->mergeConfigFrom((string) $configFile);
+        }
+    }
+
+    /**
+     * 加载 env.
+     *
+     * @param string|array<string> $paths
+     */
+    public function loadEnvFrom(string|array $paths): void
+    {
+        $dotenv = Dotenv::createUnsafeMutable($paths);
+        $dotenv->load();
+    }
+
+    /**
+     * 加载路由.
+     *
+     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
+     */
+    public function loadRouteFrom(string $path): void
+    {
+        if (! file_exists($path)) {
+            throw UnknownFileOrDirectoryException::create($path);
+        }
+
+        if (is_file($path)) {
+            $routeFiles = [$path];
+        }
+
+        if (is_dir($path)) {
+            $routeFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
+        }
+
+        foreach ($routeFiles as $routeFile) {
+            require_once $routeFile;
         }
     }
 
@@ -283,24 +297,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function isBooted(): bool
     {
         return $this->booted;
-    }
-
-    /**
-     * 引导应用程序.
-     */
-    public function boot(): void
-    {
-        if ($this->booted) {
-            return;
-        }
-
-        $this->booted = true;
-
-        foreach ($this->providers as $provider) {
-            $provider->booting();
-            $provider->boot();
-            $provider->booted();
-        }
     }
 
     /**
@@ -497,15 +493,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     protected function bindConfig(array $options): void
     {
-        $this->instance(
-            Config::class,
-            new Config([
-                'app' => array_merge(require __DIR__.'/../config/app.php', $options),
-            ])
-        );
+        $this->singleton(Config::class);
         $this->alias(Config::class, 'config');
 
+        $this->mergeConfigFrom(__DIR__.'/../config/app.php');
+        $this->mergeConfig($options, 'app');
+
         is_null($envPath = $this->app['config']['app.env_path']) or $this->loadEnvFrom($envPath);
-        is_null($configPath = $this->app['config']['app.config_path']) or $this->loadConfigFrom($configPath, true);
+        is_null($configPath = $this->app['config']['app.config_path']) or $this->loadConfigFrom($configPath);
     }
 }
