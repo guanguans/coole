@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Console;
 
+use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
 
 class CommandDiscoverer
@@ -38,9 +39,9 @@ class CommandDiscoverer
 
         $commands = [];
         foreach ($finder as $file) {
-            $class = '\\'.trim($this->namespace.'\\'.$file->getBasename('.php'), '\\');
+            $class = Str::start("$this->namespace\\{$file->getBasename('.php')}", '\\');
             $command = app($class);
-            $command instanceof Command && $commands[] = $command;
+            $command instanceof Command and $commands[] = $command;
         }
 
         return $commands;
