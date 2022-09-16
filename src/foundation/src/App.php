@@ -97,6 +97,16 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             $this->singleton($key, $value);
         }
 
+        foreach ($serviceProvider->getAliases() as $key => $alias) {
+            foreach ((array) $alias as $as) {
+                $this->alias($key, $as);
+            }
+        }
+
+        foreach ($serviceProvider->getClassAliases() as $classAlias) {
+            class_alias($classAlias, class_basename($classAlias));
+        }
+
         $serviceProvider->registering();
         $serviceProvider->register();
         $serviceProvider->registered();

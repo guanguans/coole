@@ -12,12 +12,20 @@ declare(strict_types=1);
 
 namespace Coole\Database;
 
+use Coole\Database\Facades\DB;
 use Coole\Foundation\ServiceProvider;
 use Illuminate\Database\Capsule\Manager;
 use Illuminate\Events\Dispatcher;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected array $classAliases = [
+        DB::class,
+    ];
+
     /**
      * {@inheritdoc}
      */
