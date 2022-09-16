@@ -18,6 +18,8 @@ class Router
 {
     protected array $groupStack = [];
 
+    protected static array $verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
+
     public function __construct(
         protected Route $defaultRoute,
         protected RouteCollection $routeCollection
@@ -25,17 +27,15 @@ class Router
     }
 
     /**
-     * 添加任意请求路由.
-     *
-     * @param string|string[] $methods
+     * 注册给定请求路由.
      */
-    public function match(string|array $methods, string $pattern, mixed $to = null): Route
+    public function match(string|array $methods, string $pattern, mixed $action): Route
     {
         $route = clone $this->defaultRoute;
 
         $route->setPath($groupPattern = $this->getGroupPattern($pattern));
 
-        $route->setDefault('_controller', $to);
+        $route->setDefault('_controller', $action);
 
         $route->setMiddleware($this->getGroupMiddleware());
 
@@ -47,80 +47,63 @@ class Router
     }
 
     /**
-     * 添加任意请求路由.
-     *
-     * @param string|string[] $methods
+     * 注册任意请求路由.
      */
-    public function any(string|array $methods, string $pattern, mixed $to = null): Route
+    public function any(string $pattern, mixed $action): Route
     {
-        return $this->match($methods, $pattern, $to);
+        return $this->match(self::$verbs, $pattern, $action);
     }
 
     /**
-     * 添加 get 求路由.
-     *
-     * @param null $to
+     * 注册 GET 求路由.
      */
-    public function get(string $pattern, mixed $to = null): Route
+    public function get(string $pattern, mixed $action): Route
     {
-        return $this->match(['GET', 'HEAD'], $pattern, $to);
+        return $this->match(['GET', 'HEAD'], $pattern, $action);
     }
 
     /**
-     * 添加 post 请求路由.
-     *
-     * @param null $to
+     * 注册 POST 请求路由.
      */
-    public function post(string $pattern, mixed $to = null): Route
+    public function post(string $pattern, mixed $action): Route
     {
-        return $this->match('POST', $pattern, $to);
+        return $this->match('POST', $pattern, $action);
     }
 
     /**
-     * 添加 put 请求路由.
-     *
-     * @param null $to
+     * 注册 PUT 请求路由.
      */
-    public function put(string $pattern, mixed $to = null): Route
+    public function put(string $pattern, mixed $action): Route
     {
-        return $this->match('PUT', $pattern, $to);
+        return $this->match('PUT', $pattern, $action);
     }
 
     /**
-     * 添加 delete 请求路由.
-     *
-     * @param null $to
+     * 注册 DELETE 请求路由.
      */
-    public function delete(string $pattern, mixed $to = null): Route
+    public function delete(string $pattern, mixed $action): Route
     {
-        return $this->match('DELETE', $pattern, $to);
+        return $this->match('DELETE', $pattern, $action);
     }
 
     /**
-     * 添加 options 请求路由.
-     *
-     * @param $pattern
-     * @param null $to
+     * 注册 OPTIONS 请求路由.
      */
-    public function options(string $pattern, mixed $to = null): Route
+    public function options(string $pattern, mixed $action): Route
     {
-        return $this->match('OPTIONS', $pattern, $to);
+        return $this->match('OPTIONS', $pattern, $action);
     }
 
     /**
-     * 添加 patch 请求路由.
-     *
-     * @param null $to
+     * 注册 PATCH 请求路由.
      */
-    public function patch(string $pattern, mixed $to = null): Route
+    public function patch(string $pattern, mixed $action): Route
     {
-        return $this->match('PATCH', $pattern, $to);
+        return $this->match('PATCH', $pattern, $action);
     }
 
     /**
      * 获取路由组 pattern.
-     *
-     * @param $pattern
      */
     protected function getGroupPattern(string $pattern): string
     {
@@ -139,6 +122,8 @@ class Router
 
     /**
      * 更新路由组栈.
+     *
+     * @param array<string, mixed> $attributes
      */
     protected function updateGroupStack(array $attributes): bool
     {
@@ -165,7 +150,7 @@ class Router
         // 添加组属性
         $this->updateGroupStack($attributes);
 
-        $callback();
+        call_user_func($callback);
 
         // 释放组属性
         array_pop($this->groupStack);
@@ -174,9 +159,12 @@ class Router
     }
 
     /**
+     * @param string $name
+     * @param array  $arguments
+     *
      * @return mixed
      */
-    public function __call(string $name, array $arguments)
+    public function __call($name, $arguments)
     {
         return (new RouteRegistrar($this))->$name($arguments[0]);
     }

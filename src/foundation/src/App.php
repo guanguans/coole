@@ -459,9 +459,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function getCurrentRoute(Request $request): Route
     {
-        $parameters = $this['routing.url.matcher']->matchRequest($request);
+        $parameters = $this['routing.url_matcher']->matchRequest($request);
 
-        return $this['routing.collection']->get($parameters['_route']);
+        return $this['routing.route_collection']->get($parameters['_route']);
     }
 
     /**
@@ -469,7 +469,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function getCurrentController(Request $request): ?Controller
     {
-        $parameters = $this['routing.url.matcher']->matchRequest($request);
+        $parameters = $this['routing.url_matcher']->matchRequest($request);
         if (! is_array($parameters['_controller'])) {
             return null;
         }

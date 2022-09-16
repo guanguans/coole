@@ -17,7 +17,7 @@ class RouteRegistrar
     /**
      * 路由组属性.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $attributes = [];
 
