@@ -26,6 +26,7 @@ use Illuminate\Support\Traits\ReflectsClosures;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer;
 use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -36,6 +37,9 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 class ErrorHandler implements ErrorHandlerInterface
 {
     use ReflectsClosures;
@@ -43,44 +47,44 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * A list of the exception types that are not reported.
      *
-     * @var string[]
+     * @var array<string>
      */
-    protected $dontReport = [];
+    protected array $dontReport = [];
 
     /**
      * The callbacks that should be used during reporting.
      *
-     * @var \Coole\ErrorHandler\ReportableHandler[]
+     * @var array<\Coole\ErrorHandler\ReportableHandler>
      */
-    protected $reportCallbacks = [];
+    protected array $reportCallbacks = [];
 
     /**
      * A map of exceptions with their corresponding custom log levels.
      *
      * @var array<class-string<\Throwable>, \Psr\Log\LogLevel::*>
      */
-    protected $levels = [];
+    protected array $levels = [];
 
     /**
      * The callbacks that should be used during rendering.
      *
-     * @var \Closure[]
+     * @var array<\Closure>
      */
-    protected $renderCallbacks = [];
+    protected array $renderCallbacks = [];
 
     /**
      * The registered exception mappings.
      *
      * @var array<string, \Closure>
      */
-    protected $exceptionMap = [];
+    protected array $exceptionMap = [];
 
     /**
      * A list of the internal exception types that should not be reported.
      *
-     * @var string[]
+     * @var array<string>
      */
-    protected $internalDontReport = [
+    protected array $internalDontReport = [
         HttpException::class,
         ModelNotFoundException::class,
         MultipleRecordsFoundException::class,
@@ -91,17 +95,15 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var string[]
+     * @var array<string>
      */
-    protected $dontFlash = [
+    protected array $dontFlash = [
         'password',
         'password_confirmation',
     ];
 
     /**
      * Create a new exception handler instance.
-     *
-     * @return void
      */
     public function __construct(protected App $app)
     {
@@ -148,13 +150,11 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Register a new exception mapping.
      *
-     * @param \Closure|string|null $to
-     *
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
-    public function map(Closure|string $from, $to = null): static
+    public function map(Closure|string $from, Closure|string $to = null): static
     {
         if (is_string($to)) {
             $to = static fn ($exception) => new $to('', 0, $exception);
@@ -193,7 +193,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return $this
      */
-    public function level(string $type, $level): static
+    public function level(string $type, string $level): static
     {
         $this->levels[$type] = $level;
 
@@ -263,8 +263,6 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get the default exception context variables for logging.
-     *
-     * @return mixed[]
      */
     protected function exceptionContext(Throwable $throwable): array
     {
@@ -277,8 +275,6 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get the default context variables for logging.
-     *
-     * @return mixed[]
      */
     protected function context(): array
     {
@@ -336,10 +332,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Map the exception using a registered mapper if possible.
-     *
-     * @return \Throwable
      */
-    protected function mapException(Throwable $throwable)
+    protected function mapException(Throwable $throwable): Throwable
     {
         if (method_exists($throwable, 'getInnerException') &&
             ($inner = $throwable->getInnerException()) instanceof Throwable) {
@@ -358,11 +352,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Try to render a response from request and exception via render callbacks.
      *
-     * @return mixed
-     *
      * @throws \ReflectionException
      */
-    protected function renderViaCallbacks(Request $request, Throwable $throwable)
+    protected function renderViaCallbacks(Request $request, Throwable $throwable): mixed
     {
         foreach ($this->renderCallbacks as $renderCallback) {
             foreach ($this->firstClosureParameterTypes($renderCallback) as $type) {
@@ -511,11 +503,9 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Render an exception to the console.
      *
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
      * @internal this method is not meant to be used or overwritten outside the framework
      */
-    public function renderForConsole($output, Throwable $throwable): void
+    public function renderForConsole(OutputInterface $output, Throwable $throwable): void
     {
         $this->app['console']->renderThrowable($throwable, $output);
     }

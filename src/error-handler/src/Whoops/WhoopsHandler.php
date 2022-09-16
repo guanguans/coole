@@ -16,6 +16,9 @@ use Illuminate\Support\Arr;
 use Symfony\Component\Finder\Finder;
 use Whoops\Handler\PrettyPageHandler;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 class WhoopsHandler
 {
     /**
@@ -49,7 +52,7 @@ class WhoopsHandler
     /**
      * Get the application paths except for the "vendor" directory.
      *
-     * @return mixed[]
+     * @return array<string>
      */
     protected function directoriesExceptVendor(): array
     {
@@ -62,7 +65,7 @@ class WhoopsHandler
     /**
      * Get all of the directories within a given directory.
      *
-     * @return string[]
+     * @return array<string>
      */
     public function directories(string $directory): array
     {

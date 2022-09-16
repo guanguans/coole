@@ -13,17 +13,19 @@ declare(strict_types=1);
 namespace Coole\ErrorHandler\Whoops;
 
 use Coole\ErrorHandler\ExceptionRendererInterface;
+use Throwable;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 class WhoopsExceptionRenderer implements ExceptionRendererInterface
 {
     /**
      * Renders the given exception as HTML.
-     *
-     * @param \Throwable $throwable
      */
-    public function render($throwable): string
+    public function render(Throwable $throwable): string
     {
         return tap(new Whoops(), function ($whoops): void {
             $whoops->appendHandler($this->whoopsHandler());

@@ -15,6 +15,9 @@ namespace Coole\ErrorHandler;
 use Illuminate\Support\Traits\ReflectsClosures;
 use Throwable;
 
+/**
+ * This is modified from https://github.com/laravel/framework.
+ */
 class ReportableHandler
 {
     use ReflectsClosures;
@@ -28,15 +31,11 @@ class ReportableHandler
 
     /**
      * Indicates if reporting should stop after invoking this handler.
-     *
-     * @var bool
      */
-    protected $shouldStop = false;
+    protected bool $shouldStop = false;
 
     /**
      * Create a new reportable handler instance.
-     *
-     * @return void
      */
     public function __construct(callable $callback)
     {
@@ -45,10 +44,8 @@ class ReportableHandler
 
     /**
      * Invoke the handler.
-     *
-     * @return bool
      */
-    public function __invoke(Throwable $throwable)
+    public function __invoke(Throwable $throwable): bool
     {
         $result = call_user_func($this->callback, $throwable);
 

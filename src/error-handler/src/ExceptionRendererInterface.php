@@ -18,8 +18,6 @@ interface ExceptionRendererInterface
 {
     /**
      * Renders the given exception as HTML.
-     *
-     * @return string
      */
-    public function render(Throwable $throwable);
+    public function render(Throwable $throwable): string;
 }
