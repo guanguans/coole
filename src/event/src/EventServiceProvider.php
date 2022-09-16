@@ -13,31 +13,35 @@ declare(strict_types=1);
 namespace Coole\Event;
 
 use Coole\Foundation\ServiceProvider;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EventServiceProvider extends ServiceProvider
 {
-    protected array $bindings = [
-        // EventDispatcherInterface::class => EventDispatcher::class,
+    /**
+     * {@inheritdoc}
+     */
+    protected array $singletons = [
+        EventDispatcher::class,
+        ListenerCollection::class,
     ];
 
     /**
      * {@inheritdoc}
      */
-    public function register(): void
+    protected array $aliases = [
+        EventDispatcher::class => ['event.dispatcher'],
+        ListenerCollection::class => ['event.listener_collection'],
+    ];
+
+    public function registering(): void
     {
-        $this->app->singleton(EventDispatcher::class);
-        $this->app->alias(EventDispatcher::class, 'event.dispatcher');
-        $this->app->singleton(ListenerCollection::class);
-        $this->app->alias(ListenerCollection::class, 'event.listener_collection');
+        $this->app->loadConfigFrom(__DIR__.'/../config/event.php');
     }
 
     /**
      * {@inheritdoc}
      */
-    public function registered(): void
+    public function boot(): void
     {
-        $this->app['event.listener_collection']->merge($this->app['config']->get('event.listener_collection', []));
+        $this->app['event.listener_collection']->merge($this->app['config']->get('event.listen', []));
     }
 }

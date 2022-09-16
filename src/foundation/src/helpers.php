@@ -10,7 +10,6 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-use Coole\Event\Event;
 use Coole\Event\ListenerInterface;
 use Coole\Foundation\App;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -110,35 +109,32 @@ if (! function_exists('event')) {
     /**
      * 调度事件.
      *
-     * @param callable|string|array|ListenerInterface|EventSubscriberInterface|null $listeners
+     * @param callable|ListenerInterface|EventSubscriberInterface|array $listeners
      *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function event(Event $event, $listeners = null, bool $isDispatch = true): void
+    function event(object $event, mixed $listeners = null, bool $isDispatched = true): void
     {
+        $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
+
+        $listeners = array_unique($listeners);
+
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
         $dispatcher = app('event.dispatcher');
 
-        $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
-
-        $listeners = array_unique(array_merge(
-            app('event.listener_collection')->get($event::class) ?? [],
-            $listeners
-        ));
-
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {
-                $dispatcher->addListener($event->getName(), $listener);
+                $dispatcher->addListener($event::class, $listener);
                 continue;
             }
 
             is_string($listener) and $listener = app($listener);
-            $listener instanceof ListenerInterface and $dispatcher->addListener($event->getName(), [$listener, 'handle']);
+            $listener instanceof ListenerInterface and $dispatcher->addListener($event::class, [$listener, 'handle']);
             $listener instanceof EventSubscriberInterface and $dispatcher->addSubscriber($listener);
         }
 
-        $isDispatch and $dispatcher->dispatch($event, $event->getName());
+        $isDispatched and $dispatcher->dispatch($event);
     }
 }
 

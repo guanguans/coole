@@ -89,8 +89,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->providers[] = $serviceProvider;
 
         $serviceProvider->registering();
-        $serviceProvider->register();
-        $serviceProvider->registered();
 
         foreach ($serviceProvider->getBindings() as $abstract => $concrete) {
             $this->bind($abstract, $concrete);
@@ -101,6 +99,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
             $this->singleton($abstract, $concrete);
         }
+
+        $serviceProvider->register();
 
         foreach ($serviceProvider->getAliases() as $abstract => $aliases) {
             foreach ((array) $aliases as $alias) {
@@ -118,6 +118,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
                 class_alias($original, $alias);
             }
         }
+
+        $serviceProvider->registered();
     }
 
     /**

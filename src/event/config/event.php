@@ -10,12 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Event;
-
-interface ListenerInterface
-{
-    /**
-     * 事件处理.
-     */
-    public function handle(object $event): mixed;
-}
+return [
+    'listen' => [
+    ],
+];
