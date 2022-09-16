@@ -14,6 +14,9 @@ namespace Coole\Routing;
 
 use Symfony\Component\Routing\RouteCollection;
 
+/**
+ * @mixin \Coole\Routing\RouteRegistrar
+ */
 class Router
 {
     protected array $groupStack = [];

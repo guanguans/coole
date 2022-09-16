@@ -40,12 +40,14 @@ class RouteRegistrar
     /**
      * 路由组中间件.
      *
-     * @param $middleware
-     *
      * @return $this
      */
-    public function middleware($middleware): self
+    public function middleware(mixed $middleware): self
     {
+        if (is_object($middleware)) {
+            $middleware = [$middleware];
+        }
+
         $this->attributes['middleware'] = (array) $middleware;
 
         return $this;
