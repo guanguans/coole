@@ -20,10 +20,19 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ServeCommand extends Command
 {
+    /**
+     * {@inheritdoc}
+     */
     protected string $name = 'serve';
 
+    /**
+     * {@inheritdoc}
+     */
     protected string $description = 'Serve the application on the PHP development server.';
 
+    /**
+     * {@inheritdoc}
+     */
     protected function configure(): void
     {
         $this
@@ -56,6 +65,9 @@ class ServeCommand extends Command
             );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (empty($input->getOption('docroot'))) {

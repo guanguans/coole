@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\Console;
 
 use Coole\Console\Commands\ServeCommand;
+use Coole\Console\Facades\Console;
 use Coole\Foundation\ServiceProvider;
 
 class ConsoleServiceProvider extends ServiceProvider
@@ -20,21 +21,32 @@ class ConsoleServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function registering(): void
-    {
-        $this->app->loadConfigFrom(__DIR__.'/../config/console.php');
-    }
+    protected array $singletons = [
+        Application::class,
+        CommandCollection::class,
+    ];
 
     /**
      * {@inheritdoc}
      */
-    public function register(): void
-    {
-        $this->app->singleton(Application::class);
-        $this->app->alias(Application::class, 'console');
+    protected array $aliases = [
+        Application::class => ['console'],
+        CommandCollection::class => ['console.command_collection'],
+    ];
 
-        $this->app->singleton(CommandCollection::class);
-        $this->app->alias(CommandCollection::class, 'console.command_collection');
+    /**
+     * {@inheritdoc}
+     */
+    protected array $classAliases = [
+        Console::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registering(): void
+    {
+        $this->app->loadConfigFrom(__DIR__.'/../config/console.php');
     }
 
     /**

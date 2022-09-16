@@ -70,6 +70,10 @@ class Command extends SymfonyCommand
         $this->specifyParameters();
     }
 
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws \Symfony\Component\Console\Exception\ExceptionInterface
+     */
     public function run(InputInterface $input, OutputInterface $output): int
     {
         $this->output = $this->app->make(

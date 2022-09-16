@@ -50,9 +50,12 @@ coole;
 
     public function __construct(protected App $app)
     {
-        parent::__construct('Coole Framework', $app->version());
+        parent::__construct('Coole Framework', $app::version());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
         try {
