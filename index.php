@@ -19,9 +19,11 @@ defined('BASE_PATH') or define('BASE_PATH', __DIR__);
 
 require __DIR__.'/vendor/autoload.php';
 
-// 1. Create App.
+// 1. Create app.
 $app = new App();
-$app['config']['app.debug'] = true;
+
+// Enable debugging(optional).
+$app['config']->set('app.debug', true);
 
 // 2. Add route with closure middleware.
 Router::get('/', static fn () => 'This is the Coole framework.')
