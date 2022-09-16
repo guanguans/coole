@@ -20,9 +20,16 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register(): void
-    {
-        $this->app->bind(ErrorHandlerInterface::class, ErrorHandler::class);
-        $this->app->bind(ExceptionRendererInterface::class, WhoopsExceptionRenderer::class);
-    }
+    protected array $aliases = [
+        ErrorHandlerInterface::class => ['error_handler'],
+        ExceptionRendererInterface::class => ['error_handler.exception_renderer'],
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected array $bindings = [
+        ErrorHandlerInterface::class => ErrorHandler::class,
+        ExceptionRendererInterface::class => WhoopsExceptionRenderer::class,
+    ];
 }
