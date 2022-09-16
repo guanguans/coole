@@ -22,6 +22,7 @@ use Coole\Routing\Route;
 use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Pipeline\Pipeline;
+use Illuminate\Support\Traits\Macroable;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,6 +34,7 @@ use Throwable;
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     use HasControllerAble;
+    use Macroable;
 
     /**
      * @var string

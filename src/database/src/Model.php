@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Database;
 
-use Illuminate\Database\Eloquent\Model as IlluminateModel;
-
-class Model extends IlluminateModel
+class Model extends \Illuminate\Database\Eloquent\Model
 {
 }
