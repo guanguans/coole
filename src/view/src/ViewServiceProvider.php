@@ -24,7 +24,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function registering(): void
     {
-        $this->app->loadConfigFrom(__DIR__.'/../config');
+        $this->app->loadConfigFrom(__DIR__.'/../config/view.php');
     }
 
     /**
@@ -34,7 +34,7 @@ class ViewServiceProvider extends ServiceProvider
     {
         $this->app->singleton(FilesystemLoader::class, static function (App $app): FilesystemLoader {
             $filesystemLoader = new FilesystemLoader();
-            foreach ((array) $app['config']['view']['path'] as $namespace => $path) {
+            foreach ((array) $app['config']['view.paths'] as $namespace => $path) {
                 is_string($namespace) ? $filesystemLoader->setPaths($path, $namespace) : $filesystemLoader->addPath($path);
             }
 
@@ -44,7 +44,7 @@ class ViewServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             Environment::class,
-            static fn (App $app): Environment => new Environment($app['view.loader'], $app['config']['view']['options'])
+            static fn (App $app): Environment => new Environment($app['view.loader'], $app['config']['view.options'])
         );
         $this->app->alias(Environment::class, 'view');
     }

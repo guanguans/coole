@@ -14,7 +14,7 @@ return [
     /*
      * 视图文件目录
      */
-    'path' => null,
+    'paths' => null,
 
     /*
      * 选项
@@ -36,7 +36,7 @@ return [
         'cache' => cenv('VIEW_CACHE_DIRECTORY', base_path('var/views')),
 
         // 如果模板更改，是否重新加载模板
-        'auto_reload' => cenv('APP_DEBUG', null),
+        'auto_reload' => cenv('APP_DEBUG'),
 
         // 优化
         'optimizations' => -1,
