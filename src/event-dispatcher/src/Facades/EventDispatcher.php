@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Event\Facades;
+namespace Coole\EventDispatcher\Facades;
 
 use Coole\Foundation\Facades\Facade;
 
@@ -24,9 +24,9 @@ use Coole\Foundation\Facades\Facade;
  * @method static void                       removeListener(string $eventName, callable|array $listener)
  * @method static void                       removeSubscriber(\Symfony\Component\EventDispatcher\EventSubscriberInterface $subscriber)
  *
- * @mixin  \Coole\Event\EventDispatcher
+ * @mixin  \Coole\EventDispatcher\EventDispatcher
  *
- * @see \Coole\Event\EventDispatcher
+ * @see \Coole\EventDispatcher\EventDispatcher
  */
 class EventDispatcher extends Facade
 {
@@ -35,6 +35,6 @@ class EventDispatcher extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'event.dispatcher';
+        return 'event_dispatcher';
     }
 }

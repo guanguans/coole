@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Event;
+namespace Coole\EventDispatcher;
 
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -22,7 +22,7 @@ class EventDispatcher extends SymfonyEventDispatcher
      */
     public function dispatch(object $event, string $eventName = null): object
     {
-        $listeners = array_unique(app('event.listener_collection')->get($event::class, []));
+        $listeners = array_unique(app('event_dispatcher.listener_collection')->get($event::class, []));
 
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {

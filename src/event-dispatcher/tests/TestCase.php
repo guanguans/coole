@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Event\Tests;
+namespace Coole\EventDispatcher\Tests;
 
 use Mockery;
 

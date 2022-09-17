@@ -9,7 +9,7 @@
 ## Installation
 
 ```shell script
-$ composer require coole/event -vvv
+$ composer require coole/event-dispatcher -vvv
 ```
 
 ## License

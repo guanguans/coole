@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-use Coole\Event\ListenerInterface;
+use Coole\EventDispatcher\ListenerInterface;
 use Coole\Foundation\App;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -121,7 +121,7 @@ if (! function_exists('event')) {
         $listeners = array_unique($listeners);
 
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
-        $dispatcher = app('event.dispatcher');
+        $dispatcher = app('event_dispatcher');
 
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {

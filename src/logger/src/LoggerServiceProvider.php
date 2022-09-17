@@ -74,7 +74,7 @@ class LoggerServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if ($this->app->has('logger.listener')) {
-            $this->app['event.dispatcher']->addSubscriber($this->app['logger.listener']);
+            $this->app['event_dispatcher']->addSubscriber($this->app['logger.listener']);
         }
 
         if ($this->app['config']['app']['debug']) {

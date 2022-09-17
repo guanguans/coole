@@ -10,9 +10,9 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Event\Tests;
+namespace Coole\EventDispatcher\Tests;
 
-use Coole\Event\Event;
+use Coole\EventDispatcher\Event;
 use Mockery;
 
 class EventTest extends TestCase

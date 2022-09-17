@@ -15,7 +15,7 @@ namespace Coole\Foundation;
 use Coole\Console\ConsoleServiceProvider;
 use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
-use Coole\Event\EventServiceProvider;
+use Coole\EventDispatcher\EventServiceProvider;
 use Coole\Foundation\Facades\Facade;
 use Coole\Foundation\Listeners\StringResponseListener;
 use Coole\Foundation\Middlewares\CheckResponseForModifications;
@@ -96,7 +96,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app['event.dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
-        $this->app['event.dispatcher']->addSubscriber(new StringResponseListener());
+        $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
+        $this->app['event_dispatcher']->addSubscriber(new StringResponseListener());
     }
 }

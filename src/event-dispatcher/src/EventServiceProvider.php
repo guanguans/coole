@@ -10,7 +10,7 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Event;
+namespace Coole\EventDispatcher;
 
 use Coole\Foundation\ServiceProvider;
 
@@ -28,8 +28,8 @@ class EventServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        EventDispatcher::class => ['event.dispatcher'],
-        ListenerCollection::class => ['event.listener_collection'],
+        EventDispatcher::class => ['event_dispatcher'],
+        ListenerCollection::class => ['event_dispatcher.listener_collection'],
     ];
 
     public function registering(): void
@@ -42,6 +42,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app['event.listener_collection']->merge($this->app['config']->get('event.listen', []));
+        $this->app['event_dispatcher.listener_collection']->merge($this->app['config']->get('event.listen', []));
     }
 }

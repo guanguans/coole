@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel;
 
-use Coole\Event\EventDispatcher;
+use Coole\EventDispatcher\EventDispatcher;
 use Coole\Foundation\ServiceProvider;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
