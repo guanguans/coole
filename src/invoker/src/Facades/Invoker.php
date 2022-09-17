@@ -17,6 +17,8 @@ use Coole\Foundation\Facades\Facade;
 /**
  * @method static mixed call($callable, array $parameters = [])
  *
+ * @mixin  \Invoker\Invoker
+ *
  * @see \Invoker\Invoker
  */
 class Invoker extends Facade

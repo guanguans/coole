@@ -23,12 +23,18 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class HttpKernelServiceProvider extends ServiceProvider
 {
+    /**
+     * {@inheritdoc}
+     */
     protected array $bindings = [
         ControllerResolverInterface::class => ControllerResolver::class,
         ArgumentResolverInterface::class => ArgumentResolver::class,
         EventDispatcherInterface::class => EventDispatcher::class,
     ];
 
+    /**
+     * {@inheritdoc}
+     */
     protected array $singletons = [
         RequestStack::class,
         HttpKernel::class,
@@ -37,9 +43,8 @@ class HttpKernelServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function register(): void
-    {
-        $this->app->alias(RequestStack::class, 'http_kernel.request_stack');
-        $this->app->alias(HttpKernel::class, 'http_kernel');
-    }
+    protected array $aliases = [
+        RequestStack::class => ['http_kernel.request_stack'],
+        HttpKernel::class => ['http_kernel'],
+    ];
 }

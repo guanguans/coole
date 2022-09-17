@@ -25,6 +25,8 @@ use Coole\Foundation\Facades\Facade;
  * @method static \Monolog\Logger alert($level, $message, array $context = [])
  * @method static \Monolog\Logger emergency($level, $message, array $context = [])
  *
+ * @mixin  \Monolog\Logger
+ *
  * @see \Monolog\Logger
  */
 class Logger extends Facade
