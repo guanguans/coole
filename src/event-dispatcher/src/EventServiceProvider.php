@@ -32,6 +32,16 @@ class EventServiceProvider extends ServiceProvider
         ListenerCollection::class => ['event_dispatcher.listener_collection'],
     ];
 
+    /**
+     * {@inheritdoc}
+     */
+    protected array $classAliases = [
+        \Coole\EventDispatcher\Facades\EventDispatcher::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/event.php');

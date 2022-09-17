@@ -56,6 +56,13 @@ class AppServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $classAliases = [
+        \Coole\Foundation\Facades\App::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     public function registering(): void
     {
         // 设置门面的 app 共享实例

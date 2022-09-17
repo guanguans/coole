@@ -22,6 +22,13 @@ class InvokerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $classAliases = [
+        \Coole\Invoker\Facades\Invoker::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     public function register(): void
     {
         $this->app->singleton(

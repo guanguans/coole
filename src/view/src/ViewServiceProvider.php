@@ -14,6 +14,7 @@ namespace Coole\View;
 
 use Coole\Foundation\App;
 use Coole\Foundation\ServiceProvider;
+use Coole\View\Facades\View;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Twig\Loader\LoaderInterface;
@@ -25,6 +26,13 @@ class ViewServiceProvider extends ServiceProvider
      */
     protected array $aliases = [
         Environment::class => ['view'],
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected array $classAliases = [
+        View::class,
     ];
 
     /**

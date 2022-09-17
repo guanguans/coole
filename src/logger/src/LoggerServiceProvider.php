@@ -25,6 +25,13 @@ class LoggerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $classAliases = [
+        \Coole\Logger\Facades\Logger::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/logger.php');

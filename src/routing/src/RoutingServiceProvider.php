@@ -48,6 +48,16 @@ class RoutingServiceProvider extends ServiceProvider
         Router::class => ['routing.router', 'router'],
     ];
 
+    /**
+     * {@inheritdoc}
+     */
+    protected array $classAliases = [
+        \Coole\Routing\Facades\Router::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/routing.php');

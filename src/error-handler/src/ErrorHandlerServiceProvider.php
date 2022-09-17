@@ -20,6 +20,14 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $bindings = [
+        ErrorHandlerInterface::class => ErrorHandler::class,
+        ExceptionRendererInterface::class => WhoopsExceptionRenderer::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     protected array $aliases = [
         ErrorHandlerInterface::class => ['error_handler'],
         ExceptionRendererInterface::class => ['error_handler.exception_renderer'],
@@ -28,8 +36,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    protected array $bindings = [
-        ErrorHandlerInterface::class => ErrorHandler::class,
-        ExceptionRendererInterface::class => WhoopsExceptionRenderer::class,
+    protected array $classAliases = [
+        \Coole\ErrorHandler\Facades\ErrorHandler::class,
     ];
 }
