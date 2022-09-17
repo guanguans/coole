@@ -23,7 +23,6 @@ use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Traits\Macroable;
-use Psr\Container\ContainerInterface;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -182,8 +181,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $config = $this->app['config'];
 
         $values = [$value, $config->get($key, [])];
-
-        'app' === $key and $values = array_reverse($values);
+        if ('app' === $key) {
+            $values = array_reverse($values);
+        }
 
         $config->set($key, array_merge(...$values));
     }
@@ -193,18 +193,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function mergeConfigFrom(string $path, ?string $key = null): void
     {
-        /** @var \Coole\Foundation\Config $config */
-        $config = $this->app['config'];
-
-        if (is_null($key)) {
-            $key = (new SplFileInfo($path))->getBasename('.php');
-        }
-
-        $values = [require $path, $config->get($key, [])];
-
-        'app' === $key and $values = array_reverse($values);
-
-        $config->set($key, array_merge(...$values));
+        $this->mergeConfig(require $path, $key ?: pathinfo($path, PATHINFO_FILENAME));
     }
 
     /**
@@ -506,7 +495,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->instance('app', $this);
         $this->instance(self::class, $this);
         $this->instance(Container::class, $this);
-        $this->bind(ContainerInterface::class, fn () => $this);
     }
 
     /**
