@@ -61,11 +61,4 @@ return [
     'middleware' => [
         // \App\Middleware\ExampleMiddleware::class,
     ],
-
-    /*
-     * 路由目录
-     */
-    'route_paths' => [
-        // base_path('routes'),
-    ],
 ];
