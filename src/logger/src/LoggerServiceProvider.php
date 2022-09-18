@@ -12,12 +12,8 @@ declare(strict_types=1);
 
 namespace Coole\Logger;
 
-use Coole\Foundation\App;
 use Coole\Foundation\ServiceProvider;
-use Monolog\Formatter\FormatterInterface;
-use Monolog\Handler\FormattableHandlerInterface;
-use Monolog\Handler\HandlerInterface;
-use Monolog\Logger;
+use Coole\Logger\Facades\Logger;
 use Psr\Log\LoggerInterface;
 
 class LoggerServiceProvider extends ServiceProvider
@@ -25,8 +21,29 @@ class LoggerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $bindings = [
+        LoggerInterface::class => LoggerManager::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected array $singletons = [
+        LoggerManager::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
+    protected array $aliases = [
+        LoggerManager::class => ['logger', 'logger.manager'],
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     protected array $classAliases = [
-        \Coole\Logger\Facades\Logger::class,
+        Logger::class,
     ];
 
     /**
@@ -35,38 +52,5 @@ class LoggerServiceProvider extends ServiceProvider
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/logger.php');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function register(): void
-    {
-        $this->app->bind(FormatterInterface::class, static fn (App $app) => $app->make(
-            $app['config']['logger.default_formatter'],
-            $app['config']['logger.formatters'][$app['config']['logger.default_formatter']]
-        ));
-        $this->app->alias(FormatterInterface::class, 'logger.formatter');
-
-        $this->app->bind(HandlerInterface::class, static function (App $app) {
-            $handler = $app->make(
-                $app['config']['logger.default_handler'],
-                $app['config']['logger.handlers'][$app['config']['logger.default_handler']]
-            );
-            if ($handler instanceof FormattableHandlerInterface) {
-                $handler->setFormatter($app['logger.formatter']);
-            }
-
-            return $handler;
-        });
-        $this->app->alias(HandlerInterface::class, 'logger.handler');
-
-        $this->app->bind(LoggerInterface::class, static function (App $app): Logger {
-            $logger = new Logger($app['config']['logger.name']);
-            $logger->pushHandler($app['logger.handler']);
-
-            return $logger;
-        });
-        $this->app->alias(LoggerInterface::class, 'logger');
     }
 }

@@ -10,59 +10,81 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use Monolog\Handler\SyslogUdpHandler;
 
 return [
     /*
-     * 名称
+     * 默认日志通道
      */
-    'name' => 'app',
+    'default' => cenv('LOGGER_CHANNEL', 'stack'),
 
     /*
-     * 默认处理器
+     * 日志通道列表
      */
-    'default_handler' => StreamHandler::class,
-
-    /*
-     * 默认格式化器
-     */
-    'default_formatter' => LineFormatter::class,
-
-    /*
-     * 处理器列表
-     */
-    'handlers' => [
-        StreamHandler::class => [
-            // 日志文件
-            'stream' => cenv('LOGGER_LOG_FILE', base_path('var/logs/app.log')),
-            // 级别
-            'level' => Logger::DEBUG,
-            // 堆栈是否冒泡
-            'bubble' => true,
-            // 日志文件权限
-            'filePermission' => null,
-            // 是否锁定日志文件
-            'use_locking' => false,
+    'channels' => [
+        'stack' => [
+            'driver' => 'stack',
+            'channels' => ['single'],
+            'ignore_exceptions' => false,
         ],
-    ],
 
-    /*
-     * 格式化器列表
-     */
-    'formatters' => [
-        LineFormatter::class => [
-            // 日志格式
-            'format' => null,
-            // 时间格式
-            'dateFormat' => 'Y-m-d H:i:s',
-            // 是否在日志条目中允许行内换行
-            'allowInlineLineBreaks' => false,
-            // 是否忽略空上下文和额外内容
-            'ignoreEmptyContextAndExtra' => false,
-            // 是否引入堆栈跟踪
-            'includeStacktraces' => false,
+        'single' => [
+            'driver' => 'single',
+            'path' => base_path('var/logs/app.log'),
+            'level' => cenv('LOGGER_LEVEL', 'debug'),
+        ],
+
+        'daily' => [
+            'driver' => 'daily',
+            'path' => base_path('var/logs/app.log'),
+            'level' => cenv('LOGGER_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'slack' => [
+            'driver' => 'slack',
+            'url' => cenv('LOGGER_SLACK_WEBHOOK_URL'),
+            'username' => 'Coole Log',
+            'emoji' => ':boom:',
+            'level' => cenv('LOGGER_LEVEL', 'critical'),
+        ],
+
+        'papertrail' => [
+            'driver' => 'monolog',
+            'level' => cenv('LOGGER_LEVEL', 'debug'),
+            'handler' => cenv('LOGGER_PAPERTRAIL_HANDLER', SyslogUdpHandler::class),
+            'handler_with' => [
+                'host' => cenv('PAPERTRAIL_URL'),
+                'port' => cenv('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://'.cenv('PAPERTRAIL_URL').':'.cenv('PAPERTRAIL_PORT'),
+            ],
+        ],
+
+        'stderr' => [
+            'driver' => 'monolog',
+            'level' => cenv('LOGGER_LEVEL', 'debug'),
+            'handler' => StreamHandler::class,
+            'formatter' => cenv('LOGGER_STDERR_FORMATTER'),
+            'with' => [
+                'stream' => 'php://stderr',
+            ],
+        ],
+
+        'syslog' => [
+            'driver' => 'syslog',
+            'level' => cenv('LOGGER_LEVEL', 'debug'),
+        ],
+
+        'errorlog' => [
+            'driver' => 'errorlog',
+            'level' => cenv('LOGGER_LEVEL', 'debug'),
+        ],
+
+        'null' => [
+            'driver' => 'monolog',
+            'handler' => NullHandler::class,
         ],
     ],
 ];

@@ -15,19 +15,22 @@ namespace Coole\Logger\Facades;
 use Coole\Foundation\Facades\Facade;
 
 /**
- * @method static \Monolog\Logger logger($level, $message, array $context = [])
- * @method static \Monolog\Logger debug($level, $message, array $context = [])
- * @method static \Monolog\Logger info($level, $message, array $context = [])
- * @method static \Monolog\Logger notice($level, $message, array $context = [])
- * @method static \Monolog\Logger warning($level, $message, array $context = [])
- * @method static \Monolog\Logger error($level, $message, array $context = [])
- * @method static \Monolog\Logger critical($level, $message, array $context = [])
- * @method static \Monolog\Logger alert($level, $message, array $context = [])
- * @method static \Monolog\Logger emergency($level, $message, array $context = [])
+ * @method static \Psr\Log\LoggerInterface channel(string $channel = null)
+ * @method static \Coole\Logger\LoggerManager shareContext(array $context)
+ * @method static array sharedContext()
+ * @method static void alert(string $message, array $context = [])
+ * @method static void critical(string $message, array $context = [])
+ * @method static void debug(string $message, array $context = [])
+ * @method static void emergency(string $message, array $context = [])
+ * @method static void error(string $message, array $context = [])
+ * @method static void info(string $message, array $context = [])
+ * @method static void log($level, string $message, array $context = [])
+ * @method static void notice(string $message, array $context = [])
+ * @method static void warning(string $message, array $context = [])
  *
- * @mixin  \Monolog\Logger
+ * @mixin  \Coole\Logger\LoggerManager
  *
- * @see \Monolog\Logger
+ * @see \Coole\Logger\LoggerManager
  */
 class Logger extends Facade
 {
