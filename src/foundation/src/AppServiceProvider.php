@@ -17,8 +17,9 @@ use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Coole\EventDispatcher\EventServiceProvider;
 use Coole\Foundation\Facades\Facade;
+use Coole\Foundation\Listeners\ConverterListener;
 use Coole\Foundation\Listeners\LogListener;
-use Coole\Foundation\Listeners\StringResponseListener;
+use Coole\Foundation\Listeners\StringToResponseListener;
 use Coole\Foundation\Middlewares\CheckResponseForModifications;
 use Coole\HttpKernel\HttpKernelServiceProvider;
 use Coole\Logger\LoggerServiceProvider;
@@ -105,7 +106,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
-        $this->app['event_dispatcher']->addSubscriber(new StringResponseListener());
+        $this->app['event_dispatcher']->addSubscriber(new StringToResponseListener());
         $this->app['event_dispatcher']->addSubscriber($this->app->make(LogListener::class));
+        $this->app['event_dispatcher']->addSubscriber($this->app->make(ConverterListener::class));
     }
 }

@@ -16,6 +16,8 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
@@ -23,18 +25,23 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
+/**
+ * Logs request, response, and exceptions.
+ *
+ * This is modified from https://github.com/silexphp/Silex.
+ */
 class LogListener implements EventSubscriberInterface
 {
     /**
-     * @var callable|\Closure|null
+     * @var callable|null
      */
     protected $exceptionLogFilter;
 
-    public function __construct(protected LoggerInterface $logger, ?callable $exceptionLogFilter = null)
+    public function __construct(protected LoggerInterface $logger, callable $exceptionLogFilter = null)
     {
         if (null === $exceptionLogFilter) {
-            $exceptionLogFilter = static function (Throwable $throwable) {
-                if ($throwable instanceof HttpExceptionInterface && $throwable->getStatusCode() < 500) {
+            $exceptionLogFilter = function (Throwable $e) {
+                if ($e instanceof HttpExceptionInterface && $e->getStatusCode() < 500) {
                     return LogLevel::ERROR;
                 }
 
@@ -45,50 +52,74 @@ class LogListener implements EventSubscriberInterface
         $this->exceptionLogFilter = $exceptionLogFilter;
     }
 
-    public function onKernelRequest(RequestEvent $requestEvent): void
+    /**
+     * Logs master requests on event KernelEvents::REQUEST.
+     */
+    public function onKernelRequest(RequestEvent $event): void
     {
-        if (! $requestEvent->isMainRequest()) {
+        if (! $event->isMainRequest()) {
             return;
         }
 
-        $this->logger->log(
-            LogLevel::DEBUG,
-            '> '.$requestEvent->getRequest()->getMethod().' '.$requestEvent->getRequest()->getRequestUri()
-        );
+        $this->logRequest($event->getRequest());
     }
 
-    public function onKernelResponse(ResponseEvent $responseEvent): void
+    /**
+     * Logs master response on event KernelEvents::RESPONSE.
+     */
+    public function onKernelResponse(ResponseEvent $event): void
     {
-        if (! $responseEvent->isMainRequest()) {
+        if (! $event->isMainRequest()) {
             return;
         }
 
-        $message = '< '.$responseEvent->getResponse()->getStatusCode();
+        $this->logResponse($event->getResponse());
+    }
 
-        if ($responseEvent->getResponse() instanceof RedirectResponse) {
-            $message .= ' '.$responseEvent->getResponse()->getTargetUrl();
+    /**
+     * Logs uncaught exceptions on event KernelEvents::EXCEPTION.
+     */
+    public function onKernelException(ExceptionEvent $event): void
+    {
+        $this->logException($event->getThrowable());
+    }
+
+    /**
+     * Logs a request.
+     */
+    protected function logRequest(Request $request): void
+    {
+        $this->logger->log(LogLevel::DEBUG, '> '.$request->getMethod().' '.$request->getRequestUri());
+    }
+
+    /**
+     * Logs a response.
+     */
+    protected function logResponse(Response $response): void
+    {
+        $message = '< '.$response->getStatusCode();
+
+        if ($response instanceof RedirectResponse) {
+            $message .= ' '.$response->getTargetUrl();
         }
 
         $this->logger->log(LogLevel::DEBUG, $message);
     }
 
-    public function onKernelException(ExceptionEvent $exceptionEvent): void
+    /**
+     * Logs an exception.
+     */
+    protected function logException(Throwable $e): void
     {
         $this->logger->log(
-            call_user_func($this->exceptionLogFilter, $exceptionEvent->getThrowable()),
-            sprintf(
-                '%s: %s (uncaught exception) at %s line %s',
-                $exceptionEvent->getThrowable()::class,
-                $exceptionEvent->getThrowable()->getMessage(),
-                $exceptionEvent->getThrowable()->getFile(),
-                $exceptionEvent->getThrowable()->getLine()
-            ),
-            ['exception' => $exceptionEvent->getThrowable()]
+            call_user_func($this->exceptionLogFilter, $e),
+            sprintf('%s: %s (uncaught exception) at %s line %s', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()),
+            ['exception' => $e]
         );
     }
 
     /**
-     * {@inheritdoc}
+     * @return array[]
      */
     public static function getSubscribedEvents(): array
     {
