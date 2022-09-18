@@ -28,6 +28,14 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $singletons = [
+        ErrorHandler::class,
+        WhoopsExceptionRenderer::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     protected array $aliases = [
         ErrorHandlerInterface::class => ['error_handler'],
         ExceptionRendererInterface::class => ['error_handler.exception_renderer'],

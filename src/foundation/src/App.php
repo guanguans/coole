@@ -338,7 +338,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function handle(Request $request, int $type = HttpKernelInterface::MAIN_REQUEST, bool $catch = true): Response
     {
-        return $this['http_kernel']->handle($request, $type, $catch);
+        return $this[HttpKernelInterface::class]->handle($request, $type, $catch);
     }
 
     /**
@@ -346,7 +346,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function terminate(Request $request, Response $response): void
     {
-        $this['http_kernel']->terminate($request, $response);
+        $this[TerminableInterface::class]->terminate($request, $response);
     }
 
     /**

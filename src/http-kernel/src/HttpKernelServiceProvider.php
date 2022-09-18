@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
+use Symfony\Component\HttpKernel\TerminableInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class HttpKernelServiceProvider extends ServiceProvider
@@ -30,6 +32,8 @@ class HttpKernelServiceProvider extends ServiceProvider
         ControllerResolverInterface::class => ControllerResolver::class,
         ArgumentResolverInterface::class => ArgumentResolver::class,
         EventDispatcherInterface::class => EventDispatcher::class,
+        HttpKernelInterface::class => HttpKernel::class,
+        TerminableInterface::class => HttpKernel::class,
     ];
 
     /**

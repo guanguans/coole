@@ -37,6 +37,7 @@ class RoutingServiceProvider extends ServiceProvider
         RouteCollection::class,
         RequestContext::class,
         Router::class,
+        UrlMatcher::class,
     ];
 
     /**

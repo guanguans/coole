@@ -23,7 +23,7 @@ class DatabaseServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        Manager::class => ['database.manager', 'db'],
+        Manager::class => ['db', 'database.manager'],
     ];
 
     /**
