@@ -40,27 +40,27 @@ class ServeCommand extends Command
                 'host',
                 'H',
                 InputOption::VALUE_OPTIONAL,
-                'The host address to serve the application on',
+                'The host address to serve the application on.',
                 '127.0.0.1'
             )
             ->addOption(
                 'port',
                 'P',
                 InputOption::VALUE_OPTIONAL,
-                'The port to serve the application on',
+                'The port to serve the application on.',
                 8000
             )
             ->addOption(
                 'docroot',
                 'D',
                 InputOption::VALUE_REQUIRED,
-                'The docroot to serve the application on',
+                'The docroot to serve the application on.',
             )
             ->addOption(
                 'tries',
                 'T',
                 InputOption::VALUE_OPTIONAL,
-                'The tries to serve the application on',
+                'The max number of ports to attempt to serve from.',
                 10
             );
     }
@@ -70,12 +70,12 @@ class ServeCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (empty($input->getOption('docroot'))) {
+        if (is_null($docroot = $input->getOption('docroot'))) {
             throw new InvalidArgumentException('Please set option of docroot.');
         }
 
-        if (! file_exists($input->getOption('docroot'))) {
-            throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $input->getOption('docroot')));
+        if (! file_exists($docroot)) {
+            throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $docroot));
         }
 
         $tries = $input->getOption('tries');

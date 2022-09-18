@@ -30,7 +30,7 @@ class ConsoleServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        Application::class => ['console'],
+        Application::class => ['console', 'console.application'],
         CommandCollection::class => ['console.command_collection'],
     ];
 

@@ -16,9 +16,9 @@ return [
      */
     'commands' => [
         [
-            // 命令文件所在目录
+            // 命令所在目录
             'dir' => __DIR__.'/../src/Commands',
-            // 命令文件命名空间
+            // 命令命名空间
             'namespace' => '\\Coole\\Console\\Commands',
         ],
     ],
