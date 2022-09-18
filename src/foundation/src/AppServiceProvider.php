@@ -91,20 +91,14 @@ class AppServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
-    public function booting(): void
+    public function boot(): void
     {
         // 设置核心全局中间件
         $this->app->setMiddleware($this->middleware);
 
         // 设置第三方全局中间件
         $this->app->setMiddleware($this->app['config']['app.middleware']);
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function boot(): void
-    {
         $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
         $this->app['event_dispatcher']->addSubscriber(new StringToResponseListener());
         $this->app['event_dispatcher']->addSubscriber($this->app->make(LogListener::class));

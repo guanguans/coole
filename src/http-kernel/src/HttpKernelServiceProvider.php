@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel;
 
-use Coole\EventDispatcher\EventDispatcher;
 use Coole\Foundation\ServiceProvider;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
@@ -21,7 +20,6 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
 use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class HttpKernelServiceProvider extends ServiceProvider
 {
@@ -29,9 +27,8 @@ class HttpKernelServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $bindings = [
-        ControllerResolverInterface::class => ControllerResolver::class,
         ArgumentResolverInterface::class => ArgumentResolver::class,
-        EventDispatcherInterface::class => EventDispatcher::class,
+        ControllerResolverInterface::class => ControllerResolver::class,
         HttpKernelInterface::class => HttpKernel::class,
         TerminableInterface::class => HttpKernel::class,
     ];
@@ -40,6 +37,8 @@ class HttpKernelServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $singletons = [
+        ArgumentResolver::class,
+        ControllerResolver::class,
         RequestStack::class,
         HttpKernel::class,
     ];
@@ -48,6 +47,8 @@ class HttpKernelServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
+        ArgumentResolver::class => ['http_kernel.argument_resolver'],
+        ControllerResolver::class => ['http_kernel.controller_resolver'],
         RequestStack::class => ['http_kernel.request_stack'],
         HttpKernel::class => ['http_kernel'],
     ];

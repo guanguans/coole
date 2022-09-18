@@ -19,6 +19,14 @@ class EventServiceProvider extends ServiceProvider
     /**
      * {@inheritdoc}
      */
+    protected array $bindings = [
+        \Psr\EventDispatcher\EventDispatcherInterface::class => EventDispatcher::class,
+        \Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class => EventDispatcher::class,
+    ];
+
+    /**
+     * {@inheritdoc}
+     */
     protected array $singletons = [
         EventDispatcher::class,
         ListenerCollection::class,

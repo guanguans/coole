@@ -47,6 +47,7 @@ class RoutingServiceProvider extends ServiceProvider
         RouteCollection::class => ['routing.route_collection'],
         RequestContext::class => ['routing.request_context'],
         Router::class => ['routing.router', 'router'],
+        UrlMatcher::class => ['routing.url_matcher'],
     ];
 
     /**

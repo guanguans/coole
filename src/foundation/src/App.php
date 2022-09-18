@@ -57,8 +57,8 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     public function __construct(array $options = [])
     {
-        $this->bindApp();
-        $this->bindConfig($options);
+        $this->bindApplication();
+        $this->bindConfiguration($options);
         $this->register(new AppServiceProvider($this));
     }
 
@@ -491,12 +491,12 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 绑定应用.
      */
-    protected function bindApp(): void
+    protected function bindApplication(): void
     {
         static::setInstance($this);
         $this->instance(self::class, $this);
         $this->alias(self::class, 'app');
-        $this->instance(ContainerInterface::class, $this);
+        $this->bind(ContainerInterface::class, Container::class);
         $this->instance(Container::class, $this);
     }
 
@@ -505,7 +505,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
      */
-    protected function bindConfig(array $options): void
+    protected function bindConfiguration(array $options): void
     {
         $this->singleton(Config::class);
         $this->alias(Config::class, 'config');
