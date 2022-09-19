@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
+use Closure;
 use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
@@ -323,9 +324,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         // 引导服务
         $this->boot();
 
-        return (new Pipeline())
+        return (new Pipeline($this))
             ->send($request)
-            ->through($this->makeMiddleware($this->getCurrentRequestShouldExecutedMiddleware($request)))
+            ->through($this->getShouldExecutedRequestMiddleware($request))
             ->then(function ($request): Response {
                 $this->instance(Request::class, $request);
 
@@ -350,62 +351,24 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 批量实例化中间件.
+     * 获取应该被执行的请求中间件.
      *
-     * @param string|array<string> $middlewares
-     *
-     * @return array<\Coole\Foundation\Middlewares\MiddlewareInterface>
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return array<string|callable>
      */
-    public function makeMiddleware(string|array $middlewares): array
+    public function getShouldExecutedRequestMiddleware(Request $request): array
     {
-        return array_map(function ($middleware) {
-            is_string($middleware) and $middleware = $this->make($middleware);
-
-            return $middleware;
-        }, (array) $middlewares);
-    }
-
-    /**
-     * 获取当前请求应该被执行的中间件.
-     *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
-     */
-    public function getCurrentRequestShouldExecutedMiddleware(Request $request): array
-    {
-        $middlewares = $this->getCurrentRequestMiddleware($request);
-
-        $classMiddleware = array_filter($middlewares, static fn ($middleware) => is_string($middleware));
-
-        $objectMiddleware = array_filter($middlewares, static fn ($middleware) => is_object($middleware));
-
-        return array_merge(
-            array_diff($classMiddleware, $this->getCurrentRequestExcludedMiddleware($request)),
-            $objectMiddleware
+        return array_diff(
+            $this->getRequestMiddleware($request),
+            $this->getExcludedRequestMiddleware($request)
         );
     }
 
     /**
-     * 获取当前请求排除中间件.
+     * 获取请求中间件.
      *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
+     * @return array<string|callable>
      */
-    public function getCurrentRequestExcludedMiddleware(Request $request): array
-    {
-        return array_merge(
-            $this->getExcludedMiddleware(),
-            $this->getControllerExcludedMiddleware($request),
-            $this->getRouteExcludedMiddleware($request)
-        );
-    }
-
-    /**
-     * 获取当前请求中间件.
-     *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
-     */
-    public function getCurrentRequestMiddleware(Request $request): array
+    public function getRequestMiddleware(Request $request): array
     {
         return array_merge(
             $this->getMiddleware(),
@@ -415,38 +378,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     }
 
     /**
-     * 获取控制器排除中间件.
-     *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
-     */
-    public function getControllerExcludedMiddleware(Request $request): array
-    {
-        $controller = $this->getCurrentController($request);
-        if (is_null($controller)) {
-            return [];
-        }
-
-        return $controller->getExcludedMiddleware();
-    }
-
-    /**
-     * 获取路由排除中间件.
-     *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
-     */
-    public function getRouteExcludedMiddleware(Request $request): array
-    {
-        return $this->getCurrentRoute($request)->getExcludedMiddleware();
-    }
-
-    /**
      * 获取控制器中间件.
      *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
+     * @return array<string|callable>
      */
     public function getControllerMiddleware(Request $request): array
     {
-        $controller = $this->getCurrentController($request);
+        $controller = $this->getController($request);
         if (is_null($controller)) {
             return [];
         }
@@ -457,34 +395,85 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 获取路由中间件.
      *
-     * @return array<string>|array<\Coole\Foundation\Middlewares\MiddlewareInterface>
+     * @return array<string|callable>
      */
     public function getRouteMiddleware(Request $request): array
     {
-        return $this->getCurrentRoute($request)->getMiddleware();
+        return $this->getRoute($request)->getMiddleware();
     }
 
     /**
-     * 获取当前路由.
+     * 获取排除的请求中间件.
+     *
+     * @return array<string>
      */
-    public function getCurrentRoute(Request $request): Route
+    public function getExcludedRequestMiddleware(Request $request): array
+    {
+        return array_merge(
+            $this->getExcludedMiddleware(),
+            $this->getExcludedControllerMiddleware($request),
+            $this->getExcludedRouteMiddleware($request)
+        );
+    }
+
+    /**
+     * 获取排除的控制器中间件.
+     *
+     * @return array<string>
+     */
+    public function getExcludedControllerMiddleware(Request $request): array
+    {
+        $controller = $this->getController($request);
+        if (is_null($controller)) {
+            return [];
+        }
+
+        return $controller->getExcludedMiddleware();
+    }
+
+    /**
+     * 获取排除的路由中间件.
+     *
+     * @return array<string>
+     */
+    public function getExcludedRouteMiddleware(Request $request): array
+    {
+        return $this->getRoute($request)->getExcludedMiddleware();
+    }
+
+    /**
+     * 获取控制器.
+     */
+    public function getController(Request $request): ?Controller
+    {
+        $parameters = $this[UrlMatcherInterface::class]->matchRequest($request);
+
+        // __invoke class callback
+        if (is_string($parameters['_controller'])) {
+            return $this->make($parameters['_controller']);
+        }
+
+        // __invoke object callback
+        if (is_object($parameters['_controller']) && ! $parameters['_controller'] instanceof Closure) {
+            return $parameters['_controller'];
+        }
+
+        // array callback
+        if (is_array($parameters['_controller'])) {
+            return $this->make($parameters['_controller'][0]);
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取路由.
+     */
+    public function getRoute(Request $request): Route
     {
         $parameters = $this[UrlMatcherInterface::class]->matchRequest($request);
 
         return $this['routing.route_collection']->get($parameters['_route']);
-    }
-
-    /**
-     * 获取当前控制器.
-     */
-    public function getCurrentController(Request $request): ?Controller
-    {
-        $parameters = $this[UrlMatcherInterface::class]->matchRequest($request);
-        if (! is_array($parameters['_controller'])) {
-            return null;
-        }
-
-        return $this->make($parameters['_controller'][0]);
     }
 
     /**

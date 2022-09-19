@@ -16,11 +16,8 @@ use Closure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckResponseForModifications implements MiddlewareInterface
+class CheckResponseForModifications
 {
-    /**
-     * {@inheritdoc}
-     */
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);

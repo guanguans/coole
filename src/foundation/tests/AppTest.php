@@ -108,7 +108,7 @@ class AppTest extends TestCase
         $app = new App();
         $app['router']->get('/', static function (): void {
         })->setMiddleware(MiddlewareStub::class);
-        $allMiddleware = $app->getCurrentRequestShouldExecutedMiddleware(Request::createFromGlobals());
+        $allMiddleware = $app->getShouldExecutedRequestMiddleware(Request::createFromGlobals());
         $this->assertIsArray($allMiddleware);
     }
 
@@ -116,7 +116,7 @@ class AppTest extends TestCase
     {
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
-        $controller = $app->getCurrentController(Request::createFromGlobals());
+        $controller = $app->getController(Request::createFromGlobals());
         $this->assertInstanceOf(ControllerStub::class, $controller);
     }
 
@@ -133,7 +133,7 @@ class AppTest extends TestCase
     {
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
-        $controlleMiddleware = $app->getControllerExcludedMiddleware(Request::createFromGlobals());
+        $controlleMiddleware = $app->getExcludedControllerMiddleware(Request::createFromGlobals());
         $this->assertIsArray($controlleMiddleware);
         $this->assertSame(MiddlewareStub::class, end($controlleMiddleware));
     }
