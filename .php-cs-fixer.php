@@ -49,7 +49,7 @@ $finder = Finder::create()
 
 return (new Config())
     ->setRules([
-        // '@PSR12' => true,
+        '@PSR12' => true,
         '@Symfony' => true,
         'header_comment' => [
             'header' => $header,
