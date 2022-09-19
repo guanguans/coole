@@ -15,9 +15,6 @@ namespace Coole\Logger\Facades;
 use Coole\Foundation\Facades\Facade;
 
 /**
- * @method static \Psr\Log\LoggerInterface    channel(string $channel = null)
- * @method static \Coole\Logger\LoggerManager shareContext(array $context)
- * @method static array                       sharedContext()
  * @method static void                        alert(string $message, array $context = [])
  * @method static void                        critical(string $message, array $context = [])
  * @method static void                        debug(string $message, array $context = [])
@@ -27,6 +24,17 @@ use Coole\Foundation\Facades\Facade;
  * @method static void                        log($level, string $message, array $context = [])
  * @method static void                        notice(string $message, array $context = [])
  * @method static void                        warning(string $message, array $context = [])
+ * @method static \Psr\Log\LoggerInterface channel(string $channel = null)
+ * @method static \Psr\Log\LoggerInterface driver(?string $driver = null)
+ * @method static \Coole\Logger\LoggerManager extend(string $driver, \Closure $callback)
+ * @method static void forgetChannel(?string $driver = null)
+ * @method static \Coole\Logger\LoggerManager forgetDrivers()
+ * @method static array getChannels()
+ * @method static \Illuminate\Container\Container getContainer()
+ * @method static string getDefaultDriver()
+ * @method static array getDrivers()
+ * @method static \Coole\Logger\LoggerManager setContainer(\Illuminate\Container\Container $container)
+ * @method static void setDefaultDriver(string $name)
  *
  * @mixin  \Coole\Logger\LoggerManager
  *

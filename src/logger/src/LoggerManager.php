@@ -35,11 +35,6 @@ class LoggerManager extends Manager implements LoggerInterface
     use ParsesLogConfiguration;
 
     /**
-     * The context shared across channels and stacks.
-     */
-    protected array $sharedContext = [];
-
-    /**
      * The standard date format to use when writing logs.
      */
     protected string $dateFormat = 'Y-m-d H:i:s';
@@ -230,45 +225,9 @@ class LoggerManager extends Manager implements LoggerInterface
      */
     protected function formatter(): FormatterInterface
     {
-        return tap(new LineFormatter(null, $this->dateFormat, true, true), function ($formatter) {
+        return tap(new LineFormatter(null, $this->dateFormat, true, true), function (LineFormatter $formatter) {
             $formatter->includeStacktraces();
         });
-    }
-
-    /**
-     * Share context across channels and stacks.
-     *
-     * @return $this
-     */
-    public function shareContext(array $context): static
-    {
-        foreach ($this->drivers as $channel) {
-            $channel->withContext($context);
-        }
-
-        $this->sharedContext = array_merge($this->sharedContext, $context);
-
-        return $this;
-    }
-
-    /**
-     * The context shared across channels and stacks.
-     */
-    public function sharedContext(): array
-    {
-        return $this->sharedContext;
-    }
-
-    /**
-     * Flush the shared context.
-     *
-     * @return $this
-     */
-    public function flushSharedContext(): static
-    {
-        $this->sharedContext = [];
-
-        return $this;
     }
 
     /**
@@ -276,7 +235,7 @@ class LoggerManager extends Manager implements LoggerInterface
      */
     protected function getFallbackChannelName(): string
     {
-        return 'production';
+        return $this->config->get('app.env', 'production');
     }
 
     /**
