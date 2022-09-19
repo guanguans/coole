@@ -101,7 +101,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
         $this->app['event_dispatcher']->addSubscriber(new StringToResponseListener());
-        $this->app['event_dispatcher']->addSubscriber($this->app->make(LogListener::class));
         $this->app['event_dispatcher']->addSubscriber($this->app->make(ConverterListener::class));
+
+        if ($this->app['config']['app.debug']) {
+            $this->app['event_dispatcher']->addSubscriber($this->app->make(LogListener::class));
+        }
     }
 }
