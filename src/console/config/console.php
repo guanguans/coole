@@ -18,6 +18,7 @@ return [
         [
             // 命令所在目录
             'dir' => __DIR__.'/../src/Commands',
+
             // 命令命名空间
             'namespace' => '\\Coole\\Console\\Commands',
         ],

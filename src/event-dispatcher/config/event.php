@@ -12,5 +12,8 @@ declare(strict_types=1);
 
 return [
     'listen' => [
+        // \App\Event\ExampleEvent::class => [
+        //     \App\Listener\ExampleListener::class
+        // ]
     ],
 ];
