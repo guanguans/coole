@@ -10,11 +10,15 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\HttpKernel;
+namespace Coole\Foundation\Concerns;
 
-use Coole\Foundation\Concerns\InteractsWithController;
-
-class Controller implements ControllerInterface
+trait InteractsWithViewRender
 {
-    use InteractsWithController;
+    /**
+     * {@inheritdoc}
+     */
+    public function render($name, array $context = []): string
+    {
+        return app('view')->render($name, $context);
+    }
 }

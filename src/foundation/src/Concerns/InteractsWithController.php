@@ -10,11 +10,13 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\HttpKernel;
+namespace Coole\Foundation\Concerns;
 
-use Coole\Foundation\Concerns\InteractsWithController;
-
-class Controller implements ControllerInterface
+trait InteractsWithController
 {
-    use InteractsWithController;
+    use HasMiddleware;
+    use InteractsWithAborting;
+    use InteractsWithKernelEventHandler;
+    use InteractsWithResponse;
+    use InteractsWithViewRender;
 }

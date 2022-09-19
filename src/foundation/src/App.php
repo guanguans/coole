@@ -15,8 +15,8 @@ namespace Coole\Foundation;
 use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
+use Coole\Foundation\Concerns\InteractsWithController;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
-use Coole\HttpKernel\Concerns\HasController;
 use Coole\HttpKernel\Controller;
 use Coole\Routing\Route;
 use Dotenv\Dotenv;
@@ -35,7 +35,7 @@ use Throwable;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
-    use HasController;
+    use InteractsWithController;
     use Macroable;
 
     /**
@@ -229,8 +229,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function loadEnvFrom(string|array $paths): void
     {
-        $dotenv = Dotenv::createUnsafeMutable($paths);
-        $dotenv->load();
+        Dotenv::createUnsafeMutable($paths)->load();
     }
 
     /**

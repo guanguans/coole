@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace Coole\Routing;
 
-use Coole\HttpKernel\Concerns\HasController;
+use Coole\Foundation\Concerns\InteractsWithController;
 use Symfony\Component\Routing\Route as SymfonyRoute;
 
 class Route extends SymfonyRoute
 {
-    use HasController;
+    use InteractsWithController;
 
     /**
      * {@inheritdoc}
