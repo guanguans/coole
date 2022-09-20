@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Facades;
 
-use Coole\Console\Command;
-
 /**
  * @method static void                                                     abort(int $statusCode, string $message = '', array $headers = [])
  * @method static void                                                     addContextualBinding($concrete, $abstract, $implementation)
@@ -41,7 +39,7 @@ use Coole\Console\Command;
  * @method static mixed                                                    build($concrete)
  * @method static mixed                                                    call($callback, array $parameters = [], $defaultMethod = null)
  * @method static mixed                                                    callMethodBinding($method, $instance)
- * @method static void                                                     commands(string|Command|array $commands)
+ * @method static void                                                     commands(string|\Symfony\Component\Console\Command\Command|array $commands)
  * @method static void                                                     extend($abstract, \Closure $closure)
  * @method static \Closure                                                 factory($abstract)
  * @method static void                                                     flush()

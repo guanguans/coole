@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\Console;
 
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\Finder;
 
 class CommandDiscoverer
@@ -26,7 +27,7 @@ class CommandDiscoverer
     /**
      * 获取命令.
      *
-     * @return array<\Coole\Console\Command>
+     * @return array<\Symfony\Component\Console\Command\Command>
      */
     public function getCommands(): array
     {

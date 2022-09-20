@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\Foundation;
 
 use Closure;
-use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Concerns\InteractsWithController;
@@ -30,6 +29,7 @@ use Illuminate\Support\Traits\Macroable;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use SplFileInfo;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -158,8 +158,6 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
     /**
      * 注册命令.
-     *
-     * @param string|\Coole\Console\Command|array<\Coole\Console\Command>|array<string> $commands
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
