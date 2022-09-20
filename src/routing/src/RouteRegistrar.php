@@ -86,7 +86,7 @@ class RouteRegistrar
     }
 
     /**
-     * Set the value for a given attribute.
+     * 设置给定属性的值.
      *
      * @param mixed $value
      *
