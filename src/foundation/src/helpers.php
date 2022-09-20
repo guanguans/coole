@@ -129,9 +129,26 @@ if (! function_exists('event')) {
                 continue;
             }
 
-            is_string($listener) and $listener = app($listener);
-            $listener instanceof ListenerInterface and $dispatcher->addListener($event::class, [$listener, 'handle']);
-            $listener instanceof EventSubscriberInterface and $dispatcher->addSubscriber($listener);
+            if (is_string($listener)) {
+                $listener = app($listener);
+            }
+
+            if (is_callable($listener)) {
+                $dispatcher->addListener($event::class, $listener);
+                continue;
+            }
+
+            if ($listener instanceof EventSubscriberInterface) {
+                $dispatcher->addSubscriber($listener);
+                continue;
+            }
+
+            if ($listener instanceof ListenerInterface) {
+                $dispatcher->addListener($event::class, [$listener, 'handle']);
+                continue;
+            }
+
+            throw new RuntimeException(sprintf('The %s is not a callback type.', $event::class));
         }
 
         $isDispatched and $dispatcher->dispatch($event);

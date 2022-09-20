@@ -12,11 +12,18 @@ declare(strict_types=1);
 
 namespace Coole\EventDispatcher;
 
+use Illuminate\Container\Container;
+use RuntimeException;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class EventDispatcher extends SymfonyEventDispatcher
 {
+    public function __construct(protected Container $container)
+    {
+        parent::__construct();
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -30,9 +37,26 @@ class EventDispatcher extends SymfonyEventDispatcher
                 continue;
             }
 
-            is_string($listener) and $listener = app($listener);
-            $listener instanceof ListenerInterface and $this->addListener($event::class, [$listener, 'handle']);
-            $listener instanceof EventSubscriberInterface and $this->addSubscriber($listener);
+            if (is_string($listener)) {
+                $listener = $this->container->make($listener);
+            }
+
+            if (is_callable($listener)) {
+                $this->addListener($event::class, $listener);
+                continue;
+            }
+
+            if ($listener instanceof EventSubscriberInterface) {
+                $this->addSubscriber($listener);
+                continue;
+            }
+
+            if ($listener instanceof ListenerInterface) {
+                $this->addListener($event::class, [$listener, 'handle']);
+                continue;
+            }
+
+            throw new RuntimeException(sprintf('The %s is not a callback type.', $event::class));
         }
 
         return parent::dispatch($event, $eventName);
