@@ -37,11 +37,8 @@ class Router
         $route = clone $this->defaultRoute;
 
         $route->setPath($groupPattern = $this->getGroupPattern($pattern));
-
         $route->setDefault('_controller', $action);
-
         $route->setMiddleware($this->getGroupMiddleware());
-
         $route->setMethods($methods);
 
         $this->routeCollection->add($groupPattern, $route);
