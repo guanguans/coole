@@ -26,7 +26,7 @@ trait HasMiddleware
      *
      * @var array<string|callable>
      */
-    protected array $excludedMiddleware = [];
+    protected array $withoutMiddleware = [];
 
     /**
      * 获取中间件.
@@ -59,8 +59,7 @@ trait HasMiddleware
             $middleware = [$middleware];
         }
 
-        $this->middleware = array_merge($this->middleware, (array) $middleware)
-        ;
+        $this->middleware = array_merge($this->middleware, (array) $middleware);
     }
 
     /**
@@ -68,19 +67,9 @@ trait HasMiddleware
      *
      * @return array<string|callable>
      */
-    public function getExcludedMiddleware(): array
+    public function getWithoutMiddleware(): array
     {
-        return $this->excludedMiddleware;
-    }
-
-    /**
-     * 排除中间件.
-     *
-     * @param string|array<string> $middleware
-     */
-    public function withoutMiddleware(string|array $excludedMiddleware): void
-    {
-        $this->addExcludedMiddleware($excludedMiddleware);
+        return $this->withoutMiddleware;
     }
 
     /**
@@ -88,9 +77,9 @@ trait HasMiddleware
      *
      * @param string|array<string> $middleware
      */
-    public function setExcludedMiddleware(string|array $excludedMiddleware): void
+    public function setWithoutMiddleware(string|array $withoutMiddleware): void
     {
-        $this->addExcludedMiddleware($excludedMiddleware);
+        $this->addWithoutMiddleware($withoutMiddleware);
     }
 
     /**
@@ -98,10 +87,10 @@ trait HasMiddleware
      *
      * @param string|array<string> $middleware
      */
-    public function addExcludedMiddleware(string|array $excludedMiddleware): void
+    public function addWithoutMiddleware(string|array $withoutMiddleware): void
     {
-        $this->excludedMiddleware = array_unique(
-            array_merge($this->excludedMiddleware, (array) $excludedMiddleware)
+        $this->withoutMiddleware = array_unique(
+            array_merge($this->withoutMiddleware, (array) $withoutMiddleware)
         );
     }
 }

@@ -36,13 +36,13 @@ class Router
     {
         $route = clone $this->defaultRoute;
 
-        $route->setPath($groupPattern = $this->getGroupPattern($pattern));
+        $route->setPath($path = $this->extractPath($pattern));
         $route->setDefault('_controller', $action);
         $route->setMethods($methods);
-        $route->setMiddleware($this->getGroupMiddleware());
-        $route->setExcludedMiddleware($this->getGroupWithoutMiddleware());
+        $route->setMiddleware($this->extractMiddleware());
+        $route->setWithoutMiddleware($this->extractWithoutMiddleware());
 
-        $this->routeCollection->add($groupPattern, $route);
+        $this->routeCollection->add($path, $route);
 
         return $route;
     }
@@ -104,29 +104,32 @@ class Router
     }
 
     /**
-     * 获取路由组 pattern.
+     * 提取路径.
      */
-    protected function getGroupPattern(string $pattern): string
+    protected function extractPath(string $pattern): string
     {
-        return trim(trim(end($this->groupStack)['prefix'] ?? '', '/').'/'.trim($pattern, '/'), '/');
+        return trim(
+            trim(trim(end($this->groupStack)['prefix'] ?? ''), '/').'/'.trim(trim($pattern), '/'),
+            '/'
+        ) ?: '/';
     }
 
     /**
-     * 获取路由组中间件.
+     * 提取中间件.
      *
-     * @return mixed[]
+     * @return array<string|callable>
      */
-    protected function getGroupMiddleware(): array
+    protected function extractMiddleware(): array
     {
         return end($this->groupStack)['middleware'] ?? [];
     }
 
     /**
-     * 获取排除的路由组中间件.
+     * 提取排除的中间件.
      *
-     * @return mixed[]
+     * @return array<string>
      */
-    protected function getGroupWithoutMiddleware(): array
+    protected function extractWithoutMiddleware(): array
     {
         return end($this->groupStack)['without_middleware'] ?? [];
     }
@@ -160,6 +163,8 @@ class Router
 
     /**
      * 路由组.
+     *
+     * * @param array<string, mixed> $attributes
      *
      * @return $this
      */

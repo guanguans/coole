@@ -371,10 +371,20 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function getShouldExecutedRequestMiddleware(Request $request): array
     {
-        return array_diff(
-            $this->getRequestMiddleware($request),
-            $this->getExcludedRequestMiddleware($request)
+        $classes = array_diff(
+            array_filter(
+                $this->getRequestMiddleware($request),
+                fn ($middleware) => is_string($middleware)
+            ),
+            $this->getWithoutRequestMiddleware($request),
         );
+
+        $objects = array_filter(
+            $this->getRequestMiddleware($request),
+            fn ($middleware) => is_object($middleware)
+        );
+
+        return array_merge(array_unique($classes), $objects);
     }
 
     /**
@@ -421,12 +431,12 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return array<string>
      */
-    public function getExcludedRequestMiddleware(Request $request): array
+    public function getWithoutRequestMiddleware(Request $request): array
     {
         return array_merge(
-            $this->getExcludedMiddleware(),
-            $this->getExcludedControllerMiddleware($request),
-            $this->getExcludedRouteMiddleware($request)
+            $this->getWithoutMiddleware(),
+            $this->getWithoutControllerMiddleware($request),
+            $this->getWithoutRouteMiddleware($request)
         );
     }
 
@@ -435,14 +445,14 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return array<string>
      */
-    public function getExcludedControllerMiddleware(Request $request): array
+    public function getWithoutControllerMiddleware(Request $request): array
     {
         $controller = $this->getController($request);
         if (is_null($controller)) {
             return [];
         }
 
-        return $controller->getExcludedMiddleware();
+        return $controller->getWithoutMiddleware();
     }
 
     /**
@@ -450,9 +460,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      *
      * @return array<string>
      */
-    public function getExcludedRouteMiddleware(Request $request): array
+    public function getWithoutRouteMiddleware(Request $request): array
     {
-        return $this->getRoute($request)->getExcludedMiddleware();
+        return $this->getRoute($request)->getWithoutMiddleware();
     }
 
     /**

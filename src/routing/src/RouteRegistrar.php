@@ -74,6 +74,18 @@ class RouteRegistrar
     }
 
     /**
+     * 路由组.
+     *
+     * @return $this
+     */
+    public function group(callable $callback): static
+    {
+        $this->router->group($this->attributes, $callback);
+
+        return $this;
+    }
+
+    /**
      * Set the value for a given attribute.
      *
      * @param mixed $value
@@ -82,36 +94,17 @@ class RouteRegistrar
      *
      * @throws \InvalidArgumentException
      */
-    public function attribute(string $key, $value)
+    protected function attribute(string $key, $value)
     {
         if (! in_array($key, $this->allowedAttributes)) {
             throw new InvalidArgumentException("Attribute [$key] does not exist.");
         }
 
-        if ('middleware' === $key) {
+        if ('middleware' === $key || 'without_middleware' === $key) {
             $value = Arr::wrap($value);
         }
 
-        if ('without_middleware' === $key) {
-            $value = array_merge(
-                (array) ($this->attributes[$key] ?? []),
-                Arr::wrap($value)
-            );
-        }
-
         $this->attributes[$key] = $value;
-
-        return $this;
-    }
-
-    /**
-     * 路由组.
-     *
-     * @return $this
-     */
-    public function group(callable $callback): static
-    {
-        $this->router->group($this->attributes, $callback);
 
         return $this;
     }

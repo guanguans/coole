@@ -23,9 +23,10 @@ use Coole\Foundation\Facades\Facade;
  * @method static \Coole\Routing\Route          patch(string $pattern, mixed $action = null)
  * @method static \Coole\Routing\Route          post(string $pattern, mixed $action = null)
  * @method static \Coole\Routing\Route          put(string $pattern, mixed $action = null)
- * @method static \Coole\Routing\RouteRegistrar middleware(mixed $middleware)
+ * @method static \Coole\Routing\Router group(array $attributes, callable $callback)
+ * @method static \Coole\Routing\RouteRegistrar middleware(string|callable|array $middleware)
  * @method static \Coole\Routing\RouteRegistrar prefix(string $prefix)
- * @method static \Coole\Routing\RouteRegistrar group(array $attributes, callable $callback)
+ * @method static \Coole\Routing\RouteRegistrar withoutMiddleware(string|array $middleware)
  *
  * @mixin \Coole\Routing\Router
  *

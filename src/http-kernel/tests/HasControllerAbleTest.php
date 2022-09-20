@@ -37,20 +37,20 @@ class HasControllerAbleTest extends TestCase
 
     public function testAddExcludedMiddleware(): void
     {
-        $this->controller->addExcludedMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
+        $this->controller->setWithoutMiddleware($middleware = [CheckResponseForModifications::class]);
+        $this->assertSame($middleware, $this->controller->getWithoutMiddleware());
     }
 
     public function testSetExcludedMiddleware(): void
     {
-        $this->controller->setExcludedMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
+        $this->controller->setWithoutMiddleware($middleware = [CheckResponseForModifications::class]);
+        $this->assertSame($middleware, $this->controller->getWithoutMiddleware());
     }
 
     public function testWithoutMiddleware(): void
     {
-        $this->controller->withoutMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getExcludedMiddleware());
+        $this->controller->setWithoutMiddleware($middleware = [CheckResponseForModifications::class]);
+        $this->assertSame($middleware, $this->controller->getWithoutMiddleware());
     }
 
     public function testAddFinishHandler(): void

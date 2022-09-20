@@ -133,7 +133,7 @@ class AppTest extends TestCase
     {
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
-        $controlleMiddleware = $app->getExcludedControllerMiddleware(Request::createFromGlobals());
+        $controlleMiddleware = $app->getWithoutControllerMiddleware(Request::createFromGlobals());
         $this->assertIsArray($controlleMiddleware);
         $this->assertSame(MiddlewareStub::class, end($controlleMiddleware));
     }
