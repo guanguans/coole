@@ -17,6 +17,9 @@ use Coole\Console\Command;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Concerns\InteractsWithController;
+use Coole\Foundation\Events\ExceptionEvent;
+use Coole\Foundation\Events\RequestHandledEvent;
+use Coole\Foundation\Events\TerminateEvent;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
 use Coole\HttpKernel\Controller;
 use Coole\Routing\Route;
@@ -25,6 +28,7 @@ use Illuminate\Container\Container;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Traits\Macroable;
 use Psr\Container\ContainerInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use SplFileInfo;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -277,12 +281,22 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             // 通过中间件将请求转化为响应
             $response = $this->sendRequestThroughPipeline($request);
         } catch (Throwable $throwable) {
+            // 触发异常事件
+            $this[EventDispatcherInterface::class]->dispatch(
+                new ExceptionEvent($request, $throwable)
+            );
+
             // 报告异常
             $this->reportException($throwable);
 
             // 渲染异常
             $response = $this->renderException($request, $throwable);
         }
+
+        // 触发请求已处理事件
+        $this[EventDispatcherInterface::class]->dispatch(
+            new RequestHandledEvent($request, $response)
+        );
 
         // 发送响应
         $response->send();
@@ -347,7 +361,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function terminate(Request $request, Response $response): void
     {
-        $this[TerminableInterface::class]->terminate($request, $response);
+        $this[EventDispatcherInterface::class]->dispatch(
+            new TerminateEvent($request, $response)
+        );
     }
 
     /**

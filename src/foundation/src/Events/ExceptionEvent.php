@@ -10,13 +10,16 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation\Concerns;
+namespace Coole\Foundation\Events;
 
-trait InteractsWithController
+use Symfony\Component\HttpFoundation\Request;
+use Throwable;
+
+class ExceptionEvent
 {
-    use HasMiddleware;
-    use InteractsWithAborting;
-    use InteractsWithlEventHandler;
-    use InteractsWithResponse;
-    use InteractsWithViewRender;
+    public function __construct(
+        public Request $request,
+        public Throwable $throwable
+    ) {
+    }
 }
