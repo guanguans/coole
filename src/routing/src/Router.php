@@ -38,8 +38,9 @@ class Router
 
         $route->setPath($groupPattern = $this->getGroupPattern($pattern));
         $route->setDefault('_controller', $action);
-        $route->setMiddleware($this->getGroupMiddleware());
         $route->setMethods($methods);
+        $route->setMiddleware($this->getGroupMiddleware());
+        $route->setExcludedMiddleware($this->getGroupWithoutMiddleware());
 
         $this->routeCollection->add($groupPattern, $route);
 
@@ -121,23 +122,40 @@ class Router
     }
 
     /**
+     * 获取排除的路由组中间件.
+     *
+     * @return mixed[]
+     */
+    protected function getGroupWithoutMiddleware(): array
+    {
+        return end($this->groupStack)['without_middleware'] ?? [];
+    }
+
+    /**
      * 更新路由组栈.
      *
      * @param array<string, mixed> $attributes
      */
-    protected function updateGroupStack(array $attributes): bool
+    protected function updateGroupStack(array $attributes): void
     {
-        $lastAttribute = end($this->groupStack);
+        $lastAttributes = end($this->groupStack);
 
         $newAttributes = [];
 
-        $newAttributes['prefix'] = trim(trim($lastAttribute['prefix'] ?? '', '/').'/'.trim($attributes['prefix'] ?? '', '/'), '/');
+        $newAttributes['prefix'] = trim(trim($lastAttributes['prefix'] ?? ''), '/').'/'.
+                                   trim(trim($attributes['prefix'] ?? ''), '/');
 
-        $newAttributes['middleware'] = array_merge($lastAttribute['middleware'] ?? [], $attributes['middleware'] ?? []);
+        $newAttributes['middleware'] = array_merge(
+            $lastAttributes['middleware'] ?? [],
+            $attributes['middleware'] ?? []
+        );
+
+        $newAttributes['without_middleware'] = array_merge(
+            $lastAttributes['without_middleware'] ?? [],
+            $attributes['without_middleware'] ?? []
+        );
 
         $this->groupStack[] = $newAttributes;
-
-        return true;
     }
 
     /**
@@ -147,12 +165,13 @@ class Router
      */
     public function group(array $attributes, callable $callback): self
     {
-        // 添加组属性
+        // 添加路由组属性
         $this->updateGroupStack($attributes);
 
-        call_user_func($callback);
+        // 注册子路由
+        $callback($this);
 
-        // 释放组属性
+        // 释放路由组属性
         array_pop($this->groupStack);
 
         return $this;

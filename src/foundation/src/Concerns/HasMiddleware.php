@@ -55,9 +55,12 @@ trait HasMiddleware
      */
     public function addMiddleware(string|callable|array $middleware): void
     {
-        $this->middleware = array_unique(
-            array_merge($this->middleware, (array) $middleware)
-        );
+        if (is_object($middleware)) {
+            $middleware = [$middleware];
+        }
+
+        $this->middleware = array_merge($this->middleware, (array) $middleware)
+        ;
     }
 
     /**

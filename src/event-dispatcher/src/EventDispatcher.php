@@ -29,7 +29,7 @@ class EventDispatcher extends SymfonyEventDispatcher
      */
     public function dispatch(object $event, string $eventName = null): object
     {
-        $listeners = array_unique(app('event_dispatcher.listener_collection')->get($event::class, []));
+        $listeners = app('event_dispatcher.listener_collection')->get($event::class, []);
 
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {

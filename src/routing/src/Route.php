@@ -22,7 +22,7 @@ class Route extends SymfonyRoute
     /**
      * {@inheritdoc}
      */
-    public function __construct(string $path = '/', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', string|array $schemes = [], string|array $methods = [], ?string $condition = '')
+    public function __construct(string $path = '', array $defaults = [], array $requirements = [], array $options = [], ?string $host = '', string|array $schemes = [], string|array $methods = [], ?string $condition = '')
     {
         parent::__construct($path, $defaults, $requirements, $options, $host, $schemes, $methods, $condition);
     }

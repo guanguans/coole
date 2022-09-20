@@ -12,6 +12,9 @@ declare(strict_types=1);
 
 namespace Coole\Routing;
 
+use Illuminate\Support\Arr;
+use InvalidArgumentException;
+
 class RouteRegistrar
 {
     /**
@@ -20,6 +23,17 @@ class RouteRegistrar
      * @var array<string, mixed>
      */
     protected $attributes = [];
+
+    /**
+     * 允许设置的属性.
+     *
+     * @var array<string>
+     */
+    protected $allowedAttributes = [
+        'prefix',
+        'middleware',
+        'without_middleware',
+    ];
 
     public function __construct(protected Router $router)
     {
@@ -32,23 +46,60 @@ class RouteRegistrar
      */
     public function prefix(string $prefix): self
     {
-        $this->attributes['prefix'] = $prefix;
-
-        return $this;
+        return $this->attribute('prefix', $prefix);
     }
 
     /**
      * 路由组中间件.
      *
+     * @param string|callable|array<string|callable> $middleware
+     *
      * @return $this
      */
-    public function middleware(mixed $middleware): self
+    public function middleware(string|callable|array $middleware): self
     {
-        if (is_object($middleware)) {
-            $middleware = [$middleware];
+        return $this->attribute('middleware', $middleware);
+    }
+
+    /**
+     * 路由组排除的中间件.
+     *
+     * @param string|array<string> $middleware
+     *
+     * @return $this
+     */
+    public function withoutMiddleware(string|array $middleware): self
+    {
+        return $this->attribute('without_middleware', $middleware);
+    }
+
+    /**
+     * Set the value for a given attribute.
+     *
+     * @param mixed $value
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function attribute(string $key, $value)
+    {
+        if (! in_array($key, $this->allowedAttributes)) {
+            throw new InvalidArgumentException("Attribute [$key] does not exist.");
         }
 
-        $this->attributes['middleware'] = (array) $middleware;
+        if ('middleware' === $key) {
+            $value = Arr::wrap($value);
+        }
+
+        if ('without_middleware' === $key) {
+            $value = array_merge(
+                (array) ($this->attributes[$key] ?? []),
+                Arr::wrap($value)
+            );
+        }
+
+        $this->attributes[$key] = $value;
 
         return $this;
     }

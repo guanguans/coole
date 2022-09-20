@@ -118,8 +118,6 @@ if (! function_exists('event')) {
     {
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
-        $listeners = array_unique($listeners);
-
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
         $dispatcher = app('event_dispatcher');
 
