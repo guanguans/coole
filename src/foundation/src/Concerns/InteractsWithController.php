@@ -16,7 +16,7 @@ trait InteractsWithController
 {
     use HasMiddleware;
     use InteractsWithAborting;
-    use InteractsWithlEventHandler;
+    use InteractsWithEventHandler;
     use InteractsWithResponse;
     use InteractsWithViewRender;
 }

@@ -19,7 +19,7 @@ use Coole\Foundation\Events\TerminateEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-trait InteractsWithlEventHandler
+trait InteractsWithEventHandler
 {
     /**
      * 添加一个 `KernelEvents::REQUEST` 事件监听处理器.
