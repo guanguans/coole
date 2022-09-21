@@ -17,7 +17,9 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolver as SymfonyControl
 class ControllerResolver extends SymfonyControllerResolver
 {
     /**
-     * @param ControllerInterface::class $class
+     * @return \Coole\HttpKernel\ControllerInterface
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function instantiateController(string $class): ControllerInterface
     {

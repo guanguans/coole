@@ -26,7 +26,7 @@ trait InteractsWithResponse
      */
     public function response(?string $content = '', int $status = 200, array $headers = []): Response
     {
-        new Response($content, $status, $headers);
+        return new Response($content, $status, $headers);
     }
 
     /**

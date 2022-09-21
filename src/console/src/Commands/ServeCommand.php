@@ -30,6 +30,8 @@ class ServeCommand extends Command
      */
     protected string $description = 'Serve the application on the PHP development server.';
 
+    protected int $tries;
+
     /**
      * {@inheritdoc}
      */
@@ -68,6 +70,14 @@ class ServeCommand extends Command
     /**
      * {@inheritdoc}
      */
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        $this->tries = (int) $input->getOption('tries');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (is_null($docroot = $input->getOption('docroot'))) {
@@ -78,14 +88,12 @@ class ServeCommand extends Command
             throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $docroot));
         }
 
-        $tries = $input->getOption('tries');
-
         $this->output->info('Press Ctrl+C to stop the server.');
 
         passthru($this->serverCommand($input), $status);
 
-        if ($status && $tries > 0) {
-            --$tries;
+        if ($status && $this->tries > 0) {
+            --$this->tries;
             $input->setOption('port', $input->getOption('port') + 1);
             $this->execute($input, $output);
         }

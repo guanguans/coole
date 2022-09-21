@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
+use Closure;
 use Illuminate\Support\Traits\ReflectsClosures;
 use Throwable;
 
@@ -24,10 +25,8 @@ class ReportableHandler
 
     /**
      * The underlying callback.
-     *
-     * @var callable
      */
-    protected $callback;
+    protected Closure $callback;
 
     /**
      * Indicates if reporting should stop after invoking this handler.
@@ -37,7 +36,7 @@ class ReportableHandler
     /**
      * Create a new reportable handler instance.
      */
-    public function __construct(callable $callback)
+    public function __construct(Closure $callback)
     {
         $this->callback = $callback;
     }

@@ -19,6 +19,8 @@ if (! function_exists('app')) {
      * 获取应用共享实例.
      *
      * @return \Coole\Foundation\App|mixed
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function app(?string $abstract = null, array $parameters = []): mixed
     {

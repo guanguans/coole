@@ -13,14 +13,12 @@
 >
     <testsuites>
         <testsuite name="Coole Test Suite">
-            <directory suffix="Test.php">./src/config/tests</directory>
             <directory suffix="Test.php">./src/console/tests</directory>
             <directory suffix="Test.php">./src/database/tests</directory>
             <directory suffix="Test.php">./src/error-handler/tests</directory>
-            <directory suffix="Test.php">./src/event/tests</directory>
+            <directory suffix="Test.php">./src/event-dispatcher/tests</directory>
             <directory suffix="Test.php">./src/foundation/tests</directory>
             <directory suffix="Test.php">./src/http-kernel/tests</directory>
-            <directory suffix="Test.php">./src/invoker/tests</directory>
             <directory suffix="Test.php">./src/logger/tests</directory>
             <directory suffix="Test.php">./src/routing/tests</directory>
             <directory suffix="Test.php">./src/view/tests</directory>
@@ -28,15 +26,11 @@
     </testsuites>
     <filter>
         <whitelist>
-            <directory suffix=".php">./src/config/src</directory>
             <directory suffix=".php">./src/console/src</directory>
             <directory suffix=".php">./src/db/src</directory>
             <directory suffix=".php">./src/error-handler/src</directory>
-            <directory suffix=".php">./src/event/src</directory>
             <directory suffix=".php">./src/foundation/src</directory>
             <directory suffix=".php">./src/http-kernel/src</directory>
-            <directory suffix=".php">./src/invoker/src</directory>
-            <directory suffix=".php">./src/log/src</directory>
             <directory suffix=".php">./src/routing/src</directory>
             <directory suffix=".php">./src/view/src</directory>
             <exclude>

@@ -53,6 +53,7 @@ final class ArgumentResolver implements ArgumentResolverInterface
     {
         $arguments = [];
 
+        /** @var string|object|array|callable $controller */
         foreach ($this->argumentMetadataFactory->createArgumentMetadata($controller) as $argumentMetadatum) {
             foreach ($this->argumentValueResolvers as $argumentValueResolver) {
                 if (! $argumentValueResolver->supports($request, $argumentMetadatum)) {

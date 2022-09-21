@@ -244,7 +244,7 @@ class LoggerManager extends Manager implements LoggerInterface
             return $this->callCustomCreator($driver);
         }
 
-        $config ??= $this->configurationFor($driver);
+        $config = $this->configurationFor($driver);
 
         $method = 'create'.Str::studly($driver).'Driver';
 

@@ -1,2 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="v4.25.0@d7cd84c4ebca74ba3419b9601f81d177bcbe2aac"/>
+<files psalm-version="5.0.0-beta1@f960d71b7e8dccb0815bce28a22a33ce5410e361">
+  <file src="src/console/src/CommandCollection.php">
+    <MissingTemplateParam occurrences="1">
+      <code>CommandCollection</code>
+    </MissingTemplateParam>
+  </file>
+  <file src="src/console/src/Concerns/InteractsWithIO.php">
+    <InvalidArgument occurrences="1">
+      <code>$totalSteps</code>
+    </InvalidArgument>
+  </file>
+  <file src="src/error-handler/src/ErrorHandler.php">
+    <InvalidArgument occurrences="2">
+      <code>$reportCallable</code>
+      <code>$request</code>
+    </InvalidArgument>
+    <UndefinedInterfaceMethod occurrences="4">
+      <code>getHeaders</code>
+      <code>getStatusCode</code>
+    </UndefinedInterfaceMethod>
+    <UnusedClosureParam occurrences="1">
+      <code>$level</code>
+    </UnusedClosureParam>
+  </file>
+  <file src="src/logger/src/LoggerManager.php">
+    <UndefinedInterfaceMethod occurrences="4">
+      <code>getHandlers</code>
+      <code>getProcessors</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/http-kernel/src/ArgumentResolver/ServiceValueResolver.php">
+    <ParamNameMismatch occurrences="2">
+      <code>$argumentMetadata</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/foundation/src/Concerns/InteractsWithViewRender.php">
+    <UndefinedClass occurrences="1">
+      <code>app('view')</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/event-dispatcher/src/ListenerCollection.php">
+    <MissingTemplateParam occurrences="1">
+      <code>ListenerCollection</code>
+    </MissingTemplateParam>
+  </file>
+</files>

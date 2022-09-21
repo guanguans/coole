@@ -91,7 +91,7 @@ namespace Coole\Foundation\Facades;
  * @method static void                                                     register(\Coole\Foundation\ServiceProvider $serviceProvider)
  * @method static void                                                     registerProviders(array $providers)
  * @method static string                                                   render($name, array $context = [])
- * @method static bool                                                     resolved($abstract)
+ * @method static void                                                     resolved(\Closure $callback)
  * @method static void                                                     resolving($abstract, \Closure $callback = null)
  * @method static \Symfony\Component\HttpFoundation\Response               response(?string $content = '', int $status = 200, array $headers = [])
  * @method static void                                                     run(?\Symfony\Component\HttpFoundation\Request $request = null)

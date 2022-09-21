@@ -28,7 +28,7 @@ abstract class Facade
     /**
      * The application instance being facaded.
      */
-    protected static App $app;
+    protected static ?App $app;
 
     /**
      * The resolved object instances.
@@ -69,6 +69,8 @@ abstract class Facade
 
             return $spy;
         }
+
+        return null;
     }
 
     /**
@@ -153,6 +155,8 @@ abstract class Facade
         if ($root = static::getFacadeRoot()) {
             return $root::class;
         }
+
+        return null;
     }
 
     /**
@@ -162,7 +166,7 @@ abstract class Facade
     {
         static::$resolvedInstance[static::getFacadeAccessor()] = $instance;
 
-        if (isset(static::$app)) {
+        if (static::$app) {
             static::$app->instance(static::getFacadeAccessor(), $instance);
         }
     }
@@ -188,7 +192,7 @@ abstract class Facade
     /**
      * Resolve the facade root instance from the container.
      */
-    protected static function resolveFacadeInstance(string $name): mixed
+    protected static function resolveFacadeInstance(string $name)
     {
         if (isset(static::$resolvedInstance[$name])) {
             return static::$resolvedInstance[$name];
@@ -222,7 +226,7 @@ abstract class Facade
     /**
      * Get the application instance behind the facade.
      */
-    public static function getFacadeApplication(): App
+    public static function getFacadeApplication(): ?App
     {
         return static::$app;
     }
