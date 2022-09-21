@@ -12,9 +12,24 @@ declare(strict_types=1);
 
 namespace Coole\Routing;
 
+use BadMethodCallException;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 
+/**
+ * @method \Coole\Routing\Route          get(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\Route          post(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\Route          put(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\Route          delete(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\Route          patch(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\Route          options(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\Route          any(string $uri, \Closure|array|string|callable $action)
+ * @method \Coole\Routing\RouteRegistrar as(string $name)
+ * @method \Coole\Routing\RouteRegistrar middleware(string|callable|array $middleware)
+ * @method \Coole\Routing\RouteRegistrar name(string $name)
+ * @method \Coole\Routing\RouteRegistrar prefix(string $prefix)
+ * @method \Coole\Routing\RouteRegistrar withoutMiddleware(string|array $middleware)
+ */
 class RouteRegistrar
 {
     /**
@@ -25,64 +40,39 @@ class RouteRegistrar
     protected $attributes = [];
 
     /**
+     * 动态传递给路由器的方法.
+     *
+     * @var array<string>
+     */
+    protected $passthru = [
+        'get', 'post', 'put', 'patch', 'delete', 'options', 'any',
+    ];
+
+    /**
      * 允许设置的属性.
      *
      * @var array<string>
      */
     protected $allowedAttributes = [
-        'prefix',
+        'as',
         'middleware',
-        'without_middleware',
+        'name',
+        'prefix',
+        'withoutMiddleware',
+    ];
+
+    /**
+     * 属性的别名.
+     *
+     * @var array
+     */
+    protected $aliases = [
+        'name' => 'as',
+        'withoutMiddleware' => 'excluded_middleware',
     ];
 
     public function __construct(protected Router $router)
     {
-    }
-
-    /**
-     * 路由组前缀
-     *
-     * @return $this
-     */
-    public function prefix(string $prefix): self
-    {
-        return $this->attribute('prefix', $prefix);
-    }
-
-    /**
-     * 路由组中间件.
-     *
-     * @param string|callable|array<string|callable> $middleware
-     *
-     * @return $this
-     */
-    public function middleware(string|callable|array $middleware): self
-    {
-        return $this->attribute('middleware', $middleware);
-    }
-
-    /**
-     * 路由组排除的中间件.
-     *
-     * @param string|array<string> $middleware
-     *
-     * @return $this
-     */
-    public function withoutMiddleware(string|array $middleware): self
-    {
-        return $this->attribute('without_middleware', $middleware);
-    }
-
-    /**
-     * 路由组.
-     *
-     * @return $this
-     */
-    public function group(callable $callback): static
-    {
-        $this->router->group($this->attributes, $callback);
-
-        return $this;
     }
 
     /**
@@ -94,7 +84,7 @@ class RouteRegistrar
      *
      * @throws \InvalidArgumentException
      */
-    protected function attribute(string $key, $value)
+    public function attribute(string $key, $value): static
     {
         if (! in_array($key, $this->allowedAttributes)) {
             throw new InvalidArgumentException("Attribute [$key] does not exist.");
@@ -104,8 +94,65 @@ class RouteRegistrar
             $value = Arr::wrap($value);
         }
 
-        $this->attributes[$key] = $value;
+        $attributeKey = Arr::get($this->aliases, $key, $key);
+
+        $this->attributes[$attributeKey] = $value;
 
         return $this;
+    }
+
+    /**
+     * 路由组.
+     */
+    public function group(callable $callback): void
+    {
+        $this->router->group($this->attributes, $callback);
+    }
+
+    /**
+     * 用给定的动词注册一条新路线.
+     *
+     * @param \Closure|array|string|callable $action
+     */
+    public function match(string|array $methods, string $uri, mixed $action): Route
+    {
+        return $this->router->match($methods, $uri, $action);
+    }
+
+    /**
+     * 向路由器注册新路由.
+     *
+     * @param \Closure|array|string|callable $action
+     */
+    protected function registerRoute(string $method, string $uri, mixed $action): Route
+    {
+        return $this->router->{$method}($uri, $action);
+    }
+
+    /**
+     * 动态处理对路由注册器的调用.
+     *
+     * @param string $method
+     * @param array  $parameters
+     *
+     * @return \Coole\Routing\Route|$this
+     *
+     * @throws \BadMethodCallException
+     */
+    public function __call($method, $parameters): Route|static
+    {
+        if (in_array($method, $this->passthru)) {
+            return $this->registerRoute($method, ...$parameters);
+        }
+
+        if (in_array($method, $this->allowedAttributes)) {
+            if ('middleware' === $method || 'withoutMiddleware' === $method) {
+                return $this->attribute($method, is_array($parameters[0]) ? $parameters[0] : $parameters);
+            }
+
+            return $this->attribute($method, array_key_exists(0, $parameters) ? $parameters[0] : true);
+        }
+
+        throw new BadMethodCallException(sprintf('Method %s::%s does not exist.', static::class, $method));
     }
 }

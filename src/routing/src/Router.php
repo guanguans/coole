@@ -32,14 +32,15 @@ class Router
     /**
      * 注册给定请求路由.
      */
-    public function match(string|array $methods, string $pattern, mixed $action): Route
+    public function match(string|array $methods, string $uri, mixed $action): Route
     {
         $route = clone $this->defaultRoute;
 
-        $route->setPath($path = $this->extractPath($pattern));
+        $route->setPath($path = $this->extractPath($uri));
         $route->setDefault('_controller', $action);
         $route->setMethods($methods);
         $route->setMiddleware($this->extractMiddleware());
+        $route->name($this->extractName());
         $route->setWithoutMiddleware($this->extractWithoutMiddleware());
 
         $this->routeCollection->add($path, $route);
@@ -50,66 +51,66 @@ class Router
     /**
      * 注册任意请求路由.
      */
-    public function any(string $pattern, mixed $action): Route
+    public function any(string $uri, mixed $action): Route
     {
-        return $this->match(self::$verbs, $pattern, $action);
+        return $this->match(self::$verbs, $uri, $action);
     }
 
     /**
      * 注册 GET 求路由.
      */
-    public function get(string $pattern, mixed $action): Route
+    public function get(string $uri, mixed $action): Route
     {
-        return $this->match(['GET', 'HEAD'], $pattern, $action);
+        return $this->match(['GET', 'HEAD'], $uri, $action);
     }
 
     /**
      * 注册 POST 请求路由.
      */
-    public function post(string $pattern, mixed $action): Route
+    public function post(string $uri, mixed $action): Route
     {
-        return $this->match('POST', $pattern, $action);
+        return $this->match('POST', $uri, $action);
     }
 
     /**
      * 注册 PUT 请求路由.
      */
-    public function put(string $pattern, mixed $action): Route
+    public function put(string $uri, mixed $action): Route
     {
-        return $this->match('PUT', $pattern, $action);
+        return $this->match('PUT', $uri, $action);
     }
 
     /**
      * 注册 DELETE 请求路由.
      */
-    public function delete(string $pattern, mixed $action): Route
+    public function delete(string $uri, mixed $action): Route
     {
-        return $this->match('DELETE', $pattern, $action);
+        return $this->match('DELETE', $uri, $action);
     }
 
     /**
      * 注册 OPTIONS 请求路由.
      */
-    public function options(string $pattern, mixed $action): Route
+    public function options(string $uri, mixed $action): Route
     {
-        return $this->match('OPTIONS', $pattern, $action);
+        return $this->match('OPTIONS', $uri, $action);
     }
 
     /**
      * 注册 PATCH 请求路由.
      */
-    public function patch(string $pattern, mixed $action): Route
+    public function patch(string $uri, mixed $action): Route
     {
-        return $this->match('PATCH', $pattern, $action);
+        return $this->match('PATCH', $uri, $action);
     }
 
     /**
      * 提取路径.
      */
-    protected function extractPath(string $pattern): string
+    protected function extractPath(string $uri): string
     {
         return trim(
-            trim(trim(end($this->groupStack)['prefix'] ?? ''), '/').'/'.trim(trim($pattern), '/'),
+            trim(trim(end($this->groupStack)['prefix'] ?? ''), '/').'/'.trim(trim($uri), '/'),
             '/'
         ) ?: '/';
     }
@@ -122,6 +123,14 @@ class Router
     protected function extractMiddleware(): array
     {
         return end($this->groupStack)['middleware'] ?? [];
+    }
+
+    /**
+     * 提取名称.
+     */
+    protected function extractName(): string
+    {
+        return end($this->groupStack)['as'] ?? '';
     }
 
     /**
@@ -145,13 +154,15 @@ class Router
 
         $newAttributes = [];
 
-        $newAttributes['prefix'] = trim(trim($lastAttributes['prefix'] ?? ''), '/').'/'.
-                                   trim(trim($attributes['prefix'] ?? ''), '/');
+        $newAttributes['as'] = $lastAttributes['as'] ?? ''.$attributes['as'] ?? '';
 
         $newAttributes['middleware'] = array_merge(
             $lastAttributes['middleware'] ?? [],
             $attributes['middleware'] ?? []
         );
+
+        $newAttributes['prefix'] = trim(trim($lastAttributes['prefix'] ?? ''), '/').'/'.
+                                   trim(trim($attributes['prefix'] ?? ''), '/');
 
         $newAttributes['without_middleware'] = array_merge(
             $lastAttributes['without_middleware'] ?? [],

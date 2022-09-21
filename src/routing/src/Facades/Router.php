@@ -16,8 +16,10 @@ use Coole\Foundation\Facades\Facade;
 
 /**
  * @method static \Coole\Routing\Router         group(array $attributes, callable $callback)
- * @method static \Coole\Routing\RouteRegistrar middleware(string|callable|array $middleware)
+ * @method static \Coole\Routing\RouteRegistrar as(string $name)
  * @method static \Coole\Routing\RouteRegistrar prefix(string $prefix)
+ * @method static \Coole\Routing\RouteRegistrar middleware(string|callable|array $middleware)
+ * @method static \Coole\Routing\RouteRegistrar name(string $name)
  * @method static \Coole\Routing\RouteRegistrar withoutMiddleware(string|array $middleware)
  * @method static \Coole\Routing\Route          any(string $pattern, mixed $action)
  * @method static \Coole\Routing\Route          delete(string $pattern, mixed $action = null)
@@ -29,8 +31,10 @@ use Coole\Foundation\Facades\Facade;
  * @method static \Coole\Routing\Route          put(string $pattern, mixed $action = null)
  *
  * @mixin \Coole\Routing\Router
+ * @mixin \Coole\Routing\RouteRegistrar
  *
  * @see \Coole\Routing\Router
+ * @see \Coole\Routing\RouteRegistrar
  */
 class Router extends Facade
 {
