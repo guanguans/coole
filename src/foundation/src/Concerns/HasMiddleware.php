@@ -42,24 +42,32 @@ trait HasMiddleware
      * 设置中间件.
      *
      * @param string|callable|array<string|callable> $middleware
+     *
+     * @return $this
      */
-    public function setMiddleware(string|callable|array $middleware): void
+    public function setMiddleware(string|callable|array $middleware): static
     {
         $this->addMiddleware($middleware);
+
+        return $this;
     }
 
     /**
      * 添加中间件.
      *
      * @param string|callable|array<string|callable> $middleware
+     *
+     * @return $this
      */
-    public function addMiddleware(string|callable|array $middleware): void
+    public function addMiddleware(string|callable|array $middleware): static
     {
         if (is_object($middleware)) {
             $middleware = [$middleware];
         }
 
         $this->middleware = array_merge($this->middleware, (array) $middleware);
+
+        return $this;
     }
 
     /**
@@ -76,21 +84,29 @@ trait HasMiddleware
      * 设置排除的中间件.
      *
      * @param string|array<string> $middleware
+     *
+     * @return $this
      */
-    public function setWithoutMiddleware(string|array $withoutMiddleware): void
+    public function setWithoutMiddleware(string|array $withoutMiddleware): static
     {
         $this->addWithoutMiddleware($withoutMiddleware);
+
+        return $this;
     }
 
     /**
      * 添加排除的中间件.
      *
      * @param string|array<string> $middleware
+     *
+     * @return $this
      */
-    public function addWithoutMiddleware(string|array $withoutMiddleware): void
+    public function addWithoutMiddleware(string|array $withoutMiddleware): static
     {
         $this->withoutMiddleware = array_unique(
             array_merge($this->withoutMiddleware, (array) $withoutMiddleware)
         );
+
+        return $this;
     }
 }
