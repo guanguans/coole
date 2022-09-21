@@ -21,5 +21,8 @@ require BASE_PATH.'/vendor/autoload.php';
 // 1. Create app.
 $app = new App(['debug' => true]);
 
+// Enable debugging(optional).
+// $app['config']->set('app.debug', false);
+
 // 2. Run console service.
 $app['console']->run();
