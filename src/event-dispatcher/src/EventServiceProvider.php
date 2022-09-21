@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace Coole\EventDispatcher;
 
 use Coole\Foundation\ServiceProvider;
+use Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as SymfonyEventDispatcherInterface;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,8 +22,8 @@ class EventServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $bindings = [
-        \Psr\EventDispatcher\EventDispatcherInterface::class => EventDispatcher::class,
-        \Symfony\Contracts\EventDispatcher\EventDispatcherInterface::class => EventDispatcher::class,
+        PsrEventDispatcherInterface::class => EventDispatcher::class,
+        SymfonyEventDispatcherInterface::class => EventDispatcher::class,
     ];
 
     /**

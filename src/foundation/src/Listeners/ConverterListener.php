@@ -27,21 +27,21 @@ class ConverterListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
-     * @param RouteCollection $routes A RouteCollection instance
+     * @param RouteCollection $routeCollection A RouteCollection instance
      */
-    public function __construct(protected RouteCollection $routes)
+    public function __construct(protected RouteCollection $routeCollection)
     {
     }
 
     /**
      * Handles converters.
      *
-     * @param ControllerEvent $event The event to handle
+     * @param ControllerEvent $controllerEvent The event to handle
      */
-    public function onKernelController(ControllerEvent $event): void
+    public function onKernelController(ControllerEvent $controllerEvent): void
     {
-        $request = $event->getRequest();
-        $route = $this->routes->get($request->attributes->get('_route'));
+        $request = $controllerEvent->getRequest();
+        $route = $this->routeCollection->get($request->attributes->get('_route'));
         if ($route && $converters = $route->getOption('_converters')) {
             foreach ($converters as $name => $callback) {
                 $request->attributes->set(

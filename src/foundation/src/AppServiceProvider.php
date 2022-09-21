@@ -16,6 +16,7 @@ use Coole\Console\ConsoleServiceProvider;
 use Coole\Database\DatabaseServiceProvider;
 use Coole\ErrorHandler\ErrorHandlerServiceProvider;
 use Coole\EventDispatcher\EventServiceProvider;
+use Coole\Foundation\Facades\App;
 use Coole\Foundation\Facades\Facade;
 use Coole\Foundation\Listeners\ConverterListener;
 use Coole\Foundation\Listeners\LogListener;
@@ -58,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $classAliases = [
-        \Coole\Foundation\Facades\App::class,
+        App::class,
     ];
 
     /**

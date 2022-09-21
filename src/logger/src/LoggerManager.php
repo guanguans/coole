@@ -41,10 +41,8 @@ class LoggerManager extends Manager implements LoggerInterface
 
     /**
      * Get a log channel instance.
-     *
-     * @param string|null $channel
      */
-    public function channel($channel = null): LoggerInterface
+    public function channel(?string $channel = null): LoggerInterface
     {
         return $this->driver($channel);
     }
@@ -52,23 +50,19 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Create an aggregate log driver instance.
      */
-    protected function createStackDriver(array $config): LoggerInterface
+    protected function createStackDriver(array $config): Monolog
     {
         if (is_string($config['channels'])) {
             $config['channels'] = explode(',', $config['channels']);
         }
 
-        $handlers = collect($config['channels'])->flatMap(function ($channel) {
-            return $channel instanceof LoggerInterface
-                ? $channel->getHandlers()
-                : $this->channel($channel)->getHandlers();
-        })->all();
+        $handlers = collect($config['channels'])->flatMap(fn ($channel) => $channel instanceof LoggerInterface
+            ? $channel->getHandlers()
+            : $this->channel($channel)->getHandlers())->all();
 
-        $processors = collect($config['channels'])->flatMap(function ($channel) {
-            return $channel instanceof LoggerInterface
-                ? $channel->getProcessors()
-                : $this->channel($channel)->getProcessors();
-        })->all();
+        $processors = collect($config['channels'])->flatMap(fn ($channel) => $channel instanceof LoggerInterface
+            ? $channel->getProcessors()
+            : $this->channel($channel)->getProcessors())->all();
 
         if ($config['ignore_exceptions'] ?? false) {
             $handlers = [new WhatFailureGroupHandler($handlers)];
@@ -80,7 +74,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Create an instance of the single file log driver.
      */
-    protected function createSingleDriver(array $config): LoggerInterface
+    protected function createSingleDriver(array $config): Monolog
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(
@@ -95,7 +89,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Create an instance of the daily file log driver.
      */
-    protected function createDailyDriver(array $config): LoggerInterface
+    protected function createDailyDriver(array $config): Monolog
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new RotatingFileHandler(
@@ -108,7 +102,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Create an instance of the Slack log driver.
      */
-    protected function createSlackDriver(array $config): LoggerInterface
+    protected function createSlackDriver(array $config): Monolog
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new SlackWebhookHandler(
@@ -129,7 +123,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Create an instance of the syslog log driver.
      */
-    protected function createSyslogDriver(array $config): LoggerInterface
+    protected function createSyslogDriver(array $config): Monolog
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new SyslogHandler(
@@ -142,7 +136,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Create an instance of the "error log" log driver.
      */
-    protected function createErrorlogDriver(array $config): LoggerInterface
+    protected function createErrorlogDriver(array $config): Monolog
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new ErrorLogHandler(
@@ -181,7 +175,7 @@ class LoggerManager extends Manager implements LoggerInterface
      * @throws \InvalidArgumentException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function createMonologDriver(array $config): LoggerInterface
+    protected function createMonologDriver(array $config): Monolog
     {
         if (! is_a($config['handler'], HandlerInterface::class, true)) {
             throw new InvalidArgumentException($config['handler'].' must be an instance of '.HandlerInterface::class);
@@ -225,8 +219,8 @@ class LoggerManager extends Manager implements LoggerInterface
      */
     protected function formatter(): FormatterInterface
     {
-        return tap(new LineFormatter(null, $this->dateFormat, true, true), function (LineFormatter $formatter) {
-            $formatter->includeStacktraces();
+        return tap(new LineFormatter(null, $this->dateFormat, true, true), static function (LineFormatter $lineFormatter): void {
+            $lineFormatter->includeStacktraces();
         });
     }
 
@@ -263,6 +257,8 @@ class LoggerManager extends Manager implements LoggerInterface
 
     /**
      * Get the log connection configuration.
+     *
+     * @return array<string, mixed>
      */
     protected function configurationFor(string $name): array
     {
@@ -306,7 +302,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Parse the driver name.
      */
-    protected function parseDriver(?string $driver): ?string
+    protected function parseDriver(?string $driver): string
     {
         $driver ??= $this->getDefaultDriver();
 
@@ -315,6 +311,8 @@ class LoggerManager extends Manager implements LoggerInterface
 
     /**
      * Get all of the resolved log channels.
+     *
+     * @return array<string, \Psr\Log\LoggerInterface>
      */
     public function getChannels(): array
     {

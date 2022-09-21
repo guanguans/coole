@@ -13,6 +13,8 @@ declare(strict_types=1);
 namespace Coole\HttpKernel;
 
 use Coole\HttpKernel\ArgumentResolver\ServiceValueResolver;
+use InvalidArgumentException;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
@@ -51,13 +53,13 @@ final class ArgumentResolver implements ArgumentResolverInterface
     {
         $arguments = [];
 
-        foreach ($this->argumentMetadataFactory->createArgumentMetadata($controller) as $metadata) {
-            foreach ($this->argumentValueResolvers as $resolver) {
-                if (! $resolver->supports($request, $metadata)) {
+        foreach ($this->argumentMetadataFactory->createArgumentMetadata($controller) as $argumentMetadatum) {
+            foreach ($this->argumentValueResolvers as $argumentValueResolver) {
+                if (! $argumentValueResolver->supports($request, $argumentMetadatum)) {
                     continue;
                 }
 
-                $resolved = $resolver->resolve($request, $metadata);
+                $resolved = $argumentValueResolver->resolve($request, $argumentMetadatum);
 
                 $atLeastOne = false;
                 foreach ($resolved as $append) {
@@ -66,7 +68,7 @@ final class ArgumentResolver implements ArgumentResolverInterface
                 }
 
                 if (! $atLeastOne) {
-                    throw new \InvalidArgumentException(sprintf('"%s::resolve()" must yield at least one value.', get_debug_type($resolver)));
+                    throw new InvalidArgumentException(sprintf('"%s::resolve()" must yield at least one value.', get_debug_type($argumentValueResolver)));
                 }
 
                 // continue to the next controller argument
@@ -76,12 +78,12 @@ final class ArgumentResolver implements ArgumentResolverInterface
             $representative = $controller;
 
             if (\is_array($representative)) {
-                $representative = sprintf('%s::%s()', \get_class($representative[0]), $representative[1]);
+                $representative = sprintf('%s::%s()', $representative[0]::class, $representative[1]);
             } elseif (\is_object($representative)) {
-                $representative = \get_class($representative);
+                $representative = $representative::class;
             }
 
-            throw new \RuntimeException(sprintf('Controller "%s" requires that you provide a value for the "$%s" argument. Either the argument is nullable and no null value has been provided, no default value has been provided or because there is a non optional argument after this one.', $representative, $metadata->getName()));
+            throw new RuntimeException(sprintf('Controller "%s" requires that you provide a value for the "$%s" argument. Either the argument is nullable and no null value has been provided, no default value has been provided or because there is a non optional argument after this one.', $representative, $argumentMetadatum->getName()));
         }
 
         return $arguments;

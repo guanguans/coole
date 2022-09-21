@@ -114,7 +114,7 @@ if (! function_exists('event')) {
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function event(object $event, mixed $listeners = null, bool $isDispatched = true): void
+    function event(object $event, callable|ListenerInterface|EventSubscriberInterface|array $listeners = null, bool $isDispatched = true): void
     {
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 

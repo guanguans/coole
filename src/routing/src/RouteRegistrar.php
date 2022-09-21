@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\Routing;
 
 use BadMethodCallException;
+use Closure;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 
@@ -78,13 +79,11 @@ class RouteRegistrar
     /**
      * 设置给定属性的值.
      *
-     * @param mixed $value
-     *
      * @return $this
      *
      * @throws \InvalidArgumentException
      */
-    public function attribute(string $key, $value): static
+    public function attribute(string $key, mixed $value): static
     {
         if (! in_array($key, $this->allowedAttributes)) {
             throw new InvalidArgumentException("Attribute [$key] does not exist.");
@@ -111,20 +110,16 @@ class RouteRegistrar
 
     /**
      * 用给定的动词注册一条新路线.
-     *
-     * @param \Closure|array|string|callable $action
      */
-    public function match(string|array $methods, string $uri, mixed $action): Route
+    public function match(string|array $methods, string $uri, Closure|array|string|callable $action): Route
     {
         return $this->router->match($methods, $uri, $action);
     }
 
     /**
      * 向路由器注册新路由.
-     *
-     * @param \Closure|array|string|callable $action
      */
-    protected function registerRoute(string $method, string $uri, mixed $action): Route
+    protected function registerRoute(string $method, string $uri, Closure|array|string|callable $action): Route
     {
         return $this->router->{$method}($uri, $action);
     }

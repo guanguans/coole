@@ -40,8 +40,8 @@ class LogListener implements EventSubscriberInterface
     public function __construct(protected LoggerInterface $logger, callable $exceptionLogFilter = null)
     {
         if (null === $exceptionLogFilter) {
-            $exceptionLogFilter = function (Throwable $e) {
-                if ($e instanceof HttpExceptionInterface && $e->getStatusCode() < 500) {
+            $exceptionLogFilter = static function (Throwable $throwable) {
+                if ($throwable instanceof HttpExceptionInterface && $throwable->getStatusCode() < 500) {
                     return LogLevel::ERROR;
                 }
 
@@ -55,33 +55,33 @@ class LogListener implements EventSubscriberInterface
     /**
      * Logs master requests on event KernelEvents::REQUEST.
      */
-    public function onKernelRequest(RequestEvent $event): void
+    public function onKernelRequest(RequestEvent $requestEvent): void
     {
-        if (! $event->isMainRequest()) {
+        if (! $requestEvent->isMainRequest()) {
             return;
         }
 
-        $this->logRequest($event->getRequest());
+        $this->logRequest($requestEvent->getRequest());
     }
 
     /**
      * Logs master response on event KernelEvents::RESPONSE.
      */
-    public function onKernelResponse(ResponseEvent $event): void
+    public function onKernelResponse(ResponseEvent $responseEvent): void
     {
-        if (! $event->isMainRequest()) {
+        if (! $responseEvent->isMainRequest()) {
             return;
         }
 
-        $this->logResponse($event->getResponse());
+        $this->logResponse($responseEvent->getResponse());
     }
 
     /**
      * Logs uncaught exceptions on event KernelEvents::EXCEPTION.
      */
-    public function onKernelException(ExceptionEvent $event): void
+    public function onKernelException(ExceptionEvent $exceptionEvent): void
     {
-        $this->logException($event->getThrowable());
+        $this->logException($exceptionEvent->getThrowable());
     }
 
     /**
@@ -109,12 +109,12 @@ class LogListener implements EventSubscriberInterface
     /**
      * Logs an exception.
      */
-    protected function logException(Throwable $e): void
+    protected function logException(Throwable $throwable): void
     {
         $this->logger->log(
-            call_user_func($this->exceptionLogFilter, $e),
-            sprintf('%s: %s (uncaught exception) at %s line %s', $e::class, $e->getMessage(), $e->getFile(), $e->getLine()),
-            ['exception' => $e]
+            call_user_func($this->exceptionLogFilter, $throwable),
+            sprintf('%s: %s (uncaught exception) at %s line %s', $throwable::class, $throwable->getMessage(), $throwable->getFile(), $throwable->getLine()),
+            ['exception' => $throwable]
         );
     }
 

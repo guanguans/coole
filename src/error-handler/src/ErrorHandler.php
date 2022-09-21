@@ -263,6 +263,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get the default exception context variables for logging.
+     *
+     * @return mixed[]
      */
     protected function exceptionContext(Throwable $throwable): array
     {
@@ -275,6 +277,8 @@ class ErrorHandler implements ErrorHandlerInterface
 
     /**
      * Get the default context variables for logging.
+     *
+     * @return mixed[]
      */
     protected function context(): array
     {

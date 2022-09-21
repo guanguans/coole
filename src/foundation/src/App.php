@@ -374,14 +374,14 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $classes = array_diff(
             array_filter(
                 $this->getRequestMiddleware($request),
-                fn ($middleware) => is_string($middleware)
+                static fn ($middleware) => is_string($middleware)
             ),
             $this->getWithoutRequestMiddleware($request),
         );
 
         $objects = array_filter(
             $this->getRequestMiddleware($request),
-            fn ($middleware) => is_object($middleware)
+            static fn ($middleware) => is_object($middleware)
         );
 
         return array_merge(array_unique($classes), $objects);

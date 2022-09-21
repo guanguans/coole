@@ -32,9 +32,9 @@ final class ServiceValueResolver implements ArgumentValueResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function supports(Request $request, ArgumentMetadata $argument): bool
+    public function supports(Request $request, ArgumentMetadata $argumentMetadata): bool
     {
-        $classes = explode('|', $argument->getType());
+        $classes = explode('|', $argumentMetadata->getType());
 
         foreach ($classes as $class) {
             try {
@@ -52,7 +52,7 @@ final class ServiceValueResolver implements ArgumentValueResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function resolve(Request $request, ArgumentMetadata $argument): iterable
+    public function resolve(Request $request, ArgumentMetadata $argumentMetadata): iterable
     {
         yield $this->resolvedArgumentValue;
     }
