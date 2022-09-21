@@ -35,13 +35,13 @@ class WhoopsExceptionRenderer implements ExceptionRendererInterface
      */
     public function whoops(bool $isOutputed = false): Whoops
     {
-        $whoops = new Whoops();
+        $run = new Whoops();
 
-        $whoops->appendHandler($this->whoopsHandler());
-        $whoops->writeToOutput($isOutputed);
-        $whoops->allowQuit(false);
+        $run->appendHandler($this->whoopsHandler());
+        $run->writeToOutput($isOutputed);
+        $run->allowQuit(false);
 
-        return $whoops;
+        return $run;
     }
 
     /**

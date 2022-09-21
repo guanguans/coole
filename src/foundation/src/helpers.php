@@ -109,8 +109,6 @@ if (! function_exists('event')) {
     /**
      * 调度事件.
      *
-     * @param callable|ListenerInterface|EventSubscriberInterface|array $listeners
-     *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */

@@ -57,8 +57,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
         SymfonyErrorHandler::register();
 
         if ($this->app['config']['app.debug']) {
-            $this
-                ->app[WhoopsExceptionRenderer::class]
+            $this->app[WhoopsExceptionRenderer::class]
                 ->whoops(true)
                 ->register();
         }

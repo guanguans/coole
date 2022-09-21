@@ -26,12 +26,12 @@ class WhoopsHandler
      */
     public function forDebug(): PrettyPageHandler
     {
-        return tap(new PrettyPageHandler(), function (PrettyPageHandler $handler): void {
-            $handler->handleUnconditionally(true);
+        return tap(new PrettyPageHandler(), function (PrettyPageHandler $prettyPageHandler): void {
+            $prettyPageHandler->handleUnconditionally(true);
 
-            $this->registerApplicationPaths($handler)
-                ->registerBlacklist($handler)
-                ->registerEditor($handler);
+            $this->registerApplicationPaths($prettyPageHandler)
+                ->registerBlacklist($prettyPageHandler)
+                ->registerEditor($prettyPageHandler);
         });
     }
 
