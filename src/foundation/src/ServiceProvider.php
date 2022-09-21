@@ -30,7 +30,7 @@ abstract class ServiceProvider
     protected array $aliases = [];
 
     /**
-     * @var array<string, string|array<string>>
+     * @var array<string>|array<string, string|array<string>>
      */
     protected array $classAliases = [];
 

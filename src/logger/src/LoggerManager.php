@@ -79,9 +79,11 @@ class LoggerManager extends Manager implements LoggerInterface
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(
                 new StreamHandler(
-                    $config['path'], $this->level($config),
+                    $config['path'],
+                    $this->level($config),
                     $config['bubble'] ?? true, $config['permission'] ?? null, $config['locking'] ?? false
-                ), $config
+                ),
+                $config
             ),
         ]);
     }

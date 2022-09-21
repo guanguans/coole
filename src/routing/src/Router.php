@@ -19,8 +19,14 @@ use Symfony\Component\Routing\RouteCollection;
  */
 class Router
 {
+    /**
+     * @var array<array<string, mixed>>
+     */
     protected array $groupStack = [];
 
+    /**
+     * @var array<string>
+     */
     protected static array $verbs = ['GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
 
     public function __construct(
@@ -154,7 +160,7 @@ class Router
 
         $newAttributes = [];
 
-        $newAttributes['as'] = $lastAttributes['as'] ?? ''.$attributes['as'] ?? '';
+        $newAttributes['as'] = ($lastAttributes['as'] ?? '').($attributes['as'] ?? '');
 
         $newAttributes['middleware'] = array_merge(
             $lastAttributes['middleware'] ?? [],

@@ -43,7 +43,7 @@ trait ParsesLogConfiguration
     /**
      * Parse the string level into a Monolog constant.
      *
-     * @return int
+     * @return 100|200|250|300|400|500|550|600
      *
      * @throws \InvalidArgumentException
      */
@@ -61,7 +61,7 @@ trait ParsesLogConfiguration
     /**
      * Parse the action level from the given configuration.
      *
-     * @return int
+     * @return 100|200|250|300|400|500|550|600
      */
     protected function actionLevel(array $config)
     {
