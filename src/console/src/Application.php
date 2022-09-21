@@ -14,6 +14,8 @@ namespace Coole\Console;
 
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\App;
+use Coole\Foundation\Events\ExceptionEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -66,6 +68,10 @@ coole;
 
             return parent::run($input, $output);
         } catch (Throwable $throwable) {
+            $this->app[EventDispatcherInterface::class]->dispatch(
+                new ExceptionEvent($throwable)
+            );
+
             $this->reportException($throwable);
 
             $this->renderException($output, $throwable);

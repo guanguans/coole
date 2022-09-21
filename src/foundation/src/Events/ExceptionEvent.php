@@ -12,13 +12,11 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Events;
 
-use Symfony\Component\HttpFoundation\Request;
 use Throwable;
 
 class ExceptionEvent
 {
     public function __construct(
-        public Request $request,
         public Throwable $throwable
     ) {
     }

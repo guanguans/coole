@@ -281,7 +281,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         } catch (Throwable $throwable) {
             // 触发异常事件
             $this[EventDispatcherInterface::class]->dispatch(
-                new ExceptionEvent($request, $throwable)
+                new ExceptionEvent($throwable)
             );
 
             // 报告异常
