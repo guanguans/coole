@@ -19,10 +19,7 @@ defined('BASE_PATH') or define('BASE_PATH', dirname(__DIR__));
 require BASE_PATH.'/vendor/autoload.php';
 
 // 1. Create app.
-$app = new App();
-
-// Enable debugging(optional).
-$app['config']->set('app.debug', true);
+$app = new App(['debug' => true]);
 
 // 2. Run console service.
 $app['console']->run();

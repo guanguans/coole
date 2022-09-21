@@ -14,6 +14,7 @@ namespace Coole\ErrorHandler;
 
 use Coole\ErrorHandler\Whoops\WhoopsExceptionRenderer;
 use Coole\Foundation\ServiceProvider;
+use Symfony\Component\ErrorHandler\ErrorHandler as SymfonyErrorHandler;
 
 class ErrorHandlerServiceProvider extends ServiceProvider
 {
@@ -47,4 +48,19 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     protected array $classAliases = [
         \Coole\ErrorHandler\Facades\ErrorHandler::class,
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function registered(): void
+    {
+        SymfonyErrorHandler::register();
+
+        if ($this->app['config']['app.debug']) {
+            $this
+                ->app[WhoopsExceptionRenderer::class]
+                ->whoops(true)
+                ->register();
+        }
+    }
 }

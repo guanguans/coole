@@ -27,13 +27,21 @@ class WhoopsExceptionRenderer implements ExceptionRendererInterface
      */
     public function render(Throwable $throwable): string
     {
-        return tap(new Whoops(), function ($whoops): void {
-            $whoops->appendHandler($this->whoopsHandler());
+        return $this->whoops()->handleException($throwable);
+    }
 
-            $whoops->writeToOutput(false);
+    /**
+     * Get the Whoops for the application.
+     */
+    public function whoops(bool $isOutputed = false): Whoops
+    {
+        $whoops = new Whoops();
 
-            $whoops->allowQuit(false);
-        })->handleException($throwable);
+        $whoops->appendHandler($this->whoopsHandler());
+        $whoops->writeToOutput($isOutputed);
+        $whoops->allowQuit(false);
+
+        return $whoops;
     }
 
     /**
