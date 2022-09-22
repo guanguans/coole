@@ -142,7 +142,7 @@ class Router
     /**
      * 提取排除的中间件.
      *
-     * @return array<string>
+     * @return array<class-string>
      */
     protected function extractWithoutMiddleware(): array
     {

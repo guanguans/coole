@@ -24,7 +24,7 @@ trait HasMiddleware
     /**
      * 排除的中间件.
      *
-     * @var array<string>
+     * @var array<class-string>
      */
     protected array $withoutMiddleware = [];
 
@@ -73,7 +73,7 @@ trait HasMiddleware
     /**
      * 获取排除的中间件.
      *
-     * @return array<string>
+     * @return array<class-string>
      */
     public function getWithoutMiddleware(): array
     {
@@ -83,7 +83,7 @@ trait HasMiddleware
     /**
      * 设置排除的中间件.
      *
-     * @param string|array<string> $withoutMiddleware
+     * @param string|array<class-string> $withoutMiddleware
      *
      * @return $this
      */
@@ -97,7 +97,7 @@ trait HasMiddleware
     /**
      * 添加排除的中间件.
      *
-     * @param string|array<string> $withoutMiddleware
+     * @param string|array<class-string> $withoutMiddleware
      *
      * @return $this
      */

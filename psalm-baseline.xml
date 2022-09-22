@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.0.0-beta1@f960d71b7e8dccb0815bce28a22a33ce5410e361">
-  <file src="src/console/src/CommandCollection.php">
-    <MissingTemplateParam occurrences="1">
-      <code>CommandCollection</code>
-    </MissingTemplateParam>
-  </file>
   <file src="src/console/src/Concerns/InteractsWithIO.php">
     <InvalidArgument occurrences="1">
       <code>$totalSteps</code>
@@ -15,7 +10,7 @@
       <code>$reportCallable</code>
       <code>$request</code>
     </InvalidArgument>
-    <UndefinedInterfaceMethod occurrences="4">
+    <UndefinedInterfaceMethod occurrences="2">
       <code>getHeaders</code>
       <code>getStatusCode</code>
     </UndefinedInterfaceMethod>
@@ -38,10 +33,5 @@
     <UndefinedClass occurrences="1">
       <code>app('view')</code>
     </UndefinedClass>
-  </file>
-  <file src="src/event-dispatcher/src/ListenerCollection.php">
-    <MissingTemplateParam occurrences="1">
-      <code>ListenerCollection</code>
-    </MissingTemplateParam>
   </file>
 </files>
