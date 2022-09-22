@@ -31,14 +31,17 @@ class RouteRegistrarTest extends TestCase
 
     public function testPrefix(): void
     {
-        $this->assertInstanceOf(RouteRegistrar::class, $this->routeRegistrar->prefix('api'));
+        self::assertInstanceOf(RouteRegistrar::class, $this->routeRegistrar->prefix('api'));
     }
 
     public function testMiddleware(): void
     {
-        $this->assertInstanceOf(RouteRegistrar::class, $this->routeRegistrar->middleware('middleware'));
+        self::assertInstanceOf(RouteRegistrar::class, $this->routeRegistrar->middleware('middleware'));
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testGroup(): void
     {
         // $routeRegistrar = $this->routeRegistrar->group(static function (): void {

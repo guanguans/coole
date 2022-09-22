@@ -1,9 +1,16 @@
 includes:
-    - ./phpstan-baseline.neon
+    - phpstan-baseline.neon
 
 parameters:
     paths:
         - src
+
+    excludePaths:
+        analyse:
+            - src/thirdparty
+        analyseAndScan:
+            - src/broken
+            # - */tests/*
 
     # The level 9 is the highest level
     level: 5
@@ -11,7 +18,8 @@ parameters:
     ignoreErrors:
         - '#PHPDoc tag @var#'
 
-    excludePaths:
-        - ./*/*/FileToBeExcluded.php
-
+    tmpDir: build/phpstan
     checkMissingIterableValueType: false
+    # editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    # checkModelProperties: true
+    # checkOctaneCompatibility: true

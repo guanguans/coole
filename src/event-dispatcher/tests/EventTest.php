@@ -16,6 +16,9 @@ use Mockery;
 
 class EventTest extends TestCase
 {
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testGetName(): void
     {
         // $mock = Mockery::mock(Event::class)->makePartial();

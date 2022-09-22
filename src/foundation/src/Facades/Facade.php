@@ -28,7 +28,7 @@ abstract class Facade
     /**
      * The application instance being facaded.
      */
-    protected static ?App $app;
+    protected static ?App $app = null;
 
     /**
      * The resolved object instances.
@@ -166,7 +166,7 @@ abstract class Facade
     {
         static::$resolvedInstance[static::getFacadeAccessor()] = $instance;
 
-        if (static::$app) {
+        if (null !== static::$app) {
             static::$app->instance(static::getFacadeAccessor(), $instance);
         }
     }
@@ -198,7 +198,7 @@ abstract class Facade
             return static::$resolvedInstance[$name];
         }
 
-        if (static::$app) {
+        if (null !== static::$app) {
             if (static::$cached) {
                 return static::$resolvedInstance[$name] = static::$app[$name];
             }

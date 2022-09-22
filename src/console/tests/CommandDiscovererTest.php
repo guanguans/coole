@@ -26,21 +26,21 @@ class CommandDiscovererTest extends TestCase
     public function testSetDir(): void
     {
         $dir = __DIR__.'/../';
-        $this->assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setDir($dir));
-        $this->assertSame($this->commandDiscoverer->getDir(), $dir);
+        self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setDir($dir));
+        self::assertSame($this->commandDiscoverer->getDir(), $dir);
     }
 
     public function testSetNamespace(): void
     {
         $nameSpace = 'Coole\Console';
-        $this->assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setNamespace($nameSpace));
-        $this->assertSame($this->commandDiscoverer->getNamespace(), $nameSpace);
+        self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setNamespace($nameSpace));
+        self::assertSame($this->commandDiscoverer->getNamespace(), $nameSpace);
     }
 
     public function testSetSuffix(): void
     {
         $suffix = '.go';
-        $this->assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setSuffix($suffix));
-        $this->assertSame($this->commandDiscoverer->getSuffix(), $suffix);
+        self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setSuffix($suffix));
+        self::assertSame($this->commandDiscoverer->getSuffix(), $suffix);
     }
 }

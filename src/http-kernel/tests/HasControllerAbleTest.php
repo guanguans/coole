@@ -32,27 +32,30 @@ class HasControllerAbleTest extends TestCase
     public function testAddMiddleware(): void
     {
         $this->controller->addMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getMiddleware());
+        self::assertSame($middleware, $this->controller->getMiddleware());
     }
 
     public function testAddExcludedMiddleware(): void
     {
         $this->controller->setWithoutMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getWithoutMiddleware());
+        self::assertSame($middleware, $this->controller->getWithoutMiddleware());
     }
 
     public function testSetExcludedMiddleware(): void
     {
         $this->controller->setWithoutMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getWithoutMiddleware());
+        self::assertSame($middleware, $this->controller->getWithoutMiddleware());
     }
 
     public function testWithoutMiddleware(): void
     {
         $this->controller->setWithoutMiddleware($middleware = [CheckResponseForModifications::class]);
-        $this->assertSame($middleware, $this->controller->getWithoutMiddleware());
+        self::assertSame($middleware, $this->controller->getWithoutMiddleware());
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testAddFinishHandler(): void
     {
         // $controller = $this->controller->addFinishHandler(static function (): void {
@@ -61,6 +64,9 @@ class HasControllerAbleTest extends TestCase
         // $this->assertInstanceOf(Controller::class, $controller);
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testSetFinishHandler(): void
     {
         // $controller = $this->controller->setFinishHandler(static function (): void {
@@ -71,17 +77,17 @@ class HasControllerAbleTest extends TestCase
 
     public function testJson(): void
     {
-        $this->assertInstanceOf(JsonResponse::class, $this->controller->json());
+        self::assertInstanceOf(JsonResponse::class, $this->controller->json());
     }
 
     public function testSendFile(): void
     {
-        $this->assertInstanceOf(BinaryFileResponse::class, $this->controller->sendFile(__FILE__));
+        self::assertInstanceOf(BinaryFileResponse::class, $this->controller->sendFile(__FILE__));
     }
 
     public function testStream(): void
     {
-        $this->assertInstanceOf(StreamedResponse::class, $this->controller->stream());
+        self::assertInstanceOf(StreamedResponse::class, $this->controller->stream());
     }
 
     public function testAbort(): void
@@ -93,6 +99,6 @@ class HasControllerAbleTest extends TestCase
 
     public function testRedirect(): void
     {
-        $this->assertInstanceOf(RedirectResponse::class, $this->controller->redirect('https::www.baidu.com'));
+        self::assertInstanceOf(RedirectResponse::class, $this->controller->redirect('https::www.baidu.com'));
     }
 }

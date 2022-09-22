@@ -55,7 +55,7 @@ abstract class MultipleInstanceManager
     /**
      * Get the instance specific configuration.
      *
-     * @return mixed[]
+     * @return array<string, mixed>|null
      */
     abstract public function getInstanceConfig(string $name): ?array;
 

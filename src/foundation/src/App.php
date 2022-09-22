@@ -401,7 +401,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function getControllerMiddleware(Request $request): array
     {
         $controller = $this->getController($request);
-        if (null === $controller) {
+        if (! $controller instanceof Controller) {
             return [];
         }
 
@@ -440,7 +440,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function getWithoutControllerMiddleware(Request $request): array
     {
         $controller = $this->getController($request);
-        if (null === $controller) {
+        if (! $controller instanceof Controller) {
             return [];
         }
 

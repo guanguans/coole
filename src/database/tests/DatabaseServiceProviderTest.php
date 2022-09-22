@@ -16,6 +16,6 @@ class DatabaseServiceProviderTest extends TestCase
 {
     public function testTrue(): void
     {
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 }

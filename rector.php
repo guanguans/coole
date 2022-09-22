@@ -134,7 +134,7 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->ruleWithConfiguration(
         PreferThisOrSelfMethodCallRector::class,
         [
-            TestCase::class => PreferenceSelfThis::PREFER_THIS,
+            TestCase::class => PreferenceSelfThis::PREFER_SELF,
         ]
     );
 };
