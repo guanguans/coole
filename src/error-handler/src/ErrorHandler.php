@@ -414,7 +414,7 @@ class ErrorHandler implements ErrorHandlerInterface
             $throwable = new HttpException(500, $throwable->getMessage());
         }
 
-        /* @var \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $throwable */
+        /** @var \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $throwable */
         return $this->renderHttpException($throwable);
     }
 
@@ -423,7 +423,7 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     protected function convertExceptionToResponse(Throwable $throwable): Response
     {
-        /* @var \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $throwable */
+        /** @var \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $throwable */
         return new Response(
             $this->renderExceptionContent($throwable),
             $this->isHttpException($throwable) ? $throwable->getStatusCode() : 500,

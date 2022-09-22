@@ -70,7 +70,7 @@ class ServeCommand extends Command
     /**
      * {@inheritdoc}
      */
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->tries = (int) $input->getOption('tries');
     }

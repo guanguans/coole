@@ -14,12 +14,12 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $header = <<<EOF
-This file is part of Coole.
+    This file is part of Coole.
 
-@link     https://github.com/guanguans/coole
-@contact  guanguans <ityaozm@gmail.com>
-@license  https://github.com/guanguans/coole/blob/main/LICENSE
-EOF;
+    @link     https://github.com/guanguans/coole
+    @contact  guanguans <ityaozm@gmail.com>
+    @license  https://github.com/guanguans/coole/blob/main/LICENSE
+    EOF;
 
 $finder = Finder::create()
     ->in([
@@ -49,25 +49,34 @@ $finder = Finder::create()
 
 return (new Config())
     ->setRules([
-        '@PSR12' => true,
+        '@DoctrineAnnotation' => true,
+        '@PHP80Migration:risky' => true,
+        '@PHPUnit84Migration:risky' => true,
+        '@PSR12:risky' => true,
         '@Symfony' => true,
         'header_comment' => [
             'header' => $header,
             'comment_type' => 'PHPDoc',
         ],
-        'array_syntax' => ['syntax' => 'short'],
-        'ordered_imports' => ['sort_algorithm' => 'alpha'],
-        'no_unused_imports' => true,
-        'not_operator_with_successor_space' => true,
-        'no_useless_else' => true,
-        'no_useless_return' => true,
-        'single_quote' => true,
-        'class_attributes_separation' => true,
-        'standardize_not_equals' => true,
+        'comment_to_phpdoc' => [
+            'ignored_tags' => [],
+        ],
         'declare_strict_types' => true,
-        'trailing_comma_in_multiline' => true,
-        'php_unit_construct' => true,
-        'php_unit_strict' => true,
+        'not_operator_with_successor_space' => true,
+        'no_useless_return' => true,
+        'no_useless_else' => true,
+        // 'is_null' => true,
+        'return_assignment' => true,
+        'phpdoc_to_comment' => [],
+        'phpdoc_var_annotation_correct_order' => true,
+        'php_unit_construct' => [
+            'assertions' => [
+                'assertEquals',
+                'assertSame',
+                'assertNotEquals',
+                'assertNotSame',
+            ],
+        ],
     ])
     ->setRiskyAllowed(true)
     ->setFinder($finder);
