@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 
 return [
+    /**
+     * 路径.
+     */
     'paths' => [
         // base_path('routes'),
     ],

@@ -11,8 +11,8 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-     * 命令
+    /**
+     * 命令.
      */
     'commands' => [
         [

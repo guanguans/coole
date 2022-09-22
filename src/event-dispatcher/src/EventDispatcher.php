@@ -34,6 +34,7 @@ class EventDispatcher extends SymfonyEventDispatcher
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {
                 $this->addListener($event::class, $listener);
+
                 continue;
             }
 
@@ -43,16 +44,19 @@ class EventDispatcher extends SymfonyEventDispatcher
 
             if (is_callable($listener)) {
                 $this->addListener($event::class, $listener);
+
                 continue;
             }
 
             if ($listener instanceof EventSubscriberInterface) {
                 $this->addSubscriber($listener);
+
                 continue;
             }
 
             if ($listener instanceof ListenerInterface) {
                 $this->addListener($event::class, [$listener, 'handle']);
+
                 continue;
             }
 

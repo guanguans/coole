@@ -25,7 +25,9 @@ $versions = GitVersionCollection::create($dir)
     ->add('1.x', '1.x branch')
     ->add('main', 'main branch');
 
-return new Doctum($iterator, [
+return new Doctum(
+    $iterator,
+    [
         'theme' => 'default',
         'versions' => $versions,
         'title' => 'Coole API',

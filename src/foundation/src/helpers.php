@@ -24,7 +24,7 @@ if (! function_exists('app')) {
      */
     function app(?string $abstract = null, array $parameters = []): mixed
     {
-        if (is_null($abstract)) {
+        if (null === $abstract) {
             return App::getInstance();
         }
 
@@ -43,7 +43,7 @@ if (! function_exists('config')) {
         /** @var \Coole\Foundation\Config $config */
         $config = app('config');
 
-        if (is_null($key)) {
+        if (null === $key) {
             return $config;
         }
 
@@ -61,7 +61,7 @@ if (! function_exists('cenv')) {
      */
     function cenv(?string $key = null, mixed $default = null): null|array|bool|string
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return getenv();
         }
 
@@ -124,6 +124,7 @@ if (! function_exists('event')) {
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {
                 $dispatcher->addListener($event::class, $listener);
+
                 continue;
             }
 
@@ -133,16 +134,19 @@ if (! function_exists('event')) {
 
             if (is_callable($listener)) {
                 $dispatcher->addListener($event::class, $listener);
+
                 continue;
             }
 
             if ($listener instanceof EventSubscriberInterface) {
                 $dispatcher->addSubscriber($listener);
+
                 continue;
             }
 
             if ($listener instanceof ListenerInterface) {
                 $dispatcher->addListener($event::class, [$listener, 'handle']);
+
                 continue;
             }
 

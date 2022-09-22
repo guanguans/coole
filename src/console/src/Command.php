@@ -77,11 +77,13 @@ class Command extends SymfonyCommand
     public function run(InputInterface $input, OutputInterface $output): int
     {
         $this->output = $this->app->make(
-            SymfonyStyle::class, ['input' => $input, 'output' => $output]
+            SymfonyStyle::class,
+            ['input' => $input, 'output' => $output]
         );
 
         return parent::run(
-            $this->input = $input, $this->output
+            $this->input = $input,
+            $this->output
         );
     }
 

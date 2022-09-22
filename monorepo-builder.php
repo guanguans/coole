@@ -20,8 +20,8 @@ use Symplify\MonorepoBuilder\Release\ReleaseWorker\TagVersionReleaseWorker;
 use Symplify\MonorepoBuilder\Release\ReleaseWorker\UpdateBranchAliasReleaseWorker;
 use Symplify\MonorepoBuilder\ValueObject\Option;
 
-/*
- * Monorepo Builder additional fields
+/**
+ * Monorepo Builder additional fields.
  *
  * @see https://github.com/symplify/symplify/issues/2061
  */

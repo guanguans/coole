@@ -160,7 +160,7 @@ class ErrorHandler implements ErrorHandlerInterface
             $to = static fn ($exception) => new $to('', 0, $exception);
         }
 
-        if (is_callable($from) && is_null($to)) {
+        if (is_callable($from) && null === $to) {
             $from = $this->firstClosureParameterType($to = $from);
         }
 
@@ -258,7 +258,7 @@ class ErrorHandler implements ErrorHandlerInterface
     {
         $dontReport = array_merge($this->dontReport, $this->internalDontReport);
 
-        return ! is_null(Arr::first($dontReport, static fn ($type) => $throwable instanceof $type));
+        return null !== Arr::first($dontReport, static fn ($type) => $throwable instanceof $type);
     }
 
     /**
@@ -363,7 +363,7 @@ class ErrorHandler implements ErrorHandlerInterface
                 if (is_a($throwable, $type)) {
                     $response = $renderCallback($throwable, $request);
 
-                    if (! is_null($response)) {
+                    if (null !== $response) {
                         return $response;
                     }
                 }

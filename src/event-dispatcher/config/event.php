@@ -11,6 +11,9 @@ declare(strict_types=1);
  */
 
 return [
+    /**
+     * 监听.
+     */
     'listen' => [
         // \App\Event\ExampleEvent::class => [
         //     \App\Listener\ExampleListener::class

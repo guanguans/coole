@@ -14,7 +14,6 @@ declare(strict_types=1);
  * This file is part of Coole.
  *
  * @see     https://github.com/guanguans/coole
- *
  * @contact  guanguans <ityaozm@gmail.com>
  *
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE

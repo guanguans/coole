@@ -117,6 +117,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         foreach ($serviceProvider->getClassAliases() as $original => $aliases) {
             if (is_int($original)) {
                 class_alias($aliases, class_basename($aliases));
+
                 continue;
             }
 
@@ -170,6 +171,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         foreach ($commands as $command) {
             if ($command instanceof Command) {
                 $this['console.command_collection']->add($command);
+
                 continue;
             }
 
@@ -399,7 +401,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function getControllerMiddleware(Request $request): array
     {
         $controller = $this->getController($request);
-        if (is_null($controller)) {
+        if (null === $controller) {
             return [];
         }
 
@@ -438,7 +440,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     public function getWithoutControllerMiddleware(Request $request): array
     {
         $controller = $this->getController($request);
-        if (is_null($controller)) {
+        if (null === $controller) {
             return [];
         }
 
@@ -515,7 +517,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->mergeConfigFrom(__DIR__.'/../config/app.php');
         $this->mergeConfig($options, 'app');
 
-        is_null($envPath = $this['config']['app.env_path']) or $this->loadEnvFrom($envPath);
-        is_null($configPath = $this['config']['app.config_path']) or $this->loadConfigFrom($configPath);
+        null === ($envPath = $this['config']['app.env_path']) or $this->loadEnvFrom($envPath);
+        null === ($configPath = $this['config']['app.config_path']) or $this->loadConfigFrom($configPath);
     }
 }

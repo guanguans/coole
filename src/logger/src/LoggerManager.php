@@ -81,7 +81,9 @@ class LoggerManager extends Manager implements LoggerInterface
                 new StreamHandler(
                     $config['path'],
                     $this->level($config),
-                    $config['bubble'] ?? true, $config['permission'] ?? null, $config['locking'] ?? false
+                    $config['bubble'] ?? true,
+                    $config['permission'] ?? null,
+                    $config['locking'] ?? false
                 ),
                 $config
             ),
@@ -95,8 +97,12 @@ class LoggerManager extends Manager implements LoggerInterface
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new RotatingFileHandler(
-                $config['path'], $config['days'] ?? 7, $this->level($config),
-                $config['bubble'] ?? true, $config['permission'] ?? null, $config['locking'] ?? false
+                $config['path'],
+                $config['days'] ?? 7,
+                $this->level($config),
+                $config['bubble'] ?? true,
+                $config['permission'] ?? null,
+                $config['locking'] ?? false
             ), $config),
         ]);
     }
@@ -130,7 +136,8 @@ class LoggerManager extends Manager implements LoggerInterface
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new SyslogHandler(
                 Str::snake($this->container['config']['app.name'], '-'),
-                $config['facility'] ?? LOG_USER, $this->level($config)
+                $config['facility'] ?? LOG_USER,
+                $this->level($config)
             ), $config),
         ]);
     }
@@ -142,7 +149,8 @@ class LoggerManager extends Manager implements LoggerInterface
     {
         return new Monolog($this->parseChannel($config), [
             $this->prepareHandler(new ErrorLogHandler(
-                $config['type'] ?? ErrorLogHandler::OPERATING_SYSTEM, $this->level($config)
+                $config['type'] ?? ErrorLogHandler::OPERATING_SYSTEM,
+                $this->level($config)
             )),
         ]);
     }
@@ -190,7 +198,8 @@ class LoggerManager extends Manager implements LoggerInterface
         );
 
         return new Monolog($this->parseChannel($config), [$this->prepareHandler(
-            $this->container->make($config['handler'], $with), $config
+            $this->container->make($config['handler'], $with),
+            $config
         )]);
     }
 
@@ -266,7 +275,7 @@ class LoggerManager extends Manager implements LoggerInterface
     {
         $config = $this->container['config']["logger.channels.{$name}"];
 
-        if (is_null($config)) {
+        if (null === $config) {
             throw new InvalidArgumentException("Logger [{$name}] is not defined.");
         }
 

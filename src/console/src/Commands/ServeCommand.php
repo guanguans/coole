@@ -80,7 +80,7 @@ class ServeCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if (is_null($docroot = $input->getOption('docroot'))) {
+        if (null === ($docroot = $input->getOption('docroot'))) {
             throw new InvalidArgumentException('Please set option of docroot.');
         }
 
@@ -103,7 +103,8 @@ class ServeCommand extends Command
 
     protected function serverCommand(InputInterface $input): string
     {
-        return sprintf('%s -S %s:%s -t %s',
+        return sprintf(
+            '%s -S %s:%s -t %s',
             PHP_BINARY,
             $input->getOption('host'),
             $input->getOption('port'),

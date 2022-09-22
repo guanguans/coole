@@ -11,13 +11,13 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-     * 视图文件目录
+    /**
+     * 视图文件目录.
      */
     'paths' => null,
 
-    /*
-     * 选项
+    /**
+     * 选项.
      */
     'options' => [
         // Debug

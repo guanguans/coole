@@ -86,7 +86,7 @@ abstract class MultipleInstanceManager
     {
         $config = $this->getInstanceConfig($name);
 
-        if (is_null($config)) {
+        if (null === $config) {
             throw new InvalidArgumentException(sprintf('Instance [%s] is not defined.', $name));
         }
 

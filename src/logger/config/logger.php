@@ -15,13 +15,13 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
 return [
-    /*
-     * 默认日志通道
+    /**
+     * 默认日志通道.
      */
     'default' => cenv('LOGGER_CHANNEL', 'stack'),
 
-    /*
-     * 日志通道列表
+    /**
+     * 日志通道列表.
      */
     'channels' => [
         'stack' => [

@@ -11,14 +11,6 @@ declare(strict_types=1);
  */
 
 use PHPUnit\Framework\TestCase;
-/*
- * This file is part of Coole.
- *
- * @link     https://github.com/guanguans/coole
- * @contact  guanguans <ityaozm@gmail.com>
- * @license  https://github.com/guanguans/coole/blob/main/LICENSE
- */
-
 use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\CodeQuality\Rector\Array_\CallableThisArrayToAnonymousFunctionRector;
 use Rector\CodeQuality\Rector\Class_\InlineConstructorDefaultToPropertyRector;
@@ -139,7 +131,9 @@ return static function (RectorConfig $rectorConfig): void {
         InlineConstructorDefaultToPropertyRector::class,
     ]);
 
-    $rectorConfig->ruleWithConfiguration(PreferThisOrSelfMethodCallRector::class, [
+    $rectorConfig->ruleWithConfiguration(
+        PreferThisOrSelfMethodCallRector::class,
+        [
             TestCase::class => PreferenceSelfThis::PREFER_THIS,
         ]
     );

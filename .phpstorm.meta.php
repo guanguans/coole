@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace PHPSTORM_META;
 
-/*
- * PhpStorm Meta file, to provide autocomplete information for PhpStorm
+/**
+ * PhpStorm Meta file, to provide autocomplete information for PhpStorm.
  */
 override(new \Illuminate\Contracts\Container\Container(), map([
     '' => '@',

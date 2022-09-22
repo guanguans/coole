@@ -71,7 +71,7 @@ trait InteractsWithIO
      */
     public function argument(?string $key = null): mixed
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->input->getArguments();
         }
 
@@ -103,7 +103,7 @@ trait InteractsWithIO
      */
     public function option(?string $key = null): mixed
     {
-        if (is_null($key)) {
+        if (null === $key) {
             return $this->input->getOptions();
         }
 

@@ -11,13 +11,13 @@ declare(strict_types=1);
  */
 
 return [
-    /*
-     * 默认数据库连接名称
+    /**
+     * 默认数据库连接名称.
      */
     'default' => cenv('DB_CONNECTION', 'mysql'),
 
-    /*
-     * 数据库连接
+    /**
+     * 数据库连接.
      */
     'connections' => [
         'sqlite' => [
@@ -79,8 +79,8 @@ return [
         ],
     ],
 
-    /*
-     * 迁移仓库表
+    /**
+     * 迁移仓库表.
      */
     'migrations' => 'migrations',
 ];
