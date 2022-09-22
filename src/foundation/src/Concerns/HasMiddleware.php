@@ -83,7 +83,7 @@ trait HasMiddleware
     /**
      * 设置排除的中间件.
      *
-     * @param string|array<string> $middleware
+     * @param string|array<string> $withoutMiddleware
      *
      * @return $this
      */
@@ -97,7 +97,7 @@ trait HasMiddleware
     /**
      * 添加排除的中间件.
      *
-     * @param string|array<string> $middleware
+     * @param string|array<string> $withoutMiddleware
      *
      * @return $this
      */

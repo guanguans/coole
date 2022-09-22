@@ -38,7 +38,7 @@ if (! function_exists('config')) {
      *
      * @return \Coole\Foundation\Config|mixed|null
      */
-    function config(string|array|null $key = null, mixed $default = null): mixed
+    function config(string|array|null $key = null, mixed $default = null)
     {
         /** @var \Coole\Foundation\Config $config */
         $config = app('config');
@@ -183,9 +183,11 @@ if (! function_exists('retry')) {
     /**
      * 以给定的次数重试一个操作.
      *
+     * @return mixed
+     *
      * @throws \Exception
      */
-    function retry(int|array $times, callable $callback, int|Closure $sleepMilliseconds = 0, ?Closure $when = null): mixed
+    function retry(int|array $times, callable $callback, int|Closure $sleepMilliseconds = 0, ?Closure $when = null)
     {
         $attempts = 0;
 

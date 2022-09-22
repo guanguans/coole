@@ -182,15 +182,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
      */
     public function mergeConfig(array $value, string $key): void
     {
-        /** @var \Coole\Foundation\Config $config */
-        $config = $this->app['config'];
+        $values = [$value, $this['config']->get($key, [])];
 
-        $values = [$value, $config->get($key, [])];
         if ('app' === $key) {
             $values = array_reverse($values);
         }
 
-        $config->set($key, array_merge(...$values));
+        $this['config']->set($key, array_merge(...$values));
     }
 
     /**
@@ -212,13 +210,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             throw UnknownFileOrDirectoryException::create($path);
         }
 
-        if (is_file($path)) {
-            $configFiles = [new SplFileInfo($path)];
-        }
-
-        if (is_dir($path)) {
-            $configFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
-        }
+        $configFiles = is_dir($path)
+            ? Finder::create()->depth(0)->files()->in($path)->name('*.php')
+            : [new SplFileInfo($path)];
 
         foreach ($configFiles as $configFile) {
             $this->mergeConfigFrom((string) $configFile);
@@ -246,13 +240,9 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
             throw UnknownFileOrDirectoryException::create($path);
         }
 
-        if (is_file($path)) {
-            $routeFiles = [$path];
-        }
-
-        if (is_dir($path)) {
-            $routeFiles = Finder::create()->depth(0)->files()->in($path)->name('*.php');
-        }
+        $routeFiles = is_dir($path)
+            ? Finder::create()->depth(0)->files()->in($path)->name('*.php')
+            : [$path];
 
         foreach ($routeFiles as $routeFile) {
             require_once $routeFile;
@@ -525,7 +515,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         $this->mergeConfigFrom(__DIR__.'/../config/app.php');
         $this->mergeConfig($options, 'app');
 
-        is_null($envPath = $this->app['config']['app.env_path']) or $this->loadEnvFrom($envPath);
-        is_null($configPath = $this->app['config']['app.config_path']) or $this->loadConfigFrom($configPath);
+        is_null($envPath = $this['config']['app.env_path']) or $this->loadEnvFrom($envPath);
+        is_null($configPath = $this['config']['app.config_path']) or $this->loadConfigFrom($configPath);
     }
 }

@@ -30,7 +30,7 @@ abstract class ServiceProvider
     protected array $aliases = [];
 
     /**
-     * @var array<string>|array<string, string|array<string>>
+     * @var array<array-key, string>|array<string, string|array<string>>
      */
     protected array $classAliases = [];
 
@@ -105,7 +105,7 @@ abstract class ServiceProvider
     }
 
     /**
-     * @return array<string, string|array<string>>
+     * @return array<array-key, string>|array<string, string|array<string>>
      */
     public function getClassAliases(): array
     {
