@@ -17,11 +17,21 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolver as SymfonyControl
 class ControllerResolver extends SymfonyControllerResolver
 {
     /**
-     * @return \Coole\HttpKernel\ControllerInterface
+     * {@inheritdoc}
+     */
+    protected function createController(string $controller): callable
+    {
+        $controller = str_replace('::', '@', $controller);
+
+        return parent::createController($controller);
+    }
+
+    /**
+     * @param class-string<\Coole\HttpKernel\Controller>|string $class
      *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    protected function instantiateController(string $class): ControllerInterface
+    protected function instantiateController(string $class): Controller
     {
         return app($class);
     }
