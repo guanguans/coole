@@ -41,8 +41,7 @@ class CommandDiscoverer
         $commands = [];
         foreach ($finder as $file) {
             $class = Str::start("$this->namespace\\{$file->getBasename('.php')}", '\\');
-            $command = app($class);
-            $command instanceof Command and $commands[] = $command;
+            $command = app($class) instanceof Command and $commands[] = $command;
         }
 
         return $commands;

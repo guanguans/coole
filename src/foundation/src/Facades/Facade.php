@@ -65,6 +65,7 @@ abstract class Facade
             $class = static::getMockableClass();
 
             $spy = $class ? Mockery::spy($class) : Mockery::spy();
+
             static::swap($spy);
 
             return $spy;

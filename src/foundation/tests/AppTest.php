@@ -37,14 +37,14 @@ class AppTest extends TestCase
             'charset' => 'UTF-8',
         ]);
 
-        $this->assertSame($app['debug'], $options['debug']);
-        $this->assertSame($app['charset'], $options['charset']);
-        $this->assertSame($app, $app::getInstance());
+        self::assertSame($app['debug'], $options['debug']);
+        self::assertSame($app['charset'], $options['charset']);
+        self::assertSame($app, $app::getInstance());
     }
 
     public function testVersion(): void
     {
-        $this->assertIsString($this->app::version());
+        self::assertIsString($this->app::version());
     }
 
     public function testMergeConfig(): void
@@ -54,8 +54,8 @@ class AppTest extends TestCase
         //
         // $app->mergeConfig('key', $val2 = ['val2']);
         //
-        // $this->assertInstanceOf(Collection::class, $app['config']['key']);
-        // $this->assertSame($app['config']['key']->toArray(), $val2);
+        // self::assertInstanceOf(Collection::class, $app['config']['key']);
+        // self::assertSame($app['config']['key']->toArray(), $val2);
     }
 
     public function testAddConfig(): void
@@ -65,8 +65,8 @@ class AppTest extends TestCase
         //
         // $app->mergeConfig('key', $val2 = ['val2']);
         //
-        // $this->assertInstanceOf(Collection::class, $app['config']['key']);
-        // $this->assertSame($app['config']['key']->toArray(), $val1);
+        // self::assertInstanceOf(Collection::class, $app['config']['key']);
+        // self::assertSame($app['config']['key']->toArray(), $val1);
     }
 
     public function testAddOption(): void
@@ -78,8 +78,8 @@ class AppTest extends TestCase
         //     'charset' => 'UTF-8',
         // ]);
         //
-        // $this->assertSame($app['debug'], $options['debug']);
-        // $this->assertSame($app['charset'], $options['charset']);
+        // self::assertSame($app['debug'], $options['debug']);
+        // self::assertSame($app['charset'], $options['charset']);
     }
 
     public function testAddMiddleware(): void
@@ -90,7 +90,7 @@ class AppTest extends TestCase
 
         $middleware = $app->getMiddleware();
 
-        $this->assertSame(end($middleware), MiddlewareStub::class);
+        self::assertSame(end($middleware), MiddlewareStub::class);
     }
 
     public function testGetRouteMiddleware(): void
@@ -99,8 +99,8 @@ class AppTest extends TestCase
         // $app['router']->get('/', static function (): void {
         // })->setMiddleware(MiddlewareStub::class);
         // $routeMiddleware = $app->getRouteMiddleware(Request::createFromGlobals());
-        // $this->assertIsArray($routeMiddleware);
-        // $this->assertSame(MiddlewareStub::class, end($routeMiddleware));
+        // self::assertIsArray($routeMiddleware);
+        // self::assertSame(MiddlewareStub::class, end($routeMiddleware));
     }
 
     public function testGetCurrentRequestShouldExecutedMiddleware(): void
@@ -109,7 +109,7 @@ class AppTest extends TestCase
         // $app['router']->get('/', static function (): void {
         // })->setMiddleware(MiddlewareStub::class);
         // $allMiddleware = $app->getShouldExecutedRequestMiddleware(Request::createFromGlobals());
-        // $this->assertIsArray($allMiddleware);
+        // self::assertIsArray($allMiddleware);
     }
 
     public function testGetCurrentController(): void
@@ -117,7 +117,7 @@ class AppTest extends TestCase
         $app = new App();
         $app['router']->get('/', [ControllerStub::class, 'hello']);
         $controller = $app->getController(Request::createFromGlobals());
-        $this->assertInstanceOf(ControllerStub::class, $controller);
+        self::assertInstanceOf(ControllerStub::class, $controller);
     }
 
     public function testGetControllerMiddleware(): void
@@ -125,8 +125,8 @@ class AppTest extends TestCase
         // $app = new App();
         // $app['router']->get('/', [ControllerStub::class, 'hello']);
         // $controlleMiddleware = $app->getControllerMiddleware(Request::createFromGlobals());
-        // $this->assertIsArray($controlleMiddleware);
-        // $this->assertSame(MiddlewareStub::class, end($controlleMiddleware));
+        // self::assertIsArray($controlleMiddleware);
+        // self::assertSame(MiddlewareStub::class, end($controlleMiddleware));
     }
 
     public function testGetControllerExcludedMiddleware(): void
@@ -134,54 +134,54 @@ class AppTest extends TestCase
         // $app = new App();
         // $app['router']->get('/', [ControllerStub::class, 'hello']);
         // $controlleMiddleware = $app->getWithoutControllerMiddleware(Request::createFromGlobals());
-        // $this->assertIsArray($controlleMiddleware);
-        // $this->assertSame(MiddlewareStub::class, end($controlleMiddleware));
+        // self::assertIsArray($controlleMiddleware);
+        // self::assertSame(MiddlewareStub::class, end($controlleMiddleware));
     }
 
     public function testMakeMiddleware(): void
     {
         // $middlewares = $this->app->makeMiddleware(MiddlewareStub::class);
         //
-        // $this->assertIsArray($middlewares);
+        // self::assertIsArray($middlewares);
         //
         // foreach ($middlewares as $middleware) {
-        //     $this->assertIsObject($middleware);
+        //     self::assertIsObject($middleware);
         // }
     }
 
     public function testRegister(): void
     {
         // $app = $this->app->register(new ServiceProviderStub());
-        // $this->assertNull($app);
+        // self::assertNull($app);
     }
 
     public function testBoot(): void
     {
         // $appStub = new AppStub();
         //
-        // $this->assertFalse($appStub->getBooted());
+        // self::assertFalse($appStub->getBooted());
         // $appStub->boot();
-        // $this->assertTrue($appStub->getBooted());
+        // self::assertTrue($appStub->getBooted());
         //
         // $appStub->setBooted(true);
         //
-        // $this->assertNull($appStub->boot());
+        // self::assertNull($appStub->boot());
     }
 
     public function testLoadEnv(): void
     {
         // $this->markTestSkipped(__METHOD__);
         // $loadEnv = $this->app->loadEnvsFrom(__DIR__.'/Stub');
-        // $this->assertInstanceOf(App::class, $loadEnv);
+        // self::assertInstanceOf(App::class, $loadEnv);
     }
 
     public function testLoadConfig(): void
     {
         // $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config');
-        // $this->assertInstanceOf(App::class, $loadConfig);
+        // self::assertInstanceOf(App::class, $loadConfig);
         //
         // $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config/app.php');
-        // $this->assertInstanceOf(App::class, $loadConfig);
+        // self::assertInstanceOf(App::class, $loadConfig);
     }
 
     public function testLoadConfigException(): void
@@ -193,10 +193,10 @@ class AppTest extends TestCase
     public function testLoadRoute(): void
     {
         // $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config');
-        // $this->assertInstanceOf(App::class, $loadConfig);
+        // self::assertInstanceOf(App::class, $loadConfig);
         //
         // $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config/app.php');
-        // $this->assertInstanceOf(App::class, $loadConfig);
+        // self::assertInstanceOf(App::class, $loadConfig);
     }
 
     public function testLoadRouteException(): void
