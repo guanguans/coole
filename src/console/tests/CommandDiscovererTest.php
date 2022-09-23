@@ -16,7 +16,7 @@ use Coole\Console\CommandDiscoverer;
 
 class CommandDiscovererTest extends TestCase
 {
-    protected $commandDiscoverer;
+    protected CommandDiscoverer $commandDiscoverer;
 
     protected function setUp(): void
     {
@@ -35,12 +35,5 @@ class CommandDiscovererTest extends TestCase
         $nameSpace = 'Coole\Console';
         self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setNamespace($nameSpace));
         self::assertSame($this->commandDiscoverer->getNamespace(), $nameSpace);
-    }
-
-    public function testSetSuffix(): void
-    {
-        $suffix = '.go';
-        self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setSuffix($suffix));
-        self::assertSame($this->commandDiscoverer->getSuffix(), $suffix);
     }
 }

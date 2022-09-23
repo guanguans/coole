@@ -201,7 +201,7 @@ trait InteractsWithIO
     /**
      * Execute a given callback while advancing a progress bar.
      */
-    public function withProgressBar(iterable|int $totalSteps, Closure $callback)
+    public function withProgressBar(iterable|int $totalSteps, Closure $callback): iterable|int|null
     {
         $bar = $this->output->createProgressBar(
             is_iterable($totalSteps) ? count($totalSteps) : $totalSteps
@@ -224,6 +224,8 @@ trait InteractsWithIO
         if (is_iterable($totalSteps)) {
             return $totalSteps;
         }
+
+        return null;
     }
 
     /**

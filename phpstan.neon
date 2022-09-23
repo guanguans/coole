@@ -13,13 +13,13 @@ parameters:
             # - */tests/*
 
     # The level 9 is the highest level
-    level: 5
+    level: 6
 
     ignoreErrors:
         - '#PHPDoc tag @var#'
 
-    tmpDir: build/phpstan
     checkMissingIterableValueType: false
+    # tmpDir: build/phpstan
     # editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     # checkModelProperties: true
     # checkOctaneCompatibility: true

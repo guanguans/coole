@@ -192,6 +192,8 @@ abstract class Facade
 
     /**
      * Resolve the facade root instance from the container.
+     *
+     * @return mixed
      */
     protected static function resolveFacadeInstance(string $name)
     {
@@ -206,6 +208,8 @@ abstract class Facade
 
             return static::$app[$name];
         }
+
+        return null;
     }
 
     /**

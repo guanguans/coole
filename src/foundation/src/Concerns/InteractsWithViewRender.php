@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Concerns;
 
+use Twig\TemplateWrapper;
+
 trait InteractsWithViewRender
 {
     /**
      * {@inheritdoc}
      */
-    public function render($name, array $context = []): string
+    public function render(string|TemplateWrapper $name, array $context = []): string
     {
         return app('view')->render($name, $context);
     }

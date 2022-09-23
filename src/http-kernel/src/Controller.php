@@ -14,7 +14,7 @@ namespace Coole\HttpKernel;
 
 use Coole\Foundation\Concerns\InteractsWithController;
 
-class Controller implements ControllerInterface
+class Controller
 {
     use InteractsWithController;
 }

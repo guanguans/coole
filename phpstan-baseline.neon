@@ -166,6 +166,16 @@ parameters:
 			path: src/logger/src/LoggerManager.php
 
 		-
+			message: "#^Unable to resolve the template type TKey in call to function collect$#"
+			count: 2
+			path: src/logger/src/LoggerManager.php
+
+		-
+			message: "#^Unable to resolve the template type TValue in call to function collect$#"
+			count: 2
+			path: src/logger/src/LoggerManager.php
+
+		-
 			message: "#^Variable method call on \\$this\\(Coole\\\\Logger\\\\LoggerManager\\)\\.$#"
 			count: 1
 			path: src/logger/src/LoggerManager.php
