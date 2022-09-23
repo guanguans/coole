@@ -19,6 +19,9 @@ parameters:
         - '#PHPDoc tag @var#'
 
     checkMissingIterableValueType: false
+    inferPrivatePropertyTypeFromConstructor: true
+    treatPhpDocTypesAsCertain: true
+    reportUnmatchedIgnoredErrors: false
     # tmpDir: build/phpstan
     # editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
     # checkModelProperties: true

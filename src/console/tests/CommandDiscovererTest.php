@@ -13,27 +13,9 @@ declare(strict_types=1);
 namespace Coole\Console\Tests;
 
 use Coole\Console\CommandDiscoverer;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
-class CommandDiscovererTest extends TestCase
-{
-    protected CommandDiscoverer $commandDiscoverer;
-
-    protected function setUp(): void
-    {
-        $this->commandDiscoverer = new CommandDiscoverer(__DIR__, 'Coole\Console\Tests');
-    }
-
-    public function testSetDir(): void
-    {
-        $dir = __DIR__.'/../';
-        self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setDir($dir));
-        self::assertSame($this->commandDiscoverer->getDir(), $dir);
-    }
-
-    public function testSetNamespace(): void
-    {
-        $nameSpace = 'Coole\Console';
-        self::assertInstanceOf(CommandDiscoverer::class, $this->commandDiscoverer->setNamespace($nameSpace));
-        self::assertSame($this->commandDiscoverer->getNamespace(), $nameSpace);
-    }
-}
+it('will throws `BindingResolutionException` when calling `getCommands`', function (): void {
+    expect(new CommandDiscoverer(__DIR__, __NAMESPACE__))
+        ->getCommands();
+})->group(__DIR__, __FILE__)->throws(BindingResolutionException::class);

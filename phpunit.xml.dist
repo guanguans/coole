@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     backupGlobals="false"
     backupStaticAttributes="false"
     bootstrap="vendor/autoload.php"
@@ -10,98 +11,58 @@
     processIsolation="false"
     stopOnFailure="false"
     verbose="true"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
-    <testsuites>
-        <testsuite name="Coole Test Suite">
-            <directory suffix="Test.php">./src/console/tests</directory>
-            <directory suffix="Test.php">./src/database/tests</directory>
-            <directory suffix="Test.php">./src/error-handler/tests</directory>
-            <directory suffix="Test.php">./src/event-dispatcher/tests</directory>
-            <directory suffix="Test.php">./src/foundation/tests</directory>
-            <directory suffix="Test.php">./src/http-kernel/tests</directory>
-            <directory suffix="Test.php">./src/logger/tests</directory>
-            <directory suffix="Test.php">./src/routing/tests</directory>
-            <directory suffix="Test.php">./src/view/tests</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/console/src</directory>
-            <directory suffix=".php">./src/db/src</directory>
-            <directory suffix=".php">./src/error-handler/src</directory>
-            <directory suffix=".php">./src/foundation/src</directory>
-            <directory suffix=".php">./src/http-kernel/src</directory>
-            <directory suffix=".php">./src/routing/src</directory>
-            <directory suffix=".php">./src/view/src</directory>
-            <exclude>
-                <file>src/config/src/ConfigServiceProvider.php</file>
-                <file>src/config/src/Config.php</file>
-
-                <directory>src/console/src/Commands/</directory>
-                <file>src/console/src/Application.php</file>
-                <file>src/console/src/Command.php</file>
-                <file>src/console/src/ConsoleServiceProvider.php</file>
-
-                <directory>src/db/src/Facades</directory>
-                <file>src/db/src/Model.php</file>
-                <file>src/db/src/DBServiceProvider.php</file>
-
-                <file>src/error-handler/src/ErrorHandlerServiceProvider.php</file>
-
-                <file>src/event/src/Event.php</file>
-                <file>src/event/src/EventServiceProvider.php</file>
-                <file>src/event/src/ListenerInterface.php</file>
-
-                <directory>src/foundation/src/Able</directory>
-                <directory>src/foundation/src/Exceptions</directory>
-                <directory>src/foundation/src/Facades</directory>
-                <directory>src/foundation/src/Listeners</directory>
-                <directory>src/foundation/src/Middlewares</directory>
-                <file>src/foundation/src/AppServiceProvider.php</file>
-                <file>src/foundation/src/helpers.php</file>
-
-                <file>src/http-kernel/src/Controller/Controller.php</file>
-                <file>src/http-kernel/src/Controller/ControllerResolver.php</file>
-                <file>src/http-kernel/src/HttpKernelServiceProvider.php</file>
-
-                <directory>src/invoker/src/Facades</directory>
-                <file>src/invoker/src/helpers.php</file>
-                <file>src/invoker/src/InvokerServiceProvider.php</file>
-
-                <directory>src/log/src/Facades</directory>
-                <file>src/log/src/LogServiceProvider.php</file>
-
-                <directory>src/routing/src/Facades</directory>
-                <file>src/routing/src/RoutingServiceProvider.php</file>
-
-                <directory>src/view/src/Facades</directory>
-                <file>src/view/src/ViewServiceProvider.php</file>
-            </exclude>
-        </whitelist>
-    </filter>
-    <php>
-        <ini name="intl.default_locale" value="C.UTF-8" />
-        <ini name="memory_limit" value="2048M" />
-        <!--
-        <env name="REDIS_HOST" value="127.0.0.1" />
-        <env name="REDIS_PORT" value="6379" />
-        -->
-    </php>
-    <listeners>
-        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
-            <arguments>
-                <array>
-                    <element key="slowThreshold">
-                        <integer>500</integer>
-                    </element>
-                    <element key="reportLength">
-                        <integer>10</integer>
-                    </element>
-                    <element key="stopOnSlow">
-                        <boolean>false</boolean>
-                    </element>
-                </array>
-            </arguments>
-        </listener>
-    </listeners>
+  <coverage processUncoveredFiles="true">
+    <include>
+      <directory suffix=".php">src/*/src</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">./src/database/tests/</directory>
+      <file>src/autoload.php</file>
+      <directory suffix=".php">./src/error-handler/tests/</directory>
+      <directory suffix=".php">./src/event-dispatcher/tests/</directory>
+      <directory suffix=".php">./src/foundation/tests/</directory>
+      <directory suffix=".php">./src/http-kernel/tests/</directory>
+      <directory suffix=".php">./src/logger/tests/</directory>
+      <directory suffix=".php">./src/routing/tests/</directory>
+      <directory suffix=".php">./src/view/tests/</directory>
+    </exclude>
+  </coverage>
+  <testsuites>
+    <testsuite name="Coole Tests">
+      <directory suffix="Test.php">./src/console/tests</directory>
+      <exclude suffix=".php">./src/error-handler/tests/</exclude>
+      <exclude suffix=".php">./src/error-handler/tests/</exclude>
+      <exclude suffix=".php">./src/event-dispatcher/tests/</exclude>
+      <exclude suffix=".php">./src/foundation/tests/</exclude>
+      <exclude suffix=".php">./src/http-kernel/tests/</exclude>
+      <exclude suffix=".php">./src/logger/tests/</exclude>
+      <exclude suffix=".php">./src/routing/tests/</exclude>
+      <exclude suffix=".php">./src/view/tests/</exclude>
+    </testsuite>
+  </testsuites>
+  <php>
+    <ini name="intl.default_locale" value="C.UTF-8"/>
+    <ini name="memory_limit" value="2048M"/>
+    <!--    <env name="REDIS_HOST" value="127.0.0.1"/>-->
+    <!--    <env name="REDIS_PORT" value="6379" />-->
+  </php>
+  <listeners>
+    <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">
+      <arguments>
+        <array>
+          <element key="slowThreshold">
+            <integer>500</integer>
+          </element>
+          <element key="reportLength">
+            <integer>10</integer>
+          </element>
+          <element key="stopOnSlow">
+            <boolean>false</boolean>
+          </element>
+        </array>
+      </arguments>
+    </listener>
+  </listeners>
 </phpunit>

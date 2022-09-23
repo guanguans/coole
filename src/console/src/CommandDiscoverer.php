@@ -28,10 +28,12 @@ class CommandDiscoverer
      * 获取命令.
      *
      * @return array<\Symfony\Component\Console\Command\Command>
+     *
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getCommands(): array
     {
-        $finder = Finder::create()
+        $fileInfos = Finder::create()
             ->files()
             ->in($this->dir)
             ->ignoreVCS(true)
@@ -39,8 +41,10 @@ class CommandDiscoverer
             ->name('*.php');
 
         $commands = [];
-        foreach ($finder as $file) {
-            $class = Str::start("$this->namespace\\{$file->getBasename('.php')}", '\\');
+
+        /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
+        foreach ($fileInfos as $fileInfo) {
+            $class = Str::start("$this->namespace\\{$fileInfo->getBasename('.php')}", '\\');
             $command = app($class) instanceof Command and $commands[] = $command;
         }
 
