@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Coole\ErrorHandler\Whoops;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Traits\Conditionable;
 use Symfony\Component\Finder\Finder;
 use Whoops\Handler\PrettyPageHandler;
 
@@ -21,6 +22,8 @@ use Whoops\Handler\PrettyPageHandler;
  */
 class WhoopsHandler
 {
+    use Conditionable;
+
     /**
      * Create a new Whoops handler for debug mode.
      */
@@ -29,7 +32,10 @@ class WhoopsHandler
         return tap(new PrettyPageHandler(), function (PrettyPageHandler $prettyPageHandler): void {
             $prettyPageHandler->handleUnconditionally(true);
 
-            $this->registerApplicationPaths($prettyPageHandler)
+            $this
+                ->when(defined('BASE_PATH'), function () use ($prettyPageHandler): void {
+                    $this->registerApplicationPaths($prettyPageHandler);
+                })
                 ->registerBlacklist($prettyPageHandler)
                 ->registerEditor($prettyPageHandler);
         });
