@@ -102,6 +102,7 @@
         "povils/phpmnd": "^3.0",
         "rector/rector": "^0.14",
         "roave/security-advisories": "dev-latest",
+        "spatie/invade": "^1.1",
         "symplify/monorepo-builder": "^11.1",
         "vimeo/psalm": "^5.0"
     },
@@ -203,8 +204,8 @@
         "mark-start": "printf '\\n!\\n!\\t\\033[0;36m%s\\033[0m\\n!\\n\\n' \"Started\"",
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/*.md ./docs/*/*.md ./docs/*/*/*.md ./src/*/*.md",
-        "pest": "./vendor/bin/pest --coverage-text --cache-result-file=./build/.phpunit.result.cache",
-        "pest-coverage": "./vendor/bin/pest --coverage-html=./build/coverage/ --coverage-clover=clover.xml --cache-result-file=./build/.phpunit.result.cache",
+        "pest": "./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache",
+        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
         "phpmnd": "./vendor/bin/phpmnd ./src/ --exclude=vendor/ --ignore-numbers=2,-1 --ignore-funcs=round,sleep --extensions=default_parameter,-return,argument --progress --hint -vv",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G --ansi -vv",
         "phpstan-baseline": "@phpstan --generate-baseline=phpstan-baseline.neon",

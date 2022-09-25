@@ -26,7 +26,29 @@ it('will return array for `getCommands`', function (): void {
         ->getCommands()
         ->toBeArray()
         ->each
-        ->toBeInstanceOf(Command::class)
+        ->toBeInstanceOf(Command::class);
+})->group(__DIR__, __FILE__);
 
-    ;
+it('will return string for `getDir`', function (): void {
+    expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
+        ->getDir()
+        ->toBeString();
+})->group(__DIR__, __FILE__);
+
+it('will return self for `setDir`', function (): void {
+    expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
+        ->setDir(__DIR__)
+        ->toBeInstanceOf(CommandDiscoverer::class);
+})->group(__DIR__, __FILE__);
+
+it('will return string for `getNamespace`', function (): void {
+    expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
+        ->getNamespace()
+        ->toBeString();
+})->group(__DIR__, __FILE__);
+
+it('will return self for `setNamespace`', function (): void {
+    expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
+        ->setNamespace(__NAMESPACE__)
+        ->toBeInstanceOf(CommandDiscoverer::class);
 })->group(__DIR__, __FILE__);

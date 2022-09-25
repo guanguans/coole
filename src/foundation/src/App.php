@@ -116,13 +116,13 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         foreach ($serviceProvider->getClassAliases() as $original => $aliases) {
             if (is_int($original)) {
-                class_alias($aliases, class_basename($aliases));
+                class_exists($alias = class_basename($aliases)) and class_alias($aliases, $alias);
 
                 continue;
             }
 
             foreach ((array) $aliases as $alias) {
-                class_alias($original, $alias);
+                class_exists($alias) and class_alias($original, $alias);
             }
         }
 

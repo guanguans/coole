@@ -13,35 +13,35 @@
     verbose="true"
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
 >
+  <testsuites>
+    <testsuite name="Coole Tests">
+      <directory suffix="Test.php">./src/*/tests</directory>
+      <exclude>src/database/tests/</exclude>
+      <exclude>src/error-handler/tests/</exclude>
+      <exclude>src/event-dispatcher/tests/</exclude>
+      <exclude>src/foundation/tests/</exclude>
+      <exclude>src/http-kernel/tests/</exclude>
+      <exclude>src/logger/tests/</exclude>
+      <exclude>src/routing/tests/</exclude>
+      <exclude>src/view/tests/</exclude>
+    </testsuite>
+  </testsuites>
   <coverage processUncoveredFiles="true">
     <include>
       <directory suffix=".php">src/*/src</directory>
     </include>
     <exclude>
-      <directory suffix=".php">./src/database/tests/</directory>
-      <file>src/autoload.php</file>
-      <directory suffix=".php">./src/error-handler/tests/</directory>
-      <directory suffix=".php">./src/event-dispatcher/tests/</directory>
-      <directory suffix=".php">./src/foundation/tests/</directory>
-      <directory suffix=".php">./src/http-kernel/tests/</directory>
-      <directory suffix=".php">./src/logger/tests/</directory>
-      <directory suffix=".php">./src/routing/tests/</directory>
-      <directory suffix=".php">./src/view/tests/</directory>
+      <file>src/console/src/ConsoleServiceProvider.php</file>
+      <directory>src/database/src</directory>
+      <directory>src/error-handler/src</directory>
+      <directory>src/event-dispatcher/src</directory>
+      <directory>src/foundation/src</directory>
+      <directory>src/http-kernel/src</directory>
+      <directory>src/logger/src</directory>
+      <directory>src/routing/src</directory>
+      <directory>src/view/src</directory>
     </exclude>
   </coverage>
-  <testsuites>
-    <testsuite name="Coole Tests">
-      <directory suffix="Test.php">./src/console/tests</directory>
-      <exclude>./src/error-handler/tests/</exclude>
-      <exclude>./src/error-handler/tests/</exclude>
-      <exclude>./src/event-dispatcher/tests/</exclude>
-      <exclude>./src/foundation/tests/</exclude>
-      <exclude>./src/http-kernel/tests/</exclude>
-      <exclude>./src/logger/tests/</exclude>
-      <exclude>./src/routing/tests/</exclude>
-      <exclude>./src/view/tests/</exclude>
-    </testsuite>
-  </testsuites>
   <php>
     <ini name="intl.default_locale" value="C.UTF-8"/>
     <ini name="memory_limit" value="2048M"/>
