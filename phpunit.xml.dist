@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     backupGlobals="false"
     backupStaticAttributes="false"
-    bootstrap="vendor/autoload.php"
+    bootstrap="bootstrap.php"
     colors="true"
     convertErrorsToExceptions="true"
     convertNoticesToExceptions="true"
@@ -32,14 +32,14 @@
   <testsuites>
     <testsuite name="Coole Tests">
       <directory suffix="Test.php">./src/console/tests</directory>
-      <exclude suffix=".php">./src/error-handler/tests/</exclude>
-      <exclude suffix=".php">./src/error-handler/tests/</exclude>
-      <exclude suffix=".php">./src/event-dispatcher/tests/</exclude>
-      <exclude suffix=".php">./src/foundation/tests/</exclude>
-      <exclude suffix=".php">./src/http-kernel/tests/</exclude>
-      <exclude suffix=".php">./src/logger/tests/</exclude>
-      <exclude suffix=".php">./src/routing/tests/</exclude>
-      <exclude suffix=".php">./src/view/tests/</exclude>
+      <exclude>./src/error-handler/tests/</exclude>
+      <exclude>./src/error-handler/tests/</exclude>
+      <exclude>./src/event-dispatcher/tests/</exclude>
+      <exclude>./src/foundation/tests/</exclude>
+      <exclude>./src/http-kernel/tests/</exclude>
+      <exclude>./src/logger/tests/</exclude>
+      <exclude>./src/routing/tests/</exclude>
+      <exclude>./src/view/tests/</exclude>
     </testsuite>
   </testsuites>
   <php>

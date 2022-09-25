@@ -13,10 +13,7 @@ declare(strict_types=1);
 
 use Coole\Foundation\App;
 
-defined('COOLE_START') or define('COOLE_START', microtime(true));
-defined('BASE_PATH') or define('BASE_PATH', dirname(__DIR__));
-
-require BASE_PATH.'/vendor/autoload.php';
+require __DIR__.'/../bootstrap.php';
 
 // 1. Create app.
 $app = new App(['debug' => true]);

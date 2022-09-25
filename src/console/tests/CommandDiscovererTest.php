@@ -14,8 +14,19 @@ namespace Coole\Console\Tests;
 
 use Coole\Console\CommandDiscoverer;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Symfony\Component\Console\Command\Command;
 
-it('will throws `BindingResolutionException` when calling `getCommands`', function (): void {
-    expect(new CommandDiscoverer(__DIR__, __NAMESPACE__))
+it('will throws `BindingResolutionException` for `getCommands`', function (): void {
+    expect(new CommandDiscoverer(__DIR__.'/../src/', __NAMESPACE__))
         ->getCommands();
 })->group(__DIR__, __FILE__)->throws(BindingResolutionException::class);
+
+it('will return array for `getCommands`', function (): void {
+    expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
+        ->getCommands()
+        ->toBeArray()
+        ->each
+        ->toBeInstanceOf(Command::class)
+
+    ;
+})->group(__DIR__, __FILE__);

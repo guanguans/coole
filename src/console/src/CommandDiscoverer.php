@@ -45,7 +45,7 @@ class CommandDiscoverer
         /** @var \Symfony\Component\Finder\SplFileInfo $fileInfo */
         foreach ($fileInfos as $fileInfo) {
             $class = Str::start("$this->namespace\\{$fileInfo->getBasename('.php')}", '\\');
-            $command = app($class) instanceof Command and $commands[] = $command;
+            ($command = app($class)) instanceof Command and $commands[] = $command;
         }
 
         return $commands;

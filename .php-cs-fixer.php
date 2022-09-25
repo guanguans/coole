@@ -28,6 +28,7 @@ $finder = Finder::create()
     ->append([
         __DIR__.'/.php-cs-fixer.php',
         __DIR__.'/.phpstorm.meta.php',
+        __DIR__.'/bootstrap.php',
         __DIR__.'/doctum.php',
         __DIR__.'/index.php',
         __DIR__.'/LocalValetDriver.php',

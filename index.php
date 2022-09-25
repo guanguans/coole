@@ -14,10 +14,7 @@ use Coole\Foundation\App;
 use Coole\Routing\Facades\Router;
 use Symfony\Component\HttpFoundation\Request;
 
-defined('COOLE_START') or define('COOLE_START', microtime(true));
-defined('BASE_PATH') or define('BASE_PATH', __DIR__);
-
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/bootstrap.php';
 
 // 1. Create app.
 $app = new App(['debug' => true]);
