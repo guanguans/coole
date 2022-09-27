@@ -18,6 +18,7 @@ use Coole\Foundation\Events\ExceptionEvent;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Throwable;
 
@@ -68,6 +69,10 @@ class Application extends SymfonyApplication
 
             return parent::run($input, $output);
         } catch (Throwable $throwable) {
+            if (null === $output) {
+                $output = new ConsoleOutput();
+            }
+
             $this->app[EventDispatcherInterface::class]->dispatch(
                 new ExceptionEvent($throwable)
             );

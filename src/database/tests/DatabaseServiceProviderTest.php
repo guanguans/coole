@@ -12,10 +12,15 @@ declare(strict_types=1);
 
 namespace Coole\Database\Tests;
 
-class DatabaseServiceProviderTest extends TestCase
-{
-    public function testTrue(): void
-    {
-        self::assertTrue(true);
-    }
-}
+use Coole\Database\DatabaseServiceProvider;
+use Coole\Foundation\App;
+
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+});
+
+it('will not return for `boot`.', function (): void {
+    expect(new DatabaseServiceProvider($this->app))
+        ->boot()
+        ->toBeNull();
+});

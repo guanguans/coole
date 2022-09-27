@@ -16,7 +16,6 @@
   <testsuites>
     <testsuite name="Coole Tests">
       <directory suffix="Test.php">./src/*/tests</directory>
-      <exclude>src/database/tests/</exclude>
       <exclude>src/error-handler/tests/</exclude>
       <exclude>src/event-dispatcher/tests/</exclude>
       <exclude>src/foundation/tests/</exclude>
@@ -31,8 +30,8 @@
       <directory suffix=".php">src/*/src</directory>
     </include>
     <exclude>
-      <file>src/console/src/ConsoleServiceProvider.php</file>
-      <directory>src/database/src</directory>
+      <!--<file>xxx.php</file>-->
+      <!--<directory>xxx/xxx</directory>-->
       <directory>src/error-handler/src</directory>
       <directory>src/event-dispatcher/src</directory>
       <directory>src/foundation/src</directory>
@@ -45,8 +44,8 @@
   <php>
     <ini name="intl.default_locale" value="C.UTF-8"/>
     <ini name="memory_limit" value="2048M"/>
-    <!--    <env name="REDIS_HOST" value="127.0.0.1"/>-->
-    <!--    <env name="REDIS_PORT" value="6379" />-->
+    <env name="REDIS_HOST" value="127.0.0.1"/>
+    <env name="REDIS_PORT" value="6379"/>
   </php>
   <listeners>
     <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener">

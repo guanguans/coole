@@ -20,7 +20,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
-it('will return int for `run`', function (): void {
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+});
+
+it('will return int for `run`.', function (): void {
     $m = mock(InputInterface::class);
 
     $m->shouldReceive('getOption')->andReturn(10);
@@ -39,10 +43,8 @@ it('will return int for `run`', function (): void {
         ->andReturnUsing(fn () => new NullOutputFormatter())
         ->getMock();
 
-    $app = mock(App::class)->makePartial();
-
     $command = invade(
-        new class($app) extends Command {
+        new class($this->app) extends Command {
             protected string $name = 'name';
             protected string $description = 'The description.';
             protected array $arguments = [

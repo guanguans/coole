@@ -12,30 +12,15 @@ declare(strict_types=1);
 
 namespace Coole\Console\Tests;
 
-use Coole\Console\CommandCollection;
 use Coole\Console\ConsoleServiceProvider;
 use Coole\Foundation\App;
-use Coole\Foundation\Config;
 
-it('will not return for `boot`', function (): void {
-    $m = mock(App::class);
-    $m->shouldReceive('commands')->andReturnNull();
-    $m->shouldReceive('offsetGet')->with('console.command_collection')->andReturn(new CommandCollection());
-    $m->shouldReceive('offsetGet')->with('config')->andReturn(
-        new Config([
-            'console' => [
-                'commands' => [
-                    [
-                        'dir' => __DIR__,
-                        'namespace' => __NAMESPACE__,
-                    ],
-                ],
-            ],
-        ])
-    );
-    $app = $m->shouldReceive('loadCommandFrom')->andReturnNull()->getMock();
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+});
 
-    expect(new ConsoleServiceProvider($app))
+it('will not return for `boot`.', function (): void {
+    expect(new ConsoleServiceProvider($this->app))
         ->boot()
         ->toBeNull();
 });

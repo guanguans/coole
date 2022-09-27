@@ -16,12 +16,12 @@ use Coole\Console\CommandDiscoverer;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Symfony\Component\Console\Command\Command;
 
-it('will throws `BindingResolutionException` for `getCommands`', function (): void {
+it('will throws `BindingResolutionException` for `getCommands`.', function (): void {
     expect(new CommandDiscoverer(__DIR__.'/../src/', __NAMESPACE__))
         ->getCommands();
 })->group(__DIR__, __FILE__)->throws(BindingResolutionException::class);
 
-it('will return array for `getCommands`', function (): void {
+it('will return array for `getCommands`.', function (): void {
     expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
         ->getCommands()
         ->toBeArray()
@@ -29,25 +29,25 @@ it('will return array for `getCommands`', function (): void {
         ->toBeInstanceOf(Command::class);
 })->group(__DIR__, __FILE__);
 
-it('will return string for `getDir`', function (): void {
+it('will return string for `getDir`.', function (): void {
     expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
         ->getDir()
         ->toBeString();
 })->group(__DIR__, __FILE__);
 
-it('will return self for `setDir`', function (): void {
+it('will return self for `setDir`.', function (): void {
     expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
         ->setDir(__DIR__)
         ->toBeInstanceOf(CommandDiscoverer::class);
 })->group(__DIR__, __FILE__);
 
-it('will return string for `getNamespace`', function (): void {
+it('will return string for `getNamespace`.', function (): void {
     expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
         ->getNamespace()
         ->toBeString();
 })->group(__DIR__, __FILE__);
 
-it('will return self for `setNamespace`', function (): void {
+it('will return self for `setNamespace`.', function (): void {
     expect(new CommandDiscoverer(__DIR__.'/../src/Commands', '\\Coole\\Console\\Commands'))
         ->setNamespace(__NAMESPACE__)
         ->toBeInstanceOf(CommandDiscoverer::class);

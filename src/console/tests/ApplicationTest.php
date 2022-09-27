@@ -15,17 +15,33 @@ namespace Coole\Console\Tests;
 use Coole\Console\Application;
 use Coole\Foundation\App;
 use Exception;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\NullOutput;
 
-it('will return int for `run`', function (): void {
-    $application = new Application(new App());
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+});
+
+it('will report `Option Exception` for `run`.', function (): void {
+    $application = new Application($this->app);
     $application->setAutoExit(false);
 
     expect($application->run())
         ->toBeInt();
-})->group(__DIR__, __FILE__)->skip(sprintf('%s:run', __FILE__));
+})->group(__DIR__, __FILE__);
 
-it('will return string for `getHelp`', function (): void {
+it('will report `LogicException` for `run`.', function (): void {
+    /** @var App $app */
+    $app = clone $this->app;
+    $app->commands(new class() extends Command {});
+    $application = new Application($app);
+    $application->setAutoExit(false);
+
+    expect($application->run())
+        ->toBeInt();
+})->group(__DIR__, __FILE__);
+
+it('will return string for `getHelp`.', function (): void {
     $application = new Application(new App());
     $application->setAutoExit(false);
 
@@ -34,7 +50,7 @@ it('will return string for `getHelp`', function (): void {
         ->toBeString();
 })->group(__DIR__, __FILE__);
 
-it('will not return for `reportException`', function (): void {
+it('will not return for `reportException`.', function (): void {
     $application = new Application(new App());
     $application->setAutoExit(false);
 
@@ -43,7 +59,7 @@ it('will not return for `reportException`', function (): void {
         ->toBeNull();
 })->group(__DIR__, __FILE__);
 
-it('will not return for `renderException`', function (): void {
+it('will not return for `renderException`.', function (): void {
     $application = new Application(new App());
     $application->setAutoExit(false);
 

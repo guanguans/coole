@@ -10,12 +10,12 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Console\Tests\Facades;
+namespace Coole\Database\Tests\Facades;
 
-use Coole\Console\Facades\Console;
+use Coole\Database\Facades\DB;
 
 it('will return string for `getFacadeAccessor`.', function (): void {
-    expect(invade(new Console()))
+    expect(invade(new DB()))
         ->getFacadeAccessor()
         ->toBeString();
 });
