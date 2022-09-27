@@ -12,10 +12,22 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests;
 
-class ErrorHandlerServiceProviderTest extends TestCase
-{
-    public function testTrue(): void
-    {
-        self::assertTrue(true);
-    }
-}
+use Coole\ErrorHandler\ErrorHandlerServiceProvider;
+use Coole\Foundation\App;
+
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+    $this->app['config']->set('app.debug', true);
+    $this->app['config']->set('app.debug_blacklist', [
+        'key' => [
+            'secret',
+        ],
+    ]);
+    $this->app['config']->set('app.editor', 'phpstorm');
+});
+
+it('will not return for `registered`.', function (): void {
+    expect(new ErrorHandlerServiceProvider($this->app))
+        ->registered()
+        ->toBeNull();
+})->group(__DIR__, __FILE__);

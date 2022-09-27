@@ -18,4 +18,4 @@ it('will return string for `getFacadeAccessor`.', function (): void {
     expect(invade(new DB()))
         ->getFacadeAccessor()
         ->toBeString();
-});
+})->group(__DIR__, __FILE__);

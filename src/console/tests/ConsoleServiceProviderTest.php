@@ -23,4 +23,4 @@ it('will not return for `boot`.', function (): void {
     expect(new ConsoleServiceProvider($this->app))
         ->boot()
         ->toBeNull();
-});
+})->group(__DIR__, __FILE__);

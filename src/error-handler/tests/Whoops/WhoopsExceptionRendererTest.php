@@ -10,12 +10,13 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Console\Tests\Facades;
+namespace Coole\ErrorHandler\Tests\Whoops;
 
-use Coole\Console\Facades\Console;
+use Coole\ErrorHandler\Whoops\WhoopsExceptionRenderer;
+use Exception;
 
-it('will return string for `getFacadeAccessor`.', function (): void {
-    expect(invade(new Console()))
-        ->getFacadeAccessor()
+it('will return string for `render`.', function (): void {
+    expect(new WhoopsExceptionRenderer())
+        ->render(mock(Exception::class)->makePartial())
         ->toBeString();
 })->group(__DIR__, __FILE__);
