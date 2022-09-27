@@ -6,7 +6,7 @@ parameters:
 			path: src/console/src/Command.php
 
 		-
-			message: "#^Method Coole\\\\Console\\\\CommandDiscoverer\\:\\:getCommands\\(\\) should return array\\<Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\> but returns array\\<int, true\\>\\.$#"
+			message: "#^Only booleans are allowed in &&, Symfony\\\\Component\\\\Console\\\\Command\\\\Command given on the right side\\.$#"
 			count: 1
 			path: src/console/src/CommandDiscoverer.php
 
@@ -194,8 +194,3 @@ parameters:
 			message: "#^Variable method call on Coole\\\\Routing\\\\RouteRegistrar\\.$#"
 			count: 1
 			path: src/routing/src/Router.php
-
-		-
-			message: "#^Should not use node with type \"Stmt_Echo\", please change the code\\.$#"
-			count: 1
-			path: src/routing/tests/RouterTest.php

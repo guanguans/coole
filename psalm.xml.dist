@@ -10,11 +10,11 @@
     errorBaseline="psalm-baseline.xml"
 >
     <projectFiles>
-        <directory name="src"/>
+        <directory name="src/*/src"/>
         <ignoreFiles allowMissingFiles="true">
             <directory name="vendor"/>
             <directory name="docs"/>
-            <file name="config/proxy-manager.php"/>
+            <file name="vendor/illuminate/conditionable/Traits/Conditionable.php"/>
         </ignoreFiles>
     </projectFiles>
 

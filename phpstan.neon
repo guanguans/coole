@@ -3,7 +3,15 @@ includes:
 
 parameters:
     paths:
-        - src
+        - src/console/src
+        - src/database/src
+        - src/error-handler/src
+        - src/event-dispatcher/src
+        - src/foundation/src
+        - src/http-kernel/src
+        - src/logger/src
+        - src/routing/src
+        - src/view/src
 
     excludePaths:
         analyse:

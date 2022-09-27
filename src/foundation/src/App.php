@@ -26,6 +26,7 @@ use Dotenv\Dotenv;
 use Illuminate\Container\Container;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Support\Traits\Tappable;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use SplFileInfo;
@@ -42,6 +43,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 {
     use InteractsWithController;
     use Macroable;
+    use Tappable;
 
     /**
      * @var string
