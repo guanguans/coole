@@ -19,7 +19,6 @@
       <exclude>src/foundation/tests/</exclude>
       <exclude>src/logger/tests/</exclude>
       <exclude>src/routing/tests/</exclude>
-      <exclude>src/view/tests/</exclude>
     </testsuite>
   </testsuites>
   <coverage processUncoveredFiles="true">
@@ -32,7 +31,6 @@
       <directory>src/foundation/src</directory>
       <directory>src/logger/src</directory>
       <directory>src/routing/src</directory>
-      <directory>src/view/src</directory>
     </exclude>
   </coverage>
   <php>

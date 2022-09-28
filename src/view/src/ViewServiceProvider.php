@@ -59,9 +59,10 @@ class ViewServiceProvider extends ServiceProvider
 
         $this->app->singleton(
             Environment::class,
-            fn (App $app): Environment => $this->app->make(Environment::class, [
-                'options' => $app['config']['view.options'],
-            ])
+            fn (App $app): Environment => new Environment(
+                $app[LoaderInterface::class],
+                $app['config']['view.options']
+            ),
         );
     }
 }

@@ -12,10 +12,19 @@ declare(strict_types=1);
 
 namespace Coole\View\Tests;
 
-class ViewServiceProviderTest extends TestCase
-{
-    public function testTrue(): void
-    {
-        self::assertTrue(true);
-    }
-}
+use Coole\Foundation\App;
+use Twig\Environment;
+use Twig\Loader\LoaderInterface;
+
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+});
+
+it('will not return for `register`.', function (): void {
+    $this->app['config']['view.paths'] = __DIR__;
+
+    expect($this->app[LoaderInterface::class])
+        ->toBeInstanceOf(LoaderInterface::class)
+        ->and($this->app[Environment::class])
+        ->toBeInstanceOf(Environment::class);
+})->group(__DIR__, __FILE__);
