@@ -21,7 +21,7 @@ class ControllerResolver extends SymfonyControllerResolver
      */
     protected function createController(string $controller): callable
     {
-        $controller = str_replace('::', '@', $controller);
+        $controller = str_replace('@', '::', $controller);
 
         return parent::createController($controller);
     }
