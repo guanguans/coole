@@ -16,108 +16,57 @@ use Coole\Foundation\App;
 use Coole\Routing\Route;
 use Coole\Routing\Router;
 use Coole\Routing\RouteRegistrar;
-use Nyholm\NSA;
+use Symfony\Component\Routing\RouteCollection;
 
-class RouterTest extends TestCase
-{
-    private App $app;
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+    $this->router = new Router(new Route(), new RouteCollection());
+});
 
-    private Router $router;
+it('will return `Route` for `any`.', function (): void {
+    expect($this->router)
+        ->any('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    protected function setUp(): void
-    {
-        $this->app = new App();
-        $this->router = new Router(new Route(), $this->app['routing.route-collection']);
-    }
+it('will return `Route` for `get`.', function (): void {
+    expect($this->router)
+        ->get('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testAny(): void
-    {
-        // $route = $this->router->any([], '/');
-        // $this->assertInstanceOf(Route::class, $route);
-        // $this->assertSame([], $route->getMethods());
-        //
-        // $route = $this->router->any(['GET', 'POST'], '/');
-        // $this->assertInstanceOf(Route::class, $route);
-        // $this->assertSame(['GET', 'POST'], $route->getMethods());
-    }
+it('will return `Route` for `post`.', function (): void {
+    expect($this->router)
+        ->post('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    public function testPost(): void
-    {
-        $route = $this->router->post('/', static function (): void {
-        });
-        self::assertInstanceOf(Route::class, $route);
-        self::assertSame(['POST'], $route->getMethods());
-    }
+it('will return `Route` for `put`.', function (): void {
+    expect($this->router)
+        ->put('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    public function testGet(): void
-    {
-        $route = $this->router->get('/', static function (): void {
-        });
-        self::assertInstanceOf(Route::class, $route);
-        self::assertSame(['GET', 'HEAD'], $route->getMethods());
-    }
+it('will return `Route` for `delete`.', function (): void {
+    expect($this->router)
+        ->delete('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    public function testPut(): void
-    {
-        $route = $this->router->put('/', static function (): void {
-        });
-        self::assertInstanceOf(Route::class, $route);
-        self::assertSame(['PUT'], $route->getMethods());
-    }
+it('will return `Route` for `options`.', function (): void {
+    expect($this->router)
+        ->options('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    public function testDelete(): void
-    {
-        $route = $this->router->delete('/', static function (): void {
-        });
-        self::assertInstanceOf(Route::class, $route);
-        self::assertSame(['DELETE'], $route->getMethods());
-    }
+it('will return `Route` for `patch`.', function (): void {
+    expect($this->router)
+        ->patch('uri', 'callback')
+        ->toBeInstanceOf(Route::class);
+})->group(__DIR__, __FILE__);
 
-    public function testOptions(): void
-    {
-        $route = $this->router->options('/', static function (): void {
-        });
-        self::assertInstanceOf(Route::class, $route);
-        self::assertSame(['OPTIONS'], $route->getMethods());
-    }
-
-    public function testPatch(): void
-    {
-        $route = $this->router->patch('/', static function (): void {
-        });
-        self::assertInstanceOf(Route::class, $route);
-        self::assertSame(['PATCH'], $route->getMethods());
-    }
-
-    public function testCall(): void
-    {
-        $routeRegistrar = $this->router->prefix('/');
-        self::assertInstanceOf(RouteRegistrar::class, $routeRegistrar);
-    }
-
-    public function testUpdateGroupStack(): void
-    {
-        $isUpdateGroupStack = NSA::invokeMethod($this->router, 'updateGroupStack', [
-            'prefix' => '/',
-            'middleware' => ['middleware'],
-        ]);
-
-        self::assertTrue($isUpdateGroupStack);
-    }
-
-    public function testGroup(): void
-    {
-        $router = $this->router->group([
-            'prefix' => '/',
-            'middleware' => ['middleware'],
-        ], static function (): void {
-            echo 'group';
-        });
-
-        self::assertInstanceOf(Router::class, $router);
-        $this->expectOutputString('group');
-    }
-}
+it('will call method of RouteRegistrar for `__call`.', function (): void {
+    expect($this->router)
+        ->attribute('name', 'bar')
+        ->toBeInstanceOf(RouteRegistrar::class);
+})->group(__DIR__, __FILE__);

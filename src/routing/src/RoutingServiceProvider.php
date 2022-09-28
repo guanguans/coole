@@ -70,7 +70,7 @@ class RoutingServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        foreach ($this->app['config']['routing.paths'] as $path) {
+        foreach ((array) $this->app['config']['routing.paths'] as $path) {
             $this->app->loadRouteFrom($path);
         }
 

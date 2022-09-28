@@ -207,6 +207,6 @@ class Router
      */
     public function __call($name, $arguments)
     {
-        return (new RouteRegistrar($this))->$name($arguments[0]);
+        return (new RouteRegistrar($this))->$name(...$arguments);
     }
 }

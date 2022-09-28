@@ -89,7 +89,7 @@ class RouteRegistrar
             throw new InvalidArgumentException("Attribute [$key] does not exist.");
         }
 
-        if ('middleware' === $key || 'without_middleware' === $key) {
+        if ('middleware' === $key || 'withoutMiddleware' === $key) {
             $value = Arr::wrap($value);
         }
 
