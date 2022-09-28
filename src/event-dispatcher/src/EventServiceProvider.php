@@ -31,7 +31,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected array $singletons = [
         EventDispatcher::class,
-        ListenerCollection::class,
+        ListenCollection::class,
     ];
 
     /**
@@ -39,7 +39,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected array $aliases = [
         EventDispatcher::class => ['event-dispatcher'],
-        ListenerCollection::class => ['event-dispatcher.listener-collection'],
+        ListenCollection::class => ['event-dispatcher.listen-collection'],
     ];
 
     /**
@@ -62,6 +62,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app['event-dispatcher.listener-collection']->merge($this->app['config']->get('event.listen', []));
+        $this->app[ListenCollection::class] = $this->app[ListenCollection::class]->mergeRecursive($this->app['config']->get('event.listen', []));
     }
 }

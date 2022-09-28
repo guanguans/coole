@@ -10,13 +10,13 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-return [
-    /**
-     * 监听.
-     */
-    'listen' => [
-        // \App\Events\ExampleEvent::class => [
-        //     \App\Listeners\ExampleListener::class,
-        // ],
-    ],
-];
+namespace Coole\EventDispatcher\Tests\stubs;
+
+use Coole\EventDispatcher\ListenerInterface;
+
+class ExampleListenerStub implements ListenerInterface
+{
+    public function handle($exampleEventStub): void
+    {
+    }
+}

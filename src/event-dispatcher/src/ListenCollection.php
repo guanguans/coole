@@ -12,14 +12,14 @@ declare(strict_types=1);
 
 namespace Coole\EventDispatcher;
 
-interface ListenerInterface
+use Illuminate\Support\Collection;
+
+/**
+ * @template TKey of array-key
+ * @template TValue
+ *
+ * @extends \Illuminate\Support\Collection<TKey, TValue>
+ */
+class ListenCollection extends Collection
 {
-    /**
-     * 事件处理.
-     *
-     * @param object $event
-     *
-     * @return mixed|void
-     */
-    public function handle($event);
 }

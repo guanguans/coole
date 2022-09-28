@@ -16,7 +16,6 @@
   <testsuites>
     <testsuite name="Coole Tests">
       <directory suffix="Test.php">./src/*/tests</directory>
-      <exclude>src/event-dispatcher/tests/</exclude>
       <exclude>src/foundation/tests/</exclude>
       <exclude>src/http-kernel/tests/</exclude>
       <exclude>src/logger/tests/</exclude>
@@ -31,7 +30,6 @@
     <exclude>
       <!--<file>xxx.php</file>-->
       <!--<directory>xxx/xxx</directory>-->
-      <directory>src/event-dispatcher/src</directory>
       <directory>src/foundation/src</directory>
       <directory>src/http-kernel/src</directory>
       <directory>src/logger/src</directory>

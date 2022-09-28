@@ -10,16 +10,11 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\EventDispatcher;
+namespace Coole\EventDispatcher\Tests\stubs;
 
-use Illuminate\Support\Collection;
-
-/**
- * @template TKey of array-key
- * @template TValue
- *
- * @extends \Illuminate\Support\Collection<TKey, TValue>
- */
-class ListenerCollection extends Collection
+class ExampleInvokeListenerStub
 {
+    public function __invoke(ExampleEventStub $exampleEventStub): void
+    {
+    }
 }
