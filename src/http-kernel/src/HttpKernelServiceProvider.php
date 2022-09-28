@@ -46,9 +46,9 @@ class HttpKernelServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        ArgumentResolver::class => ['http_kernel.argument_resolver'],
-        ControllerResolver::class => ['http_kernel.controller_resolver'],
-        RequestStack::class => ['http_kernel.request_stack'],
-        HttpKernel::class => ['http_kernel'],
+        ArgumentResolver::class => ['http-kernel.argument-resolver'],
+        ControllerResolver::class => ['http-kernel.controller-resolver'],
+        RequestStack::class => ['http-kernel.request-stack'],
+        HttpKernel::class => ['http-kernel'],
     ];
 }

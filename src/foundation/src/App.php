@@ -156,7 +156,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $commandDiscoverer = new CommandDiscoverer($dir, $namespace);
 
-        $this['console.command_collection']->push(...$commandDiscoverer->getCommands());
+        $this['console.command-collection']->push(...$commandDiscoverer->getCommands());
     }
 
     /**
@@ -172,12 +172,12 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         foreach ($commands as $command) {
             if ($command instanceof Command) {
-                $this['console.command_collection']->add($command);
+                $this['console.command-collection']->add($command);
 
                 continue;
             }
 
-            $this['console.command_collection']->add($this->make($command));
+            $this['console.command-collection']->add($this->make($command));
         }
     }
 
@@ -491,7 +491,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     {
         $parameters = $this[UrlMatcherInterface::class]->matchRequest($request);
 
-        return $this['routing.route_collection']->get($parameters['_route']);
+        return $this['routing.route-collection']->get($parameters['_route']);
     }
 
     /**

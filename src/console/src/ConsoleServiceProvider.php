@@ -31,7 +31,7 @@ class ConsoleServiceProvider extends ServiceProvider
      */
     protected array $aliases = [
         Application::class => ['console', 'console.application'],
-        CommandCollection::class => ['console.command_collection'],
+        CommandCollection::class => ['console.command-collection'],
     ];
 
     /**

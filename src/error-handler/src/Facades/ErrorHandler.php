@@ -31,6 +31,6 @@ class ErrorHandler extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'error_handler';
+        return 'error-handler';
     }
 }

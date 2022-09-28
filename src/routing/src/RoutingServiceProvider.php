@@ -44,10 +44,10 @@ class RoutingServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        RouteCollection::class => ['routing.route_collection'],
-        RequestContext::class => ['routing.request_context'],
+        RouteCollection::class => ['routing.route-collection'],
+        RequestContext::class => ['routing.request-context'],
         Router::class => ['routing.router', 'router'],
-        UrlMatcher::class => ['routing.url_matcher'],
+        UrlMatcher::class => ['routing.url-matcher'],
     ];
 
     /**
@@ -74,7 +74,7 @@ class RoutingServiceProvider extends ServiceProvider
             $this->app->loadRouteFrom($path);
         }
 
-        $this->app['event_dispatcher']->addSubscriber(
+        $this->app['event-dispatcher']->addSubscriber(
             $this->app->make(RouterListener::class, [
                 'matcher' => $this->app[UrlMatcherInterface::class],
             ])

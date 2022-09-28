@@ -100,12 +100,12 @@ class AppServiceProvider extends ServiceProvider
         // 设置第三方全局中间件
         $this->app->setMiddleware($this->app['config']['app.middleware']);
 
-        $this->app['event_dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
-        $this->app['event_dispatcher']->addSubscriber(new StringToResponseListener());
-        $this->app['event_dispatcher']->addSubscriber($this->app->make(ConverterListener::class));
+        $this->app['event-dispatcher']->addSubscriber(new ResponseListener($this->app['config']['app.charset']));
+        $this->app['event-dispatcher']->addSubscriber(new StringToResponseListener());
+        $this->app['event-dispatcher']->addSubscriber($this->app->make(ConverterListener::class));
 
         if ($this->app['config']['app.debug']) {
-            $this->app['event_dispatcher']->addSubscriber($this->app->make(LogListener::class));
+            $this->app['event-dispatcher']->addSubscriber($this->app->make(LogListener::class));
         }
     }
 }

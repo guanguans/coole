@@ -65,7 +65,7 @@ class Application extends SymfonyApplication
         try {
             $this->app->boot();
 
-            $this->addCommands($this->app['console.command_collection']->all());
+            $this->addCommands($this->app['console.command-collection']->all());
 
             return parent::run($input, $output);
         } catch (Throwable $throwable) {

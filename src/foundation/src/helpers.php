@@ -119,7 +119,7 @@ if (! function_exists('event')) {
         $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
 
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
-        $dispatcher = app('event_dispatcher');
+        $dispatcher = app('event-dispatcher');
 
         foreach ($listeners as $listener) {
             if (is_callable($listener)) {

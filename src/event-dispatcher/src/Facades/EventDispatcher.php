@@ -35,6 +35,6 @@ class EventDispatcher extends Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        return 'event_dispatcher';
+        return 'event-dispatcher';
     }
 }

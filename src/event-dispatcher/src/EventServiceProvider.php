@@ -38,8 +38,8 @@ class EventServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        EventDispatcher::class => ['event_dispatcher'],
-        ListenerCollection::class => ['event_dispatcher.listener_collection'],
+        EventDispatcher::class => ['event-dispatcher'],
+        ListenerCollection::class => ['event-dispatcher.listener-collection'],
     ];
 
     /**
@@ -62,6 +62,6 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $this->app['event_dispatcher.listener_collection']->merge($this->app['config']->get('event.listen', []));
+        $this->app['event-dispatcher.listener-collection']->merge($this->app['config']->get('event.listen', []));
     }
 }

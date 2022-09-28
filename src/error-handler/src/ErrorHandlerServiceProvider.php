@@ -38,8 +38,8 @@ class ErrorHandlerServiceProvider extends ServiceProvider
      * {@inheritdoc}
      */
     protected array $aliases = [
-        ErrorHandler::class => ['error_handler'],
-        WhoopsExceptionRenderer::class => ['error_handler.exception_renderer'],
+        ErrorHandler::class => ['error-handler'],
+        WhoopsExceptionRenderer::class => ['error-handler.exception-renderer'],
     ];
 
     /**
