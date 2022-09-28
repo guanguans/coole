@@ -138,6 +138,19 @@ it('will return array for `exceptionContext`.', function (): void {
         ->toBeNull();
 })->group(__DIR__, __FILE__);
 
+it('will return array&empty for `context`.', function (): void {
+    $app = mock(App::class)
+        ->shouldReceive('offsetGet')
+        ->with(Request::class)
+        ->andReturnNull()
+        ->getMock();
+
+    expect(invade(new ErrorHandler($app)))
+        ->context()
+        ->toBeArray()
+        ->toBeEmpty();
+})->group(__DIR__, __FILE__);
+
 it('will render exception response for `render`.', function (): void {
     expect(new ErrorHandler($this->app))
         ->render($request = Request::createFromGlobals(), new HasRenderMethodExceptionStub())

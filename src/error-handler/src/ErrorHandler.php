@@ -283,9 +283,10 @@ class ErrorHandler implements ErrorHandlerInterface
     protected function context(): array
     {
         try {
-            return array_filter([
-                // 'ip' => '127.0.0.1',
-            ]);
+            return [
+                'running_in_console' => $this->app->runningInConsole(),
+                'ip' => $this->app[Request::class]->getClientIp(),
+            ];
         } catch (Throwable) {
             return [];
         }
