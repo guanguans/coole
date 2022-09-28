@@ -205,7 +205,7 @@
         "md-fix": "@md-lint --fix",
         "md-lint": "lint-md --config .lintmdrc ./*.md ./docs/*.md ./docs/*/*.md ./docs/*/*/*.md ./src/*/*.md",
         "pest": "./vendor/bin/pest --cache-result-file=./build//phpunit/.phpunit.result.cache",
-        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage",
+        "pest-coverage": "@pest --coverage-html=./build/phpunit/ --coverage-clover=clover.xml --coverage --min=80",
         "phpmnd": "./vendor/bin/phpmnd src/*/src --exclude=vendor --ignore-numbers=-1,2,7,10,200,302,500,8000 --ignore-funcs=round,sleep --extensions=default_parameter,-return,argument --progress --hint -vv",
         "phpstan": "./vendor/bin/phpstan analyse --memory-limit=2G --ansi -vv",
         "phpstan-baseline": "@phpstan --generate-baseline=phpstan-baseline.neon",
