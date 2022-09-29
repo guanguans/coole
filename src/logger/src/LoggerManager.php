@@ -273,10 +273,10 @@ class LoggerManager extends Manager implements LoggerInterface
      */
     protected function configurationFor(string $name): array
     {
-        $config = $this->container['config']["logger.channels.{$name}"];
+        $config = $this->container['config']["logger.channels.$name"];
 
         if (null === $config) {
-            throw new InvalidArgumentException("Logger [{$name}] is not defined.");
+            throw new InvalidArgumentException("Logger [$name] is not defined.");
         }
 
         return $config;
