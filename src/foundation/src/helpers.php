@@ -114,9 +114,12 @@ if (! function_exists('event')) {
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    function event(object $event, callable|ListenerInterface|EventSubscriberInterface|array $listeners = null, bool $isDispatched = true): void
-    {
-        $listeners = is_object($listeners) ? [$listeners] : (array) $listeners;
+    function event(
+        object $event,
+        ListenerInterface|EventSubscriberInterface|callable|array|string $listeners = null,
+        bool $isDispatched = true
+    ): object {
+        $listeners = (is_object($listeners) || is_callable($listeners)) ? [$listeners] : (array) $listeners;
 
         /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
         $dispatcher = app('event-dispatcher');
@@ -150,10 +153,15 @@ if (! function_exists('event')) {
                 continue;
             }
 
-            throw new RuntimeException(sprintf('The %s is not a callback type.', $event::class));
+            /** @var mixed|object|resource $listener */
+            throw new RuntimeException(sprintf('The %s is not a callback type.', match (gettype($listener)) {
+                'NULL' => 'NUll', 'array' => var_export($listener, true), 'object', 'resource', 'resource (closed)' => $listener::class, default => $listener,
+            }));
         }
 
         $isDispatched and $dispatcher->dispatch($event);
+
+        return $event;
     }
 }
 
@@ -168,69 +176,5 @@ if (! function_exists('call')) {
     function call(callable|string $callback, array $parameters = [], ?string $defaultMethod = null): mixed
     {
         return app()->call($callback, $parameters, $defaultMethod);
-    }
-}
-
-if (! function_exists('class_basename')) {
-    /**
-     * 获取给定对象或者类的 "basename".
-     */
-    function class_basename(string|object $class): string
-    {
-        $class = is_object($class) ? $class::class : $class;
-
-        return basename(str_replace('\\', '/', $class));
-    }
-}
-
-if (! function_exists('retry')) {
-    /**
-     * 以给定的次数重试一个操作.
-     *
-     * @return mixed
-     *
-     * @throws \Exception
-     */
-    function retry(int|array $times, callable $callback, int|Closure $sleepMilliseconds = 0, ?Closure $when = null)
-    {
-        $attempts = 0;
-
-        $backoff = [];
-
-        if (is_array($times)) {
-            $backoff = $times;
-
-            $times = count($times) + 1;
-        }
-
-        beginning:
-        ++$attempts;
-        --$times;
-
-        try {
-            return $callback($attempts);
-        } catch (Exception $exception) {
-            if ($times < 1 || ($when && ! $when($exception))) {
-                throw $exception;
-            }
-
-            $sleepMilliseconds = $backoff[$attempts - 1] ?? $sleepMilliseconds;
-
-            if ($sleepMilliseconds) {
-                usleep(value($sleepMilliseconds, $attempts, $exception) * 1000);
-            }
-
-            goto beginning;
-        }
-    }
-}
-
-if (! function_exists('value')) {
-    /**
-     * 返回给定值的默认值。
-     */
-    function value(mixed $value, mixed ...$args): mixed
-    {
-        return $value instanceof Closure ? $value(...$args) : $value;
     }
 }

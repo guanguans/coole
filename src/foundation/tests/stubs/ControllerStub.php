@@ -10,10 +10,20 @@ declare(strict_types=1);
  * @license  https://github.com/guanguans/coole/blob/main/LICENSE
  */
 
-namespace Coole\Foundation\Tests\Stub;
+namespace Coole\Foundation\Tests\stubs;
 
-class InvalidControllerStub
+use Coole\HttpKernel\Controller;
+
+class ControllerStub extends Controller
 {
+    protected array $middleware = [
+        MiddlewareStub::class,
+    ];
+
+    protected array $excludedMiddleware = [
+        MiddlewareStub::class,
+    ];
+
     public function hello(): void
     {
     }

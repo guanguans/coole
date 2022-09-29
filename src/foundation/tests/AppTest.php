@@ -14,194 +14,97 @@ namespace Coole\Foundation\Tests;
 
 use Coole\Foundation\App;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
-use Coole\Foundation\Tests\Stub\AppStub;
-use Coole\Foundation\Tests\Stub\ControllerStub;
-use Coole\Foundation\Tests\Stub\MiddlewareStub;
-use Coole\Foundation\Tests\Stub\ServiceProviderStub;
-use Illuminate\Support\Collection;
+use Coole\Foundation\ServiceProvider;
+use Coole\HttpKernel\Controller;
+use Coole\HttpKernel\Tests\stubs\ExampleInvokeControllerStub;
+use Coole\Routing\Facades\Router;
+use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class AppTest extends TestCase
-{
-    private App $app;
+beforeEach(function (): void {
+    $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+});
 
-    protected function setUp(): void
-    {
-        $this->app = new App();
-    }
+it('will not return for `register`.', function (): void {
+    expect($this->app)
+        ->register(
+            new class($this->app) extends ServiceProvider {
+                protected array $classAliases = [
+                    ServiceProvider::class => ['ServiceProvider', 'Provider'],
+                ];
+            }
+        )
+        ->toBeNull();
+})->group(__DIR__, __FILE__);
 
-    public function testConstruct(): void
-    {
-        $app = new App($options = [
-            'debug' => true,
-            'charset' => 'UTF-8',
-        ]);
+it('will not return for `boot`.', function (): void {
+    expect($this->app)
+        ->boot()->toBeNull()
+        ->boot()->toBeNull();
+})->group(__DIR__, __FILE__);
 
-        self::assertSame($app['debug'], $options['debug']);
-        self::assertSame($app['charset'], $options['charset']);
-        self::assertSame($app, $app::getInstance());
-    }
+it('will throws UnknownFileOrDirectoryException for `loadConfigFrom`.', function (): void {
+    $this->app->loadConfigFrom('file');
+})->group(__DIR__, __FILE__)->throws(UnknownFileOrDirectoryException::class);
 
-    public function testVersion(): void
-    {
-        self::assertIsString($this->app::version());
-    }
+it('will not return for `loadConfigFrom`.', function (): void {
+    expect($this->app)
+        ->loadConfigFrom(__DIR__.'/../../foundation/config')->toBeNull();
+})->group(__DIR__, __FILE__);
 
-    public function testMergeConfig(): void
-    {
-        // $app = new App();
-        // $app->addConfig('key', $val1 = ['val1']);
-        //
-        // $app->mergeConfig('key', $val2 = ['val2']);
-        //
-        // self::assertInstanceOf(Collection::class, $app['config']['key']);
-        // self::assertSame($app['config']['key']->toArray(), $val2);
-    }
+it('will throws UnknownFileOrDirectoryException for `loadRouteFrom`.', function (): void {
+    $this->app->loadRouteFrom('file');
+})->group(__DIR__, __FILE__)->throws(UnknownFileOrDirectoryException::class);
 
-    public function testAddConfig(): void
-    {
-        // $app = new App();
-        // $app->addConfig('key', $val1 = ['val1']);
-        //
-        // $app->mergeConfig('key', $val2 = ['val2']);
-        //
-        // self::assertInstanceOf(Collection::class, $app['config']['key']);
-        // self::assertSame($app['config']['key']->toArray(), $val1);
-    }
+it('will not return for `loadRouteFrom`.', function (): void {
+    expect($this->app)
+        ->loadRouteFrom(__DIR__.'/stubs')->toBeNull();
+})->group(__DIR__, __FILE__);
 
-    public function testAddOption(): void
-    {
-        // $app = new App();
-        //
-        // $app->setOptions($options = [
-        //     'debug' => true,
-        //     'charset' => 'UTF-8',
-        // ]);
-        //
-        // self::assertSame($app['debug'], $options['debug']);
-        // self::assertSame($app['charset'], $options['charset']);
-    }
+it('will not return for `run`.', function (): void {
+    expect($this->app)
+        ->run()->toBeNull();
+})->group(__DIR__, __FILE__);
 
-    public function testAddMiddleware(): void
-    {
-        $app = new App();
+it('will return bool for `isBooted`.', function (): void {
+    expect($this->app)
+        ->isBooted()->toBeBool();
+})->group(__DIR__, __FILE__);
 
-        $app->setMiddleware(MiddlewareStub::class);
+it('will return `Response` for `handle`.', function (): void {
+    Router::get('/', ExampleInvokeControllerStub::class);
 
-        $middleware = $app->getMiddleware();
+    $m = mock(Request::class);
+    $request = $m->shouldReceive('getPathInfo')
+        ->andSet('headers', new HeaderBag())
+        ->andReturn('/two')
+        ->getMock();
 
-        self::assertSame(end($middleware), MiddlewareStub::class);
-    }
+    expect($this->app)
+        ->handle($request)->toBeInstanceOf(Response::class);
+})->group(__DIR__, __FILE__)->skip(sprintf('%s@handle', __FILE__));
 
-    public function testGetRouteMiddleware(): void
-    {
-        // $app = new App();
-        // $app['router']->get('/', static function (): void {
-        // })->setMiddleware(MiddlewareStub::class);
-        // $routeMiddleware = $app->getRouteMiddleware(Request::createFromGlobals());
-        // self::assertIsArray($routeMiddleware);
-        // self::assertSame(MiddlewareStub::class, end($routeMiddleware));
-    }
+it('will return array for `getShouldExecutedRequestMiddleware`.', function (): void {
+    Router::get('one', ExampleInvokeControllerStub::class);
 
-    public function testGetCurrentRequestShouldExecutedMiddleware(): void
-    {
-        // $app = new App();
-        // $app['router']->get('/', static function (): void {
-        // })->setMiddleware(MiddlewareStub::class);
-        // $allMiddleware = $app->getShouldExecutedRequestMiddleware(Request::createFromGlobals());
-        // self::assertIsArray($allMiddleware);
-    }
+    $m = mock(Request::class);
+    $request = $m->shouldReceive('getPathInfo')
+        ->andReturn('/one')
+        ->getMock();
 
-    public function testGetCurrentController(): void
-    {
-        $app = new App();
-        $app['router']->get('/', [ControllerStub::class, 'hello']);
-        $controller = $app->getController(Request::createFromGlobals());
-        self::assertInstanceOf(ControllerStub::class, $controller);
-    }
+    expect($this->app)
+        ->getShouldExecutedRequestMiddleware($request)->toBeArray();
+})->group(__DIR__, __FILE__);
 
-    public function testGetControllerMiddleware(): void
-    {
-        // $app = new App();
-        // $app['router']->get('/', [ControllerStub::class, 'hello']);
-        // $controlleMiddleware = $app->getControllerMiddleware(Request::createFromGlobals());
-        // self::assertIsArray($controlleMiddleware);
-        // self::assertSame(MiddlewareStub::class, end($controlleMiddleware));
-    }
+it('will return `Controller|null` for `getController`.', function (): void {
+    Router::get('two', ExampleInvokeControllerStub::class);
 
-    public function testGetControllerExcludedMiddleware(): void
-    {
-        // $app = new App();
-        // $app['router']->get('/', [ControllerStub::class, 'hello']);
-        // $controlleMiddleware = $app->getWithoutControllerMiddleware(Request::createFromGlobals());
-        // self::assertIsArray($controlleMiddleware);
-        // self::assertSame(MiddlewareStub::class, end($controlleMiddleware));
-    }
+    $m = mock(Request::class);
+    $request = $m->shouldReceive('getPathInfo')
+        ->andReturn('/two')
+        ->getMock();
 
-    public function testMakeMiddleware(): void
-    {
-        // $middlewares = $this->app->makeMiddleware(MiddlewareStub::class);
-        //
-        // self::assertIsArray($middlewares);
-        //
-        // foreach ($middlewares as $middleware) {
-        //     self::assertIsObject($middleware);
-        // }
-    }
-
-    public function testRegister(): void
-    {
-        // $app = $this->app->register(new ServiceProviderStub());
-        // self::assertNull($app);
-    }
-
-    public function testBoot(): void
-    {
-        // $appStub = new AppStub();
-        //
-        // self::assertFalse($appStub->getBooted());
-        // $appStub->boot();
-        // self::assertTrue($appStub->getBooted());
-        //
-        // $appStub->setBooted(true);
-        //
-        // self::assertNull($appStub->boot());
-    }
-
-    public function testLoadEnv(): void
-    {
-        // $this->markTestSkipped(__METHOD__);
-        // $loadEnv = $this->app->loadEnvsFrom(__DIR__.'/Stub');
-        // self::assertInstanceOf(App::class, $loadEnv);
-    }
-
-    public function testLoadConfig(): void
-    {
-        // $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config');
-        // self::assertInstanceOf(App::class, $loadConfig);
-        //
-        // $loadConfig = $this->app->loadConfigsFrom(__DIR__.'/Stub/config/app.php');
-        // self::assertInstanceOf(App::class, $loadConfig);
-    }
-
-    public function testLoadConfigException(): void
-    {
-        $this->expectException(UnknownFileOrDirectoryException::class);
-        $this->app->loadConfigFrom(__DIR__.'/Stub/conf');
-    }
-
-    public function testLoadRoute(): void
-    {
-        // $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config');
-        // self::assertInstanceOf(App::class, $loadConfig);
-        //
-        // $loadConfig = $this->app->loadRoutesFrom(__DIR__.'/Stub/config/app.php');
-        // self::assertInstanceOf(App::class, $loadConfig);
-    }
-
-    public function testLoadRouteException(): void
-    {
-        $this->expectException(UnknownFileOrDirectoryException::class);
-        $this->app->loadRouteFrom(__DIR__.'/Stub/conf');
-    }
-}
+    expect($this->app)
+        ->getController($request)->toBeInstanceOf(Controller::class);
+})->group(__DIR__, __FILE__)->skip(sprintf('%s@getController', __FILE__));

@@ -60,7 +60,10 @@ class EventDispatcher extends SymfonyEventDispatcher
                 continue;
             }
 
-            throw new RuntimeException(sprintf('The %s is not a callback type.', $event::class));
+            /** @var mixed|object|resource $listener */
+            throw new RuntimeException(sprintf('The %s is not a callback type.', match (gettype($listener)) {
+                'NULL' => 'NUll', 'array' => var_export($listener, true), 'object', 'resource', 'resource (closed)' => $listener::class, default => $listener,
+            }));
         }
 
         return parent::dispatch($event, $eventName);

@@ -16,6 +16,9 @@ use Closure;
 use Coole\Foundation\App;
 use Mockery;
 use Mockery\Expectation;
+use Mockery\ExpectationInterface;
+use Mockery\ExpectsHigherOrderMessage;
+use Mockery\HigherOrderMessage;
 use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use RuntimeException;
@@ -91,7 +94,7 @@ abstract class Facade
     /**
      * Initiate a mock expectation on the facade.
      */
-    public static function shouldReceive(): Expectation
+    public static function shouldReceive(): ExpectationInterface|Expectation|HigherOrderMessage
     {
         $name = static::getFacadeAccessor();
 
@@ -105,7 +108,7 @@ abstract class Facade
     /**
      * Initiate a mock expectation on the facade.
      */
-    public static function expects(): Expectation
+    public static function expects(): ExpectationInterface|Expectation|ExpectsHigherOrderMessage
     {
         $name = static::getFacadeAccessor();
 

@@ -16,7 +16,7 @@
   <testsuites>
     <testsuite name="Coole Tests">
       <directory suffix="Test.php">./src/*/tests</directory>
-      <exclude>src/foundation/tests/</exclude>
+      <!--<exclude>src/foundation/tests/</exclude>-->
     </testsuite>
   </testsuites>
   <coverage processUncoveredFiles="true">
@@ -26,7 +26,6 @@
     <exclude>
       <!--<file>xxx.php</file>-->
       <!--<directory>xxx/xxx</directory>-->
-      <directory>src/foundation/src</directory>
     </exclude>
   </coverage>
   <php>

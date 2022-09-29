@@ -51,6 +51,11 @@ parameters:
 			path: src/error-handler/src/Whoops/WhoopsHandler.php
 
 		-
+			message: "#^Cannot access constant class on object\\|resource\\.$#"
+			count: 1
+			path: src/event-dispatcher/src/EventDispatcher.php
+
+		-
 			message: "#^Only booleans are allowed in \\|\\|, Symfony\\\\Component\\\\HttpFoundation\\\\Request given on the right side\\.$#"
 			count: 1
 			path: src/foundation/src/App.php
@@ -116,27 +121,7 @@ parameters:
 			path: src/foundation/src/Manager.php
 
 		-
-			message: "#^Short ternary operator is not allowed\\. Use null coalesce operator if applicable or consider using long ternary\\.$#"
-			count: 1
-			path: src/foundation/src/MultipleInstanceManager.php
-
-		-
-			message: "#^Variable method call on \\$this\\(Coole\\\\Foundation\\\\MultipleInstanceManager\\)\\.$#"
-			count: 1
-			path: src/foundation/src/MultipleInstanceManager.php
-
-		-
-			message: "#^Variable method call on mixed\\.$#"
-			count: 1
-			path: src/foundation/src/MultipleInstanceManager.php
-
-		-
-			message: "#^Function retry\\(\\) should return mixed but return statement is missing\\.$#"
-			count: 1
-			path: src/foundation/src/helpers.php
-
-		-
-			message: "#^Only booleans are allowed in &&, Closure\\|null given on the left side\\.$#"
+			message: "#^Cannot access constant class on object\\|resource\\.$#"
 			count: 1
 			path: src/foundation/src/helpers.php
 
