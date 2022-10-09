@@ -33,8 +33,7 @@ class StringToResponseListener implements EventSubscriberInterface
         $response = $viewEvent->getControllerResult();
 
         if (! (
-            null === $response
-            || is_array($response)
+            is_array($response)
             || $response instanceof Response
             || (is_object($response) && ! $response instanceof Stringable)
         )) {

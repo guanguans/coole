@@ -13,17 +13,22 @@ declare(strict_types=1);
 namespace Coole\Foundation\Tests;
 
 use Coole\Foundation\App;
+use Coole\Foundation\Config;
 use Coole\Foundation\Exceptions\UnknownFileOrDirectoryException;
 use Coole\Foundation\ServiceProvider;
 use Coole\HttpKernel\Controller;
+use Coole\HttpKernel\Tests\stubs\ExampleControllerStub;
 use Coole\HttpKernel\Tests\stubs\ExampleInvokeControllerStub;
-use Coole\Routing\Facades\Router;
-use Symfony\Component\HttpFoundation\HeaderBag;
+use Coole\Routing\Router;
+
+use function Pest\Faker\faker;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
+    // $this->app[Config::class]->set('app.debug', true);
 });
 
 it('will not return for `register`.', function (): void {
@@ -72,39 +77,54 @@ it('will return bool for `isBooted`.', function (): void {
         ->isBooted()->toBeBool();
 })->group(__DIR__, __FILE__);
 
-it('will return `Response` for `handle`.', function (): void {
-    Router::get('/', ExampleInvokeControllerStub::class);
-
-    $m = mock(Request::class);
-    $request = $m->shouldReceive('getPathInfo')
-        ->andSet('headers', new HeaderBag())
-        ->andReturn('/two')
-        ->getMock();
+it('will return `Response` for `sendRequestThroughPipeline`.', function (): void {
+    $this->app[Router::class]
+        ->get($uri = faker()->uuid(), ExampleInvokeControllerStub::class);
 
     expect($this->app)
-        ->handle($request)->toBeInstanceOf(Response::class);
-})->group(__DIR__, __FILE__)->skip(sprintf('%s@handle', __FILE__));
+        ->sendRequestThroughPipeline(Request::create($uri))
+        ->toBeInstanceOf(Response::class);
+})->group(__DIR__, __FILE__);
 
 it('will return array for `getShouldExecutedRequestMiddleware`.', function (): void {
-    Router::get('one', ExampleInvokeControllerStub::class);
-
-    $m = mock(Request::class);
-    $request = $m->shouldReceive('getPathInfo')
-        ->andReturn('/one')
-        ->getMock();
+    $this->app[Router::class]
+        ->get($uri = faker()->uuid(), ExampleInvokeControllerStub::class);
 
     expect($this->app)
-        ->getShouldExecutedRequestMiddleware($request)->toBeArray();
+        ->getShouldExecutedRequestMiddleware(Request::create($uri))
+        ->toBeArray();
+})->group(__DIR__, __FILE__);
+
+it('will return array for `getControllerMiddleware || getWithoutControllerMiddleware`.', function (): void {
+    $this->app[Router::class]
+        ->get($uri = faker()->uuid(), fn () => 'Closure');
+
+    expect($this->app)
+        ->getControllerMiddleware(Request::create($uri))
+        ->toBeArray()
+        ->getWithoutControllerMiddleware(Request::create($uri))
+        ->toBeArray();
 })->group(__DIR__, __FILE__);
 
 it('will return `Controller|null` for `getController`.', function (): void {
-    Router::get('two', ExampleInvokeControllerStub::class);
-
-    $m = mock(Request::class);
-    $request = $m->shouldReceive('getPathInfo')
-        ->andReturn('/two')
-        ->getMock();
-
+    $this->app[Router::class]
+        ->get($uri = faker()->uuid(), ExampleInvokeControllerStub::class);
     expect($this->app)
-        ->getController($request)->toBeInstanceOf(Controller::class);
-})->group(__DIR__, __FILE__)->skip(sprintf('%s@getController', __FILE__));
+        ->getController(Request::create($uri))
+        ->toBeInstanceOf(Controller::class);
+
+    $this->app[Router::class]
+        ->get($uri = faker()->uuid(), $this->app->make(ExampleInvokeControllerStub::class));
+    expect($this->app)
+        ->getController(Request::create($uri))
+        ->toBeInstanceOf(Controller::class);
+
+    $this->app[Router::class]
+        ->get($uri = faker()->uuid(), [
+            ExampleControllerStub::class,
+            'exampleMethod',
+        ]);
+    expect($this->app)
+        ->getController(Request::create($uri))
+        ->toBeInstanceOf(Controller::class);
+})->group(__DIR__, __FILE__);

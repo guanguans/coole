@@ -24,7 +24,7 @@
       <directory suffix=".php">src/*/src</directory>
     </include>
     <exclude>
-      <!--<file>xxx.php</file>-->
+      <file>src/console/src/Concerns/InteractsWithIO.php</file>
       <!--<directory>xxx/xxx</directory>-->
     </exclude>
   </coverage>
