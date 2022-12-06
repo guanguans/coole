@@ -21,7 +21,6 @@ use Mockery\ExpectsHigherOrderMessage;
 use Mockery\HigherOrderMessage;
 use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
-use RuntimeException;
 
 /**
  * This is modified from https://github.com/laravel/framework.
@@ -46,7 +45,7 @@ abstract class Facade
     /**
      * Run a Closure when the facade has been resolved.
      */
-    public static function resolved(Closure $callback): void
+    public static function resolved(\Closure $callback): void
     {
         $accessor = static::getFacadeAccessor();
 
@@ -67,7 +66,7 @@ abstract class Facade
         if (! static::isMock()) {
             $class = static::getMockableClass();
 
-            $spy = $class ? Mockery::spy($class) : Mockery::spy();
+            $spy = $class ? \Mockery::spy($class) : \Mockery::spy();
 
             static::swap($spy);
 
@@ -137,7 +136,7 @@ abstract class Facade
     {
         $class = static::getMockableClass();
 
-        return $class ? Mockery::mock($class) : Mockery::mock();
+        return $class ? \Mockery::mock($class) : \Mockery::mock();
     }
 
     /**
@@ -190,7 +189,7 @@ abstract class Facade
      */
     protected static function getFacadeAccessor(): string
     {
-        throw new RuntimeException('Facade does not implement getFacadeAccessor method.');
+        throw new \RuntimeException('Facade does not implement getFacadeAccessor method.');
     }
 
     /**
@@ -260,7 +259,7 @@ abstract class Facade
         $instance = static::getFacadeRoot();
 
         if (! $instance) {
-            throw new RuntimeException('A facade root has not been set.');
+            throw new \RuntimeException('A facade root has not been set.');
         }
 
         return $instance->$method(...$args);

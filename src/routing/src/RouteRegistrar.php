@@ -12,10 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\Routing;
 
-use BadMethodCallException;
-use Closure;
 use Illuminate\Support\Arr;
-use InvalidArgumentException;
 
 /**
  * @method \Coole\Routing\Route          get(string $uri, \Closure|array|string|callable $action)
@@ -86,7 +83,7 @@ class RouteRegistrar
     public function attribute(string $key, mixed $value): static
     {
         if (! in_array($key, $this->allowedAttributes, true)) {
-            throw new InvalidArgumentException("Attribute [$key] does not exist.");
+            throw new \InvalidArgumentException("Attribute [$key] does not exist.");
         }
 
         if ('middleware' === $key || 'withoutMiddleware' === $key) {
@@ -111,7 +108,7 @@ class RouteRegistrar
     /**
      * 用给定的动词注册一条新路线.
      */
-    public function match(string|array $methods, string $uri, Closure|array|string|callable $action): Route
+    public function match(string|array $methods, string $uri, \Closure|array|string|callable $action): Route
     {
         return $this->router->match($methods, $uri, $action);
     }
@@ -119,7 +116,7 @@ class RouteRegistrar
     /**
      * 向路由器注册新路由.
      */
-    protected function registerRoute(string $method, string $uri, Closure|array|string|callable $action): Route
+    protected function registerRoute(string $method, string $uri, \Closure|array|string|callable $action): Route
     {
         return $this->router->{$method}($uri, $action);
     }
@@ -148,6 +145,6 @@ class RouteRegistrar
             return $this->attribute($method, array_key_exists(0, $parameters) ? $parameters[0] : true);
         }
 
-        throw new BadMethodCallException(sprintf('Method %s::%s does not exist.', static::class, $method));
+        throw new \BadMethodCallException(sprintf('Method %s::%s does not exist.', static::class, $method));
     }
 }

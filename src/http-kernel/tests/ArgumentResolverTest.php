@@ -16,8 +16,6 @@ use Coole\Foundation\App;
 use Coole\HttpKernel\ArgumentResolver;
 use Coole\HttpKernel\Tests\stubs\ExampleControllerStub;
 use Coole\HttpKernel\Tests\stubs\ExampleInvokeControllerStub;
-use InvalidArgumentException;
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -42,14 +40,14 @@ it('will throws `InvalidArgumentException` for `getArguments`.', function (): vo
     ]))
         ->getArguments(Request::createFromGlobals(), new ExampleInvokeControllerStub($this->app))
         ->toBeArray();
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class);
 
 it('will throws `RuntimeException` for `getArguments::object`.', function (): void {
     expect(new ArgumentResolver())
         ->getArguments(Request::createFromGlobals(), function (int $id): void {
         })
         ->toBeArray();
-})->group(__DIR__, __FILE__)->throws(RuntimeException::class);
+})->group(__DIR__, __FILE__)->throws(\RuntimeException::class);
 
 it('will throws `RuntimeException` for `getArguments::array`.', function (): void {
     expect(new ArgumentResolver())
@@ -58,7 +56,7 @@ it('will throws `RuntimeException` for `getArguments::array`.', function (): voi
             'exampleMethod',
         ])
         ->toBeArray();
-})->group(__DIR__, __FILE__)->throws(RuntimeException::class);
+})->group(__DIR__, __FILE__)->throws(\RuntimeException::class);
 
 it('will return array for `getArguments`.', function (): void {
     expect(new ArgumentResolver())

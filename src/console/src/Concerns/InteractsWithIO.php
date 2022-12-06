@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Console\Concerns;
 
-use Closure;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\Table;
@@ -201,7 +200,7 @@ trait InteractsWithIO
     /**
      * Execute a given callback while advancing a progress bar.
      */
-    public function withProgressBar(iterable|int $totalSteps, Closure $callback): iterable|int|null
+    public function withProgressBar(iterable|int $totalSteps, \Closure $callback): iterable|int|null
     {
         $bar = $this->output->createProgressBar(
             is_iterable($totalSteps) ? count($totalSteps) : $totalSteps

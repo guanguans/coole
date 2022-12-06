@@ -13,8 +13,6 @@ declare(strict_types=1);
 namespace Coole\HttpKernel;
 
 use Coole\HttpKernel\ArgumentResolver\ServiceValueResolver;
-use InvalidArgumentException;
-use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver\RequestAttributeValueResolver;
@@ -69,7 +67,7 @@ final class ArgumentResolver implements ArgumentResolverInterface
                 }
 
                 if (! $atLeastOne) {
-                    throw new InvalidArgumentException(sprintf('"%s::resolve()" must yield at least one value.', get_debug_type($argumentValueResolver)));
+                    throw new \InvalidArgumentException(sprintf('"%s::resolve()" must yield at least one value.', get_debug_type($argumentValueResolver)));
                 }
 
                 // continue to the next controller argument
@@ -84,7 +82,7 @@ final class ArgumentResolver implements ArgumentResolverInterface
                 $representative = $representative::class;
             }
 
-            throw new RuntimeException(sprintf('Controller "%s" requires that you provide a value for the "$%s" argument. Either the argument is nullable and no null value has been provided, no default value has been provided or because there is a non optional argument after this one.', $representative, $argumentMetadatum->getName()));
+            throw new \RuntimeException(sprintf('Controller "%s" requires that you provide a value for the "$%s" argument. Either the argument is nullable and no null value has been provided, no default value has been provided or because there is a non optional argument after this one.', $representative, $argumentMetadatum->getName()));
         }
 
         return $arguments;

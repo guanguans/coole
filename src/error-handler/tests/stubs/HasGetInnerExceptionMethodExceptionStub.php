@@ -12,14 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests\stubs;
 
-use Exception;
-use InvalidArgumentException;
-use Throwable;
-
-class HasGetInnerExceptionMethodExceptionStub extends Exception
+class HasGetInnerExceptionMethodExceptionStub extends \Exception
 {
-    public function getInnerException(): Throwable
+    public function getInnerException(): \Throwable
     {
-        return new InvalidArgumentException();
+        return new \InvalidArgumentException();
     }
 }

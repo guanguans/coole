@@ -18,8 +18,6 @@ use Coole\EventDispatcher\Tests\stubs\ExampleEventStub;
 use Coole\EventDispatcher\Tests\stubs\ExampleInvokeListenerStub;
 use Coole\EventDispatcher\Tests\stubs\ExampleListenerStub;
 use Coole\Foundation\App;
-use RuntimeException;
-use stdClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 beforeEach(function (): void {
@@ -29,14 +27,14 @@ beforeEach(function (): void {
 it('will throws `RuntimeException` for `dispatch`.', function (): void {
     $this->app[ListenCollection::class] = $this->app[ListenCollection::class]->mergeRecursive([
         ExampleEventStub::class => [
-            stdClass::class,
+            \stdClass::class,
         ],
     ]);
 
     expect(new EventDispatcher($this->app))
         ->dispatch(new ExampleEventStub())
         ->toBeInstanceOf(ExampleEventStub::class);
-})->group(__DIR__, __FILE__)->throws(RuntimeException::class);
+})->group(__DIR__, __FILE__)->throws(\RuntimeException::class);
 
 it('will return object for `dispatch`.', function (): void {
     $this->app[ListenCollection::class] = $this->app[ListenCollection::class]->mergeRecursive([

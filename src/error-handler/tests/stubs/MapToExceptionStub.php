@@ -12,11 +12,9 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests\stubs;
 
-use Throwable;
-
 class MapToExceptionStub
 {
-    public function __construct(string $message, int $code, Throwable $throwable)
+    public function __construct(string $message, int $code, \Throwable $throwable)
     {
     }
 }

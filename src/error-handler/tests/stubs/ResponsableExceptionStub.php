@@ -12,11 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests\stubs;
 
-use Exception;
 use Illuminate\Contracts\Support\Responsable;
 use Symfony\Component\HttpFoundation\Response;
 
-class ResponsableExceptionStub extends Exception implements Responsable
+class ResponsableExceptionStub extends \Exception implements Responsable
 {
     public function toResponse($request)
     {

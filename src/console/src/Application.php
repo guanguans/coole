@@ -20,7 +20,6 @@ use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Throwable;
 
 /**
  * ``` php
@@ -68,7 +67,7 @@ class Application extends SymfonyApplication
             $this->addCommands($this->app['console.command-collection']->all());
 
             return parent::run($input, $output);
-        } catch (Throwable $throwable) {
+        } catch (\Throwable $throwable) {
             if (null === $output) {
                 $output = new ConsoleOutput();
             }
@@ -96,7 +95,7 @@ class Application extends SymfonyApplication
     /**
      * 报告异常.
      */
-    protected function reportException(Throwable $throwable): void
+    protected function reportException(\Throwable $throwable): void
     {
         $this->app[ErrorHandlerInterface::class]->report($throwable);
     }
@@ -104,7 +103,7 @@ class Application extends SymfonyApplication
     /**
      * 渲染异常.
      */
-    protected function renderException(OutputInterface $output, Throwable $throwable): void
+    protected function renderException(OutputInterface $output, \Throwable $throwable): void
     {
         $this->app[ErrorHandlerInterface::class]->renderForConsole($output, $throwable);
     }

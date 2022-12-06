@@ -18,8 +18,6 @@ use Coole\EventDispatcher\Tests\stubs\ExampleListenerStub;
 use Coole\Foundation\App;
 use Coole\Foundation\Config;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
-use stdClass;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 beforeEach(function (): void {
@@ -47,8 +45,8 @@ it('will return env value for `cenv`.', function (): void {
 })->group(__DIR__, __FILE__);
 
 it('will throws `RuntimeException` for `event`.', function (): void {
-    event(new ExampleEventStub(), stdClass::class);
-})->group(__DIR__, __FILE__)->throws(RuntimeException::class, 'The stdClass is not a callback type.');
+    event(new ExampleEventStub(), \stdClass::class);
+})->group(__DIR__, __FILE__)->throws(\RuntimeException::class, 'The stdClass is not a callback type.');
 
 it('will return object value for `event`.', function (): void {
     expect(

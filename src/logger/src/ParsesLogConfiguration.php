@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Logger;
 
-use InvalidArgumentException;
 use Monolog\Logger as Monolog;
 
 trait ParsesLogConfiguration
@@ -55,7 +54,7 @@ trait ParsesLogConfiguration
             return $this->levels[$level];
         }
 
-        throw new InvalidArgumentException('Invalid log level.');
+        throw new \InvalidArgumentException('Invalid log level.');
     }
 
     /**
@@ -71,7 +70,7 @@ trait ParsesLogConfiguration
             return $this->levels[$level];
         }
 
-        throw new InvalidArgumentException('Invalid log action level.');
+        throw new \InvalidArgumentException('Invalid log action level.');
     }
 
     /**

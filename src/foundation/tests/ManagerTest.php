@@ -15,8 +15,6 @@ namespace Coole\Foundation\Tests;
 use Coole\Foundation\App;
 use Coole\Foundation\Manager;
 use Illuminate\Container\Container;
-use InvalidArgumentException;
-use stdClass;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
@@ -35,13 +33,13 @@ beforeEach(function (): void {
 
 it('will return stdClass for `createDriver`.', function (): void {
     expect(
-        $this->manager->extend('bar', fn () => new stdClass())
-    )->driver('bar')->toBeInstanceOf(stdClass::class);
+        $this->manager->extend('bar', fn () => new \stdClass())
+    )->driver('bar')->toBeInstanceOf(\stdClass::class);
 })->group(__DIR__, __FILE__);
 
 it('will throws method of default-driver  for `createDriver`.', function (): void {
     expect($this->manager)->driver('bar');
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class);
 
 it('will return array for `getDrivers`.', function (): void {
     expect($this->manager)

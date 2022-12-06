@@ -12,12 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\Routing\Tests;
 
-use BadMethodCallException;
 use Coole\Foundation\App;
 use Coole\Routing\Route;
 use Coole\Routing\Router;
 use Coole\Routing\RouteRegistrar;
-use InvalidArgumentException;
 use Symfony\Component\Routing\RouteCollection;
 
 beforeEach(function (): void {
@@ -27,7 +25,7 @@ beforeEach(function (): void {
 it('will not return for `attribute`.', function (): void {
     expect(new RouteRegistrar(mock(Router::class)->makePartial()))
         ->attribute('attribute', 'value');
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class);
 
 it('will return self for `attribute`.', function (): void {
     expect(new RouteRegistrar(mock(Router::class)->makePartial()))
@@ -74,4 +72,4 @@ it('will throws `BadMethodCallException` for `__call`.', function (): void {
 
     expect(new RouteRegistrar($router))
         ->foo('foo');
-})->group(__DIR__, __FILE__)->throws(BadMethodCallException::class);
+})->group(__DIR__, __FILE__)->throws(\BadMethodCallException::class);

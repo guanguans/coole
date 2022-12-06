@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\ErrorHandler\Whoops;
 
 use Coole\ErrorHandler\ExceptionRendererInterface;
-use Throwable;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Run as Whoops;
 
@@ -25,7 +24,7 @@ class WhoopsExceptionRenderer implements ExceptionRendererInterface
     /**
      * Renders the given exception as HTML.
      */
-    public function render(Throwable $throwable): string
+    public function render(\Throwable $throwable): string
     {
         return $this->whoops()->handleException($throwable);
     }

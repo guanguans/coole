@@ -25,7 +25,6 @@ use Mockery\ExpectsHigherOrderMessage;
 use Mockery\LegacyMockInterface;
 use Mockery\MockInterface;
 use Psr\Log\LoggerInterface;
-use RuntimeException;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../../foundation/config/app.php');
@@ -86,7 +85,7 @@ it('will return null for `getMockableClass`.', function (): void {
 
 it('will throws `RuntimeException` for `getFacadeAccessor`.', function (): void {
     Facade::foo();
-})->group(__DIR__, __FILE__)->throws(RuntimeException::class);
+})->group(__DIR__, __FILE__)->throws(\RuntimeException::class);
 
 it('will return `Instance` for `resolveFacadeInstance`.', function (): void {
     expect(
@@ -126,4 +125,4 @@ it('will throws RuntimeException for `__callStatic`.', function (): void {
             return 'logger';
         }
     })::foo();
-})->group(__DIR__, __FILE__)->throws(RuntimeException::class, 'A facade root has not been set.');
+})->group(__DIR__, __FILE__)->throws(\RuntimeException::class, 'A facade root has not been set.');

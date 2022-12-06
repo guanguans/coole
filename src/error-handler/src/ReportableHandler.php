@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
-use Closure;
 use Illuminate\Support\Traits\ReflectsClosures;
-use Throwable;
 
 /**
  * This is modified from https://github.com/laravel/framework.
@@ -26,7 +24,7 @@ class ReportableHandler
     /**
      * The underlying callback.
      */
-    protected Closure $callback;
+    protected \Closure $callback;
 
     /**
      * Indicates if reporting should stop after invoking this handler.
@@ -36,7 +34,7 @@ class ReportableHandler
     /**
      * Create a new reportable handler instance.
      */
-    public function __construct(Closure $callback)
+    public function __construct(\Closure $callback)
     {
         $this->callback = $callback;
     }
@@ -44,7 +42,7 @@ class ReportableHandler
     /**
      * Invoke the handler.
      */
-    public function __invoke(Throwable $throwable): bool
+    public function __invoke(\Throwable $throwable): bool
     {
         $result = call_user_func($this->callback, $throwable);
 
@@ -58,7 +56,7 @@ class ReportableHandler
     /**
      * Determine if the callback handles the given exception.
      */
-    public function handles(Throwable $throwable): bool
+    public function handles(\Throwable $throwable): bool
     {
         foreach ($this->firstClosureParameterTypes($this->callback) as $type) {
             if (is_a($throwable, $type)) {

@@ -14,7 +14,6 @@ namespace Coole\Console\Tests;
 
 use Coole\Console\Application;
 use Coole\Foundation\App;
-use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\NullOutput;
 
@@ -55,7 +54,7 @@ it('will not return for `reportException`.', function (): void {
     $application->setAutoExit(false);
 
     expect(invade($application))
-        ->reportException(new Exception())
+        ->reportException(new \Exception())
         ->toBeNull();
 })->group(__DIR__, __FILE__);
 
@@ -64,6 +63,6 @@ it('will not return for `renderException`.', function (): void {
     $application->setAutoExit(false);
 
     expect(invade($application))
-        ->renderException(new NullOutput(), new Exception())
+        ->renderException(new NullOutput(), new \Exception())
         ->toBeNull();
 })->group(__DIR__, __FILE__);

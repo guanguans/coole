@@ -12,13 +12,12 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Middlewares;
 
-use Closure;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckResponseForModifications
 {
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, \Closure $next): Response
     {
         $response = $next($request);
         if ($response instanceof Response) {

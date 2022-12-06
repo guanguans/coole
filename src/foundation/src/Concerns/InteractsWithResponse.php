@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Concerns;
 
-use SplFileInfo;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -56,7 +55,7 @@ trait InteractsWithResponse
     /**
      * 返回二进制文件响应.
      */
-    public function sendFile(SplFileInfo|string $file, int $status = 200, array $headers = [], string $contentDisposition = null): BinaryFileResponse
+    public function sendFile(\SplFileInfo|string $file, int $status = 200, array $headers = [], string $contentDisposition = null): BinaryFileResponse
     {
         return new BinaryFileResponse($file, $status, $headers, true, $contentDisposition);
     }

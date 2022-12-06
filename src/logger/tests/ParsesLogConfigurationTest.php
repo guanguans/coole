@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\Logger\Tests;
 
 use Coole\Logger\ParsesLogConfiguration;
-use InvalidArgumentException;
 
 beforeEach(function (): void {
     $this->parsesLogConfiguration = new class() {
@@ -30,10 +29,10 @@ it('will throws `InvalidArgumentException` for `level`.', function (): void {
     expect(invade($this->parsesLogConfiguration))->level([
         'level' => 'foo',
     ]);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'Invalid log level.');
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class, 'Invalid log level.');
 
 it('will throws `InvalidArgumentException` for `actionLevel`.', function (): void {
     expect(invade($this->parsesLogConfiguration))->actionLevel([
         'action_level' => 'foo',
     ]);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'Invalid log action level.');
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class, 'Invalid log action level.');

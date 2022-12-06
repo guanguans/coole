@@ -14,7 +14,6 @@ namespace Coole\Console\Tests\Commands;
 
 use Coole\Console\Commands\ServeCommand;
 use Coole\Foundation\App;
-use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
@@ -49,7 +48,7 @@ it('will throws `InvalidArgumentException` with `Please set option of docroot.` 
 
     expect($serveCommand)
         ->execute($input, $output);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'Please set option of docroot.');
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class, 'Please set option of docroot.');
 
 it('will throws `InvalidArgumentException` with `Docroot directory not exist.` for `execute`.', function (): void {
     $input = mock(InputInterface::class)
@@ -63,7 +62,7 @@ it('will throws `InvalidArgumentException` with `Docroot directory not exist.` f
 
     expect($serveCommand)
         ->execute($input, $output);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'Docroot directory not exist.');
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class, 'Docroot directory not exist.');
 
 it('will return int for `execute`.', function (): void {
     $m = mock(InputInterface::class);

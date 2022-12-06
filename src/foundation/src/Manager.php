@@ -97,7 +97,7 @@ abstract class Manager
             return $this->$method();
         }
 
-        throw new InvalidArgumentException(sprintf('Driver [%s] not supported.', $driver));
+        throw new \InvalidArgumentException(sprintf('Driver [%s] not supported.', $driver));
     }
 
     /**
@@ -113,7 +113,7 @@ abstract class Manager
      *
      * @return $this
      */
-    public function extend(string $driver, Closure $callback): static
+    public function extend(string $driver, \Closure $callback): static
     {
         $this->customCreators[$driver] = $callback;
 

@@ -13,43 +13,41 @@ declare(strict_types=1);
 namespace Coole\ErrorHandler\Tests;
 
 use Coole\ErrorHandler\ReportableHandler;
-use Exception;
-use Throwable;
 
 it('will return bool for `__invoke`.', function (): void {
     expect(
-        new ReportableHandler(static function (Throwable $throwable): void {
+        new ReportableHandler(static function (\Throwable $throwable): void {
         })
     )
-        ->__invoke(mock(Exception::class)->makePartial())
+        ->__invoke(mock(\Exception::class)->makePartial())
         ->toBeBool();
 
     expect(
-        new ReportableHandler(static fn (Throwable $throwable) => false)
+        new ReportableHandler(static fn (\Throwable $throwable) => false)
     )
-        ->__invoke(mock(Exception::class)->makePartial())
+        ->__invoke(mock(\Exception::class)->makePartial())
         ->toBeBool();
 })->group(__DIR__, __FILE__);
 
 it('will return bool for `handles`.', function (): void {
     expect(
-        new ReportableHandler(static function (Throwable $throwable): void {
+        new ReportableHandler(static function (\Throwable $throwable): void {
         })
     )
-        ->handles(mock(Exception::class)->makePartial())
+        ->handles(mock(\Exception::class)->makePartial())
         ->toBeBool();
 
     expect(
         new ReportableHandler(static function (\stdClass $stdClass): void {
         })
     )
-        ->handles(mock(Exception::class)->makePartial())
+        ->handles(mock(\Exception::class)->makePartial())
         ->toBeBool();
 })->group(__DIR__, __FILE__);
 
 it('will return self for `stop`.', function (): void {
     expect(
-        new ReportableHandler(static function (Throwable $throwable): void {
+        new ReportableHandler(static function (\Throwable $throwable): void {
         })
     )
         ->stop()

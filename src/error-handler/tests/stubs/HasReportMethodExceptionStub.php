@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests\stubs;
 
-use Exception;
-
-class HasReportMethodExceptionStub extends Exception
+class HasReportMethodExceptionStub extends \Exception
 {
     public function report(): void
     {

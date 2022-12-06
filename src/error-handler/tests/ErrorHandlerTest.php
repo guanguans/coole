@@ -22,14 +22,12 @@ use Coole\ErrorHandler\Tests\stubs\HasReportMethodExceptionStub;
 use Coole\ErrorHandler\Tests\stubs\MapToExceptionStub;
 use Coole\ErrorHandler\Tests\stubs\ResponsableExceptionStub;
 use Coole\Foundation\App;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\HttpFoundation\HeaderBag;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');
@@ -39,13 +37,13 @@ it('will return `ReportableHandler` for `reportable`.', function (): void {
     expect(new ErrorHandler($this->app))
         ->reportable(
             new class() {
-                public function __invoke(Throwable $throwable): void
+                public function __invoke(\Throwable $throwable): void
                 {
                 }
             }
         )
         ->toBeInstanceOf(ReportableHandler::class)
-        ->reportable(function (Throwable $throwable): void {
+        ->reportable(function (\Throwable $throwable): void {
         })
         ->toBeInstanceOf(ReportableHandler::class);
 })->group(__DIR__, __FILE__);
@@ -54,13 +52,13 @@ it('will return self for `renderable`.', function (): void {
     expect(new ErrorHandler($this->app))
         ->renderable(
             new class() {
-                public function __invoke(Throwable $throwable): void
+                public function __invoke(\Throwable $throwable): void
                 {
                 }
             }
         )
         ->toBeInstanceOf(ErrorHandler::class)
-        ->renderable(function (Throwable $throwable): void {
+        ->renderable(function (\Throwable $throwable): void {
         })
         ->toBeInstanceOf(ErrorHandler::class);
 })->group(__DIR__, __FILE__);
@@ -68,29 +66,29 @@ it('will return self for `renderable`.', function (): void {
 it('will throws `InvalidArgumentException` for `map`.', function (): void {
     expect(new ErrorHandler($this->app))
         ->map(
-            function (Throwable $throwable): void {
+            function (\Throwable $throwable): void {
             },
             MapToExceptionStub::class
         )
         ->toBeInstanceOf(ErrorHandler::class);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class);
 
 it('will return self for `map`.', function (): void {
     expect(new ErrorHandler($this->app))
-        ->map(function (Throwable $throwable): void {
+        ->map(function (\Throwable $throwable): void {
         })
         ->toBeInstanceOf(ErrorHandler::class);
 })->group(__DIR__, __FILE__);
 
 it('will return self for `ignore`.', function (): void {
     expect(new ErrorHandler($this->app))
-        ->ignore(InvalidArgumentException::class)
+        ->ignore(\InvalidArgumentException::class)
         ->toBeInstanceOf(ErrorHandler::class);
 })->group(__DIR__, __FILE__);
 
 it('will return self for `level`.', function (): void {
     expect(new ErrorHandler($this->app))
-        ->level(InvalidArgumentException::class, LogLevel::NOTICE)
+        ->level(\InvalidArgumentException::class, LogLevel::NOTICE)
         ->toBeInstanceOf(ErrorHandler::class);
 })->group(__DIR__, __FILE__);
 
@@ -100,21 +98,21 @@ it('will throws reporting exception for `report`.', function (): void {
     $app->offsetUnset(LoggerInterface::class);
 
     expect(new ErrorHandler($app))
-        ->report(new InvalidArgumentException())
+        ->report(new \InvalidArgumentException())
         ->toBeNull();
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class);
 
 it('will report exception for `report`.', function (): void {
     expect(new ErrorHandler($this->app))
-        ->ignore(InvalidArgumentException::class)
-        ->report(new InvalidArgumentException())
+        ->ignore(\InvalidArgumentException::class)
+        ->report(new \InvalidArgumentException())
         ->toBeNull();
 
     $errorHandler = new ErrorHandler($this->app);
-    $errorHandler->map(fn (Throwable $throwable): Throwable => $throwable);
-    $errorHandler->reportable(fn (InvalidArgumentException $invalidArgumentException) => false);
+    $errorHandler->map(fn (\Throwable $throwable): \Throwable => $throwable);
+    $errorHandler->reportable(fn (\InvalidArgumentException $invalidArgumentException) => false);
     expect($errorHandler)
-        ->report(new InvalidArgumentException())
+        ->report(new \InvalidArgumentException())
         ->toBeNull();
 
     expect(new ErrorHandler($this->app))
@@ -162,10 +160,10 @@ it('will render exception response for `render`.', function (): void {
 
     $this->app['config']['app.debug'] = true;
     $errorHandler = new ErrorHandler($this->app);
-    $errorHandler->renderable(fn (InvalidArgumentException $throwable, Request $request) => new Response());
+    $errorHandler->renderable(fn (\InvalidArgumentException $throwable, Request $request) => new Response());
 
     expect($errorHandler)
-        ->render($request, new InvalidArgumentException())
+        ->render($request, new \InvalidArgumentException())
         ->toBeInstanceOf(Response::class);
 })->group(__DIR__, __FILE__);
 
@@ -181,7 +179,7 @@ it('will return `Response` for `renderExceptionResponse`.', function (): void {
 
     $this->app['config']['app.debug'] = true;
     expect(invade(new ErrorHandler($this->app)))
-        ->renderExceptionResponse($request, new InvalidArgumentException())
+        ->renderExceptionResponse($request, new \InvalidArgumentException())
         ->toBeInstanceOf(JsonResponse::class);
 })->group(__DIR__, __FILE__);
 
@@ -189,7 +187,7 @@ it('will return `Response` for `prepareResponse`.', function (): void {
     $this->app['config']['app.debug'] = true;
 
     expect(invade(new ErrorHandler($this->app)))
-        ->prepareResponse(Request::createFromGlobals(), new InvalidArgumentException())
+        ->prepareResponse(Request::createFromGlobals(), new \InvalidArgumentException())
         ->toBeInstanceOf(Response::class);
 })->group(__DIR__, __FILE__);
 
@@ -198,6 +196,6 @@ it('will return `Response` for `renderExceptionContent`.', function (): void {
     $this->app->bind(ExceptionRendererInterface::class, 'ExceptionRendererInterface');
 
     expect(invade(new ErrorHandler($this->app)))
-        ->renderExceptionContent(new InvalidArgumentException())
+        ->renderExceptionContent(new \InvalidArgumentException())
         ->toBeString();
 })->group(__DIR__, __FILE__);

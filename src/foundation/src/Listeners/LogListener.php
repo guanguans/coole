@@ -23,7 +23,6 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Throwable;
 
 /**
  * Logs request, response, and exceptions.
@@ -40,7 +39,7 @@ class LogListener implements EventSubscriberInterface
     public function __construct(protected LoggerInterface $logger, callable $exceptionLogFilter = null)
     {
         if (null === $exceptionLogFilter) {
-            $exceptionLogFilter = static function (Throwable $throwable) {
+            $exceptionLogFilter = static function (\Throwable $throwable) {
                 if ($throwable instanceof HttpExceptionInterface && $throwable->getStatusCode() < 500) {
                     return LogLevel::ERROR;
                 }
@@ -109,7 +108,7 @@ class LogListener implements EventSubscriberInterface
     /**
      * Logs an exception.
      */
-    protected function logException(Throwable $throwable): void
+    protected function logException(\Throwable $throwable): void
     {
         $this->logger->log(
             call_user_func($this->exceptionLogFilter, $throwable),

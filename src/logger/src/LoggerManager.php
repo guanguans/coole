@@ -14,7 +14,6 @@ namespace Coole\Logger;
 
 use Coole\Foundation\Manager;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\ErrorLogHandler;
@@ -28,7 +27,6 @@ use Monolog\Handler\SyslogHandler;
 use Monolog\Handler\WhatFailureGroupHandler;
 use Monolog\Logger as Monolog;
 use Psr\Log\LoggerInterface;
-use Stringable;
 
 class LoggerManager extends Manager implements LoggerInterface
 {
@@ -188,7 +186,7 @@ class LoggerManager extends Manager implements LoggerInterface
     protected function createMonologDriver(array $config): Monolog
     {
         if (! is_a($config['handler'], HandlerInterface::class, true)) {
-            throw new InvalidArgumentException($config['handler'].' must be an instance of '.HandlerInterface::class);
+            throw new \InvalidArgumentException($config['handler'].' must be an instance of '.HandlerInterface::class);
         }
 
         $with = array_merge(
@@ -263,7 +261,7 @@ class LoggerManager extends Manager implements LoggerInterface
             return $this->$method($config);
         }
 
-        throw new InvalidArgumentException(sprintf('Driver [%s] not supported.', $driver));
+        throw new \InvalidArgumentException(sprintf('Driver [%s] not supported.', $driver));
     }
 
     /**
@@ -276,7 +274,7 @@ class LoggerManager extends Manager implements LoggerInterface
         $config = $this->container['config']["logger.channels.$name"];
 
         if (null === $config) {
-            throw new InvalidArgumentException("Logger [$name] is not defined.");
+            throw new \InvalidArgumentException("Logger [$name] is not defined.");
         }
 
         return $config;
@@ -333,7 +331,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function emergency(Stringable|string $message, array $context = []): void
+    public function emergency(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->emergency($message, $context);
     }
@@ -341,7 +339,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function alert(Stringable|string $message, array $context = []): void
+    public function alert(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->alert($message, $context);
     }
@@ -349,7 +347,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function critical(Stringable|string $message, array $context = []): void
+    public function critical(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->critical($message, $context);
     }
@@ -357,7 +355,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function error(Stringable|string $message, array $context = []): void
+    public function error(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->error($message, $context);
     }
@@ -365,7 +363,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function warning(Stringable|string $message, array $context = []): void
+    public function warning(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->warning($message, $context);
     }
@@ -373,7 +371,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function notice(Stringable|string $message, array $context = []): void
+    public function notice(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->notice($message, $context);
     }
@@ -381,7 +379,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function info(Stringable|string $message, array $context = []): void
+    public function info(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->info($message, $context);
     }
@@ -389,7 +387,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function debug(Stringable|string $message, array $context = []): void
+    public function debug(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->debug($message, $context);
     }
@@ -397,7 +395,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * {@inheritdoc}
      */
-    public function log($level, Stringable|string $message, array $context = []): void
+    public function log($level, \Stringable|string $message, array $context = []): void
     {
         $this->driver()->log($level, $message, $context);
     }

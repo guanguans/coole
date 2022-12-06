@@ -14,7 +14,6 @@ namespace Coole\Logger\Tests;
 
 use Coole\Foundation\App;
 use Coole\Logger\LoggerManager;
-use InvalidArgumentException;
 use Monolog\Formatter\FluentdFormatter;
 use Monolog\Logger;
 
@@ -79,7 +78,7 @@ it('will return `Monolog` for `createMonologDriver`.', function (): void {
     $this->app['config']['logger.channels.null.handler'] = 'foo';
     expect(new LoggerManager($this->app))
         ->channel('null')->toBeInstanceOf(Logger::class);
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class);
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class);
 
 it('will return `HandlerInterface` for `prepareHandler`.', function (): void {
     $this->app['config']['logger.channels.single.action_level'] = 'warning';
@@ -91,11 +90,11 @@ it('will return `HandlerInterface` for `prepareHandler`.', function (): void {
 it('will throws `InvalidArgumentException` for `createDriver`.', function (): void {
     $this->app['config']['logger.channels.foo'] = [];
     expect(new LoggerManager($this->app))->channel('foo');
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'Driver [foo] not supported.');
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class, 'Driver [foo] not supported.');
 
 it('will throws `InvalidArgumentException` for `configurationFor`.', function (): void {
     expect(new LoggerManager($this->app))->channel('foo');
-})->group(__DIR__, __FILE__)->throws(InvalidArgumentException::class, 'Logger [foo] is not defined.');
+})->group(__DIR__, __FILE__)->throws(\InvalidArgumentException::class, 'Logger [foo] is not defined.');
 
 it('will return `NullLogger` by callCustomCreator for `createDriver`.', function (): void {
     $loggerManager = new LoggerManager($this->app);

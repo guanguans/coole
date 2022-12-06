@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler;
 
-use Closure;
 use Coole\Foundation\App;
 use Exception;
 use Illuminate\Contracts\Support\Responsable;
@@ -23,7 +22,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Reflector;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\ReflectsClosures;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -122,8 +120,8 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     public function reportable(callable $reportUsing): ReportableHandler
     {
-        if (! $reportUsing instanceof Closure) {
-            $reportUsing = Closure::fromCallable($reportUsing);
+        if (! $reportUsing instanceof \Closure) {
+            $reportUsing = \Closure::fromCallable($reportUsing);
         }
 
         return tap(new ReportableHandler($reportUsing), function ($callback): void {
@@ -138,8 +136,8 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     public function renderable(callable $renderUsing): static
     {
-        if (! $renderUsing instanceof Closure) {
-            $renderUsing = Closure::fromCallable($renderUsing);
+        if (! $renderUsing instanceof \Closure) {
+            $renderUsing = \Closure::fromCallable($renderUsing);
         }
 
         $this->renderCallbacks[] = $renderUsing;
@@ -154,7 +152,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function map(Closure|string $from, Closure|string $to = null): static
+    public function map(\Closure|string $from, \Closure|string $to = null): static
     {
         if (is_string($to)) {
             $to = static fn ($exception) => new $to('', 0, $exception);
@@ -164,8 +162,8 @@ class ErrorHandler implements ErrorHandlerInterface
             $from = $this->firstClosureParameterType($to = $from);
         }
 
-        if (! is_string($from) || ! $to instanceof Closure) {
-            throw new InvalidArgumentException('Invalid exception mapping.');
+        if (! is_string($from) || ! $to instanceof \Closure) {
+            throw new \InvalidArgumentException('Invalid exception mapping.');
         }
 
         $this->exceptionMap[$from] = $to;
@@ -205,7 +203,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \Throwable
      */
-    public function report(Throwable $throwable): void
+    public function report(\Throwable $throwable): void
     {
         $throwable = $this->mapException($throwable);
 
@@ -246,7 +244,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Determine if the exception should be reported.
      */
-    public function shouldReport(Throwable $throwable): bool
+    public function shouldReport(\Throwable $throwable): bool
     {
         return ! $this->shouldntReport($throwable);
     }
@@ -254,7 +252,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Determine if the exception is in the "do not report" list.
      */
-    protected function shouldntReport(Throwable $throwable): bool
+    protected function shouldntReport(\Throwable $throwable): bool
     {
         $dontReport = array_merge($this->dontReport, $this->internalDontReport);
 
@@ -266,7 +264,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return mixed[]
      */
-    protected function exceptionContext(Throwable $throwable): array
+    protected function exceptionContext(\Throwable $throwable): array
     {
         if (method_exists($throwable, 'context')) {
             return $throwable->context();
@@ -297,7 +295,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \Throwable
      */
-    public function render(Request $request, Throwable $throwable): Response
+    public function render(Request $request, \Throwable $throwable): Response
     {
         if (method_exists($throwable, 'render') && $response = $throwable->render($request)) {
             return $response;
@@ -321,7 +319,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Prepare exception for rendering.
      */
-    protected function prepareException(Throwable $throwable): Throwable
+    protected function prepareException(\Throwable $throwable): \Throwable
     {
         return match (true) {
             $throwable instanceof ModelNotFoundException => new NotFoundHttpException($throwable->getMessage(), $throwable),
@@ -334,10 +332,10 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Map the exception using a registered mapper if possible.
      */
-    protected function mapException(Throwable $throwable): Throwable
+    protected function mapException(\Throwable $throwable): \Throwable
     {
         if (method_exists($throwable, 'getInnerException') &&
-            ($inner = $throwable->getInnerException()) instanceof Throwable) {
+            ($inner = $throwable->getInnerException()) instanceof \Throwable) {
             return $inner;
         }
 
@@ -357,7 +355,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \ReflectionException
      */
-    protected function renderViaCallbacks(Request $request, Throwable $throwable)
+    protected function renderViaCallbacks(Request $request, \Throwable $throwable)
     {
         foreach ($this->renderCallbacks as $renderCallback) {
             foreach ($this->firstClosureParameterTypes($renderCallback) as $type) {
@@ -375,7 +373,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Render a default exception response if any.
      */
-    protected function renderExceptionResponse(Request $request, Throwable $throwable): JsonResponse|Response
+    protected function renderExceptionResponse(Request $request, \Throwable $throwable): JsonResponse|Response
     {
         return $this->shouldReturnJson($request, $throwable)
                     ? $this->prepareJsonResponse($request, $throwable)
@@ -385,7 +383,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Determine if the exception handler response should be JSON.
      */
-    protected function shouldReturnJson(Request $request, Throwable $throwable): bool
+    protected function shouldReturnJson(Request $request, \Throwable $throwable): bool
     {
         $acceptable = $request->getAcceptableContentTypes();
 
@@ -405,7 +403,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Prepare a response for the given exception.
      */
-    protected function prepareResponse(Request $request, Throwable $throwable): Response
+    protected function prepareResponse(Request $request, \Throwable $throwable): Response
     {
         if (! $this->isHttpException($throwable) && config('app.debug')) {
             return $this->convertExceptionToResponse($throwable);
@@ -422,7 +420,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Create a Symfony response for the given exception.
      */
-    protected function convertExceptionToResponse(Throwable $throwable): Response
+    protected function convertExceptionToResponse(\Throwable $throwable): Response
     {
         /** @var \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $throwable */
         return new Response(
@@ -435,14 +433,14 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Get the response content for the given exception.
      */
-    protected function renderExceptionContent(Throwable $e): string
+    protected function renderExceptionContent(\Throwable $e): string
     {
         try {
             return config('app.debug')
                 && app()->has(ExceptionRendererInterface::class)
                 ? $this->renderExceptionWithCustomRenderer($e)
                 : $this->renderExceptionWithSymfony($e, config('app.debug'));
-        } catch (Throwable $throwable) {
+        } catch (\Throwable $throwable) {
             return $this->renderExceptionWithSymfony($throwable, config('app.debug'));
         }
     }
@@ -450,7 +448,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Render an exception to a string using the registered `ExceptionRenderer`.
      */
-    protected function renderExceptionWithCustomRenderer(Throwable $throwable): string
+    protected function renderExceptionWithCustomRenderer(\Throwable $throwable): string
     {
         return app(ExceptionRendererInterface::class)->render($throwable);
     }
@@ -458,7 +456,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Render an exception to a string using Symfony.
      */
-    protected function renderExceptionWithSymfony(Throwable $throwable, bool $debug): string
+    protected function renderExceptionWithSymfony(\Throwable $throwable, bool $debug): string
     {
         $htmlErrorRenderer = new HtmlErrorRenderer($debug);
 
@@ -476,7 +474,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Prepare a JSON response for the given exception.
      */
-    protected function prepareJsonResponse(Request $request, Throwable $throwable): JsonResponse
+    protected function prepareJsonResponse(Request $request, \Throwable $throwable): JsonResponse
     {
         /** @var \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $throwable */
         $jsonResponse = new JsonResponse(
@@ -493,7 +491,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @return array<string|class-string<\exception>, mixed>
      */
-    protected function convertExceptionToArray(Throwable $throwable): array
+    protected function convertExceptionToArray(\Throwable $throwable): array
     {
         return config('app.debug') ? [
             'message' => $throwable->getMessage(),
@@ -511,7 +509,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @internal this method is not meant to be used or overwritten outside the framework
      */
-    public function renderForConsole(OutputInterface $output, Throwable $throwable): void
+    public function renderForConsole(OutputInterface $output, \Throwable $throwable): void
     {
         $this->app['console']->renderThrowable($throwable, $output);
     }
@@ -519,7 +517,7 @@ class ErrorHandler implements ErrorHandlerInterface
     /**
      * Determine if the given exception is an HTTP exception.
      */
-    protected function isHttpException(Throwable $throwable): bool
+    protected function isHttpException(\Throwable $throwable): bool
     {
         return $throwable instanceof HttpExceptionInterface;
     }

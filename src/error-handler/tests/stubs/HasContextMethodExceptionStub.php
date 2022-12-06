@@ -12,9 +12,7 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests\stubs;
 
-use Exception;
-
-class HasContextMethodExceptionStub extends Exception
+class HasContextMethodExceptionStub extends \Exception
 {
     public function context(): array
     {

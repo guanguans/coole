@@ -12,12 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Events;
 
-use Throwable;
-
 class ExceptionEvent
 {
     public function __construct(
-        public Throwable $throwable
+        public \Throwable $throwable
     ) {
     }
 }

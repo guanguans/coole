@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel\Tests;
 
-use Closure;
 use Pest\Expectation;
 
 uses(TestCase::class)
@@ -20,7 +19,7 @@ uses(TestCase::class)
     })
     ->in(__DIR__);
 
-expect()->extend('assert', function (Closure $assertions): Expectation {
+expect()->extend('assert', function (\Closure $assertions): Expectation {
     $assertions($this->value);
 
     return $this;

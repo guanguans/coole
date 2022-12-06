@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation;
 
-use Closure;
 use Coole\Console\CommandDiscoverer;
 use Coole\ErrorHandler\ErrorHandlerInterface;
 use Coole\Foundation\Concerns\InteractsWithController;
@@ -29,7 +28,6 @@ use Illuminate\Support\Traits\Macroable;
 use Illuminate\Support\Traits\Tappable;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
-use SplFileInfo;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,7 +35,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
-use Throwable;
 
 class App extends Container implements HttpKernelInterface, TerminableInterface
 {
@@ -216,7 +213,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
         $configFiles = is_dir($path)
             ? Finder::create()->depth(0)->files()->in($path)->name('*.php')
-            : [new SplFileInfo($path)];
+            : [new \SplFileInfo($path)];
 
         foreach ($configFiles as $configFile) {
             $this->mergeConfigFrom((string) $configFile);
@@ -272,7 +269,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
 
             // 通过中间件将请求转化为响应
             $response = $this->sendRequestThroughPipeline($request);
-        } catch (Throwable $throwable) {
+        } catch (\Throwable $throwable) {
             // 触发异常事件
             $this[EventDispatcherInterface::class]->dispatch(
                 new ExceptionEvent($throwable)
@@ -300,7 +297,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 报告异常.
      */
-    protected function reportException(Throwable $throwable): void
+    protected function reportException(\Throwable $throwable): void
     {
         $this[ErrorHandlerInterface::class]->report($throwable);
     }
@@ -308,7 +305,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 渲染异常.
      */
-    protected function renderException(Request $request, Throwable $throwable): Response
+    protected function renderException(Request $request, \Throwable $throwable): Response
     {
         return $this[ErrorHandlerInterface::class]->render($request, $throwable);
     }
@@ -472,7 +469,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
         }
 
         // __invoke object callback
-        if (is_object($parameters['_controller']) && ! $parameters['_controller'] instanceof Closure) {
+        if (is_object($parameters['_controller']) && ! $parameters['_controller'] instanceof \Closure) {
             return $parameters['_controller'];
         }
 

@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\Foundation\Listeners;
 
-use Stringable;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
@@ -35,7 +34,7 @@ class StringToResponseListener implements EventSubscriberInterface
         if (! (
             is_array($response)
             || $response instanceof Response
-            || (is_object($response) && ! $response instanceof Stringable)
+            || (is_object($response) && ! $response instanceof \Stringable)
         )) {
             $viewEvent->setResponse(new Response((string) $response));
         }

@@ -13,10 +13,9 @@ declare(strict_types=1);
 namespace Coole\ErrorHandler\Tests\Whoops;
 
 use Coole\ErrorHandler\Whoops\WhoopsExceptionRenderer;
-use Exception;
 
 it('will return string for `render`.', function (): void {
     expect(new WhoopsExceptionRenderer())
-        ->render(mock(Exception::class)->makePartial())
+        ->render(mock(\Exception::class)->makePartial())
         ->toBeString();
 })->group(__DIR__, __FILE__);

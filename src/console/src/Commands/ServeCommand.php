@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\Console\Commands;
 
 use Coole\Console\Command;
-use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -81,11 +80,11 @@ class ServeCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (null === ($docroot = $input->getOption('docroot'))) {
-            throw new InvalidArgumentException('Please set option of docroot.');
+            throw new \InvalidArgumentException('Please set option of docroot.');
         }
 
         if (! file_exists($docroot)) {
-            throw new InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $docroot));
+            throw new \InvalidArgumentException(sprintf('Docroot directory not exist.: %s', $docroot));
         }
 
         $this->output->info('Press Ctrl+C to stop the server.');

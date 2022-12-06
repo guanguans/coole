@@ -12,8 +12,6 @@ declare(strict_types=1);
 
 namespace Coole\HttpKernel\Tests;
 
-use Mockery;
-
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -46,7 +44,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
     protected function tearDown(): void
     {
         $this->finish();
-        Mockery::close();
+        \Mockery::close();
     }
 
     /**

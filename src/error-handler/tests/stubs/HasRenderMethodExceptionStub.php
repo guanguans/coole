@@ -12,11 +12,10 @@ declare(strict_types=1);
 
 namespace Coole\ErrorHandler\Tests\stubs;
 
-use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class HasRenderMethodExceptionStub extends Exception
+class HasRenderMethodExceptionStub extends \Exception
 {
     public function render(Request $request): Response
     {

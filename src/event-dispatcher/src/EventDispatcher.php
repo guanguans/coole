@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Coole\EventDispatcher;
 
 use Illuminate\Container\Container;
-use RuntimeException;
 use Symfony\Component\EventDispatcher\EventDispatcher as SymfonyEventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -61,7 +60,7 @@ class EventDispatcher extends SymfonyEventDispatcher
             }
 
             /** @var mixed|object|resource $listener */
-            throw new RuntimeException(sprintf('The %s is not a callback type.', match (gettype($listener)) {
+            throw new \RuntimeException(sprintf('The %s is not a callback type.', match (gettype($listener)) {
                 'NULL' => 'NUll', 'array' => var_export($listener, true), 'object', 'resource', 'resource (closed)' => $listener::class, default => $listener,
             }));
         }
