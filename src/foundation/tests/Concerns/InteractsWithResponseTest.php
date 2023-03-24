@@ -13,14 +13,13 @@ declare(strict_types=1);
 namespace Coole\Foundation\Tests\Concerns;
 
 use Coole\Foundation\App;
-
-use function Pest\Faker\faker;
-
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+
+use function Pest\Faker\faker;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../../foundation/config/app.php');

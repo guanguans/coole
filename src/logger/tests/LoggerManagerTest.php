@@ -16,10 +16,9 @@ use Coole\Foundation\App;
 use Coole\Logger\LoggerManager;
 use Monolog\Formatter\FluentdFormatter;
 use Monolog\Logger;
+use Psr\Log\NullLogger;
 
 use function Pest\Faker\faker;
-
-use Psr\Log\NullLogger;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');

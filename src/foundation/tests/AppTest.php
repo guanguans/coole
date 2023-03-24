@@ -20,11 +20,10 @@ use Coole\HttpKernel\Controller;
 use Coole\HttpKernel\Tests\stubs\ExampleControllerStub;
 use Coole\HttpKernel\Tests\stubs\ExampleInvokeControllerStub;
 use Coole\Routing\Router;
-
-use function Pest\Faker\faker;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+use function Pest\Faker\faker;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../foundation/config/app.php');

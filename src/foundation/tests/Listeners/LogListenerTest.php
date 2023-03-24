@@ -15,14 +15,13 @@ namespace Coole\Foundation\Tests\Listeners;
 use Coole\Foundation\App;
 use Coole\Foundation\Config;
 use Coole\Routing\Router;
-
-use function Pest\Faker\faker;
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
+
+use function Pest\Faker\faker;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../../foundation/config/app.php');

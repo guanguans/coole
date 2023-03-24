@@ -14,10 +14,9 @@ namespace Coole\Foundation\Tests\Listeners;
 
 use Coole\Foundation\App;
 use Coole\Routing\Router;
+use Symfony\Component\HttpFoundation\Request;
 
 use function Pest\Faker\faker;
-
-use Symfony\Component\HttpFoundation\Request;
 
 beforeEach(function (): void {
     $this->app = tap(new App())->loadConfigFrom(__DIR__.'/../../../foundation/config/app.php');
