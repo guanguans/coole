@@ -38,9 +38,6 @@ use Coole\Foundation\Facades\Facade;
  */
 class Router extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'router';

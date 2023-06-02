@@ -21,31 +21,19 @@ use Twig\Loader\LoaderInterface;
 
 class ViewServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         Environment::class => ['view'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         View::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/view.php');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function register(): void
     {
         $this->app->bind(LoaderInterface::class, static function (App $app): FilesystemLoader {

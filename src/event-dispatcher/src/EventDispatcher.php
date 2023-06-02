@@ -23,9 +23,6 @@ class EventDispatcher extends SymfonyEventDispatcher
         parent::__construct();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function dispatch(object $event, string $eventName = null): object
     {
         $listeners = app(ListenCollection::class)->get($event::class, []);

@@ -16,9 +16,6 @@ use Symfony\Component\HttpKernel\Controller\ControllerResolver as SymfonyControl
 
 class ControllerResolver extends SymfonyControllerResolver
 {
-    /**
-     * {@inheritdoc}
-     */
     protected function createController(string $controller): callable
     {
         $controller = str_replace('@', '::', $controller);

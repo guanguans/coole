@@ -19,21 +19,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ServeCommand extends Command
 {
-    /**
-     * {@inheritdoc}
-     */
     protected string $name = 'serve';
 
-    /**
-     * {@inheritdoc}
-     */
     protected string $description = 'Serve the application on the PHP development server.';
 
     protected int $tries;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function configure(): void
     {
         $this
@@ -66,17 +57,11 @@ class ServeCommand extends Command
             );
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         $this->tries = (int) $input->getOption('tries');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (null === ($docroot = $input->getOption('docroot'))) {

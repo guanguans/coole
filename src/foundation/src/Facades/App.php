@@ -119,9 +119,6 @@ namespace Coole\Foundation\Facades;
  */
 class App extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'app';

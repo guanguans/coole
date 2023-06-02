@@ -16,9 +16,6 @@ use Twig\TemplateWrapper;
 
 trait InteractsWithViewRender
 {
-    /**
-     * {@inheritdoc}
-     */
     public function render(string|TemplateWrapper $name, array $context = []): string
     {
         return app('view')->render($name, $context);

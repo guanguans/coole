@@ -56,9 +56,6 @@ class Application extends SymfonyApplication
         parent::__construct('Coole Framework', $app::version());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function run(InputInterface $input = null, OutputInterface $output = null): int
     {
         try {
@@ -84,9 +81,6 @@ class Application extends SymfonyApplication
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getHelp(): string
     {
         return parent::getHelp().PHP_EOL.static::LOGO;

@@ -29,9 +29,6 @@ final class ServiceValueResolver implements ArgumentValueResolverInterface
     {
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supports(Request $request, ArgumentMetadata $argumentMetadata): bool
     {
         $classes = explode('|', $argumentMetadata->getType());
@@ -49,9 +46,6 @@ final class ServiceValueResolver implements ArgumentValueResolverInterface
         return false;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function resolve(Request $request, ArgumentMetadata $argumentMetadata): iterable
     {
         yield $this->resolvedArgumentValue;

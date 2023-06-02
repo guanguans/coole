@@ -195,7 +195,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 从指定路径合并配置.
      */
-    public function mergeConfigFrom(string $path, ?string $key = null): void
+    public function mergeConfigFrom(string $path, string $key = null): void
     {
         $this->mergeConfig(require $path, $key ?: pathinfo($path, PATHINFO_FILENAME));
     }
@@ -261,7 +261,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 启动运行服务.
      */
-    public function run(?Request $request = null): void
+    public function run(Request $request = null): void
     {
         try {
             // 创建请求对象

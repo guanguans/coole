@@ -59,7 +59,7 @@ abstract class Manager
      *
      * @throws \InvalidArgumentException
      */
-    public function driver(?string $driver = null): mixed
+    public function driver(string $driver = null): mixed
     {
         $driver ??= $this->getDefaultDriver();
 
@@ -167,8 +167,6 @@ abstract class Manager
      *
      * @param string $method
      * @param array  $parameters
-     *
-     * @return mixed
      */
     public function __call($method, $parameters)
     {

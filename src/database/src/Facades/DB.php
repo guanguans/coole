@@ -55,9 +55,6 @@ use Coole\Foundation\Facades\Facade;
  */
 class DB extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'db';

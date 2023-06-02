@@ -22,17 +22,11 @@ use Symfony\Component\Routing\RouteCollection;
 
 class RoutingServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $bindings = [
         UrlMatcherInterface::class => UrlMatcher::class,
         RequestMatcherInterface::class => UrlMatcher::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $singletons = [
         RouteCollection::class,
         RequestContext::class,
@@ -40,9 +34,6 @@ class RoutingServiceProvider extends ServiceProvider
         UrlMatcher::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         RouteCollection::class => ['routing.route-collection'],
         RequestContext::class => ['routing.request-context'],
@@ -50,24 +41,15 @@ class RoutingServiceProvider extends ServiceProvider
         UrlMatcher::class => ['routing.url-matcher'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         \Coole\Routing\Facades\Router::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/routing.php');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         foreach ((array) $this->app['config']['routing.paths'] as $path) {

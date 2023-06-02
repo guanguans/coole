@@ -18,48 +18,30 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface as SymfonyEventDi
 
 class EventServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $bindings = [
         PsrEventDispatcherInterface::class => EventDispatcher::class,
         SymfonyEventDispatcherInterface::class => EventDispatcher::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $singletons = [
         EventDispatcher::class,
         ListenCollection::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         EventDispatcher::class => ['event-dispatcher'],
         ListenCollection::class => ['event-dispatcher.listen-collection'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         \Coole\EventDispatcher\Facades\EventDispatcher::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/event.php');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         $this->app[ListenCollection::class] = $this->app[ListenCollection::class]->mergeRecursive($this->app['config']->get('event.listen', []));

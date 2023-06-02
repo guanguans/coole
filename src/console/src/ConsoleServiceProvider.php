@@ -18,40 +18,25 @@ use Coole\Foundation\ServiceProvider;
 
 class ConsoleServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $singletons = [
         Application::class,
         CommandCollection::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         Application::class => ['console', 'console.application'],
         CommandCollection::class => ['console.command-collection'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         Console::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/console.php');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         $this->app->commands(ServeCommand::class);

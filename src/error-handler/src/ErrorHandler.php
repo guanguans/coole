@@ -334,8 +334,8 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     protected function mapException(\Throwable $throwable): \Throwable
     {
-        if (method_exists($throwable, 'getInnerException') &&
-            ($inner = $throwable->getInnerException()) instanceof \Throwable) {
+        if (method_exists($throwable, 'getInnerException')
+            && ($inner = $throwable->getInnerException()) instanceof \Throwable) {
             return $inner;
         }
 

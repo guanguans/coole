@@ -42,9 +42,6 @@ use Coole\Foundation\Facades\Facade;
  */
 class Logger extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'logger';

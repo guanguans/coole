@@ -26,9 +26,6 @@ use Coole\Foundation\Facades\Facade;
  */
 class ErrorHandler extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'error-handler';

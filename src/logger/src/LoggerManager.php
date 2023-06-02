@@ -40,7 +40,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Get a log channel instance.
      */
-    public function channel(?string $channel = null): LoggerInterface
+    public function channel(string $channel = null): LoggerInterface
     {
         return $this->driver($channel);
     }
@@ -241,9 +241,6 @@ class LoggerManager extends Manager implements LoggerInterface
         return $this->config->get('app.env', 'production');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function createDriver(string $driver): mixed
     {
         // First, we will determine if a custom driver creator exists for the given driver and
@@ -299,7 +296,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Unset the given channel instance.
      */
-    public function forgetChannel(?string $driver = null): void
+    public function forgetChannel(string $driver = null): void
     {
         $driver = $this->parseDriver($driver);
 
@@ -328,73 +325,46 @@ class LoggerManager extends Manager implements LoggerInterface
         return $this->drivers;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function emergency(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->emergency($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function alert(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->alert($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function critical(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->critical($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function error(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->error($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function warning(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->warning($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function notice(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->notice($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function info(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->info($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function debug(\Stringable|string $message, array $context = []): void
     {
         $this->driver()->debug($message, $context);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function log($level, \Stringable|string $message, array $context = []): void
     {
         $this->driver()->log($level, $message, $context);

@@ -68,7 +68,7 @@ trait InteractsWithIO
      *
      * @return array<string|bool|int|float|array|null>|mixed
      */
-    public function argument(?string $key = null): mixed
+    public function argument(string $key = null): mixed
     {
         if (null === $key) {
             return $this->input->getArguments();
@@ -100,7 +100,7 @@ trait InteractsWithIO
      *
      * @return array<string|bool|int|float|array|null>|mixed
      */
-    public function option(?string $key = null): mixed
+    public function option(string $key = null): mixed
     {
         if (null === $key) {
             return $this->input->getOptions();
@@ -130,7 +130,7 @@ trait InteractsWithIO
     /**
      * Prompt the user for input.
      */
-    public function ask(string $question, ?string $default = null): mixed
+    public function ask(string $question, string $default = null): mixed
     {
         return $this->output->ask($question, $default);
     }
@@ -172,7 +172,7 @@ trait InteractsWithIO
     /**
      * Give the user a single choice from an array of answers.
      */
-    public function choice(string $question, array $choices, mixed $default = null, ?int $attempts = null, bool $multiple = false): mixed
+    public function choice(string $question, array $choices, mixed $default = null, int $attempts = null, bool $multiple = false): mixed
     {
         $question = new ChoiceQuestion($question, $choices, $default);
 
@@ -238,7 +238,7 @@ trait InteractsWithIO
     /**
      * Write a string as standard output.
      */
-    public function line(string $string, ?string $style = null, int|string $verbosity = null): void
+    public function line(string $string, string $style = null, int|string $verbosity = null): void
     {
         $styled = $style ? "<$style>$string</$style>" : $string;
 

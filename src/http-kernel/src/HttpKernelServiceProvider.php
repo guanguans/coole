@@ -22,9 +22,6 @@ use Symfony\Component\HttpKernel\TerminableInterface;
 
 class HttpKernelServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $bindings = [
         ArgumentResolverInterface::class => ArgumentResolver::class,
         ControllerResolverInterface::class => ControllerResolver::class,
@@ -32,9 +29,6 @@ class HttpKernelServiceProvider extends ServiceProvider
         TerminableInterface::class => HttpKernel::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $singletons = [
         ArgumentResolver::class,
         ControllerResolver::class,
@@ -42,9 +36,6 @@ class HttpKernelServiceProvider extends ServiceProvider
         HttpKernel::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         ArgumentResolver::class => ['http-kernel.argument-resolver'],
         ControllerResolver::class => ['http-kernel.controller-resolver'],

@@ -146,8 +146,8 @@ abstract class Facade
     {
         $name = static::getFacadeAccessor();
 
-        return isset(static::$resolvedInstance[$name]) &&
-               static::$resolvedInstance[$name] instanceof LegacyMockInterface;
+        return isset(static::$resolvedInstance[$name])
+               && static::$resolvedInstance[$name] instanceof LegacyMockInterface;
     }
 
     /**
@@ -194,8 +194,6 @@ abstract class Facade
 
     /**
      * Resolve the facade root instance from the container.
-     *
-     * @return mixed
      */
     protected static function resolveFacadeInstance(string $name)
     {

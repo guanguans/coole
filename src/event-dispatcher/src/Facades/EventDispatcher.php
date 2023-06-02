@@ -30,9 +30,6 @@ use Coole\Foundation\Facades\Facade;
  */
 class EventDispatcher extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'event-dispatcher';

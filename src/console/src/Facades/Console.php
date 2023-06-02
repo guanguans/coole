@@ -58,9 +58,6 @@ use Coole\Foundation\Facades\Facade;
  */
 class Console extends Facade
 {
-    /**
-     * {@inheritdoc}
-     */
     protected static function getFacadeAccessor(): string
     {
         return 'console';

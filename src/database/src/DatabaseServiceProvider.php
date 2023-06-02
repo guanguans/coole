@@ -19,39 +19,24 @@ use Illuminate\Events\Dispatcher;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         Manager::class => ['db', 'database.manager'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         DB::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registering(): void
     {
         $this->app->loadConfigFrom(__DIR__.'/../config/database.php');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function register(): void
     {
         $this->app->singleton(Manager::class, static fn (): Manager => new Manager());
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         $this->app['db']->addConnection(

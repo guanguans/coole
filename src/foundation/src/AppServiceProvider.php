@@ -55,16 +55,10 @@ class AppServiceProvider extends ServiceProvider
         CheckResponseForModifications::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         App::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registering(): void
     {
         // 设置门面的 app 共享实例
@@ -77,9 +71,6 @@ class AppServiceProvider extends ServiceProvider
         mb_internal_encoding($this->app['config']['app.charset']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function register(): void
     {
         // 注册核心服务
@@ -89,9 +80,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->registerProviders($this->app['config']['app.providers']);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function boot(): void
     {
         // 设置核心全局中间件

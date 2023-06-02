@@ -18,40 +18,25 @@ use Symfony\Component\ErrorHandler\ErrorHandler as SymfonyErrorHandler;
 
 class ErrorHandlerServiceProvider extends ServiceProvider
 {
-    /**
-     * {@inheritdoc}
-     */
     protected array $bindings = [
         ErrorHandlerInterface::class => ErrorHandler::class,
         ExceptionRendererInterface::class => WhoopsExceptionRenderer::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $singletons = [
         ErrorHandler::class,
         WhoopsExceptionRenderer::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $aliases = [
         ErrorHandler::class => ['error-handler'],
         WhoopsExceptionRenderer::class => ['error-handler.exception-renderer'],
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected array $classAliases = [
         \Coole\ErrorHandler\Facades\ErrorHandler::class,
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     public function registered(): void
     {
         SymfonyErrorHandler::register();
