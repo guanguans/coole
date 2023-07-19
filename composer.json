@@ -101,7 +101,7 @@
         "povils/phpmnd": "^3.0",
         "rector/rector": "^0.14 || ^0.15 || ^0.16 || ^0.17",
         "roave/security-advisories": "dev-latest",
-        "spatie/invade": "^1.1",
+        "spatie/invade": "^1.1 || ^2.0",
         "symplify/monorepo-builder": "^11.1",
         "vimeo/psalm": "^5.0"
     },
