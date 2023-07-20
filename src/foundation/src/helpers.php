@@ -38,7 +38,7 @@ if (! function_exists('config')) {
      *
      * @return \Coole\Foundation\Config|mixed|null
      */
-    function config(string|array|null $key = null, mixed $default = null)
+    function config(string|array $key = null, mixed $default = null)
     {
         /** @var \Coole\Foundation\Config $config */
         $config = app('config');
