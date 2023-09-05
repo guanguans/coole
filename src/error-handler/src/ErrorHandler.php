@@ -33,7 +33,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Throwable;
 
 /**
  * This is modified from https://github.com/laravel/framework.
@@ -223,7 +222,7 @@ class ErrorHandler implements ErrorHandlerInterface
 
         try {
             $logger = $this->app->make(LoggerInterface::class);
-        } catch (Exception) {
+        } catch (\Exception) {
             throw $throwable;
         }
 
@@ -285,7 +284,7 @@ class ErrorHandler implements ErrorHandlerInterface
                 'running_in_console' => $this->app->runningInConsole(),
                 'ip' => $this->app[Request::class]->getClientIp(),
             ];
-        } catch (Throwable) {
+        } catch (\Throwable) {
             return [];
         }
     }

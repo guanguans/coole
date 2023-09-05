@@ -181,8 +181,6 @@ class Router
     /**
      * 路由组.
      *
-     * * @param array<string, mixed> $attributes
-     *
      * @return $this
      */
     public function group(array $attributes, callable $callback): self

@@ -16,7 +16,6 @@ use Illuminate\Container\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
-use Throwable;
 
 final class ServiceValueResolver implements ArgumentValueResolverInterface
 {
@@ -38,7 +37,7 @@ final class ServiceValueResolver implements ArgumentValueResolverInterface
                 $this->resolvedArgumentValue = $this->container->make($class);
 
                 return true;
-            } catch (Throwable) {
+            } catch (\Throwable) {
                 continue;
             }
         }
