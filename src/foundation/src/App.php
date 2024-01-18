@@ -203,7 +203,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 加载配置.
      *
-     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
+     * @throws UnknownFileOrDirectoryException
      */
     public function loadConfigFrom(string $path): void
     {
@@ -233,7 +233,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 加载路由.
      *
-     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
+     * @throws UnknownFileOrDirectoryException
      */
     public function loadRouteFrom(string $path): void
     {
@@ -506,7 +506,7 @@ class App extends Container implements HttpKernelInterface, TerminableInterface
     /**
      * 绑定配置.
      *
-     * @throws \Coole\Foundation\Exceptions\UnknownFileOrDirectoryException
+     * @throws UnknownFileOrDirectoryException
      */
     protected function bindConfiguration(array $options): void
     {

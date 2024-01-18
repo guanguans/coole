@@ -34,7 +34,7 @@ class ErrorHandlerServiceProvider extends ServiceProvider
     ];
 
     protected array $classAliases = [
-        \Coole\ErrorHandler\Facades\ErrorHandler::class,
+        Facades\ErrorHandler::class,
     ];
 
     public function registered(): void

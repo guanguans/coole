@@ -19,7 +19,7 @@ trait InteractsWithAborting
     /**
      * 抛出 Http 异常.
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\HttpException
+     * @throws HttpException
      */
     public function abort(int $statusCode, string $message = '', array $headers = []): void
     {

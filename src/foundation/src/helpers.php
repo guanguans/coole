@@ -20,7 +20,7 @@ if (! function_exists('app')) {
      *
      * @return \Coole\Foundation\App|mixed
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws Illuminate\Contracts\Container\BindingResolutionException
      */
     function app(string $abstract = null, array $parameters = []): mixed
     {
@@ -40,7 +40,7 @@ if (! function_exists('config')) {
      */
     function config(string|array $key = null, mixed $default = null)
     {
-        /** @var \Coole\Foundation\Config $config */
+        /** @var Coole\Foundation\Config $config */
         $config = app('config');
 
         if (null === $key) {
@@ -111,8 +111,8 @@ if (! function_exists('event')) {
     /**
      * 调度事件.
      *
-     * @throws \Psr\Container\ContainerExceptionInterface
-     * @throws \Psr\Container\NotFoundExceptionInterface
+     * @throws Psr\Container\ContainerExceptionInterface
+     * @throws Psr\Container\NotFoundExceptionInterface
      */
     function event(
         object $event,
@@ -121,7 +121,7 @@ if (! function_exists('event')) {
     ): object {
         $listeners = (is_object($listeners) || is_callable($listeners)) ? [$listeners] : (array) $listeners;
 
-        /** @var \Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
+        /** @var Symfony\Component\EventDispatcher\EventDispatcher $dispatcher */
         $dispatcher = app('event-dispatcher');
 
         foreach ($listeners as $listener) {
@@ -171,7 +171,7 @@ if (! function_exists('call')) {
      *
      * @param array<string, mixed> $parameters
      *
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     function call(callable|string $callback, array $parameters = [], string $defaultMethod = null): mixed
     {

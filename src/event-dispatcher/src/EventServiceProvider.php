@@ -34,7 +34,7 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     protected array $classAliases = [
-        \Coole\EventDispatcher\Facades\EventDispatcher::class,
+        Facades\EventDispatcher::class,
     ];
 
     public function registering(): void

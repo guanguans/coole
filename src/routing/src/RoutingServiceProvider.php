@@ -42,7 +42,7 @@ class RoutingServiceProvider extends ServiceProvider
     ];
 
     protected array $classAliases = [
-        \Coole\Routing\Facades\Router::class,
+        Facades\Router::class,
     ];
 
     public function registering(): void
