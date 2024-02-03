@@ -22,7 +22,7 @@ if (! function_exists('app')) {
      *
      * @throws Illuminate\Contracts\Container\BindingResolutionException
      */
-    function app(string $abstract = null, array $parameters = []): mixed
+    function app(?string $abstract = null, array $parameters = []): mixed
     {
         if (null === $abstract) {
             return App::getInstance();
@@ -38,7 +38,7 @@ if (! function_exists('config')) {
      *
      * @return \Coole\Foundation\Config|mixed|null
      */
-    function config(string|array $key = null, mixed $default = null)
+    function config(string|array|null $key = null, mixed $default = null)
     {
         /** @var Coole\Foundation\Config $config */
         $config = app('config');
@@ -59,7 +59,7 @@ if (! function_exists('cenv')) {
     /**
      * 获取环境变量的值.
      */
-    function cenv(string $key = null, mixed $default = null): null|array|bool|string
+    function cenv(?string $key = null, mixed $default = null): array|bool|string|null
     {
         if (null === $key) {
             return getenv();
@@ -116,7 +116,7 @@ if (! function_exists('event')) {
      */
     function event(
         object $event,
-        ListenerInterface|EventSubscriberInterface|callable|array|string $listeners = null,
+        ListenerInterface|EventSubscriberInterface|callable|array|string|null $listeners = null,
         bool $isDispatched = true
     ): object {
         $listeners = (is_object($listeners) || is_callable($listeners)) ? [$listeners] : (array) $listeners;
@@ -173,7 +173,7 @@ if (! function_exists('call')) {
      *
      * @throws InvalidArgumentException
      */
-    function call(callable|string $callback, array $parameters = [], string $defaultMethod = null): mixed
+    function call(callable|string $callback, array $parameters = [], ?string $defaultMethod = null): mixed
     {
         return app()->call($callback, $parameters, $defaultMethod);
     }

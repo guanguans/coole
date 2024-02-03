@@ -40,7 +40,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Get a log channel instance.
      */
-    public function channel(string $channel = null): LoggerInterface
+    public function channel(?string $channel = null): LoggerInterface
     {
         return $this->driver($channel);
     }
@@ -296,7 +296,7 @@ class LoggerManager extends Manager implements LoggerInterface
     /**
      * Unset the given channel instance.
      */
-    public function forgetChannel(string $driver = null): void
+    public function forgetChannel(?string $driver = null): void
     {
         $driver = $this->parseDriver($driver);
 

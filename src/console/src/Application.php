@@ -56,7 +56,7 @@ class Application extends SymfonyApplication
         parent::__construct('Coole Framework', $app::version());
     }
 
-    public function run(InputInterface $input = null, OutputInterface $output = null): int
+    public function run(?InputInterface $input = null, ?OutputInterface $output = null): int
     {
         try {
             $this->app->boot();

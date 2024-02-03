@@ -68,7 +68,7 @@ trait InteractsWithIO
      *
      * @return array<string|bool|int|float|array|null>|mixed
      */
-    public function argument(string $key = null): mixed
+    public function argument(?string $key = null): mixed
     {
         if (null === $key) {
             return $this->input->getArguments();
@@ -100,7 +100,7 @@ trait InteractsWithIO
      *
      * @return array<string|bool|int|float|array|null>|mixed
      */
-    public function option(string $key = null): mixed
+    public function option(?string $key = null): mixed
     {
         if (null === $key) {
             return $this->input->getOptions();
@@ -130,7 +130,7 @@ trait InteractsWithIO
     /**
      * Prompt the user for input.
      */
-    public function ask(string $question, string $default = null): mixed
+    public function ask(string $question, ?string $default = null): mixed
     {
         return $this->output->ask($question, $default);
     }
@@ -138,7 +138,7 @@ trait InteractsWithIO
     /**
      * Prompt the user for input with auto completion.
      */
-    public function anticipate(string $question, array|callable $choices, string|bool|int|float $default = null): mixed
+    public function anticipate(string $question, array|callable $choices, string|bool|int|float|null $default = null): mixed
     {
         return $this->askWithCompletion($question, $choices, $default);
     }
@@ -146,7 +146,7 @@ trait InteractsWithIO
     /**
      * Prompt the user for input with auto completion.
      */
-    public function askWithCompletion(string $question, array|callable $choices, string|bool|int|float $default = null): mixed
+    public function askWithCompletion(string $question, array|callable $choices, string|bool|int|float|null $default = null): mixed
     {
         $question = new Question($question, $default);
 
@@ -172,7 +172,7 @@ trait InteractsWithIO
     /**
      * Give the user a single choice from an array of answers.
      */
-    public function choice(string $question, array $choices, mixed $default = null, int $attempts = null, bool $multiple = false): mixed
+    public function choice(string $question, array $choices, mixed $default = null, ?int $attempts = null, bool $multiple = false): mixed
     {
         $question = new ChoiceQuestion($question, $choices, $default);
 
@@ -230,7 +230,7 @@ trait InteractsWithIO
     /**
      * Write a string as information output.
      */
-    public function info(string $string, int|string $verbosity = null): void
+    public function info(string $string, int|string|null $verbosity = null): void
     {
         $this->line($string, 'info', $verbosity);
     }
@@ -238,7 +238,7 @@ trait InteractsWithIO
     /**
      * Write a string as standard output.
      */
-    public function line(string $string, string $style = null, int|string $verbosity = null): void
+    public function line(string $string, ?string $style = null, int|string|null $verbosity = null): void
     {
         $styled = $style ? "<$style>$string</$style>" : $string;
 
@@ -248,7 +248,7 @@ trait InteractsWithIO
     /**
      * Write a string as comment output.
      */
-    public function comment(string $string, int|string $verbosity = null): void
+    public function comment(string $string, int|string|null $verbosity = null): void
     {
         $this->line($string, 'comment', $verbosity);
     }
@@ -256,7 +256,7 @@ trait InteractsWithIO
     /**
      * Write a string as question output.
      */
-    public function question(string $string, int|string $verbosity = null): void
+    public function question(string $string, int|string|null $verbosity = null): void
     {
         $this->line($string, 'question', $verbosity);
     }
@@ -264,7 +264,7 @@ trait InteractsWithIO
     /**
      * Write a string as error output.
      */
-    public function error(string $string, int|string $verbosity = null): void
+    public function error(string $string, int|string|null $verbosity = null): void
     {
         $this->line($string, 'error', $verbosity);
     }
@@ -272,7 +272,7 @@ trait InteractsWithIO
     /**
      * Write a string as warning output.
      */
-    public function warn(string $string, int|string $verbosity = null): void
+    public function warn(string $string, int|string|null $verbosity = null): void
     {
         if (! $this->output->getFormatter()->hasStyle('warning')) {
             $outputFormatterStyle = new OutputFormatterStyle('yellow');
@@ -344,7 +344,7 @@ trait InteractsWithIO
     /**
      * Get the verbosity level in terms of Symfony's OutputInterface level.
      */
-    protected function parseVerbosity(string|int $level = null): int
+    protected function parseVerbosity(string|int|null $level = null): int
     {
         if (isset($this->verbosityMap[$level])) {
             $level = $this->verbosityMap[$level];

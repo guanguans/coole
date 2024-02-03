@@ -47,7 +47,7 @@ trait InteractsWithResponse
     /**
      * 返回流响应.
      */
-    public function stream(callable $callback = null, int $status = 200, array $headers = []): StreamedResponse
+    public function stream(?callable $callback = null, int $status = 200, array $headers = []): StreamedResponse
     {
         return new StreamedResponse($callback, $status, $headers);
     }
@@ -55,7 +55,7 @@ trait InteractsWithResponse
     /**
      * 返回二进制文件响应.
      */
-    public function sendFile(\SplFileInfo|string $file, int $status = 200, array $headers = [], string $contentDisposition = null): BinaryFileResponse
+    public function sendFile(\SplFileInfo|string $file, int $status = 200, array $headers = [], ?string $contentDisposition = null): BinaryFileResponse
     {
         return new BinaryFileResponse($file, $status, $headers, true, $contentDisposition);
     }

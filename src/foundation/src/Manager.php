@@ -59,7 +59,7 @@ abstract class Manager
      *
      * @throws \InvalidArgumentException
      */
-    public function driver(string $driver = null): mixed
+    public function driver(?string $driver = null): mixed
     {
         $driver ??= $this->getDefaultDriver();
 

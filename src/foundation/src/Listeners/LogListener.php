@@ -36,7 +36,7 @@ class LogListener implements EventSubscriberInterface
      */
     protected $exceptionLogFilter;
 
-    public function __construct(protected LoggerInterface $logger, callable $exceptionLogFilter = null)
+    public function __construct(protected LoggerInterface $logger, ?callable $exceptionLogFilter = null)
     {
         if (null === $exceptionLogFilter) {
             $exceptionLogFilter = static function (\Throwable $throwable) {

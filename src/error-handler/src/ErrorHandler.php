@@ -151,7 +151,7 @@ class ErrorHandler implements ErrorHandlerInterface
      *
      * @throws \InvalidArgumentException
      */
-    public function map(\Closure|string $from, \Closure|string $to = null): static
+    public function map(\Closure|string $from, \Closure|string|null $to = null): static
     {
         if (is_string($to)) {
             $to = static fn ($exception) => new $to('', 0, $exception);
