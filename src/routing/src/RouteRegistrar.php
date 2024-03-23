@@ -127,7 +127,7 @@ class RouteRegistrar
      * @param string $method
      * @param array  $parameters
      *
-     * @return \Coole\Routing\Route|$this
+     * @return Route|$this
      *
      * @throws \BadMethodCallException
      */

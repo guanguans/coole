@@ -18,7 +18,7 @@ if (! function_exists('app')) {
     /**
      * 获取应用共享实例.
      *
-     * @return \Coole\Foundation\App|mixed
+     * @return App|mixed
      *
      * @throws Illuminate\Contracts\Container\BindingResolutionException
      */
@@ -36,7 +36,7 @@ if (! function_exists('config')) {
     /**
      * 获取/设置指定的配置值.
      *
-     * @return \Coole\Foundation\Config|mixed|null
+     * @return Coole\Foundation\Config|mixed|null
      */
     function config(string|array|null $key = null, mixed $default = null)
     {
