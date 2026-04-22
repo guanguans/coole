@@ -39,7 +39,7 @@
         "monolog/monolog": "^2.8 || ^3.0",
         "nette/robot-loader": "^3.4",
         "nette/utils": "^3.2",
-        "opis/closure": "^3.6",
+        "opis/closure": "^3.6 || ^4.0",
         "php-di/invoker": "^2.3",
         "sebastiaanluca/php-pipe-operator": "^4.0 || ^5.0",
         "spatie/async": "^1.5",
