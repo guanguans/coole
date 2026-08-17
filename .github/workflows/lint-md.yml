@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: lint-md-github-action
-        uses: lint-md/github-action@v0.3.0
+        uses: lint-md/github-action@v0.3.1
         with:
           configFile: .lintmdrc
           failOnWarnings: false
